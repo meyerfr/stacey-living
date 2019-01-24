@@ -22,7 +22,7 @@
       <div class="apply-field"><%= f.input :move_in_date, as: :date, html5: true, label: "WHEN DO YOU WANT TO MOVE IN?", required: false %></div>
       <div class="apply-field apply-dropdown"><%= f.input :duration_of_stay, collection: ["3 Month", "6 Month", "forever"], selected: "6 Month", label: "HOW LOG ARE YOU PLANING TO STAY?", required: false %></div>
       <div class="apply-field apply-dropdown"><%= f.input :amount_of_people, collection: ["Single", "Couple"], selected: "Single", label: "HOW MANY PEOPLE WILL LIVE IN THE ROOM?",  required: false %></div>
-      <%= f.submit 'Apply', class: "apply-button" %>
+      <%= f.submit 'Apply', class: "btn apply-button" %>
     <% end %>
   </div>
 </div>

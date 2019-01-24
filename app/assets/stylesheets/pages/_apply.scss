@@ -45,9 +45,12 @@
   background: #000000c7;
   color: white;
   transition: all 0.5s ease;
-  :hover {
-    background-color: black
-  }
+}
+
+.btn:hover {
+  text-decoration: none;
+  color: white;
+  background: black;
 }
 
 .dob.placeholderclass::before {
@@ -91,6 +94,7 @@
     width: 28vw;
     margin-left: 9%;
     font-size: 36px;
+    text-align: center;
   }
 }
 

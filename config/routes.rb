@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   root to: 'flats#index'
   resources :applicants, only: [:new, :create]
+  get 'applicants/success', to: 'applicants#success'
 
   resources :flats do
     resources :bookings, only: [:new, :show, :create, :destroy] do
