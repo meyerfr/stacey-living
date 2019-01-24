@@ -3,6 +3,10 @@
   background-color: #F9F9F9;
 }
 
+.apply-form-wrapper {
+  background: #F9F9F9;
+}
+
 .center-apply-form {
   max-width: 80vw;
   margin-right: auto;
@@ -10,6 +14,7 @@
   padding-top: 100px;
   padding-bottom: 200px;
   position: relative;
+  background: transparent;
   form {
     display: flex;
     flex-wrap: wrap;
