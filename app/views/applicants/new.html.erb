@@ -1,0 +1,29 @@
+<div class="apply-formpage-container">
+  <div class="apply-formpage-introduction">
+    <h1 class="apply-form-header">We just have a few questions so we can get to know you a little better.</h1>
+    <div class="apply-formpage-introduction-picture">
+      <%= image_tag "https://res.cloudinary.com/dqssam2go/image/upload/v1548257126/simon-maage-706908-unsplash.jpg", class: "apply-form-picture" %>
+    </div>
+  </div>
+  <% countries = IsoCountryCodes.all %>
+  <% code = [] %>
+  <% IsoCountryCodes.all.each do |country| %>
+  <% code << "#{country.calling} - #{country.name}" %>
+  <% end %>
+  <div class="center-apply-form">
+    <%= simple_form_for(@applicant) do |f| %>
+      <div class="apply-field"><%= f.input :first_name, class: "apply-field", label: false, placeholder: "FIRST NAME" %></div>
+      <div class="apply-field"><%= f.input :last_name, label: false, placeholder: "LAST NAME" %></div>
+      <div class="apply-field"><%= f.input :email, label: false, placeholder: "EMAIL" %></div>
+      <div class="apply-field phone-code apply-dropdown"><%= f.input :phone_code, collection: code, selected: "+49 - Germany", label: false %></div>
+      <div class="apply-field phone"><%= f.input :phone, label: false, placeholder: "0186 2857925" %></div>
+      <div class="apply-field dob"><%= f.input :date_of_birth, as: :date, html5: true, label: false %></div>
+      <div class="apply-field"><%= f.input :job, label: false, placeholder: "WHAT DO YOU DO FOR LIVING?"%></div>
+      <div class="apply-field"><%= f.input :move_in_date, as: :date, html5: true, label: "WHEN DO YOU WANT TO MOVE IN?", required: false %></div>
+      <div class="apply-field apply-dropdown"><%= f.input :duration_of_stay, collection: ["3 Month", "6 Month", "forever"], selected: "6 Month", label: "HOW LOG ARE YOU PLANING TO STAY?", required: false %></div>
+      <div class="apply-field apply-dropdown"><%= f.input :amount_of_people, collection: ["Single", "Couple"], selected: "Single", label: "HOW MANY PEOPLE WILL LIVE IN THE ROOM?",  required: false %></div>
+      <%= f.submit 'Apply', class: "apply-button" %>
+    <% end %>
+  </div>
+</div>
+

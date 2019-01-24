@@ -1,0 +1,96 @@
+.apply-formpage-container {
+  padding-top: 60px;
+  background-color: #F9F9F9;
+}
+
+.center-apply-form {
+  max-width: 80vw;
+  margin-right: auto;
+  margin-left: auto;
+  padding-top: 100px;
+  padding-bottom: 200px;
+  position: relative;
+  form {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    color: black;
+    .form-control {
+      border: 0;
+      box-shadow: none;
+      border-bottom: 1px solid #384a52;
+      border-radius: 0px !important;
+      background: transparent;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+    label {
+      color: lightgray;
+    }
+    select {
+      -webkit-appearance: none;
+    }
+  }
+}
+
+.apply-button {
+  position: absolute;
+  bottom: 130px;
+  left: 15px;
+  width: 20%;
+  height: 6.5%;
+  border-radius: 5px;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.1);
+  background: #000000c7;
+  color: white;
+  transition: all 0.5s ease;
+  :hover {
+    background-color: black
+  }
+}
+
+.dob.placeholderclass::before {
+  width: 100%;
+  content: "When are you born?";
+}
+
+.apply-field {
+  width: 47%;
+  ::placeholder {
+      color: black;
+      opacity: 0.5;
+    }
+}
+
+.phone-code {
+  margin-left: 6%;
+  width: 7%;
+}
+
+.phone {
+  width: 40%;
+}
+
+.apply-form-picture {
+  width: 50vw;
+}
+
+.apply-formpage-introduction {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 5px;
+  background: white;
+  min-height: 45vh;
+  .apply-formpage-introduction-picture {
+    margin-right: 2%;
+    margin-bottom: -70px;
+  }
+  .apply-form-header {
+    width: 28vw;
+    margin-left: 9%;
+    font-size: 36px;
+  }
+}
+
