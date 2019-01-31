@@ -1,5 +1,10 @@
 class ApplicantsController < ApplicationController
   skip_before_action :authenticate_user!
+
+  def index
+    @applicants = Applicant.all
+  end
+
   def new
     # @flat = Flat.find(params[:flat_id])
     @applicant = Applicant.new
@@ -12,6 +17,11 @@ class ApplicantsController < ApplicationController
     else
       render :new
     end
+  end
+
+  def invite
+    applicant = Applicant.find(params[:applicant])
+    User.invite!({email: applicant.email, first_name: applicant.first_name, last_name: applicant.last_name }, current_user)
   end
 
   private

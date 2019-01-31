@@ -3,6 +3,7 @@ ruby '2.4.5'
 
 gem 'bootsnap', require: false
 gem 'devise'
+gem 'devise_invitable'
 gem 'jbuilder', '~> 2.0'
 gem 'pg', '~> 0.21'
 gem 'puma'
