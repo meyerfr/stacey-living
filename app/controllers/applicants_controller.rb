@@ -1,5 +1,10 @@
 class ApplicantsController < ApplicationController
   skip_before_action :authenticate_user!
+
+  def index
+    @applicants = Applicant.all
+  end
+
   def new
     # @flat = Flat.find(params[:flat_id])
     @applicant = Applicant.new
@@ -13,6 +18,7 @@ class ApplicantsController < ApplicationController
       render :new
     end
   end
+
 
   private
 

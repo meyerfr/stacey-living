@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   root to: 'flats#index'
-  resources :applicants, only: [:new, :create]
+  resources :applicants, only: [:index, :new, :create]
   get 'applicants/success', to: 'applicants#success'
 
   resources :flats do
@@ -13,6 +13,6 @@ Rails.application.routes.draw do
   end
 
 
-  devise_for :users, controllers: { confirmations: 'confirmations' }
+  devise_for :users, :controllers => { invitations: 'users/invitations' }
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
