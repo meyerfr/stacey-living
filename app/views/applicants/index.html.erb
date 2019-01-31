@@ -1,6 +1,7 @@
 <% if current_user.try(:admin?) %>
   <% @applicants.each do |applicant| %>
     <h1><%= applicant.first_name %> <%= applicant.last_name %> <%= applicant.email %> <%= applicant.phone_code %> <%= applicant.phone %></h1>
+    <%= link_to 'Invite', applicants_invite_path(applicant: applicant), method: :patch %>
   <% end %>
 <% else %>
   <h1>To access this page you have to be loged in as an admin of this page. </h1>

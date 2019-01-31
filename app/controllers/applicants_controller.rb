@@ -19,6 +19,10 @@ class ApplicantsController < ApplicationController
     end
   end
 
+  def invite
+    applicant = Applicant.find(params[:applicant])
+    User.invite!({email: applicant.email, first_name: applicant.first_name, last_name: applicant.last_name }, current_user)
+  end
 
   private
 
