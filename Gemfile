@@ -6,6 +6,8 @@ gem 'devise'
 gem 'devise_invitable'
 gem "letter_opener", group: :development
 gem 'postmark-rails'
+gem 'nokogiri'
+gem 'premailer-rails'
 gem 'jbuilder', '~> 2.0'
 gem 'pg', '~> 0.21'
 gem 'puma'
