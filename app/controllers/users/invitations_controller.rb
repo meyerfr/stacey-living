@@ -1,4 +1,5 @@
 class Users::InvitationsController < Devise::InvitationsController
+  layout "email.css"
 
   def accept
     new_user = User.find_by_invitation_token(params[:invitation_token], true)

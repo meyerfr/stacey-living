@@ -1,5 +1,4 @@
 class User < ApplicationRecord
-  after_create :send_welcome_email
   has_many :bookings
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable

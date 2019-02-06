@@ -3,6 +3,7 @@ Rails.application.configure do
   config.action_mailer.default_url_options = { host: "http://localhost:3000", port: 3000 }
   # Verifies that versions and hashed value of the package contents in the project's package.json
   config.webpacker.check_yarn_integrity = true
+  config.action_mailer.preview_path = "#{Rails.root}/app/mailer_previews"
   # Settings specified here will take precedence over those in config/application.rb.
 
   # In the development environment your application's code is reloaded on

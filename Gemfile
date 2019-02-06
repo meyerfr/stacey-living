@@ -4,8 +4,9 @@ ruby '2.4.5'
 gem 'bootsnap', require: false
 gem 'devise'
 gem 'devise_invitable'
-gem "letter_opener", group: :development
 gem 'postmark-rails'
+gem 'nokogiri'
+gem 'premailer-rails'
 gem 'jbuilder', '~> 2.0'
 gem 'pg', '~> 0.21'
 gem 'puma'
@@ -23,6 +24,7 @@ gem 'webpacker'
 
 group :development do
   gem 'web-console', '>= 3.3.0'
+  gem "letter_opener"
 end
 
 group :development, :test do
