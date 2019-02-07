@@ -13,7 +13,7 @@ class ApplicantsController < ApplicationController
   def create
     @applicant = Applicant.new(applicants_params)
     if @applicant.save
-      UserMailer.welcome(@applicant).deliver_now
+      #UserMailer.welcome(@applicant).deliver_now
       # later(wait_until: 2.minutes.from_now)
       UserMailer.new_applicant_info(@applicant).deliver_now
     else
