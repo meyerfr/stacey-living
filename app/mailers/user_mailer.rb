@@ -4,8 +4,13 @@ class UserMailer < ApplicationMailer
   #
   #   en.user_mailer.welcome.subject
   #
-  def welcome(user)
-    @user = user
-    mail(to: @user.email, subject: 'Welcome to Stacey')
+  def welcome(applicant)
+    @applicant = applicant
+    mail(to: @applicant.email, subject: 'Welcome to Stacey')
+  end
+
+  def new_applicant_info(applicant)
+    @applicant = applicant
+    mail(to: 'newapplicant@stacey-living.de', subject: 'New Applicant')
   end
 end
