@@ -1,5 +1,5 @@
 class ApplicantsController < ApplicationController
-  skip_before_action :authenticate_user!
+  skip_before_action :authenticate_user!, only: [:new, :create, :success]
 
   def index
     @applicants = Applicant.all
