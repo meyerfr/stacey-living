@@ -2,7 +2,7 @@
   <div class="navbar-stacey">
     <!-- Logo -->
     <%= link_to "http://www.stacey-living.de", class: "navbar-stacey-brand" do %>
-    <%= image_tag "stacey-logo-weiss.png" %>
+      <%= image_tag "stacey-logo-weiss.png" %>
     <% end %>
 
     <!-- Right Navigation -->
@@ -10,37 +10,37 @@
 
       <% if user_signed_in? %>
 
-      <!-- Links when logged in -->
-      <%= link_to "Home", "http://www.stacey-living.de", class: "navbar-stacey-item navbar-stacey-link" %>
-      <%= link_to "STACEY Apartments", "http://www.stacey-living.de/apartments", class: "navbar-stacey-item navbar-stacey-link" %>
-      <%= link_to "Interested?", root_path, class: "navbar-stacey-item navbar-stacey-link interested" %>
+        <!-- Links when logged in -->
+        <%= link_to "Home", "http://www.stacey-living.de", class: "navbar-stacey-item navbar-stacey-link" %>
+        <%= link_to "STACEY Apartments", "http://www.stacey-living.de/apartments", class: "navbar-stacey-item navbar-stacey-link" %>
+        <%= link_to "Interested?", root_path, class: "navbar-stacey-item navbar-stacey-link interested" %>
 
-      <!-- Avatar with dropdown menu -->
-      <div class="navbar-stacey-item">
-        <div class="dropdown">
-          <%= image_tag "http://kitt.lewagon.com/placeholder/users/ssaunier", class: "avatar dropdown-toggle", id: "navbar-stacey-menu", "data-toggle" => "dropdown" %>
-          <ul class="dropdown-menu dropdown-menu-right navbar-stacey-dropdown-menu">
-            <li>
-              <%= link_to "#" do %>
-              <i class="fa fa-user"></i> <%= t(".profile", default: "Profile") %>
-              <% end %>
-            </li>
-            <li>
-              <%= link_to "#" do %>
-              <i class="fa fa-cog"></i>  <%= t(".settings", default: "Settings") %>
-              <% end %>
-            </li>
-            <li>
-              <%= link_to destroy_user_session_path, method: :delete do %>
-              <i class="fa fa-sign-out"></i>  <%= t(".sign_out", default: "Log out") %>
-              <% end %>
-            </li>
-          </ul>
+        <!-- Avatar with dropdown menu -->
+        <div class="navbar-stacey-item">
+          <div class="dropdown">
+            <%= image_tag "http://kitt.lewagon.com/placeholder/users/ssaunier", class: "avatar dropdown-toggle", id: "navbar-stacey-menu", "data-toggle" => "dropdown" %>
+            <ul class="dropdown-menu dropdown-menu-right navbar-stacey-dropdown-menu">
+              <li>
+                <%= link_to "#" do %>
+                <i class="fa fa-user"></i> <%= t(".profile", default: "Profile") %>
+                <% end %>
+              </li>
+              <li>
+                <%= link_to "#" do %>
+                <i class="fa fa-cog"></i>  <%= t(".settings", default: "Settings") %>
+                <% end %>
+              </li>
+              <li>
+                <%= link_to destroy_user_session_path, method: :delete do %>
+                <i class="fa fa-sign-out"></i>  <%= t(".sign_out", default: "Log out") %>
+                <% end %>
+              </li>
+            </ul>
+          </div>
         </div>
-      </div>
       <% else %>
       <!-- Login link (when logged out) -->
-      <%= link_to t(".sign_in", default: "Login"), new_user_session_path, class: "navbar-stacey-item navbar-stacey-link" %>
+        <%= link_to t(".sign_in", default: "Login"), new_user_session_path, class: "navbar-stacey-item navbar-stacey-link" %>
       <% end %>
     </div>
 

@@ -1,9 +1,20 @@
-<h1>Welome to Stacey</h1>
-
-<p>
-  Hey <%= @user.first_name %> <%= @user.last_name %>,
-
-  Nice to have you on board our stacey-community.
-
-  See ya!
-</p>
+<div class="email-wrapper">
+  <%= image_tag "stacey-logo.jpeg", class: "email-stacey-logo" %>
+  <div class="email-container">
+    <%= image_tag "https://res.cloudinary.com/dqssam2go/image/upload/v1549546229/toa-heftiba-195458-unsplash.jpg", class: "email-image" %>
+    <p>Hey <%= @applicant.first_name %>,</p>
+    <p>Thank you for your interest.</p>
+    <p>Based on your application form, we <strong>might have a room for you</strong></p>
+    <p>To make sure we find you the best fit within STACEY, we would love to have a quick chat so we can introduce you to this whole co-living concept.</p>
+    <p>Looking forward to talk to you.</p>
+    <button class="schedule-call-button"><%= link_to "Schedule a call", "http://www.stacey-living.de", class: "schedule-call-button-link" %></button>
+    <div class="email-signature">
+      <p class="signature-name">Matteo Kreidler</p>
+      <p class="signature-text">STACEY Real Estate UG (haftungsbeschränkt) i.G.</p>
+      <p class="signature-text">Brandstwiete 36 | 20457 Hamburg</p>
+      <p class="signature-text">Mobile: +49 152 34514111</p>
+      <p class="signature-text">Email: <%= mail_to "matteo@stacey-living.de"%></p>
+      <p class="signature-text">Website: <%= link_to 'www.stacey-living.de',"http://www.stacey-living.de"%></p>
+    </div>
+  </div>
+</div>

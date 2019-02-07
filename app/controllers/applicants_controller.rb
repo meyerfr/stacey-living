@@ -13,7 +13,8 @@ class ApplicantsController < ApplicationController
   def create
     @applicant = Applicant.new(applicants_params)
     if @applicant.save
-      redirect_to "http://www.stacey-living.de"
+      UserMailer.welcome(@applicant).deliver_later(wait_until: 2.minute.from_now)
+      UserMailer.new_applicant_info(@applicant).deliver_now
     else
       render :new
     end
