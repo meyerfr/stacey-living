@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root to: 'flats#index'
+  root to: 'applicants#new'
   resources :applicants, only: [:index, :new, :create]
   get 'applicants/success', to: 'applicants#success'
   patch 'applicants/invite', to: 'applicants#invite'
