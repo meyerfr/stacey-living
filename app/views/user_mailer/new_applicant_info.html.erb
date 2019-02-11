@@ -1,9 +1,11 @@
-<p class="header">Wir haben einen neuen Applicant</p>
+<p><strong>Wir haben einen neuen Applicant</strong></p>
 <p>Name: <%= @applicant.first_name %> <%= @applicant.last_name %></p>
 <p>Email: <%= @applicant.email %></p>
 <p>Telefonnummer: <%= @applicant.phone_code %> <%= @applicant.phone %></p>
-<p>Geburtstag: <%= @applicant.date_of_birth %></p>
+<p>Geburtstag: <%= @applicant.date_of_birth.strftime('%m.%d.%Y') %></p>
 <p>Job: <%= @applicant.job %></p>
-<p>Einzugsdatum: <%= @applicant.move_in_date %></p>
+<p>Einzugsdatum: <%= @applicant.move_in_date.strftime('%m.%d.%Y') %></p>
 <p>Zeitraum: <%= @applicant.duration_of_stay %></p>
 <p>Anzahl an Leuten: <%= @applicant.amount_of_people %></p>
+<br><br>
+<p>Im Moment haben wir <%= Applicant.count %> Applicants</p>

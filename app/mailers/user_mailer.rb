@@ -6,7 +6,7 @@ class UserMailer < ApplicationMailer
   #
   def welcome(applicant)
     @applicant = applicant
-    mail(to: @applicant.email, subject: 'Welcome to Stacey')
+    mail(to: @applicant.email, subject: 'Stacey - Co-Living')
   end
 
   def new_applicant_info(applicant)
