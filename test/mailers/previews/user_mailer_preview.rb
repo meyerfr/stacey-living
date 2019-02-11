@@ -7,4 +7,8 @@ class UserMailerPreview < ActionMailer::Preview
     UserMailer.welcome(applicant)
   end
 
+  def new_applicant_info
+    applicant = Applicant.first
+    UserMailer.new_applicant_info(applicant)
+  end
 end

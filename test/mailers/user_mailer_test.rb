@@ -9,4 +9,12 @@ class UserMailerTest < ActionMailer::TestCase
     assert_match "Hi", mail.body.encoded
   end
 
+  test "new_applicant_info" do
+    mail = UserMailer.new_applicant_info
+    assert_equal "New Applicant", mail.subject
+    assert_equal ["to@example.org"], mail.to
+    assert_equal ["from@example.com"], mail.from
+    assert_match "Hi", mail.body.encoded
+  end
+
 end
