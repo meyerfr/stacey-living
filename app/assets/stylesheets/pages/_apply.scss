@@ -31,11 +31,24 @@
       letter-spacing: 2px;
     }
     label {
-      color: lightgray;
+      padding-left: 12px;
+      color: #545454;
+      font-size: smaller;
     }
     select {
       -webkit-appearance: none;
     }
+    .form-inline {
+      margin-bottom: 15px;
+    }
+  }
+}
+
+.apply-field.date {
+  border-bottom: 1px solid #384a52;
+  .form-control{
+    border: none !important;
+    // border-bottom: 1px solid #384a52;
   }
 }
 
@@ -58,17 +71,12 @@
   background: black;
 }
 
-.dob.placeholderclass::before {
-  width: 100%;
-  content: "When are you born?";
-}
-
 .apply-field {
   width: 47%;
   ::placeholder {
-      color: black;
-      opacity: 0.8;
-    }
+    color: black;
+    opacity: 0.8;
+  }
 }
 
 .phone-code {
