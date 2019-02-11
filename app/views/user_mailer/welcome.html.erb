@@ -1,19 +1,12 @@
-<% finish_date = Date.parse('2019-04-10') %>
-<% duration = (finish_date - Date.today)/7 %>
-
 <p>Hey <%= @applicant.first_name %>,</p>
-<p>Thank you for your interest.</p>
-<p>At the moment we are trying to make the living experience at STACEY even better by renovating one of our new Aparments.</p>
-<p>The renovation should be finish in <%= duration.round %> Weeks.</p>
-<p>Of course I won't forget you and I'll contact you immediately when their are any news.</p>
-<p>Thanks for your understanding.</p>
-<p>If you have any fourther questions, please don't hesitate to write me an Email.</p>
-<p>Best</p>
+<p>Thank you for your interest in our Co-Living apartments.</p>
+<p>Currently we are working on the launch of our first community in Hamburg-Eppendorf, which will open its doors this April. I will make sure to contact you once the opening date is approaching.</p>
+<p>If you have any further questions, please don't hesitate to drop me a message.</p>
+<p>Cheers</p>
 <div class="email-signature">
   <p class="signature-name">Matteo Kreidler</p>
   <p class="signature-text">STACEY Real Estate UG (haftungsbeschränkt) i.G.</p>
   <p class="signature-text">Brandstwiete 36 | 20457 Hamburg</p>
-  <p class="signature-text">Mobile: +49 152 34514111</p>
   <p class="signature-text">Email: <%= mail_to "matteo@stacey-living.de"%></p>
   <p class="signature-text">Website: <%= link_to 'www.stacey-living.de',"http://www.stacey-living.de"%></p>
 </div>

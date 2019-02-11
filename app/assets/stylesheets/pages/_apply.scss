@@ -32,8 +32,9 @@
     }
     label {
       padding-left: 12px;
-      color: #545454;
+      color: black;
       font-size: smaller;
+      font-weight: bold;
     }
     select {
       -webkit-appearance: none;
@@ -75,7 +76,7 @@
   width: 47%;
   ::placeholder {
     color: black;
-    opacity: 0.8;
+    opacity: 0.2;
   }
 }
 
