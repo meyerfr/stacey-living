@@ -2,7 +2,7 @@
   <% if current_user.admin? %>
     <% @applicants.each do |applicant| %>
     <h1><%= applicant.first_name %> <%= applicant.last_name %> <%= applicant.email %> <%= applicant.phone_code %> <%= applicant.phone %></h1>
-    <%= link_to 'Invite', new_user_invitation_path(applicant: applicant) %>
+    <%= link_to 'Invite', user_invitation_path(applicant: applicant), method: :post %>
     <% end %>
   <% else %>
     <h1>To access this page you have to be loged in as an admin of this page. </h1>
