@@ -16,7 +16,7 @@ class ApplicantsController < ApplicationController
       UserMailer.welcome(@applicant).deliver_now
       # later(wait_until: 8.minutes.from_now)
       # UserMailer.new_applicant_info(@applicant).deliver_now
-      # send_info_via_slack(@applicant)
+      send_info_via_slack(@applicant)
       redirect_to applicants_success_path
     else
       render :new
