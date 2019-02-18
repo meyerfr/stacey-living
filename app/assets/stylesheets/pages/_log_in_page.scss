@@ -21,9 +21,33 @@
       width: 100%;
       display: flex;
       justify-content: center;
+      position: relative;
       .log-in-fields{
         width: 65%;
         padding-top: 10px;
+        .remember-field {
+          display: flex;
+          .remember-checkbox {
+            margin: 4px 7px 0;
+          }
+        }
+        a {
+          color: #469ae0ab;
+          text-decoration: none;
+          position: absolute;
+          right: 0;
+          bottom: 0;
+        }
+        .log-in-button {
+          position: absolute;
+          right: 40%;
+          bottom: 20%;
+        }
+        .set-password-button {
+          position: absolute;
+          left: 29%;
+          bottom: 28%;
+        }
       }
     }
     .logo-container {

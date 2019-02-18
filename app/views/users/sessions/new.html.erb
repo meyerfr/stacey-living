@@ -1,20 +1,36 @@
-<h2>Log in</h2>
+<div class="log-in-wrapper" style="background-image: url( <%=image_path('https://res.cloudinary.com/dvuqwvjay/image/upload/v1550311240/patrick-perkins-340019-unsplash-min_1.jpg')%>);">
+  <div class="log-in-container">
+    <div class="logo-container">
+      <%= image_tag "stacey-logo.png" %>
+    </div>
+    <div class="log-in-input-fields-wrapper">
+      <div class="log-in-fields">
+        <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+          <div class="form-inputs">
+            <%= f.input :email,
+                        required: false,
+                        autofocus: true,
+                        class: "form-control",
+                        input_html: { autocomplete: "email" } %>
+            <%= f.input :password,
+                        required: false,
+                        class: "form-control",
+                        input_html: { autocomplete: "current-password" } %>
+            <div class="remember-field">
+              <% if devise_mapping.rememberable? %>
+                <%= f.check_box :remember_me, class: 'remember-checkbox' %>
+                <%= f.label :remember_me, "Remember Me", class: 'remember-label' %>
+              <% end %>
+            </div>
+          </div>
 
-<%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="form-inputs">
-    <%= f.input :email,
-                required: false,
-                autofocus: true,
-                input_html: { autocomplete: "email" } %>
-    <%= f.input :password,
-                required: false,
-                input_html: { autocomplete: "current-password" } %>
-    <%= f.input :remember_me, as: :boolean if devise_mapping.rememberable? %>
+          <div class="form-actions">
+            <%= f.button :submit, "Log in", class: "stacey-button log-in-button" %>
+          </div>
+        <% end %>
+
+        <%= render "users/shared/links" %>
+      </div>
+    </div>
   </div>
-
-  <div class="form-actions">
-    <%= f.button :submit, "Log in" %>
-  </div>
-<% end %>
-
-<%= render "users/shared/links" %>
+</div>
