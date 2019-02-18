@@ -6,6 +6,10 @@ Rails.application.configure do
   config.webpacker.check_yarn_integrity = false
   # Settings specified here will take precedence over those in config/application.rb.
 
+  Slack.configure do |config|
+    config.token = ENV['SLACK_API_TOKEN']
+  end
+
   # Code is not reloaded between requests.
   config.cache_classes = true
 
