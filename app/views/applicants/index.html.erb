@@ -11,6 +11,7 @@
           <% else %>
             <%= link_to 'Invite', user_invitation_path(applicant: applicant), method: :post, class: 'invite' %>
           <% end %>
+          <%= link_to 'Delete Applicant', applicant_path(applicant), method: :delete %>
         </li>
       <% end %>
     </ol>
