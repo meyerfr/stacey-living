@@ -6,6 +6,7 @@ gem 'devise'
 gem 'devise_invitable'
 gem "letter_opener", group: :development
 gem 'postmark-rails'
+gem 'slack-ruby-client'
 gem 'nokogiri'
 gem 'premailer-rails'
 gem 'jbuilder', '~> 2.0'
