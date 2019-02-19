@@ -1,7 +1,7 @@
 <div class="apply-formpage-container">
   <div class="apply-formpage-introduction">
     <h1 class="apply-form-header">We just have a few questions so we can get to know you a little better.</h1>
-    <div class="apply-formpage-introduction-picture">
+    <div class="apply-formpage-introduction-picture hidden-xs">
       <%= image_tag "https://res.cloudinary.com/dvuqwvjay/image/upload/v1549884021/simon-maage-706908-unsplash_1_-min.jpg", class: "apply-form-picture" %>
     </div>
   </div>
@@ -13,23 +13,25 @@
   <div class="apply-form-wrapper">
     <div class="center-apply-form">
       <%= simple_form_for(@applicant) do |f| %>
-      <div class="apply-field"><%= f.input :first_name, class: "apply-field", label: "FIRST NAME", placeholder: "MATTEO" %></div>
-      <div class="apply-field"><%= f.input :last_name, label: "LAST NAME", placeholder: "KREIDLER" %></div>
-      <div class="apply-field"><%= f.input :email, label: "EMAIL", placeholder: "MATTEO@STACEY-LIVING.de" %></div>
-      <div class="apply-field phone-code apply-dropdown"><%= f.input :phone_code, collection: code, selected: "+49", label: "CODE" %></div>
-      <div class="apply-field phone"><%= f.input :phone, label: "PHONENUMBER", placeholder: "0186 2857925" %></div>
-      <div class="apply-field form-inline date">
-        <%= f.input :date_of_birth, as: :date, start_year: Date.today.year - 70, end_year: Date.today.year - 18, order: [:day, :month, :year], label: "WHEN WERE YOU BORN?" %>
-      </div>
-      <div class="apply-field">
-        <%= f.input :job, label: "WHAT DO YOU DO FOR LIVING?", placeholder: "YOUR JOB TITLE"%>
-      </div>
-      <div class="apply-field form-inline date">
-        <%= f.input :move_in_date, as: :date, start_year: Date.today.year, end_year: Date.today.year + 1, order: [:day, :month, :year], label: "WHEN DO YOU WANT TO MOVE IN?", required: true %>
+        <div class="apply-field"><%= f.input :first_name, class: "apply-field", label: "FIRST NAME", placeholder: "MATTEO" %></div>
+        <div class="apply-field"><%= f.input :last_name, label: "LAST NAME", placeholder: "KREIDLER" %></div>
+        <div class="apply-field"><%= f.input :email, label: "EMAIL", placeholder: "MATTEO@STACEY-LIVING.de" %></div>
+        <div class="phone-wrapper apply-field">
+          <div class="phone-code apply-dropdown"><%= f.input :phone_code, collection: code, selected: "+49", label: "CODE" %></div>
+          <div class="phone"><%= f.input :phone, label: "PHONENUMBER", placeholder: "0186 2857925" %></div>
         </div>
-      <div class="apply-field apply-dropdown"><%= f.input :duration_of_stay, collection: ["3 Month", "6 Month", "forever"], selected: "6 Month", label: "HOW LONG ARE YOU PLANING TO STAY?", required: false %></div>
-      <div class="apply-field apply-dropdown"><%= f.input :amount_of_people, collection: ["Single", "Couple"], selected: "Single", label: "HOW MANY PEOPLE WILL LIVE IN THE ROOM?",  required: false %></div>
-      <%= f.submit 'Apply', class: "btn stacey-button apply-button" %>
+        <div class="apply-field date">
+          <%= f.input :date_of_birth, as: :date, start_year: Date.today.year - 70, end_year: Date.today.year - 18, order: [:day, :month, :year], label: "WHEN WERE YOU BORN?", class: 'date-test' %>
+        </div>
+        <div class="apply-field">
+          <%= f.input :job, label: "WHAT DO YOU DO FOR LIVING?", placeholder: "YOUR JOB TITLE"%>
+        </div>
+        <div class="apply-field date">
+          <%= f.input :move_in_date, as: :date, start_year: Date.today.year, end_year: Date.today.year + 1, order: [:day, :month, :year], label: "WHEN DO YOU WANT TO MOVE IN?", required: true %>
+          </div>
+        <div class="apply-field apply-dropdown"><%= f.input :duration_of_stay, collection: ["3 Month", "6 Month", "forever"], selected: "6 Month", label: "HOW LONG ARE YOU PLANING TO STAY?", required: false %></div>
+        <div class="apply-field apply-dropdown"><%= f.input :amount_of_people, collection: ["Single", "Couple"], selected: "Single", label: "HOW MANY PEOPLE WILL LIVE IN THE ROOM?",  required: false %></div>
+        <div class="apply-button-position"><%= f.submit 'Apply', class: "btn stacey-button apply-button" %></div>
       <% end %>
     </div>
   </div>
