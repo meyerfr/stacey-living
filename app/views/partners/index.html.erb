@@ -1,0 +1,19 @@
+<div class="applicants-overview-container">
+  <h3>Currently we have <%= Partner.count %> partners</h3>
+  <% if current_user.admin? %>
+    <ol class="applicant-list">
+      <% @partners.each do |partner| %>
+        <li class="applicant-list-item">
+          Name: <%= partner.name %>,
+          Email: <%= partner.email %>,
+          Phone: <%= partner.phone_code %> <%= partner.phone %>,
+          Company: <%= partner.company %>,
+          Message: <%= partner.message %>
+          <%= link_to 'Delete', partner_path(partner), method: :delete %>
+        </li>
+      <% end %>
+    </ol>
+  <% else %>
+    <h1>To access this page you have to be logged in as an admin of this page. </h1>
+  <% end %>
+</div>

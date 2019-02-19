@@ -1,0 +1,88 @@
+.partner-formpage-wrapper {
+  padding-top: 60px;
+  background-color: #F9F9F9;
+}
+.partner-formpage-introduction {
+  background: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 5px;
+  min-height: 45vh;
+  .partner-formpage-picture {
+    margin-bottom: -70px;
+    margin-right: 2%;
+  }
+  .partner-formpage-header {
+    width: 35vw;
+    margin-left: 7%;
+    font-size: 36px;
+    text-align: center;
+  }
+}
+
+.partner-form {
+  max-width: 80vw;
+  margin-right: auto;
+  margin-left: auto;
+  padding-top: 100px;
+  padding-bottom: 200px;
+  position: relative;
+  background: transparent;
+  form {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    color: black;
+    .form-control {
+      border: 0;
+      box-shadow: none;
+      border-bottom: 1px solid #384a52;
+      border-radius: 0px !important;
+      background: transparent;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+    label {
+      padding-left: 12px;
+      color: black;
+      font-size: smaller;
+      font-weight: bold;
+    }
+    select {
+      -webkit-appearance: none;
+    }
+  }
+  .partner-formpage-field {
+    width: 47%;
+    ::placeholder {
+      color: black;
+      opacity: 0.2;
+    }
+  }
+  .partner-formpage-button {
+    position: absolute;
+    bottom: 130px;
+    left: 40%;
+    width: 20%;
+    height: 8%;
+  }
+  .btn:hover {
+    text-decoration: none;
+    color: white;
+    background: black;
+  }
+  .phone-code {
+    margin-left: 6%;
+    width: 7%;
+  }
+  .phone {
+    width: 40%;
+  }
+  .message {
+    .form-control {
+      height: 39px;
+    }
+  }
+}

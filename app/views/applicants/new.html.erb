@@ -25,7 +25,7 @@
         <%= f.input :job, label: "WHAT DO YOU DO FOR LIVING?", placeholder: "YOUR JOB TITLE"%>
       </div>
       <div class="apply-field form-inline date">
-        <%= f.input :move_in_date, as: :date, start_year: Date.today.year, end_year: Date.today.year + 1, order: [:day, :month, :year], label: "WHEN DO YOU WANT TO MOVE IN?", required: false %>
+        <%= f.input :move_in_date, as: :date, start_year: Date.today.year, end_year: Date.today.year + 1, order: [:day, :month, :year], label: "WHEN DO YOU WANT TO MOVE IN?", required: true %>
         </div>
       <div class="apply-field apply-dropdown"><%= f.input :duration_of_stay, collection: ["3 Month", "6 Month", "forever"], selected: "6 Month", label: "HOW LONG ARE YOU PLANING TO STAY?", required: false %></div>
       <div class="apply-field apply-dropdown"><%= f.input :amount_of_people, collection: ["Single", "Couple"], selected: "Single", label: "HOW MANY PEOPLE WILL LIVE IN THE ROOM?",  required: false %></div>
