@@ -19,7 +19,7 @@ class PartnersController < ApplicationController
       # UserMailer.welcome_partner(@partner).deliver_now
 
       send_partners_info_via_slack(@partner)
-      redirect_to "http://www.stacey-living.de"
+      redirect_to "http://www.stacey-living.de/partners"
     else
       render :new
     end
