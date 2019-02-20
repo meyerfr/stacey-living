@@ -1,12 +1,12 @@
 <div class="applicants-overview-container">
-  <h3>Currently we have <%= Applicant.count %> applicants</h3>
+  <h3>Currently we have <%= Applicant.count %>applicants</h3>
   <% if current_user.admin? %>
     <ol class="applicant-list">
       <% @applicants.each do |applicant| %>
         <li class="applicant-list-item">
-          Name: <%= applicant.first_name %> <%= applicant.last_name %>,
-          Email: <%= applicant.email %>,
-          Phone: <%= applicant.phone_code %> <%= applicant.phone %>
+          <%= applicant.first_name %> <%= applicant.last_name %>,
+          <%= applicant.email %>,
+          <%= applicant.phone_code %> <%= applicant.phone %>
           <% if applicant.invited %>
             <%= link_to 'Invite again', user_invitation_path(applicant: applicant), method: :post, class: 'invite' %>
           <% else %>
