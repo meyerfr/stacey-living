@@ -1,7 +1,7 @@
 <div class="partner-formpage-wrapper">
   <div class="partner-formpage-introduction">
     <h1 class="partner-formpage-header">Thank you for your interest in our concept. We would love to get in touch with you. Please give us the following information so we can contact you soon.</h1>
-    <%= image_tag "https://res.cloudinary.com/dvuqwvjay/image/upload/v1550506076/rawpixel-567016-unsplash-min.jpg", class: "apply-form-picture partner-formpage-picture" %>
+    <%= image_tag "https://res.cloudinary.com/dvuqwvjay/image/upload/v1550506076/rawpixel-567016-unsplash-min.jpg", class: "apply-form-picture partner-formpage-picture hidden-xs" %>
   </div>
   <% countries = IsoCountryCodes.all %>
   <% code = [] %>
@@ -19,16 +19,19 @@
       <div class="partner-formpage-field">
         <%= f.input :company, label: "COMPANY", placeholder: "STACEY REAL-ESTATE UG", required: true %>
       </div>
-      <div class="partner-formpage-field phone-code">
-        <%= f.input :phone_code, collection: code, selected: "+49", label: "CODE" %>
-      </div>
-      <div class="partner-formpage-field phone">
-        <%= f.input :phone, label: "PHONENUMBER", placeholder: "0186 2857925", required: true %>
+      <div class="partners-phone-wrapper">
+        <div class="partner-formpage-field phone-code">
+              <%= f.input :phone_code, collection: code, selected: "+49", label: "CODE" %>
+        </div>
+        <div class="partner-formpage-field phone">
+          <%= f.input :phone, label: "PHONENUMBER", placeholder: "0186 2857925", required: true %>
+        </div>
       </div>
       <div class="partner-formpage-field message">
         <%= f.input :message, label: "WHAT ELSE DO YOU WANT US TO KNOW?", placeholder: "ANY MORE INFORMATION?" %>
       </div>
-      <%= f.submit 'GET PARTNER', class: "stacey-button partner-formpage-button btn" %>
+      <div class="partner-button-center"><%= f.submit 'GET PARTNER', class: "stacey-button partner-formpage-button btn" %>
+      </div>
     <% end %>
   </div>
 </div>
