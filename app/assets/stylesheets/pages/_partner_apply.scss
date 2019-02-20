@@ -9,6 +9,9 @@
   align-items: center;
   margin-top: 5px;
   min-height: 45vh;
+  @media (max-width: 768px) {
+    justify-content: center
+  }
   .partner-formpage-picture {
     margin-bottom: -70px;
     margin-right: 2%;
@@ -16,8 +19,15 @@
   .partner-formpage-header {
     width: 35vw;
     margin-left: 7%;
-    font-size: 36px;
+    font-size: 150%;
     text-align: center;
+    @media (max-width: 768px) {
+      width: 70%;
+      margin: 0;
+      .partner-formpage-picture {
+        visibility: hidden;
+      }
+    }
   }
 }
 
@@ -29,12 +39,20 @@
   padding-bottom: 200px;
   position: relative;
   background: transparent;
+  @media screen and (max-width: 768px) {
+    padding-top: 10px;
+  }
   form {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
     color: black;
+    @media screen and (max-width: 850px) {
+      flex-wrap: unset;
+      flex-direction: column;
+      justify-content: center;
+    }
     .form-control {
       border: 0;
       box-shadow: none;
@@ -56,6 +74,7 @@
   }
   .partner-formpage-field {
     width: 47%;
+    min-width: 320px;
     ::placeholder {
       color: black;
       opacity: 0.2;
@@ -67,19 +86,32 @@
     left: 40%;
     width: 20%;
     height: 8%;
+    min-width: fit-content;
+    @media screen and (max-width: 850px) {
+      height: 40px;
+      position: unset;
+      margin-top: 15px;
+    }
   }
   .btn:hover {
     text-decoration: none;
     color: white;
     background: black;
   }
-  .phone-code {
-    margin-left: 6%;
-    width: 7%;
+  .partners-phone-wrapper {
+    display: flex;
+    min-width: 320px;
+    width: 47%;
+    .phone-code {
+      width: auto;
+      min-width: 70px;
+    }
+    .phone {
+      width: -webkit-fill-available;
+      min-width: 220px;
+    }
   }
-  .phone {
-    width: 40%;
-  }
+
   .message {
     .form-control {
       height: 39px;
