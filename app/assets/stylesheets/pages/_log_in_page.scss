@@ -15,6 +15,7 @@
     background: #ffffffb3;
     width: 32vw;
     height: 62vh;
+    min-width: 300px;
     .log-in-input-fields-wrapper {
       background-color:  #fdfdfd;
       height: 72%;
@@ -41,7 +42,7 @@
         .log-in-button {
           position: absolute;
           right: 40%;
-          bottom: 20%;
+          bottom: 13%;
         }
         .set-password-button {
           position: absolute;
