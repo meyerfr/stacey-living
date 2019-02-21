@@ -40,7 +40,10 @@
         </div>
       <% else %>
       <!-- Login link (when logged out) -->
-        <%= link_to t(".sign_in", default: "Login"), new_user_session_path, class: "navbar-stacey-item navbar-stacey-link" %>
+        <%= link_to "Home", "http://www.stacey-living.de", class: "navbar-stacey-item navbar-stacey-link" %>
+        <%= link_to "Community", "http://www.stacey-living.de/community", class: "navbar-stacey-item navbar-stacey-link" %>
+        <%= link_to "Vision", "http://www.stacey-living.de/vision", class: "navbar-stacey-item navbar-stacey-link" %>
+        <%= link_to t(".sign_in", default: "Login"), new_user_session_path, class: "navbar-stacey-item navbar-stacey-link interested" %>
       <% end %>
     </div>
 
@@ -49,9 +52,9 @@
       <div class="dropdown">
         <i class="fa fa-bars dropdown-toggle" data-toggle="dropdown"></i>
         <ul class="dropdown-menu dropdown-menu-right navbar-stacey-dropdown-menu">
-          <li><a href="#">Some mobile link</a></li>
-          <li><a href="#">Other one</a></li>
-          <li><a href="#">Other one</a></li>
+          <li><%= link_to "Community", "http://www.stacey-living.de/community", class: "navbar-stacey-item navbar-stacey-link" %></li>
+          <li><%= link_to "Vision", "http://www.stacey-living.de/vision", class: "navbar-stacey-item navbar-stacey-link" %></li>
+          <li><%= link_to t(".sign_in", default: "Login"), new_user_session_path, class: "navbar-stacey-item navbar-stacey-link" %></li>
         </ul>
       </div>
     </div>
