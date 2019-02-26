@@ -3,17 +3,19 @@
     <div class="col-12">
       <div class="users-show-wrapper">
         <div class="bio">
-          <div class="bio-header" style="background-image: linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8)), url('https://picsum.photos/200/300?random'); background-position: center; background-size: cover; position: relative; text-align: center; padding:32px 0px; display: flex; align-items: center; justify-content: center;flex-direction: column;">
+          <div class="bio-header" style="background-image: linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8)), url('https://www.lewagon.com/api/v1/cities/berlin/cover?width=1200'); background-size: cover; background-position: center center; position: relative; text-align: center; padding:32px 0px; display: flex; align-items: center; justify-content: center;flex-direction: column;">
             <div class="users-avatar">
               <img alt="" class="rounded-circle bottom-marged" src="https://avatars3.githubusercontent.com/u/43126565?v=4">
             </div>
             <div class="users-identity">
               <h1><%= @user.first_name %> <%= @user.last_name %></h1>
               <h4>Lived in Hamburg - Stacey-Eppendorf</h4>
-              <%= link_to edit_user_path(@user) do %>
-                <p style="padding-right: 5px;">Edit your basic info</p>
-                <i class="fas fa-pencil-alt"></i>
-              <% end %>
+              <div class="edit-link">
+                <%= link_to edit_user_path(@user) do %>
+                  <p style="padding-right: 5px;">Edit your basic info</p>
+                  <i class="fas fa-pencil-alt"></i>
+                <% end %>
+              </div>
             </div>
           </div>
           <div class="bio-body">
@@ -27,9 +29,7 @@
                   <i class="fas fa-pencil-alt"></i>
                 </button>
               </div>
-              <textarea class="bio-text bio-disabled" rows="1" style="overflow: hidden; overflow-wrap: break-word; height: 54px">
-                <!-- Put something about the description of this User here -->
-              </textarea>
+              <textarea class="bio-text bio-disabled" rows="1" style="overflow: hidden; overflow-wrap: break-word; height: 54px; background: transparent;"><!-- Put something about the description of this User here --><!-- Put something about the description of this User here --><!-- Put something about the description of this User here --></textarea>
               <button class="btn hidden btn-default-flat">Save changes</button>
             </div>
           </div>
