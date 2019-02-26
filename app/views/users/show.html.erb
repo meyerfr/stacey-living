@@ -1,3 +1,50 @@
-<h1 style="padding-top: 70px">This page shows only one specific user</h1>
-<h1>Name: <%= @user.first_name %> <%= @user.last_name %></h1>
-<%= link_to 'Edit', edit_user_path(@user) %>
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <div class="users-show-wrapper">
+        <div class="bio">
+          <div class="bio-header" style="background-image: linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8)), url('https://picsum.photos/200/300?random'); background-position: center; background-size: cover; position: relative; text-align: center; padding:32px 0px; display: flex; align-items: center; justify-content: center;flex-direction: column;">
+            <div class="users-avatar">
+              <img alt="" class="rounded-circle bottom-marged" src="https://avatars3.githubusercontent.com/u/43126565?v=4">
+            </div>
+            <div class="users-identity">
+              <h1><%= @user.first_name %> <%= @user.last_name %></h1>
+              <h4>Lived in Hamburg - Stacey-Eppendorf</h4>
+              <%= link_to edit_user_path(@user) do %>
+                <p style="padding-right: 5px;">Edit your basic info</p>
+                <i class="fas fa-pencil-alt"></i>
+              <% end %>
+            </div>
+          </div>
+          <div class="bio-body">
+            <div class="bio-contact">
+              <!-- Put a link here to contact this person via the Chat funktion -->
+            </div>
+            <div class="bio-description">
+              <div class="bio-description-header">
+                <h3>Edit description</h3>
+                <button class="pencil-edit">
+                  <i class="fas fa-pencil-alt"></i>
+                </button>
+              </div>
+              <textarea class="bio-text bio-disabled" rows="1" style="overflow: hidden; overflow-wrap: break-word; height: 54px">
+                <!-- Put something about the description of this User here -->
+              </textarea>
+              <button class="btn hidden btn-default-flat">Save changes</button>
+            </div>
+          </div>
+        </div>
+        <div class="users-body">
+          <!-- Think about something everybody wants to know -->
+          <!-- LinkedIn Profile - changeable -->
+          <!-- Instagram Profile - changeable -->
+          <!-- Facebook Profile - changeable -->
+          <!-- Email Profile - changeable -->
+          <!-- Phone Profile - changeable -->
+          <!-- JOB - changeable -->
+          <!-- Duration of Stay - changeable -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
