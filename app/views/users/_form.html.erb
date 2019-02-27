@@ -1,0 +1,10 @@
+<%= simple_form_for(@user) do |f| %>
+  <div>
+    <%= f.input :first_name, label: "FIRST NAME" %>
+    <%= f.input :last_name, label: "LAST NAME" %>
+    <%= f.input :phone, label: "PHONE" %>
+    <%= f.input :job, label: "JOB" %>
+    <%= f.input :duration_of_stay, label: "HOW LONG DO YOU STAY" %>
+    <%= f.submit 'Update', class: 'stacey-button' %>
+  </div>
+<% end %>

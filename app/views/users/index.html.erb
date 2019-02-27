@@ -1,0 +1,15 @@
+<div class="users-index-wrapper">
+  <div class="users-index-container">
+    <h1>This page shows all users</h1>
+    <p class="users-index-total-count">
+      <strong><%= User.count %></strong> results
+    </p>
+    <div class="users-list-wrapper">
+      <div class="users-list-container">
+        <% @users.each do |user| %>
+          <%= render 'user_cards', user: user %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

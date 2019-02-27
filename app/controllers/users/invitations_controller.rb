@@ -32,6 +32,7 @@ class Users::InvitationsController < Devise::InvitationsController
       first_name: applicant.first_name,
       last_name: applicant.last_name,
       phone: phone,
+      job: job,
       move_in_date: applicant.move_in_date,
       date_of_birth: applicant.date_of_birth,
       duration_of_stay: applicant.duration_of_stay,
