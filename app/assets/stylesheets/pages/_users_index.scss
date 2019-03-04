@@ -100,3 +100,16 @@
     }
   }
 }
+
+.users-card-link{
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  a {
+    color: #474545;
+    font-weight: 400;
+    font-family: "Kievit", "Helvetica", "sans-serif";
+  }
+}

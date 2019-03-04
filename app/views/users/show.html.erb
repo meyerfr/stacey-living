@@ -1,3 +1,4 @@
+<% authorised = @user == current_user %>
 <div class="container">
   <div class="row">
     <div class="col-12">
@@ -5,17 +6,20 @@
         <div class="bio">
           <div class="bio-header" style="background-image: linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8)), url('https://www.lewagon.com/api/v1/cities/berlin/cover?width=1200'); background-size: cover; background-position: center center; position: relative; text-align: center; padding:32px 0px; display: flex; align-items: center; justify-content: center;flex-direction: column;">
             <div class="users-avatar">
-              <img alt="" class="rounded-circle bottom-marged" src="https://avatars3.githubusercontent.com/u/43126565?v=4">
+              <img alt="" class="rounded-circle" src="<%= @user.photo.url(:bright_face) %>">
             </div>
             <div class="users-identity">
               <h1><%= @user.first_name %> <%= @user.last_name %></h1>
               <h4>Lived in Hamburg - Stacey-Eppendorf</h4>
-              <div class="edit-link">
+              <% if authorised %>
+                <div class="edit-link">
                 <%= link_to edit_user_path(@user) do %>
-                  <p style="padding-right: 5px;">Edit your basic info</p>
+                  <p>Edit your basic info</p>
                   <i class="fas fa-pencil-alt"></i>
                 <% end %>
               </div>
+              <% end %>
+
             </div>
           </div>
           <div class="bio-body">
@@ -24,23 +28,91 @@
             </div>
             <div class="bio-description">
               <div class="bio-description-header">
-                <h3>Edit description</h3>
-                <button class="pencil-edit">
-                  <i class="fas fa-pencil-alt"></i>
-                </button>
+                <% if authorised %>
+                  <h3>Edit description</h3>
+                  <button class="pencil-edit">
+                    <i class="fas fa-pencil-alt"></i>
+                  </button>
+                <% end %>
               </div>
-              <textarea class="bio-text bio-disabled" rows="1" style="overflow: hidden; overflow-wrap: break-word; height: 54px; background: transparent;"><!-- Put something about the description of this User here --><!-- Put something about the description of this User here --><!-- Put something about the description of this User here --></textarea>
+              <% if authorised && current_user.description.present? == false %>
+                <p class="bio-text bio-disabled" style="overflow: hidden; overflow-wrap: break-word; height: fit-content; background: transparent;">
+                  Please write a short description of yourself
+                </p>
+              <% elsif @user.description.present? == false %>
+                <p class="bio-text bio-disabled" style="overflow: hidden; overflow-wrap: break-word; height: fit-content; background: transparent;">
+                  <%= @user.first_name %> doesn´t have a description yet.
+                </p>
+              <% else %>
+                <p class="bio-text bio-disabled" rows="1" style="overflow: hidden; overflow-wrap: break-word; height: fit-content; background: transparent;">
+                 <%= @user.description %>
+                </p>
+              <% end %>
               <button class="btn hidden btn-default-flat">Save changes</button>
             </div>
           </div>
         </div>
         <div class="users-body">
+          <div class="users-body-socials-skills">
+            <div class="socials-overview">
+              <div class="socials-headers">
+                <div class="socials-edit">
+                  <% if authorised %>
+                    <%= link_to edit_user_path(@user) do %>
+                      <h3>Find <%= @user.first_name %> on</h3>
+                      <i class="fas fa-pencil-alt"></i>
+                    <% end %>
+                  <% else %>
+                    <h3>Find <%= @user.first_name %> on</h3>
+                  <% end %>
+                </div>
+              </div>
+              <ul class="bio-socials list-unstyled">
+                <% if @user.linked_in.present? %>
+                  <li><!-- LinkedIn Profile - changeable -->
+                    <a href="<%= @user.linked_in %>" class="socials" target="_blank" rel="noopener noreferrer">
+                      <i class="fab fa-linkedin" aria-hidden="true"></i>
+                    </a>
+                  </li>
+                <% end %>
+                <% if @user.twitter.present? %>
+                  <li><!-- Twitter Profile - changeable -->
+                    <a href="<%= @user.twitter %>" class="socials" target="_blank" rel="noopener noreferrer">
+                      <i class="fab fa-twitter" aria-hidden="true"></i>
+                    </a>
+                  </li>
+                <% end %>
+                <% if @user.instagram.present? %>
+                  <li><!-- Instagram Profile - changeable -->
+                    <a href="<%= @user.instagram %>" class="socials" target="_blank" rel="noopener noreferrer">
+                      <i class="fab fa-instagram" aria-hidden="true"></i>
+                    </a>
+                  </li>
+                <% end %>
+                <% if @user.facebook.present? %>
+                  <li><!-- Facebook Profile - changeable -->
+                    <a href="<%= @user.facebook %>" class="socials" target="_blank" rel="noopener noreferrer">
+                      <i class="fab fa-facebook" aria-hidden="true"></i>
+                    </a>
+                  </li>
+                <% end %>
+                <li class="d-flex">
+                  <%= mail_to @user.email do %>
+                    <i class="fas fa-at socials" id="email"></i>
+                  <% end %>
+                </li><!-- Email Profile - changeable -->
+                <li class="d-flex">
+                  <i class="fas fa-phone socials" id="phone"></i>
+                </li><!-- Phone Profile - changeable -->
+              </ul>
+            </div>
+          </div>
           <!-- Think about something everybody wants to know -->
-          <!-- LinkedIn Profile - changeable -->
-          <!-- Instagram Profile - changeable -->
-          <!-- Facebook Profile - changeable -->
-          <!-- Email Profile - changeable -->
-          <!-- Phone Profile - changeable -->
+
+
+
+
+
           <!-- JOB - changeable -->
           <!-- Duration of Stay - changeable -->
         </div>

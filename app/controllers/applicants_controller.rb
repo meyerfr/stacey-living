@@ -32,7 +32,7 @@ class ApplicantsController < ApplicationController
   private
 
   def applicants_params
-    params.require(:applicant).permit(:first_name, :last_name, :email, :phone_code, :phone, :date_of_birth, :job, :move_in_date, :duration_of_stay, :amount_of_people)
+    params.require(:applicant).permit(:first_name, :last_name, :email, :phone_code, :phone, :date_of_birth, :job, :move_in_date, :duration_of_stay, :amount_of_people, :linked_in, :instagram, :facebook, :twitter)
   end
 
   def send_applicants_info_via_slack(applicant)

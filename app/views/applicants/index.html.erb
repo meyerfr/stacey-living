@@ -1,5 +1,5 @@
 <div class="applicants-overview-container">
-  <h3>Currently we have <%= Applicant.count %>applicants</h3>
+  <h3>Currently we have <%= Applicant.count %> applicants</h3>
   <% if current_user.admin? %>
     <ol class="applicant-list">
       <% @applicants.each do |applicant| %>

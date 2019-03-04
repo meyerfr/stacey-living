@@ -36,6 +36,7 @@ class Users::InvitationsController < Devise::InvitationsController
       move_in_date: applicant.move_in_date,
       date_of_birth: applicant.date_of_birth,
       duration_of_stay: applicant.duration_of_stay,
-      amount_of_people: applicant.amount_of_people }
+      amount_of_people: applicant.amount_of_people,
+      linked_in: applicant.linked_in }
   end
 end
