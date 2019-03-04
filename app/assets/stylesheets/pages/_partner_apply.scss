@@ -113,8 +113,10 @@
   }
 
   .message {
+    width: 100%;
     .form-control {
-      height: 39px;
+      height: 85px;
+      border: 1px solid #384a52;
     }
   }
 }
