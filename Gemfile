@@ -17,6 +17,7 @@ gem 'redis'
 gem 'iso_country_codes', '~> 0.7.8'
 gem 'cloudinary', '~> 1.9.1'
 gem 'carrierwave', '~> 1.2'
+gem "google-cloud-storage", "~> 1.8", require: false
 
 gem 'autoprefixer-rails'
 gem 'bootstrap-sass', '~> 3.3'
