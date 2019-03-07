@@ -14,21 +14,21 @@
     <div class="center-apply-form">
       <%= simple_form_for(@applicant) do |f| %>
         <div class="wrap-form">
-          <div class="apply-field"><%= f.input :first_name, class: "apply-field", label: "FIRST NAME", placeholder: "MATTEO" %></div>
-          <div class="apply-field"><%= f.input :last_name, label: "LAST NAME", placeholder: "KREIDLER" %></div>
-          <div class="apply-field"><%= f.input :email, label: "EMAIL", placeholder: "MATTEO@STACEY-LIVING.de" %></div>
+          <div class="apply-field"><%= f.input :first_name, class: "apply-field", label: "FIRST NAME", placeholder: "MATTEO", required: false %></div>
+          <div class="apply-field"><%= f.input :last_name, label: "LAST NAME", placeholder: "KREIDLER", required: false %></div>
+          <div class="apply-field"><%= f.input :email, label: "EMAIL", placeholder: "MATTEO@STACEY-LIVING.de", required: false %></div>
           <div class="phone-wrapper apply-field">
             <div class="phone-code apply-dropdown"><%= f.input :phone_code, collection: code, selected: "+49", label: "CODE" %></div>
-            <div class="phone"><%= f.input :phone, label: "PHONENUMBER", placeholder: "0186 2857925" %></div>
+            <div class="phone"><%= f.input :phone, label: "PHONENUMBER", placeholder: "0186 2857925", required: false %></div>
           </div>
           <div class="apply-field date">
-            <%= f.input :date_of_birth, as: :date, start_year: Date.today.year - 70, end_year: Date.today.year - 18, order: [:day, :month, :year], label: "WHEN WERE YOU BORN?", selected: 22.years.ago, class: 'date-test' %>
+            <%= f.input :date_of_birth, as: :date, start_year: Date.today.year - 70, end_year: Date.today.year - 18, order: [:day, :month, :year], label: "WHEN WERE YOU BORN?", selected: 22.years.ago, required: false, class: 'date-test' %>
           </div>
           <div class="apply-field">
-            <%= f.input :job, label: "WHAT DO YOU DO FOR LIVING?", placeholder: "YOUR JOB TITLE"%>
+            <%= f.input :job, label: "WHAT DO YOU DO FOR LIVING?", placeholder: "YOUR JOB TITLE", required: false %>
           </div>
           <div class="apply-field date">
-            <%= f.input :move_in_date, as: :date, start_year: Date.today.year, end_year: Date.today.year + 1, order: [:day, :month, :year], label: "WHEN DO YOU WANT TO MOVE IN?", required: true %>
+            <%= f.input :move_in_date, as: :date, start_year: Date.today.year, end_year: Date.today.year + 1, order: [:day, :month, :year], label: "WHEN DO YOU WANT TO MOVE IN?", required: false %>
             </div>
           <div class="apply-field apply-dropdown"><%= f.input :duration_of_stay, collection: ["3 Months", "4 Months", "5 Months", "6 Months", "6+ Months"], selected: "6 Months", label: "HOW LONG ARE YOU PLANING TO STAY?", required: false %></div>
           <div class="apply-field apply-dropdown"><%= f.input :amount_of_people, collection: ["Single", "Couple"], selected: "Single", label: "HOW MANY PEOPLE ARE MOVING IN?",  required: false %></div>

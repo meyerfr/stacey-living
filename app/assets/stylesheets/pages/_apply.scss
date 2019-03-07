@@ -9,8 +9,8 @@
 }
 
 .center-apply-form {
-  max-width: 80vw;
-  padding-top: 100px;
+  max-width: 75vw;
+  padding-top: 150px;
   padding-bottom: 200px;
   position: relative;
   background: transparent;
@@ -43,12 +43,14 @@
       background: transparent;
       text-transform: uppercase;
       letter-spacing: 2px;
+      font-size: 14px;
     }
     label {
       padding-left: 12px;
       color: black;
       // font-size: smaller;
       font-weight: bolder;
+      font-size: 15px;
     }
     @media (min-width: 768px) {
       select {
@@ -72,7 +74,7 @@
   width: 24%;
   min-width: 200px;
   height: 45px;
-  margin-top: 20px;
+  margin-top: 30px;
 }
 
 .apply-button {
@@ -140,6 +142,7 @@
 .apply-field {
   width: 47%;
   min-width: 320px;
+  max-width: 490px;
   ::placeholder {
     color: black;
     opacity: 0.2;
