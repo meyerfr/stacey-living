@@ -3,6 +3,8 @@ Rails.application.routes.draw do
   resources :applicants, only: [:index, :new, :create, :destroy]
   get 'applicants/success', to: 'applicants#success'
   patch 'applicants/invite', to: 'applicants#invite'
+  get 'applicants/contract/:id/:authentity_token_contract', to: 'applicants#contract', as: 'contract'
+  post 'applicants/send_invitation_for_contract_pages', to: 'applicants#send_invitation_for_contract_pages'
 
   resources :partners, only: [:index, :show, :new, :create, :destroy]
   get 'partners/success', to: 'partners#success'

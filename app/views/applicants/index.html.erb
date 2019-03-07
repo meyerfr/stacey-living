@@ -12,6 +12,7 @@
           <% else %>
             <%= link_to 'Invite', user_invitation_path(applicant: applicant), method: :post, class: 'invite' %>
           <% end %>
+          <%= link_to 'Contract', applicants_send_invitation_for_contract_pages_path(applicant: applicant), method: :post %>
           <%= link_to 'Delete', applicant_path(applicant), method: :delete %>
         </li>
       <% end %>

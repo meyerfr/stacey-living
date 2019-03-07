@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_28_102511) do
+ActiveRecord::Schema.define(version: 2019_03_07_105840) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,6 +33,8 @@ ActiveRecord::Schema.define(version: 2019_02_28_102511) do
     t.string "instagram"
     t.string "twitter"
     t.string "facebook"
+    t.string "authentity_token_contract"
+    t.date "authentity_token_contract_expiration"
   end
 
   create_table "bookings", force: :cascade do |t|
