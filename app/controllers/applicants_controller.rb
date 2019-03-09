@@ -13,6 +13,9 @@ class ApplicantsController < ApplicationController
 
   def create
     @applicant = Applicant.new(applicants_params)
+    @applicant.first_name.capitalize
+    @applicant.last_name.capitalize
+    @applicant.email.downcase
     if @applicant.save
       UserMailer.welcome(@applicant).deliver_now
       # later(wait_until: 8.minutes.from_now)
