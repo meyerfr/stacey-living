@@ -1,0 +1,31 @@
+.three-steps-container {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  margin: 15px 0 5px 0;
+  .line {
+    width: 75px;
+    border-bottom: 1px dotted black;
+    border-width: 3px;
+  }
+  .active-line{
+    border: 1px solid black;
+  }
+  .ring {
+    border: 1px solid black;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    p{
+      margin: 0;
+      font-size: 32px;
+    }
+  }
+  .active {
+    border: 3px solid #2054B8;
+  }
+}

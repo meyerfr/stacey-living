@@ -1,0 +1,39 @@
+<% applicant = Applicant.first %>
+<div class="room-popup-container">
+  <div class="room-popup-description">
+    <div class="description-header">
+      <h3><%= room.art_of_room %></h3>
+    </div>
+    <p>Included in your rent</p>
+    <div class="services-icons">
+      <i class="fas fa-couch"></i>
+      <i class="fas fa-wifi"></i>
+      <%= image_tag "cleaning.png"%>
+      <%= image_tag "balcony.png" %>
+    </div>
+    <div class="description-duration-staying">
+      <p>I want to stay</p>
+      <%= simple_form_for applicant, remote: true do |f| %>
+        <%= f.input :duration_of_stay, collection: ["3 MONTHS", "4 MONTHS", "5 MONTHS", "6 MONTHS", "7 MONTHS", "8 MONTHS", "9 MONTHS", "9+ MONTHS"], selected: applicant.duration_of_stay.upcase, class: "duration", label: false %>
+      <% end %>
+      <!-- Must change User to Applicant and find Applicant through params -->
+    </div>
+    <div class="pricing">
+      <div class="pricing-category active">
+        <p>3-5 Months</p>
+        <p><%= room.price %> €</p>
+      </div>
+      <div class="pricing-category">
+        <p>6-8 Months</p>
+        <p><%= room.price %> €</p>
+      </div>
+      <div class="pricing-category">
+        <p>9+ Months</p>
+        <p><%= room.price %> €</p>
+      </div>
+    </div>
+    <button class="stacey-button select-suite-button">Select Suite</button>
+  </div>
+  <div class="room-popup-picture" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url('https://res.cloudinary.com/dvuqwvjay/image/upload/v1550311240/patrick-perkins-340019-unsplash-min_1.jpg');">
+  </div>
+</div>

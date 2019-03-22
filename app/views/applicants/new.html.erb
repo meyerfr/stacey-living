@@ -1,3 +1,4 @@
+<%= render 'shared/navbar' %>
 <div class="apply-formpage-container">
   <div class="apply-formpage-introduction">
     <h1 class="apply-form-header">We just have a few questions so we can get to know you a little better.</h1>
@@ -30,7 +31,7 @@
           <div class="apply-field date">
             <%= f.input :move_in_date, as: :date, start_year: Date.today.year, end_year: Date.today.year + 1, order: [:day, :month, :year], label: "WHEN DO YOU WANT TO MOVE IN?", required: false %>
             </div>
-          <div class="apply-field apply-dropdown"><%= f.input :duration_of_stay, collection: ["3 Months", "4 Months", "5 Months", "6 Months", "6+ Months"], selected: "6 Months", label: "HOW LONG ARE YOU PLANING TO STAY?", required: false %></div>
+          <div class="apply-field apply-dropdown"><%= f.input :duration_of_stay, collection: ["3 Months", "4 Months", "5 Months", "6 Months", "7 Months", "8 Months", "9 Months", "9+ Months"], selected: "6 Months", label: "HOW LONG ARE YOU PLANING TO STAY?", required: false %></div>
           <div class="apply-field apply-dropdown"><%= f.input :amount_of_people, collection: ["Single", "Couple"], selected: "Single", label: "HOW MANY PEOPLE ARE MOVING IN?",  required: false %></div>
           <div class="apply-field social-media">
             <%= f.label :social_media, "ADD YOUR SOCIAL MEDIA LINKS IF YOU LIKE" %>

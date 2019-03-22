@@ -1,4 +1,6 @@
 class FlatsController < ApplicationController
+  before_action :authenticate_admin!, only: [:new, :index, :create, :update, :destroy]
+
   def index
     @flats = Flat.all
   end
@@ -8,12 +10,20 @@ class FlatsController < ApplicationController
   end
 
   def create
-    @flat = Flat.find(flat_params)
+    @flat = Flat.new(flat_params)
+    if @flat.save
+      redirect_to flats
+    else
+      render :new
+    end
   end
 
   def update
-    @flat.update(flat_params)
-    redirect_to @flat
+    if @flat.update(flat_params)
+      redirect_to @flat
+    else
+      render :edit
+    end
   end
 
   def destroy

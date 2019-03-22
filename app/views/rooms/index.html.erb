@@ -1,0 +1,13 @@
+<%= render 'shared/navbar' %>
+<h1 style="padding-top: 50px;">Those are the Rooms in the Project <%= @flat.project_name %></h1>
+<div class="room-cards-list-wrapper">
+  <div class="room-card-wrapper">
+    <% @rooms.each do |room| %>
+      <%= render 'shared/room_cards', flat: @flat, room: room %>
+    <% end %>
+  </div>
+</div>
+
+<%= link_to 'Create new Room', new_flat_room_path %>
+
+

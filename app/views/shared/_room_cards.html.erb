@@ -1,0 +1,17 @@
+<div class="room-card" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url('https://kitt.lewagon.com/placeholder/cities/shanghai');">
+  <div class="room-card-description">
+    <div class="room-category">
+      <p class="room-art strong-font"><%= room.art_of_room %></p>
+      <% if room.balcony? %>
+        <p class="balcony light-font">with balcony</p>
+      <% else %>
+        <p class="balconym light-font">no balcony</p>
+      <% end %>
+    </div>
+    <div class="room-price">
+      <p class="from light-font">from</p>
+      <p class="price strong-font"><%= room.price %>€</p>
+    </div>
+  </div>
+  <a class="room-link" href="rooms/<%= room.id %>" ></a>
+</div>

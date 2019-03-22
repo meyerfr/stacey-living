@@ -1,0 +1,7 @@
+<%= render 'shared/navbar' %>
+<h1 style="padding-top: 50px">Create a new Room please</h1>
+<%= simple_form_for [@flat, @room] do |f| %>
+  <%= f.input :art_of_room %>
+  <%= f.input :balcony %>
+  <%= f.submit %>
+<% end %>

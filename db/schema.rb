@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_07_105840) do
+ActiveRecord::Schema.define(version: 2019_03_19_103200) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,10 +39,10 @@ ActiveRecord::Schema.define(version: 2019_03_07_105840) do
 
   create_table "bookings", force: :cascade do |t|
     t.bigint "user_id"
-    t.bigint "flat_id"
+    t.bigint "room_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["flat_id"], name: "index_bookings_on_flat_id"
+    t.index ["room_id"], name: "index_bookings_on_room_id"
     t.index ["user_id"], name: "index_bookings_on_user_id"
   end
 
@@ -52,6 +52,7 @@ ActiveRecord::Schema.define(version: 2019_03_07_105840) do
     t.string "city"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "project_name"
   end
 
   create_table "partners", force: :cascade do |t|
@@ -63,6 +64,20 @@ ActiveRecord::Schema.define(version: 2019_03_07_105840) do
     t.text "message"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "rooms", force: :cascade do |t|
+    t.integer "price"
+    t.string "art_of_room"
+    t.date "availability"
+    t.boolean "balcony"
+    t.string "room_size"
+    t.bigint "flat_id"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["flat_id"], name: "index_rooms_on_flat_id"
+    t.index ["user_id"], name: "index_rooms_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -104,6 +119,8 @@ ActiveRecord::Schema.define(version: 2019_03_07_105840) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "bookings", "flats"
+  add_foreign_key "bookings", "rooms"
   add_foreign_key "bookings", "users"
+  add_foreign_key "rooms", "flats"
+  add_foreign_key "rooms", "users"
 end

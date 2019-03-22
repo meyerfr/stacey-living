@@ -1,10 +1,12 @@
 class ApplicantsController < ApplicationController
-  before_action :authenticate_applicant_for_contract_pages, only: [:contract]
-  skip_before_action :authenticate_user!, only: [:new, :create, :success, :contract]
+  # before_action :authenticate_applicant_for_contract_pages, only: [:contract]
+  before_action :authenticate_admin!, only: [:index, :destroy]
+  skip_before_action :authenticate_user!, only: [:new, :show, :create, :update, :success, :contract]
 
   def index
     @applicants = Applicant.all
   end
+
 
   def new
     # @flat = Flat.find(params[:flat_id])
@@ -27,6 +29,21 @@ class ApplicantsController < ApplicationController
     end
   end
 
+  def update
+    @applicant = Applicant.find(params[:id])
+    if @applicant.update(applicants_params)
+      respond_to do |format|
+        format.html { redirect_to @applicant }
+        format.js  # <-- will render `app/views/reviews/create.js.erb`
+      end
+    else
+      respond_to do |format|
+        format.html { render 'applicants/show' }
+        format.js  # <-- idem
+      end
+    end
+  end
+
   def destroy
     @applicant = Applicant.find(params[:id])
     @applicant.destroy
@@ -43,7 +60,13 @@ class ApplicantsController < ApplicationController
   end
 
   def contract
+    @rooms = Room.all
     @applicant = Applicant.first
+    @flat = Flat.first
+  end
+
+  def show
+    @applicant = Applicant.find(params[:id])
   end
 
   private

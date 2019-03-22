@@ -1,0 +1,127 @@
+.contract-page-top {
+  width: 100%;
+  height: 16vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  color: white;
+  background: rgba(0, 0, 0, 0.25);
+  h1{
+    margin: 0;
+  }
+  img{
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    height: 33px;
+  }
+}
+
+.room-cards-list-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.room-card-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  width: 87vw;
+  justify-content: space-between;
+}
+
+.room-card {
+  height: 320px;
+  width: 520px;
+  background-size: cover !important;
+  background-position: center;
+  color: white;
+  position: relative;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  margin: 30px 0;
+  p {
+    margin-bottom: 0;
+  }
+}
+
+.room-user {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  width: 40px;
+  border-radius: 50%;
+}
+
+.room-card-description {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: absolute;
+  bottom: 0;
+  background: white;
+  width: 100%;
+  height: 75px;
+  color: black;
+  .light-font {
+    font-size: 16px;
+    opacity: 0.7;
+  }
+  .strong-font {
+    font-size: 26px;
+  }
+  .room-category {
+    margin-left: 30px;
+    .room-art{
+      margin-bottom: -10px;
+    }
+  }
+  .room-price {
+    margin-right: 20px;
+    border-left: 1px solid black;
+    width: 20%;
+    height: 100%;
+    padding-left: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    .from {
+      margin-left: 15%;
+      margin-bottom: -10px;
+    }
+  }
+}
+
+// .room-category {
+  // position: absolute;
+  // top: 10px;
+  // left: 10px;
+  // font-size: 15px;
+  // text-transform: uppercase;
+// }
+// .room-description {
+  // position: absolute;
+  // bottom: 10px;
+  // left: 10px;
+// }
+
+.room-description h2 {
+  font-size: 18px;
+}
+.room-description p {
+  font-size: 14px;
+  opacity: 0.7;
+  font-weight: lighter;
+}
+.room-link {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  z-index: 2;
+  background: black;
+  opacity: 0;
+}
+.room-link:hover {
+  opacity: 0.1;
+}

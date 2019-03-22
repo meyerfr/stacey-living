@@ -1,0 +1,19 @@
+.contract-page-quote {
+  width: 100%;
+  height: 150px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: white;
+  position: relative;
+  p {
+    margin: 0;
+    font-size: 28px;
+  }
+  .quote-name {
+    font-size: smaller;
+    position: absolute;
+    bottom: 8px;
+  }
+}

@@ -1,3 +1,9 @@
+<%= render 'shared/navbar' %>
+<h1 style="padding-top: 50px">This is the Page where all our Projects are shown</h1>
 <% @flats.each do |flat| %>
-  <h1><%= flat.street %>, <%= flat.zipcode %> <%= flat.city %></h1>
+  <%= link_to flat_rooms_path(flat)  do %>
+    <h1>Project <%= flat.project_name %></h1>
+  <% end %>
 <% end %>
+
+<%= link_to 'Create new Flat', new_flat_path, class: "stacey-button" %>

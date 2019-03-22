@@ -1,1 +1,19 @@
-<h1 style="padding-top: 80px;"><%= @applicant.first_name %></h1>
+<div class="contract-page-top">
+  <h1>Choose your private Suite</h1>
+  <%= image_tag 'stacey-eppendorf-logo-weiss.png' %>
+</div>
+<%= render 'shared/three_step_rings' %>
+<div class="room-cards-list-wrapper">
+  <div class="room-card-wrapper">
+    <% @rooms.each do |room| %>
+      <%= render 'shared/room_cards', flat: @flat, room: room %>
+    <% end %>
+    <%= render 'shared/rooms_detail_popup', room: Room.first %>
+  </div>
+</div>
+<div class="contract-page-quote">
+  <p>”ALONE WE CAN DO SO LITTLE;</p>
+  <p style="margin-bottom: 18px;">TOGETHER WE CAN DO SO MUCH”</p>
+  <p class="quote-name">Helen Keller</p>
+</div>
+<%= render 'shared/community_area' %>
