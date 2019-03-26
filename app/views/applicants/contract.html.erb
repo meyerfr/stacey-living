@@ -1,19 +1,17 @@
-<div class="contract-page-top">
-  <h1>Choose your private Suite</h1>
-  <%= image_tag 'stacey-eppendorf-logo-weiss.png' %>
-</div>
 <%= render 'shared/three_step_rings' %>
+<%= render 'shared/projects_banner', flat: @flat %>
 <div class="room-cards-list-wrapper">
   <div class="room-card-wrapper">
     <% @rooms.each do |room| %>
       <%= render 'shared/room_cards', flat: @flat, room: room %>
     <% end %>
-    <%= render 'shared/rooms_detail_popup', room: Room.first %>
+    <%#= render 'shared/rooms_detail_popup', room: Room.first %>
   </div>
 </div>
 <div class="contract-page-quote">
   <p>”ALONE WE CAN DO SO LITTLE;</p>
-  <p style="margin-bottom: 18px;">TOGETHER WE CAN DO SO MUCH”</p>
+  <p style="margin-bottom: 25px;">TOGETHER WE CAN DO SO MUCH”</p>
   <p class="quote-name">Helen Keller</p>
 </div>
-<%= render 'shared/community_area' %>
+<%#= render 'shared/community_area' %>
+
