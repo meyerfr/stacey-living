@@ -21,7 +21,16 @@
   .phone {
     position: absolute;
     right: 100px;
+    a{
+      text-decoration: none;
+      color: white;
+    }
   }
+
+  .phone a:hover{
+    color: #dfdfdf;
+  }
+
   .three-steps-container {
     display: flex;
     justify-content: space-around;

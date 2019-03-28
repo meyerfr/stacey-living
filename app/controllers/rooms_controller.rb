@@ -6,7 +6,10 @@ class RoomsController < ApplicationController
   end
 
   def show
+    @flat = Flat.find(params[:flat_id])
     @room = Room.find(params[:id])
+    @applicant = Applicant.first
+    @booking = Booking.new
   end
 
   def new
