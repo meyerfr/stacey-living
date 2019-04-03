@@ -36,8 +36,12 @@
     .booking-form{
       width: 85%;
       form {
+        .form-group:last-child{
+          margin-bottom: 0;
+        }
         .form-control-label{
-          font-size: 16px;
+          font-size: 18px;
+          font-weight: bolder;
         }
         .form-control{
           -webkit-appearance: none;
@@ -48,6 +52,7 @@
         .date {
           .form-control{
             border: none;
+            width: auto;
           }
           .d-flex.flex-row.justify-content-between.align-items-center{
             border: 1px solid #777777;
@@ -80,6 +85,7 @@
   .details-container {
     width: 60vw;
     padding-left: 80px;
+    margin-top: 60px;
     .room-infos{
       display: flex;
       flex-direction: column;

@@ -1,4 +1,3 @@
-<%= render 'shared/three_step_rings' %>
 <div class="room-photo" style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('<%= cl_image_path 'https://res.cloudinary.com/dvuqwvjay/image/upload/v1553613447/eppendorf-hoheluft-hamburg-min.jpg', crop: :fill %>');">
   <p style="color: white; font-size: 26px;">Room show page</p>
   <%= link_to 'Edit this Room', edit_flat_room_path  %>
@@ -29,7 +28,6 @@
         <% else %>
           <p><%= @room.art_of_room %></p>
         <% end %>
-
       </div>
       <div class="room-infos-services">
         <p>Fully Furnished</p>
