@@ -10,32 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_19_103200) do
+ActiveRecord::Schema.define(version: 2019_03_14_081529) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "applicants", force: :cascade do |t|
-    t.string "first_name"
-    t.string "last_name"
-    t.string "email"
-    t.string "phone"
-    t.date "date_of_birth"
-    t.string "job"
-    t.date "move_in_date"
-    t.string "duration_of_stay"
-    t.string "amount_of_people"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "phone_code"
-    t.boolean "invited"
-    t.string "linked_in"
-    t.string "instagram"
-    t.string "twitter"
-    t.string "facebook"
-    t.string "authentity_token_contract"
-    t.date "authentity_token_contract_expiration"
-  end
 
   create_table "bookings", force: :cascade do |t|
     t.bigint "user_id"
@@ -50,9 +28,11 @@ ActiveRecord::Schema.define(version: 2019_03_19_103200) do
     t.string "street"
     t.integer "zipcode"
     t.string "city"
+    t.string "project_name"
+    t.text "description"
+    t.json "pictures"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "project_name"
   end
 
   create_table "partners", force: :cascade do |t|
@@ -67,11 +47,13 @@ ActiveRecord::Schema.define(version: 2019_03_19_103200) do
   end
 
   create_table "rooms", force: :cascade do |t|
-    t.integer "price"
+    t.integer "price", default: [], array: true
     t.string "art_of_room"
-    t.date "availability"
     t.boolean "balcony"
     t.string "room_size"
+    t.text "description"
+    t.integer "deposit", default: [], array: true
+    t.json "pictures"
     t.bigint "flat_id"
     t.bigint "user_id"
     t.datetime "created_at", null: false
@@ -90,12 +72,23 @@ ActiveRecord::Schema.define(version: 2019_03_19_103200) do
     t.datetime "updated_at", null: false
     t.string "first_name"
     t.string "last_name"
+    t.string "phone_code"
     t.string "phone"
     t.date "date_of_birth"
     t.string "job"
     t.date "move_in_date"
     t.string "duration_of_stay"
+    t.string "amount_of_people"
+    t.text "description"
     t.boolean "admin", default: false
+    t.boolean "applicant", default: true
+    t.string "photo"
+    t.string "instagram"
+    t.string "twitter"
+    t.string "facebook"
+    t.string "linked_in"
+    t.string "authentity_token_contract"
+    t.date "authentity_token_contract_expiration"
     t.string "invitation_token"
     t.datetime "invitation_created_at"
     t.datetime "invitation_sent_at"
@@ -104,13 +97,6 @@ ActiveRecord::Schema.define(version: 2019_03_19_103200) do
     t.string "invited_by_type"
     t.bigint "invited_by_id"
     t.integer "invitations_count", default: 0
-    t.string "amount_of_people"
-    t.string "photo"
-    t.string "instagram"
-    t.string "twitter"
-    t.string "facebook"
-    t.string "linked_in"
-    t.text "description"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true
     t.index ["invitations_count"], name: "index_users_on_invitations_count"

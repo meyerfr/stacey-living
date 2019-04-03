@@ -1,4 +1,4 @@
-<% applicant = Applicant.first %>
+<% user = User.first %>
 <div class="room-popup-container">
   <div class="room-popup-description">
     <div class="description-header">
@@ -13,8 +13,8 @@
     </div>
     <div class="description-duration-staying">
       <p>I want to stay</p>
-      <%= simple_form_for applicant, remote: true do |f| %>
-        <%= f.input :duration_of_stay, collection: ["3 MONTHS", "4 MONTHS", "5 MONTHS", "6 MONTHS", "7 MONTHS", "8 MONTHS", "9 MONTHS", "9+ MONTHS"], selected: applicant.duration_of_stay.upcase, class: "duration", label: false %>
+      <%= simple_form_for user, remote: true do |f| %>
+        <%= f.input :duration_of_stay, collection: ["3 MONTHS", "4 MONTHS", "5 MONTHS", "6 MONTHS", "7 MONTHS", "8 MONTHS", "9 MONTHS", "9+ MONTHS"], selected: user.duration_of_stay.upcase, class: "duration", label: false %>
       <% end %>
       <!-- Must change User to Applicant and find Applicant through params -->
     </div>

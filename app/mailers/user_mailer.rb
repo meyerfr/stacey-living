@@ -4,19 +4,19 @@ class UserMailer < ApplicationMailer
   #
   #   en.user_mailer.welcome.subject
   #
-  def welcome(applicant)
-    @applicant = applicant
-    mail(to: @applicant.email, subject: 'Stacey - Co-Living')
+  def welcome(user)
+    @user = user
+    mail(to: @user.email, subject: 'Stacey - Co-Living')
   end
 
-  def new_applicant_info(applicant)
-    @applicant = applicant
+  def new_applicant_info(user)
+    @user = user
     mail(to: 'newapplicant@stacey-living.de', subject: 'New Applicant')
   end
 
-  def contract_mail(applicant, authentity_token_contract)
-    @applicant = applicant
+  def contract_mail(user, authentity_token_contract)
+    @user = user
     @authentity_token_contract = authentity_token_contract
-    mail(to: '@applicant.email', subject: "Stacey - Next Steps to finally move in")
+    mail(to: '@user.email', subject: "Stacey - Next Steps to finally move in")
   end
 end

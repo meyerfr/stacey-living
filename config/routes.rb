@@ -1,24 +1,31 @@
 Rails.application.routes.draw do
-  root to: 'applicants#new'
-  resources :applicants, only: [:index, :new, :create, :update, :show, :destroy]
-  get 'applicants/success', to: 'applicants#success'
-  patch 'applicants/invite', to: 'applicants#invite'
-  get 'applicant/contract', to: 'applicants#contract'
-  # get 'applicants/contract/:id/:authentity_token_contract', to: 'applicants#contract', as: 'contract'
-  post 'applicants/send_invitation_for_contract_pages', to: 'applicants#send_invitation_for_contract_pages'
+  root to: 'users#new'
 
   resources :partners, only: [:index, :show, :new, :create, :destroy]
   get 'partners/success', to: 'partners#success'
 
+  get 'contract/:id/:authentity_token_contract/rooms', to: 'contracts#rooms_show', as: 'contract_rooms_show'
   resources :flats do
     resources :rooms do
-      resources :bookings, only: [:new, :show, :create, :destroy] do
+      get 'contract/:id/:authentity_token_contract/room_detail_show', to: 'contracts#room_detail_show', as: 'contract_rooms_detail_show'
+      get 'contract/:id/:authentity_token_contract/contract_pdf', to: 'contracts#contract_pdf', as: 'contract_pdf'
+      get 'contract/:id/:authentity_token_contract/payment', to: 'contracts#payment', as: 'contract_payment'
+      resources :bookings, only: [:index, :show, :edit, :update, :destroy] do
       end
     end
   end
 
-
-  devise_for :users, :controllers => { invitations: 'users/invitations', sessions: 'users/sessions' }
+  devise_for :users, :controllers => { invitations: 'users/invitations', sessions: 'users/sessions', passwords: 'users/passwords', confirmations: 'users/confirmations' }, :skip => [:registrations]
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-  resources :users, only: [:index, :show, :edit]
+  as :user do
+    get 'users/edit' => 'users/registrations#edit', :as => 'edit_user_registration'
+    put 'users' => 'users/registrations#update', :as => 'user_registration'
+  end
+  resources :users
+  get 'user/applicants', to: 'users#applicants', as: 'applicants_index'
+  get 'user/success', to: 'users#success', as: 'users_success'
+  get 'user/contract', to: 'users#contract'
+  #get 'users/contract/:id/:authentity_token_contract', to: 'users#contract', as: 'contract'
+  post 'users/send_invitation_for_contract_pages', to: 'users#send_invitation_for_contract_pages'
 end
+

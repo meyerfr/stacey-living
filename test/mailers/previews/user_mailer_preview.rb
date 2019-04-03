@@ -3,12 +3,12 @@ class UserMailerPreview < ActionMailer::Preview
 
   # Preview this email at http://localhost:3000/rails/mailers/user_mailer/welcome
   def welcome
-    applicant = Applicant.first
-    UserMailer.welcome(applicant)
+    user = User.first
+    UserMailer.welcome(user)
   end
 
   def new_applicant_info
-    applicant = Applicant.first
-    UserMailer.new_applicant_info(applicant)
+    user = User.first
+    UserMailer.new_applicant_info(user)
   end
 end

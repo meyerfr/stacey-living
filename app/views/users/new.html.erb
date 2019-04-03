@@ -1,4 +1,3 @@
-<%= render 'shared/navbar' %>
 <div class="apply-formpage-container">
   <div class="apply-formpage-introduction">
     <h1 class="apply-form-header">We just have a few questions so we can get to know you a little better.</h1>
@@ -13,14 +12,14 @@
   <% end %>
   <div class="apply-form-wrapper">
     <div class="center-apply-form">
-      <%= simple_form_for(@applicant) do |f| %>
+      <%= simple_form_for(@user) do |f| %>
         <div class="wrap-form">
-          <div class="apply-field"><%= f.input :first_name, class: "apply-field", label: "FIRST NAME", placeholder: "MATTEO", required: false %></div>
-          <div class="apply-field"><%= f.input :last_name, label: "LAST NAME", placeholder: "KREIDLER", required: false %></div>
-          <div class="apply-field"><%= f.input :email, label: "EMAIL", placeholder: "MATTEO@STACEY-LIVING.de", required: false %></div>
+          <div class="apply-field"><%= f.input :first_name, class: "apply-field", label: "FIRST NAME", placeholder: "MAX", required: false %></div>
+          <div class="apply-field"><%= f.input :last_name, label: "LAST NAME", placeholder: "MUSTERMANN", required: false %></div>
+          <div class="apply-field"><%= f.input :email, label: "EMAIL", placeholder: "MAX@GMAIL.DE", required: false %></div>
           <div class="phone-wrapper apply-field">
             <div class="phone-code apply-dropdown"><%= f.input :phone_code, collection: code, selected: "+49", label: "CODE" %></div>
-            <div class="phone"><%= f.input :phone, label: "PHONENUMBER", placeholder: "0186 2857925", required: false %></div>
+            <div class="phone"><%= f.input :phone, label: "PHONENUMBER", placeholder: "186 2857925", required: false %></div>
           </div>
           <div class="apply-field date">
             <%= f.input :date_of_birth, as: :date, start_year: Date.today.year - 70, end_year: Date.today.year - 18, order: [:day, :month, :year], label: "WHEN WERE YOU BORN?", selected: 22.years.ago, required: false, class: 'date-test' %>
@@ -32,9 +31,9 @@
             <%= f.input :move_in_date, as: :date, start_year: Date.today.year, end_year: Date.today.year + 1, order: [:day, :month, :year], label: "WHEN DO YOU WANT TO MOVE IN?", required: false %>
             </div>
           <div class="apply-field apply-dropdown"><%= f.input :duration_of_stay, collection: ["3 Months", "4 Months", "5 Months", "6 Months", "7 Months", "8 Months", "9 Months", "9+ Months"], selected: "6 Months", label: "HOW LONG ARE YOU PLANING TO STAY?", required: false %></div>
-          <div class="apply-field apply-dropdown"><%= f.input :amount_of_people, collection: ["Single", "Couple"], selected: "Single", label: "HOW MANY PEOPLE ARE MOVING IN?",  required: false %></div>
+          <div class="apply-field apply-dropdown"><%= f.input :amount_of_people, collection: ["YES", "NO"], selected: "NO", label: "AS A COUPLE",  required: false %></div>
           <div class="apply-field social-media">
-            <%= f.label :social_media, "ADD YOUR SOCIAL MEDIA LINKS IF YOU LIKE" %>
+            <%= f.label :social_media, "SHARE MORE ABOUT YOU" %>
             <ul class="social-media-links list-unstyled">
               <li id="linked-in-icon"><!-- LinkedIn Profile - changeable -->
                 <i class="fab fa-linkedin" aria-hidden="true"></i>

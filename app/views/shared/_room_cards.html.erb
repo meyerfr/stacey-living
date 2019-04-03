@@ -12,7 +12,7 @@
     </div>
     <div class="room-price">
       <p class="from light-font">from</p>
-      <p class="price"><%= room.price %>€</p>
+      <p class="price"><%= room.price[0] %>€</p>
     </div>
   </div>
   <div class="card-details">
@@ -34,5 +34,6 @@
       <p>Pooltable</p>
     </div>
   </div>
-  <%= link_to 'Explore this Suite', flat_room_path(flat, room), class: 'room-card-link' %>
+  <a href="<%= link %>" class='room-card-link'>Explore this Suite</a>
+  <%#= link_to 'Explore this Suite', link, class: 'room-card-link' %>
 </div>
