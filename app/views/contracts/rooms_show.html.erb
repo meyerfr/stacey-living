@@ -23,7 +23,7 @@
 <div class="room-cards-list-wrapper">
   <div class="room-card-wrapper">
     <% @rooms.each do |room| %>
-      <%= render 'shared/room_cards', flat: @flat, room: room, link: "/flats/#{@flat.id}/rooms/#{room.id}/contract/#{@user.id}/#{@authentity_token_contract}/room_detail_show" %>
+      <%= render 'shared/room_cards', flat: @flat, room: room, link: "/flats/#{@flat.id}/rooms/#{room.id}/user/#{@user.id}/#{@authentity_token_contract}/room_detail_show" %>
     <% end %>
     <%#= render 'shared/rooms_detail_popup', room: Room.first %>
   </div>

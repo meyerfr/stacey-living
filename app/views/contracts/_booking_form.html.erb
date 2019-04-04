@@ -1,6 +1,6 @@
 <div class="booking-form-container">
   <div class="booking-form">
-    <%= simple_form_for user, method: :post, route: flat_room_contract_pdf_path(flat, room, user, authentity_token_contract) do |f| %>
+    <%= simple_form_for user, method: :post, route: contract_pdf_path(contract, authentity_token_contract) do |f| %>
       <%= f.input :duration_of_stay, collection: ["3 Months", "4 Months", "5 Months", "6 Months", "7 Months", "8 Months", "9 Months", "9+ Months"], selected: user.duration_of_stay %>
       <%= f.input :move_in_date, as: :date, start_year: Date.today.year, end_year: Date.today.year + 1, order: [:day, :month, :year], label: "WHEN DO YOU WANT TO MOVE IN?", required: true, value: user.move_in_date, class: 'date' %>
       <%#= f.submit %>
