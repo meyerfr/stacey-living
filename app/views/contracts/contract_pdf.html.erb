@@ -21,8 +21,10 @@
 </div>
 
 <div class="contracts-page-wrapper">
-  <h1>Your Contract for your perfect Co-Living experience</h1>
-  <embed src="/user/<%= @user.id %>/contracts/<%= @contract.id %>/<%= @authentity_token_contract %>.pdf" type="application/pdf">
+  <div class="contract-page-container">
+    <h1>Your Contract for your perfect Co-Living experience</h1>
+    <embed src="/user/<%= @user.id %>/contracts/<%= @contract.id %>/<%= @authentity_token_contract %>.pdf" type="application/pdf">
+  </div>
 </div>
 
 

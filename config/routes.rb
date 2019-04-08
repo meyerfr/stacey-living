@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   resources :partners, only: [:index, :show, :new, :create, :destroy]
   get 'partners/success', to: 'partners#success'
 
-  get 'user/:id/:authentity_token_contract/rooms', to: 'contracts#rooms_show', as: 'contract_rooms_show'
+  get 'user/:user_id/:authentity_token_contract/rooms', to: 'contracts#rooms_show', as: 'contract_rooms_show'
   resources :flats do
     resources :rooms do
       get 'user/:user_id/:authentity_token_contract/room_detail_show', to: 'contracts#room_detail_show', as: 'contract_rooms_detail_show'
@@ -17,7 +17,12 @@ Rails.application.routes.draw do
   get 'user/:user_id/contracts/:id/:authentity_token_contract/payment', to: 'contracts#payment', as: 'contract_payment'
 
 
-  devise_for :users, :controllers => { invitations: 'users/invitations', sessions: 'users/sessions', passwords: 'users/passwords', confirmations: 'users/confirmations' }, :skip => [:registrations]
+  devise_for :users, controllers: {
+    invitations: 'users/invitations',
+    sessions: 'users/sessions',
+    passwords: 'users/passwords',
+    confirmations: 'users/confirmations'
+  }, :skip => [:registrations]
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   as :user do
     get 'users/edit' => 'users/registrations#edit', :as => 'edit_user_registration'

@@ -4,8 +4,11 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  embed{
-    height: 50vh;
-    width: 80%;
+  .contract-page-container{
+    width: 80vw;
+    embed{
+      height: 70vh;
+      width: 800px;
+    }
   }
 }
