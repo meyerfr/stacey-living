@@ -25,7 +25,7 @@
 <div class="details-wrapper">
   <%= render 'booking_form', flat: @flat, room: @room, user: @user, authentity_token_contract: @authentity_token_contract, contract: @contract %>
   <div class="details-container">
-    <div class="room-infos">
+    <div class="room-infos section">
       <div class="room-infos-header">
         <% if @room.balcony? %>
           <h3><%= @room.art_of_room %></h3><h3 class="balcony">(+ Balcony)</h3>
@@ -42,7 +42,7 @@
         <p>1 Person</p>
       </div>
     </div>
-    <div class="about-this-room">
+    <div class="about-this-room section">
       <div class="header">
         <h3>About the room</h3>
       </div>
@@ -55,7 +55,7 @@
         <%= image_tag 'https://res.cloudinary.com/dvuqwvjay/image/upload/v1554202321/floorplan_placeholder.png' %>
       </div>
     </div>
-    <div class="about-this-project">
+    <div class="about-this-project section">
       <div class="header">
         <h3>About the STACEY <%= @flat.project_name %> location</h3>
       </div>
@@ -67,7 +67,7 @@
         <%= image_tag 'https://res.cloudinary.com/dvuqwvjay/image/upload/v1553613447/eppendorf-hoheluft-hamburg-min.jpg' %>
       </div>
     </div>
-    <div class="about-co-living">
+    <div class="about-co-living section">
       <div class="header">
         <h3>About Co-Living</h3>
       </div>
