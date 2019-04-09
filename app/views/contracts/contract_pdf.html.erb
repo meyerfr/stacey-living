@@ -23,6 +23,7 @@
 <div class="contracts-page-wrapper">
   <div class="contract-page-container">
     <h1>Your Contract for your perfect Co-Living experience</h1>
+    <%#= render 'pdf' %>
     <embed src="/user/<%= @user.id %>/contracts/<%= @contract.id %>/<%= @authentity_token_contract %>.pdf" type="application/pdf">
   </div>
 </div>

@@ -23,6 +23,7 @@ class ContractsController < ApplicationController
     @booking = Booking.find(@contract.booking_id)
     @user = User.find(@booking.user_id)
     @room = Room.find(@booking.room_id)
+    @flat = Flat.find(@room.flat_id)
     @authentity_token_contract = params[:authentity_token_contract]
 
     respond_to do |format|
