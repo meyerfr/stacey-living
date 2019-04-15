@@ -1,0 +1,89 @@
+.signature-pad-wrapper {
+  width: 840px;
+  border: 1px solid #838383;
+  background: white;
+  .signature-pad {
+    .signature-navbar {
+      width: 100%;
+      background: #E8E8E8;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      img{
+        width: 70px;
+        height: 70px;
+      }
+      img:last-child{
+        margin-left: 50px;
+      }
+    }
+    .signature-pad-body {
+      padding: 20px 10px 0 10px;
+      position: relative;
+      canvas {
+        width: 100%;
+        height: 230px;
+        border: 1px solid #E8E8E8;
+      }
+      .line{
+        border-bottom: 1px solid black;
+        position: absolute;
+        top: 189px;
+        width: 817px;
+      }
+      .change{
+        color: blue;
+        position: absolute;
+        bottom: 28px;
+      }
+      .clear {
+        right: 35px;
+      }
+      .undo {
+        right: 110px;
+      }
+      .sign-shield-arrow {
+        position: absolute;
+        top: 146px;
+        left: 45px;
+        border-top: 43px solid red;
+        border-bottom: 22px solid transparent;
+        border-right: 22px solid transparent;
+        border-left: 22px solid transparent;
+      }
+      .sign-shield{
+        background: red;
+        width: 125px;
+        height: 43.5px;
+        position: absolute;
+        top: 62px;
+        left: 5px;
+        display: flex;
+        transform: rotate(90deg);
+        justify-content: center;
+        color: white;
+        font-weight: bolder;
+        align-items: center;
+      }
+    }
+    .signature-pad-actions{
+      display: flex;
+      justify-content: flex-end;
+      margin: 10px;
+      font-weight: bolder;
+      .button {
+        width: 130px;
+        height: 36px;
+      }
+      .save{
+        color: white;
+        background: #0007B9;
+        margin-left: 20px;
+      }
+      .signature-pad-close {
+        background: #C4C4C4;
+      }
+    }
+  }
+}
+

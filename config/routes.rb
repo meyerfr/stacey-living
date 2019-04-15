@@ -13,6 +13,9 @@ Rails.application.routes.draw do
 
   resources :bookings, only: [:index, :show, :edit, :update, :destroy]
 
+  # resources :contracts, only: [:new, :create] do
+
+  # end
   get 'user/:user_id/contracts/:id/:authentity_token_contract', to: 'contracts#contract_pdf', as: 'contract_pdf'
   get 'user/:user_id/contracts/:id/:authentity_token_contract/payment', to: 'contracts#payment', as: 'contract_payment'
 
