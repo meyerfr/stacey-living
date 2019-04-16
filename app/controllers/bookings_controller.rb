@@ -1,20 +1,16 @@
 class BookingsController < ApplicationController
-  before_action :authenticate_user_for_bookings, only: [:create]
+  before_action :authenticate_user_for_contract_booking_pages!, only: [:new]
+  before_action :authenticate_user_for_contract_pages!, only: [:create]
   before_action :authenticate_admin!, only: [:index, :destroy]
-  skip_before_action :authenticate_user!, only: [:new, :show, :create, :update, :success, :contract]
-
-  # def new
-  #   @booking = Booking.new
-  #   @rooms = Room.all
-  #   @user = User.first
-  #   @flat = Flat.first
-  # end
+  skip_before_action :authenticate_user!, only: [:show, :create, :update, :success, :contract]
 
   def create
     @booking = Booking.new(booking_params)
+    @user = User.find(@booking.user_id)
+    @authentity_token_contract = params[:authentity_token_contract]
     if @booking.save
       # redirect to 2nd Contract Page (PDF page)
-      redirect_to bookings_path
+      redirect_to booking_contract_new_path(@booking, @authentity_token_contract)
     else
       render :new
     end
@@ -53,19 +49,6 @@ class BookingsController < ApplicationController
   private
 
   def booking_params
-    params.require(:booking).permit(:user, :room)
-  end
-
-  def authenticate_user_for_bookings
-    user = User.find(params[:id])
-    if user.authentity_token_contract == params[:authentity_token_contract]
-      if !user.authentity_token_contract_expiration.future?
-        flash[:alert] = "FUCK YOU"
-        redirect_to new_user_path
-      end
-    else
-      flash[:alert] = "Your not allowed to access this page"
-      redirect_to new_user_path
-    end
+    params.require(:booking).permit(:user_id, :room_id)
   end
 end

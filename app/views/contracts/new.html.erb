@@ -21,9 +21,13 @@
 </div>
 <div class="contracts-page-wrapper">
   <div class="contract-page-container">
-    <h1>Your Contract for your perfect Co-Living experience</h1>
+    <h1>Rental Contract</h1>
     <%#= render 'pdf' %>
-    <embed src="/user/<%= @user.id %>/contracts/<%= @contract.id %>/<%= @authentity_token_contract %>.pdf" type="application/pdf">
+    <embed src="/bookings/<%= @booking.id %>/contracts/new/<%= @authentity_token_contract %>.pdf" type="application/pdf">
+    <div class="button-container">
+      <div class="button sign" id="sign-button">Sign</div>
+      <div class="button next-step">Next</div>
+    </div>
   </div>
 </div>
 <button class="btn btn-danger">Sign</button>
