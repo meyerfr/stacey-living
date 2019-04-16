@@ -1,14 +1,20 @@
 class RoomsController < ApplicationController
+  before_action :authenticate_user_for_contract_pages!, only: [:index, :show]
+  skip_before_action :authenticate_user!, only: [:index, :show]
+
   def index
+    @user = User.find(params[:user_id])
     @flat = Flat.find(params[:flat_id])
     @rooms = Room.all.where(flat_id: @flat.id)
+    @authentity_token_contract = params[:authentity_token_contract]
   end
 
   def show
-    @user = User.first
     @flat = Flat.find(params[:flat_id])
-    @room = Room.find(params[:id])
-    @booking = Booking.new
+    @room = Room.find(params[:room_id])
+    @user = User.find(params[:user_id])
+    @booking = Booking.new(user_id: @user.id, room_id: @room.id)
+    @authentity_token_contract = params[:authentity_token_contract]
   end
 
   def new

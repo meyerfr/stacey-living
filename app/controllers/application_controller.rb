@@ -9,6 +9,32 @@ class ApplicationController < ActionController::Base
     redirect_back(fallback_location: root_path)
   end
 
+  def authenticate_user_for_contract_pages!
+    user = User.find(params[:user_id])
+    if user.authentity_token_contract == params[:authentity_token_contract]
+      if !user.authentity_token_contract_expiration.future?
+        flash[:alert] = "Please SignIn first"
+        redirect_to new_user_path
+      end
+    else
+      flash[:alert] = "Your not allowed to access this page"
+      redirect_to new_user_path
+    end
+  end
+
+  def authenticate_user_for_contract_booking_pages!
+    user = User.find(Booking.find(params[:booking_id]).user_id)
+    if user.authentity_token_contract == params[:authentity_token_contract]
+      if !user.authentity_token_contract_expiration.future?
+        flash[:alert] = "Please SignIn first"
+        redirect_to new_user_path
+      end
+    else
+      flash[:alert] = "Your not allowed to access this page"
+      redirect_to new_user_path
+    end
+  end
+
   protected
 
   def configure_permitted_parameters

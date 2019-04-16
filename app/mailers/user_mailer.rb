@@ -14,8 +14,9 @@ class UserMailer < ApplicationMailer
     mail(to: 'newapplicant@stacey-living.de', subject: 'New Applicant')
   end
 
-  def contract_mail(user, authentity_token_contract)
+  def contract_mail(user, flat, authentity_token_contract)
     @user = user
+    @flat = flat
     @authentity_token_contract = authentity_token_contract
     mail(to: '@user.email', subject: "Stacey - Next Steps to finally move in")
   end

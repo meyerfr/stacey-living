@@ -1,0 +1,43 @@
+.contracts-page-wrapper{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: #000000a3;
+  height: 100vh;
+  .contract-page-container{
+    width: 800px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    embed{
+      height: 500px;
+      width: 800px;
+    }
+    .button-container {
+      width: 100%;
+      display: flex;
+      justify-content: flex-end;
+      padding-top: 10px;
+      .button {
+        bottom: -40px;
+        width: 100px;
+        border: 1px solid #000;
+        background-color: white;
+        -webkit-transition: all 0.5s ease;
+        transition: all 0.5s ease;
+        color: #000;
+        text-align: center;
+        margin: 5px;
+      }
+      .button:hover{
+        background-color: #000;
+        color: #fff;
+      }
+    }
+  }
+}
+
+
