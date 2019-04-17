@@ -1,6 +1,19 @@
 Rails.application.routes.draw do
   root to: 'users#new'
 
+  devise_for :users, controllers: {
+    invitations: 'users/invitations',
+    sessions: 'users/sessions',
+    passwords: 'users/passwords',
+    confirmations: 'users/confirmations'
+  }, :skip => [:registrations]
+
+  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  as :user do
+    get 'users/edit' => 'users/registrations#edit', :as => 'edit_user_registration'
+    put 'users' => 'users/registrations#update', :as => 'user_registration'
+  end
+
   resources :partners, only: [:index, :show, :new, :create, :destroy]
   get 'partners/success', to: 'partners#success'
 
@@ -32,18 +45,6 @@ Rails.application.routes.draw do
     post 'bookings/:authentity_token_contract', to: 'bookings#create', as: 'bookings_create'
   end
 
-  devise_for :users, controllers: {
-    invitations: 'users/invitations',
-    sessions: 'users/sessions',
-    passwords: 'users/passwords',
-    confirmations: 'users/confirmations'
-  }, :skip => [:registrations]
-
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-  as :user do
-    get 'users/edit' => 'users/registrations#edit', :as => 'edit_user_registration'
-    put 'users' => 'users/registrations#update', :as => 'user_registration'
-  end
 
 
 
