@@ -1,2 +1,0 @@
-class Signature < ApplicationRecord
-end

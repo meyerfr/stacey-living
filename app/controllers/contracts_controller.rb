@@ -27,8 +27,11 @@ class ContractsController < ApplicationController
 
   def create
     @contract = Contract.new(contract_params)
+    @booking = params[:booking_id]
+    @authentity_token_contract = params[:authentity_token_contract]
     if @contract.save!
-      redirect_to contract_payment_path
+      raise
+      redirect_to booking_contract_payment_path(@booking, @contract, @authentity_token_contract)
     else
       render :new
     end
@@ -40,6 +43,6 @@ class ContractsController < ApplicationController
   private
 
   def contract_params
-    params.require(:contract).permit(:booking_id)
+    params.require(:contract).permit(:booking_id, :signature, :signed_on)
   end
 end

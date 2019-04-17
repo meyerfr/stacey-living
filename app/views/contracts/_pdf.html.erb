@@ -29,6 +29,10 @@
 
 <div class="signature-field">
   <p>Signature</p>
+  <% if @contract.signature.present? %>
+    <p><%= image_tag @contract.signature %></p>
+    <p>Terms and Conditions accepted on <%= @contract.signed_on %></p>
+  <% end %>
   <div class="line"></div>
 </div>
 

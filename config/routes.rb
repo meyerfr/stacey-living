@@ -8,11 +8,18 @@ Rails.application.routes.draw do
     # ContractPage 3 (Contract#new and Contract#create)
     get 'contracts/new/:authentity_token_contract', to: 'contracts#new', as: 'contract_new'
     post 'contracts/:authentity_token_contract', to: 'contracts#create', as: 'contract_create'
+    get 'contracts/:contract_id/:authentity_token_contract', to: 'contracts#show', as: 'contract'
+    # ContractPage 4 (Payment)
+    get 'contracts/:contract_id/:authentity_token_contract/payment', to: 'contracts#payment', as: 'contract_payment'
   end
 
   resources :flats do
     resources :rooms, only: [:new, :create, :edit, :update, :destroy]
   end
+
+  resources :signatures, only: [:new, :create]
+  # get 'contracts/:contracts_id/signatures/new', to: 'signatures#new', as: 'new_signature'
+  # post 'contracts/:contracts_id/signatures', to: 'signatures#create', as:'create_signature'
 
   resources :users do
     # ContractPage 1 (Rooms#index)
@@ -37,7 +44,6 @@ Rails.application.routes.draw do
   end
 
 
-  get 'user/:user_id/contracts/:id/:authentity_token_contract/payment', to: 'contracts#payment', as: 'contract_payment'
 
   get 'user/applicants', to: 'users#applicants', as: 'applicants_index'
   get 'user/success', to: 'users#success', as: 'users_success'

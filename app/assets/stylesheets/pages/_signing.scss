@@ -1,28 +1,65 @@
 .signature-pad-wrapper {
+  position: absolute;
+  top: calc(50vh - 188px);
+  left: calc(50vw - 419px);
   width: 840px;
   border: 1px solid #838383;
   background: white;
   .signature-pad {
     .signature-navbar {
       width: 100%;
+      height: 52px;
       background: #E8E8E8;
       display: flex;
-      align-items: center;
       justify-content: center;
-      img{
-        width: 70px;
-        height: 70px;
-      }
-      img:last-child{
-        margin-left: 50px;
+      color: black;
+      .signing-option-container {
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+        width: 165px;
+        .signing-option{
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          cursor: pointer;
+          p{
+            margin: 0;
+            // font-family: 'Mr De Haviland', cursive;
+          }
+          i{
+            font-size: 25px;
+          }
+          .line{
+            border-bottom: 2px solid blue;
+            width: 100%;
+          }
+        }
+        .active{
+          color: blue;
+        }
       }
     }
     .signature-pad-body {
       padding: 20px 10px 0 10px;
       position: relative;
+      width: 838px;
+      height: 257px;
+      #signature-type-text{
+        height: 100%;
+        border: 1px solid #E8E8E8;
+        width: 100%;
+        text-align: center;
+        font-size: 100px;
+        font-family: 'Mr De Haviland', cursive;
+      }
+      #signature-type-text:focus{
+        outline: none;
+      }
       canvas {
         width: 100%;
-        height: 230px;
+        height: 100%;
         border: 1px solid #E8E8E8;
       }
       .line{

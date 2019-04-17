@@ -25,13 +25,24 @@
 //   }
 // });
 
+var signingOptionKeyboard = document.getElementById('keyboard');
+var signingOptionDraw = document.getElementById('draw');
+var signingTextInput = document.getElementById("signature-type-text");
+var pdf = document.getElementById('pdf');
+
+var contractsPageWrapper = document.querySelector(".contracts-page-wrapper");
+var signaturePadInput = document.querySelector(".signature_pad_input");
+var signButton = document.getElementById("sign-button");
+var signaturePadWrapper = document.querySelector(".signature-pad-wrapper");
+var nextStep = document.querySelector(".next-step");
+var closeButton = document.querySelector("[data-action=close]")
 var wrapper = document.getElementById("signature-pad");
 var clearButton = wrapper.querySelector("[data-action=clear]");
-var changeColorButton = wrapper.querySelector("[data-action=change-color]");
+// var changeColorButton = wrapper.querySelector("[data-action=change-color]");
 var undoButton = wrapper.querySelector("[data-action=undo]");
 var savePNGButton = wrapper.querySelector("[data-action=save-png]");
-var saveJPGButton = wrapper.querySelector("[data-action=save-jpg]");
-var saveSVGButton = wrapper.querySelector("[data-action=save-svg]");
+// var saveJPGButton = wrapper.querySelector("[data-action=save-jpg]");
+// var saveSVGButton = wrapper.querySelector("[data-action=save-svg]");
 var canvas = wrapper.querySelector("canvas");
 var signaturePad = new SignaturePad(canvas, {
   // It's Necessary to use an opaque color when saving image as JPEG;
@@ -102,6 +113,51 @@ function dataURLToBlob(dataURL) {
   return new Blob([uInt8Array], { type: contentType });
 }
 
+function refreshPDF(innerHTML){
+  var embed = pdf.querySelector("embed");
+  pdf.removeChild(embed);
+  pdf.insertAdjacentHTML('afterbegin', innerHTML);
+
+}
+
+signingOptionKeyboard.addEventListener("click", function (event) {
+  if (!signingOptionKeyboard.classList.contains("active")) {
+    signingOptionDraw.classList.remove("active");
+    signingOptionDraw.querySelector(".line").classList.add("hidden");
+    canvas.classList.add("hidden");
+
+    signingOptionKeyboard.classList.add("active");
+    signingOptionKeyboard.querySelector(".line").classList.remove("hidden");
+    signingTextInput.classList.remove("hidden");
+  }
+});
+
+signingOptionDraw.addEventListener("click", function (event) {
+  if (!signingOptionDraw.classList.contains("active")) {
+    signingOptionKeyboard.classList.remove("active");
+    signingOptionKeyboard.querySelector(".line").classList.add("hidden");
+    signingTextInput.classList.add("hidden");
+
+    signingOptionDraw.classList.add("active");
+    signingOptionDraw.querySelector(".line").classList.remove("hidden");
+    canvas.classList.remove("hidden");
+    if (canvas.width === 0) {
+      resizeCanvas();
+    }
+  }
+});
+
+signButton.addEventListener("click", function (event) {
+  signaturePadWrapper.classList.remove("hidden");
+  contractsPageWrapper.classList.add("opacity");
+  refreshPDF('<%= j render "pdf_embed", booking: @booking, authentity_token_contract: @authentity_token_contract %>');
+});
+
+closeButton.addEventListener("click", function (event) {
+  signaturePadWrapper.classList.add("hidden");
+  contractsPageWrapper.classList.remove("opacity");
+});
+
 clearButton.addEventListener("click", function (event) {
   signaturePad.clear();
 });
@@ -115,38 +171,53 @@ undoButton.addEventListener("click", function (event) {
   }
 });
 
-changeColorButton.addEventListener("click", function (event) {
-  var r = Math.round(Math.random() * 255);
-  var g = Math.round(Math.random() * 255);
-  var b = Math.round(Math.random() * 255);
-  var color = "rgb(" + r + "," + g + "," + b +")";
+// changeColorButton.addEventListener("click", function (event) {
+//   var r = Math.round(Math.random() * 255);
+//   var g = Math.round(Math.random() * 255);
+//   var b = Math.round(Math.random() * 255);
+//   var color = "rgb(" + r + "," + g + "," + b +")";
 
-  signaturePad.penColor = color;
-});
+//   signaturePad.penColor = color;
+// });
 
 savePNGButton.addEventListener("click", function (event) {
-  if (signaturePad.isEmpty()) {
-    alert("Please provide a signature first.");
-  } else {
-    var dataURL = signaturePad.toDataURL();
-    download(dataURL, "signature.png");
+  if (!signingOptionKeyboard.classList.contains("active")) { //so draw
+    if (signaturePad.isEmpty()) {
+      alert("Please provide a signature first.");
+    } else {
+      contractsPageWrapper.classList.remove("opacity");
+      signaturePadWrapper.classList.add("hidden");
+      nextStep.classList.remove("hidden");
+      signButton.classList.add("change-position");
+      signaturePadInput.value = signaturePad.toDataURL();
+    }
+  } else { //keyboard
+    if (signingTextInput.value === "") {
+      alert("Please provide a signature first.");
+    } else {
+      contractsPageWrapper.classList.remove("opacity");
+      signaturePadWrapper.classList.add("hidden");
+      nextStep.classList.remove("hidden");
+      signButton.classList.add("change-position");
+      signaturePadInput.value = signingTextInput.value;
+    }
   }
 });
 
-saveJPGButton.addEventListener("click", function (event) {
-  if (signaturePad.isEmpty()) {
-    alert("Please provide a signature first.");
-  } else {
-    var dataURL = signaturePad.toDataURL("image/jpeg");
-    download(dataURL, "signature.jpg");
-  }
-});
+// saveJPGButton.addEventListener("click", function (event) {
+//   if (signaturePad.isEmpty()) {
+//     alert("Please provide a signature first.");
+//   } else {
+//     var dataURL = signaturePad.toDataURL("image/jpeg");
+//     download(dataURL, "signature.jpg");
+//   }
+// });
 
-saveSVGButton.addEventListener("click", function (event) {
-  if (signaturePad.isEmpty()) {
-    alert("Please provide a signature first.");
-  } else {
-    var dataURL = signaturePad.toDataURL('image/svg+xml');
-    download(dataURL, "signature.svg");
-  }
-});
+// saveSVGButton.addEventListener("click", function (event) {
+//   if (signaturePad.isEmpty()) {
+//     alert("Please provide a signature first.");
+//   } else {
+//     var dataURL = signaturePad.toDataURL('image/svg+xml');
+//     download(dataURL, "signature.svg");
+//   }
+// });
