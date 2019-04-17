@@ -55,10 +55,11 @@ class UsersController < ApplicationController
 
   def send_invitation_for_contract_pages
     @user = User.find(params[:user])
+    @flat = Flat.first
     @authentity_token_contract = Devise.friendly_token
     @expiration_date = Date.today + 1.week
     @user.update!(authentity_token_contract: @authentity_token_contract, authentity_token_contract_expiration: @expiration_date)
-    UserMailer.contract_mail(@user, @authentity_token_contract).deliver_now
+    UserMailer.contract_mail(@user, @flat, @authentity_token_contract).deliver_now
     redirect_to applicants_index_path
   end
 

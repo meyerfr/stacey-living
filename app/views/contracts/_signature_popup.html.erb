@@ -1,0 +1,27 @@
+<div class="signature-pad-wrapper">
+  <div id="signature-pad" class="signature-pad">
+    <div class="signature-navbar">
+      <%= image_tag 'keyboard.png' %>
+      <%= image_tag 'hand-writing.png' %>
+    </div>
+  <!--   <div class="signature-text">
+      <%#= simple_form_for(@signature) do |f| %>
+        <%#= f.input :signature %>
+      <%# end %>
+    </div> -->
+    <div class="signature-pad-body">
+      <canvas></canvas>
+      <div class="line"></div>
+      <div type="button" class="clear change" data-action="clear">Clear</div>
+      <div type="button" class="undo change" data-action="undo">Undo</div>
+      <div class="sign-shield">Sign</div>
+      <div class="sign-shield-arrow"></div>
+    </div>
+    <div class="signature-pad-footer">
+      <div class="signature-pad-actions">
+        <button type="button" class="button signature-pad-close" data-action="close">Close</button>
+        <button type="button" class="button save" data-action="save-png">Sign</button>
+      </div>
+    </div>
+  </div>
+</div>
