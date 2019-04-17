@@ -37,13 +37,13 @@ var signaturePadWrapper = document.querySelector(".signature-pad-wrapper");
 var nextStep = document.querySelector(".next-step");
 var closeButton = document.querySelector("[data-action=close]")
 var wrapper = document.getElementById("signature-pad");
-var clearButton = wrapper.querySelector("[data-action=clear]");
+var clearButton = document.querySelector("[data-action=clear]");
 // var changeColorButton = wrapper.querySelector("[data-action=change-color]");
-var undoButton = wrapper.querySelector("[data-action=undo]");
+var undoButton = document.querySelector("[data-action=undo]");
 var saveSignatureButton = document.querySelector(".save-signature");
 // var saveJPGButton = wrapper.querySelector("[data-action=save-jpg]");
 // var saveSVGButton = wrapper.querySelector("[data-action=save-svg]");
-var canvas = wrapper.querySelector("canvas");
+var canvas = document.querySelector("canvas");
 var signaturePad = new SignaturePad(canvas, {
   // It's Necessary to use an opaque color when saving image as JPEG;
   // this option can be omitted if only saving as PNG or SVG
