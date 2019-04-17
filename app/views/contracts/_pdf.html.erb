@@ -30,7 +30,11 @@
 <div class="signature-field">
   <p>Signature</p>
   <% if @contract.signature.present? %>
-    <p><%= image_tag @contract.signature %></p>
+    <% if @contract.signature[0..5] == "data:i" %>
+      <p style="width: 80px; height: 80px;"><%= image_tag @contract.signature, style: 'width: 150px; height: 80px;' %></p>
+    <% else %>
+      <p style="font-family: 'Mr De Haviland', cursive; font-size: 28px;">@contract.signature</p>
+    <% end %>
     <p>Terms and Conditions accepted on <%= @contract.signed_on %></p>
   <% end %>
   <div class="line"></div>

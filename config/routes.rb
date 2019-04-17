@@ -8,10 +8,12 @@ Rails.application.routes.draw do
     # ContractPage 3 (Contract#new and Contract#create)
     get 'contracts/new/:authentity_token_contract', to: 'contracts#new', as: 'contract_new'
     post 'contracts/:authentity_token_contract', to: 'contracts#create', as: 'contract_create'
-    get 'contracts/:contract_id/:authentity_token_contract', to: 'contracts#show', as: 'contract'
     # ContractPage 4 (Payment)
     get 'contracts/:contract_id/:authentity_token_contract/payment', to: 'contracts#payment', as: 'contract_payment'
   end
+
+  get 'contracts/:contract_id/:authentity_token_contract', to: 'contracts#show', as: 'contract'
+  patch 'contracts/:contract_id/:authentity_token_contract', to: 'contracts#update', as: 'contract_update'
 
   resources :flats do
     resources :rooms, only: [:new, :create, :edit, :update, :destroy]

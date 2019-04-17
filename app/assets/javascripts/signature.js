@@ -40,7 +40,7 @@ var wrapper = document.getElementById("signature-pad");
 var clearButton = wrapper.querySelector("[data-action=clear]");
 // var changeColorButton = wrapper.querySelector("[data-action=change-color]");
 var undoButton = wrapper.querySelector("[data-action=undo]");
-var savePNGButton = wrapper.querySelector("[data-action=save-png]");
+var saveSignatureButton = document.querySelector(".save-signature");
 // var saveJPGButton = wrapper.querySelector("[data-action=save-jpg]");
 // var saveSVGButton = wrapper.querySelector("[data-action=save-svg]");
 var canvas = wrapper.querySelector("canvas");
@@ -113,12 +113,12 @@ function dataURLToBlob(dataURL) {
   return new Blob([uInt8Array], { type: contentType });
 }
 
-function refreshPDF(innerHTML){
-  var embed = pdf.querySelector("embed");
-  pdf.removeChild(embed);
-  pdf.insertAdjacentHTML('afterbegin', innerHTML);
+// function refreshPDF(innerHTML){
+//   var embed = pdf.querySelector("embed");
+//   pdf.removeChild(embed);
+//   pdf.insertAdjacentHTML('afterbegin', innerHTML);
 
-}
+// }
 
 signingOptionKeyboard.addEventListener("click", function (event) {
   if (!signingOptionKeyboard.classList.contains("active")) {
@@ -150,7 +150,7 @@ signingOptionDraw.addEventListener("click", function (event) {
 signButton.addEventListener("click", function (event) {
   signaturePadWrapper.classList.remove("hidden");
   contractsPageWrapper.classList.add("opacity");
-  refreshPDF('<%= j render "pdf_embed", booking: @booking, authentity_token_contract: @authentity_token_contract %>');
+  // refreshPDF('<%= j render "pdf_embed", booking: @booking, authentity_token_contract: @authentity_token_contract %>');
 });
 
 closeButton.addEventListener("click", function (event) {
@@ -180,15 +180,15 @@ undoButton.addEventListener("click", function (event) {
 //   signaturePad.penColor = color;
 // });
 
-savePNGButton.addEventListener("click", function (event) {
+saveSignatureButton.addEventListener("click", function (event) {
   if (!signingOptionKeyboard.classList.contains("active")) { //so draw
     if (signaturePad.isEmpty()) {
       alert("Please provide a signature first.");
     } else {
       contractsPageWrapper.classList.remove("opacity");
       signaturePadWrapper.classList.add("hidden");
-      nextStep.classList.remove("hidden");
-      signButton.classList.add("change-position");
+      // nextStep.classList.remove("hidden");
+      // signButton.classList.add("change-position");
       signaturePadInput.value = signaturePad.toDataURL();
     }
   } else { //keyboard
@@ -197,8 +197,8 @@ savePNGButton.addEventListener("click", function (event) {
     } else {
       contractsPageWrapper.classList.remove("opacity");
       signaturePadWrapper.classList.add("hidden");
-      nextStep.classList.remove("hidden");
-      signButton.classList.add("change-position");
+      // nextStep.classList.remove("hidden");
+      // signButton.classList.add("change-position");
       signaturePadInput.value = signingTextInput.value;
     }
   }

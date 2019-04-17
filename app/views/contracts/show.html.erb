@@ -23,14 +23,14 @@
   <div class="contract-page-container">
     <h1>Rental Contract</h1>
     <div id="pdf">
-      <%= render 'pdf_embed', booking: @booking, authentity_token_contract: @authentity_token_contract %>
-      <!-- <embed src="/bookings/<%= @booking.id %>/contracts/new/<%= @authentity_token_contract %>.pdf" type="application/pdf"> -->
+      <%#= render 'pdf_embed', booking: @booking, authentity_token_contract: @authentity_token_contract %>
+      <embed src="/contracts/<%= @contract.id %>/<%= @authentity_token_contract %>.pdf" type="application/pdf">
     </div>
     <div class="button sign" id="sign-button">Sign</div>
   </div>
 </div>
 
-<%= simple_form_for @contract, method: :post, url: booking_contract_create_path(@booking, @authentity_token_contract) do |f| %>
+<%= simple_form_for @contract, method: :patch, url: contract_update_path(@contract, @authentity_token_contract) do |f| %>
   <div class="signature-pad-wrapper hidden">
     <div id="signature-pad" class="signature-pad">
       <div class="signature-navbar">
@@ -49,6 +49,7 @@
       </div>
       <div class="signature-text">
         <%= f.input_field :signature, as: :hidden, class: 'signature_pad_input' %>
+        <%= f.input_field :signed_on, as: :hidden, value: Date.today %>
         <div class="signature-pad-body">
           <canvas class="hidden"></canvas>
           <input type="text" id="signature-type-text">
@@ -61,14 +62,12 @@
         <div class="signature-pad-footer">
           <div class="signature-pad-actions">
             <button type="button" class="button signature-pad-close" data-action="close">Close</button>
-            <button type="button" class="button signature-pad-close" data-action="save-png">Sign</button>
-            <%#= f.button :submit, 'Sign', class: 'btn btn-success save' %>
+            <!-- <button type="button" class="button signature-pad-close" data-action="save-png">Sign</button> -->
+            <%= f.button :submit, 'Sign', class: 'btn btn-success save save-signature' %>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <%= f.input_field :signed_on, as: :hidden, value: Date.today %>
-  <%= f.input_field :booking_id, as: :hidden, value: @booking.id %>
-  <%= f.button :submit, 'Next', class: 'button next-step hidden' %>
+  <%= link_to 'Next', root_path, class: 'button next-step hidden' %>
 <% end %>
