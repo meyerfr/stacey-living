@@ -26,7 +26,9 @@
       <%#= render 'pdf_embed', booking: @booking, authentity_token_contract: @authentity_token_contract %>
       <embed src="/bookings/<%= @booking.id %>/contracts/new/<%= @authentity_token_contract %>.pdf" type="application/pdf">
     </div>
-    <div class="button sign" id="sign-button">Sign</div>
+    <div class="button-container">
+      <div class="button sign" id="sign-button">Sign</div>
+    </div>
   </div>
 </div>
 

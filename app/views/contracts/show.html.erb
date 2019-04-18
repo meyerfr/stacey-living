@@ -26,7 +26,10 @@
       <%#= render 'pdf_embed', booking: @booking, authentity_token_contract: @authentity_token_contract %>
       <embed src="/contracts/<%= @contract.id %>/<%= @authentity_token_contract %>.pdf" type="application/pdf">
     </div>
-    <div class="button sign" id="sign-button">Sign</div>
+    <div class="button-container">
+      <div class="button sign change-position" id="sign-button">Sign</div>
+      <%= link_to 'Next', root_path, class: 'button next-step' %>
+    </div>
   </div>
 </div>
 
@@ -69,5 +72,4 @@
       </div>
     </div>
   </div>
-  <%= link_to 'Next', root_path, class: 'button next-step hidden' %>
 <% end %>
