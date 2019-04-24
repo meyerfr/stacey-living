@@ -18,9 +18,6 @@ Rails.application.routes.draw do
   get 'partners/success', to: 'partners#success'
 
   resources :bookings, only: [:index, :show, :edit, :update, :destroy] do
-    # ContractPage 3 (Contract#new and Contract#create)
-    get 'contracts/new/:authentity_token_contract', to: 'contracts#new', as: 'contract_new'
-    post 'contracts/:authentity_token_contract', to: 'contracts#create', as: 'contract_create'
     # ContractPage 4 (Payment)
     get 'contracts/:contract_id/:authentity_token_contract/payment', to: 'contracts#payment', as: 'contract_payment'
   end
@@ -41,10 +38,14 @@ Rails.application.routes.draw do
     get 'flats/:flat_id/rooms/:authentity_token_contract', to: 'rooms#index', as: 'rooms'
     # ContractPage 2 (Rooms#show)
     get 'flats/:flat_id/rooms/:room_id/:authentity_token_contract', to: 'rooms#show', as: 'room'
+    # ContractPage 3 (Contract#new and Contract#create)
+    get 'flats/:flat_id/rooms/:room_id/contracts/new/:authentity_token_contract', to: 'contracts#new', as: 'contract_new'
+    post 'flats/:flat_id/rooms/:room_id/contracts/:authentity_token_contract', to: 'contracts#create', as: 'contract_create'
 
     post 'bookings/:authentity_token_contract', to: 'bookings#create', as: 'bookings_create'
   end
 
+  patch 'users/:user_id/flats/:flat_id/rooms/:room_id/:authentity_token_contract', to: 'users#updateapplicant', as: 'update_applicant'
 
 
 

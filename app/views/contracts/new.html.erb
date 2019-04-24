@@ -24,7 +24,7 @@
     <h1>Rental Contract</h1>
     <div id="pdf">
       <%#= render 'pdf_embed', booking: @booking, authentity_token_contract: @authentity_token_contract %>
-      <embed src="/bookings/<%= @booking.id %>/contracts/new/<%= @authentity_token_contract %>.pdf" type="application/pdf">
+      <embed src="/users/<%= @user.id %>/flats/<%= @flat.id %>/rooms/<%= @room.id %>/contracts/new/<%= @authentity_token_contract %>.pdf" type="application/pdf">
     </div>
     <div class="button-container">
       <div class="button sign" id="sign-button">Sign</div>
@@ -32,7 +32,7 @@
   </div>
 </div>
 
-<%= simple_form_for @contract, method: :post, url: booking_contract_create_path(@booking, @authentity_token_contract) do |f| %>
+<%= simple_form_for @contract, method: :post, url: user_contract_create_path(@user, @flat, @room, @authentity_token_contract) do |f| %>
   <div class="signature-pad-wrapper hidden">
     <div id="signature-pad" class="signature-pad">
       <div class="signature-navbar">
@@ -57,8 +57,8 @@
           <canvas class="hidden"></canvas>
           <input type="text" id="signature-type-text">
           <div class="line"></div>
-          <div type="button" class="clear change" data-action="clear">Clear</div>
-          <div type="button" class="undo change" data-action="undo">Undo</div>
+          <div type="button" class="clear change hidden" data-action="clear">Clear</div>
+          <div type="button" class="undo change hidden" data-action="undo">Undo</div>
           <div class="sign-shield">Sign</div>
           <div class="sign-shield-arrow"></div>
         </div>
@@ -66,7 +66,7 @@
           <div class="signature-pad-actions">
             <button type="button" class="button signature-pad-close" data-action="close">Close</button>
             <!-- <button type="button" class="button signature-pad-close" data-action="save-png">Sign</button> -->
-            <%= f.button :submit, 'Sign', class: 'btn btn-success save save-signature' %>
+            <%= f.button :submit, 'Signing', class: 'btn btn-success save save-signature' %>
           </div>
         </div>
       </div>

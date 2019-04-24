@@ -13,7 +13,6 @@ class RoomsController < ApplicationController
     @flat = Flat.find(params[:flat_id])
     @room = Room.find(params[:room_id])
     @user = User.find(params[:user_id])
-    @booking = Booking.new(user_id: @user.id, room_id: @room.id)
     @authentity_token_contract = params[:authentity_token_contract]
   end
 
