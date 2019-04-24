@@ -31,7 +31,6 @@
     background: #f9f9f9;
     .line {
       border-bottom: 1px solid #777777;
-      width: 85%;
       margin: 20px 0;
     }
     .booking-form{
@@ -63,10 +62,19 @@
             background: white;
           }
         }
+        #book-button{
+          width: 100%;
+          background: #4acb67;
+          border-radius: 5px;
+          height: 45px;
+          color: white;
+        }
+        #book-button:hover{
+          background: #5fbf75;
+        }
       }
     }
     .booking-form-pricing {
-      width: 85%;
       p{
         margin: 0;
       }

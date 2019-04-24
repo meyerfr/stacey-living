@@ -43,6 +43,18 @@ class UsersController < ApplicationController
     end
   end
 
+  def updateapplicant
+    @user = User.find(params[:user_id])
+    @flat = Flat.find(params[:flat_id])
+    @room = Room.find(params[:room_id])
+    @authentity_token_contract = params[:authentity_token_contract]
+    if @user.update(users_params)
+      redirect_to user_contract_new_path(@user, @flat, @room, @authentity_token_contract)
+    else
+      render user_room_path(@user, @flat, @room, @authentity_token_contract)
+    end
+  end
+
   def destroy
     @user = User.find(params[:id])
     @user.destroy

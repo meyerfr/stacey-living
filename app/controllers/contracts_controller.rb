@@ -1,13 +1,13 @@
 class ContractsController < ApplicationController
-  before_action :authenticate_user_for_contract_booking_pages!, only: [:new, :create]
+  before_action :authenticate_user_for_contract_pages!, only: [:new, :create]
   skip_before_action :authenticate_user!, only: [:new, :create]
 
   def new
+    @user = User.find(params[:user_id])
+    @room = Room.find(params[:room_id])
+    @flat = Flat.find(params[:flat_id])
     @contract = Contract.new
-    @booking = Booking.find(params[:booking_id])
-    @user = User.find(@booking.user_id)
-    @room = Room.find(@booking.room_id)
-    @flat = Flat.find(@room.flat_id)
+    @booking = Booking.create(user: @user, room: @room)
     @authentity_token_contract = params[:authentity_token_contract]
 
     respond_to do |format|
@@ -43,7 +43,6 @@ class ContractsController < ApplicationController
     @room = Room.find(@booking.room_id)
     @flat = Flat.find(@room.flat_id)
     @authentity_token_contract = params[:authentity_token_contract]
-
     respond_to do |format|
       format.html
       format.pdf do
