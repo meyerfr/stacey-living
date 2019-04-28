@@ -27,11 +27,11 @@
         <div class="info-field deposit">
           <p class="header">REFUNDABLE DEPOSIT</p>
           <% if user.duration_of_stay[0].to_i < 4 %>
-            <p class="deposit-text">€ <%= room.price[0] %></p>
+            <p class="deposit-text">1 monthly rent</p>
           <% elsif user.duration_of_stay[0].to_i < 7 %>
-            <p class="deposit-text">€ <%= room.price[1] * 2 %></p>
+            <p class="deposit-text">2 monthly rents</p>
           <% else %>
-            <p class="deposit-text">€ <%= room.price[2] * 3 %></p>
+            <p class="deposit-text">3 monthly rents</p>
           <% end %>
         </div>
       </div>
