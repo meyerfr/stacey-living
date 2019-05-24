@@ -1,8 +1,13 @@
 class FlatsController < ApplicationController
-  before_action :authenticate_admin!, only: [:new, :show, :index, :create, :update, :destroy]
+  before_action :authenticate_admin!, only: [:new, :show, :create, :update, :destroy]
+  before_action :authenticate_user_for_contract_pages!, only: [:index]
+  skip_before_action :authenticate_user!, only: [:index]
+  layout 'booking', only: [:index]
 
   def index
+    @applicant = User.find(params[:user_id])
     @flats = Flat.all
+    @authentity_token_contract = params[:authentity_token_contract]
   end
 
   def new
@@ -47,6 +52,6 @@ class FlatsController < ApplicationController
   private
 
   def flat_params
-    params.require(:flat).permit(:project_name, :street, :zipcode, :city, :description)
+    params.require(:flat).permit(:project_name, :street, :zipcode, :city, :description, {pictures: []})
   end
 end

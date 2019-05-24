@@ -20,20 +20,20 @@ Rails.application.routes.draw do
   resources :bookings, only: [:index, :show, :edit, :update, :destroy] do
     # ContractPage 4 (Payment)
     get 'contracts/:contract_id/:authentity_token_contract/payment', to: 'contracts#payment', as: 'contract_payment'
+    resources :payments, only: [:new, :create]
   end
 
   get 'contracts/:contract_id/:authentity_token_contract', to: 'contracts#show', as: 'contract'
   patch 'contracts/:contract_id/:authentity_token_contract', to: 'contracts#update', as: 'contract_update'
 
-  resources :flats do
+  resources :flats, except: :index do
     resources :rooms, only: [:new, :create, :edit, :update, :destroy]
   end
 
-  resources :signatures, only: [:new, :create]
-  # get 'contracts/:contracts_id/signatures/new', to: 'signatures#new', as: 'new_signature'
-  # post 'contracts/:contracts_id/signatures', to: 'signatures#create', as:'create_signature'
 
   resources :users do
+    # FlatsPage (Flats#index)
+    get 'flats/:authentity_token_contract', to: 'flats#index', as: 'flats'
     # ContractPage 1 (Rooms#index)
     get 'flats/:flat_id/rooms/:authentity_token_contract', to: 'rooms#index', as: 'rooms'
     # ContractPage 2 (Rooms#show)

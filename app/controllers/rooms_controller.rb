@@ -1,6 +1,7 @@
 class RoomsController < ApplicationController
   before_action :authenticate_user_for_contract_pages!, only: [:index, :show]
   skip_before_action :authenticate_user!, only: [:index, :show]
+  layout 'booking'
 
   def index
     @user = User.find(params[:user_id])
