@@ -1,4 +1,3 @@
-<%= render 'shared/navbar' %>
 <h1 style="padding-top: 50px">Create a new Project please</h1>
 <%= simple_form_for(@flat) do |f| %>
   <%= f.input :project_name, label: 'Name of Project' %>
@@ -6,6 +5,8 @@
   <%= f.input :zipcode %>
   <%= f.input :city %>
   <%= f.input :description, label: 'Please describe this Project' %>
+  <%= f.label :pictures %>
+  <%= f.file_field :pictures, multiple: true %>
   <%= f.submit %>
 <% end %>
 

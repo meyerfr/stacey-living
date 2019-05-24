@@ -1,0 +1,182 @@
+.payment-wrapper {
+  margin-top: 100px;
+  display: flex;
+  justify-content: center;
+  .payment-container{
+    width: 62%;
+    display: flex;
+    justify-content: space-between;
+    .header {
+      h3{
+        margin: 0;
+        font-size: 24px;
+        font-weight: 600;
+      }
+      p{
+        margin: 0;
+        font-size: 16px;
+      }
+      display: flex;
+      align-items: center;
+      height: 35px;
+      margin-bottom: 40px;
+    }
+    .payment-section {
+      background: white;
+      padding: 30px;
+      border-radius: 3px;
+      h2{
+        margin: 0;
+      }
+      .payment-sections-header{
+        margin-bottom: 25px;
+        font-size: 26px;
+      }
+      .summary-items-header{
+        font-size: 15px;
+        text-transform: uppercase;
+        font-weight: bold;
+        letter-spacing: -0.7px;
+      }
+      .line {
+        border-bottom: 1px solid gray;
+        margin: 9px 0 17px;
+      }
+      .form-section{
+        form{
+          .form-control{
+            -webkit-appearance: none;
+            box-shadow: none;
+            border-radius: 5px;
+            font-size: 16px;
+          }
+          label{
+            text-transform: uppercase;
+            font-size: 15px;
+          }
+          .gender {
+            display: flex;
+            flex-direction: column;
+            margin-left: 10px;
+            span{
+              display: flex;
+              margin-bottom: 10px;
+              label{
+                margin: 0;
+                text-transform: capitalize;
+                font-size: 14px;
+              }
+              input{
+                -webkit-appearance: radio;
+                margin: 0 12px 0 0;
+              }
+            }
+            span:last-child{
+              margin-bottom: 15px;
+            }
+          }
+          .date {
+            .form-control{
+              border: none;
+              width: auto;
+            }
+            .d-flex.flex-row.justify-content-between.align-items-center{
+              border: 1px solid #ccc;
+              border-radius: 5px;
+              background: white;
+            }
+          }
+          .phone{
+            display: flex;
+            .form-control:focus{
+              border-color: #ccc;
+            }
+            .form-group:first-child{
+              .form-control{
+                border-right: none;
+                border-radius: 5px 0 0 5px;
+                width: auto;
+              }
+            }
+            .form-group:last-child{
+              width: -webkit-fill-available;
+              .form-control{
+                border-left: none;
+                border-radius: 0 5px 5px 0;
+                padding-left: 0;
+              }
+            }
+          }
+        }
+      }
+
+    }
+    .payment-fields {
+      width: 53%
+    }
+    .secure-payment-wrapper{
+      display: flex;
+      width: 100%;
+      align-items: center;
+      justify-content: space-between;
+      p{
+        margin: 0;
+        font-weight: 800;
+        letter-spacing: -0.8px;
+      }
+      .secure-payment-header{
+        display: flex;
+        align-items: center;
+        i{
+          font-size: 14px;
+          margin-right: 12px;
+          color: #ADB5BD;
+        }
+      }
+      .icons{
+        align-items: center;
+        i{
+          font-size: 22px;
+        }
+      }
+    }
+    .calculation-container {
+      width: 45%;
+    }
+    .summary-item {
+      display: flex;
+      justify-content: space-between;
+      font-size: 15px;
+      p:first-child{
+        color: #b5b5b5;
+      }
+      p:last-child{
+        color: #4f4f4f;
+      }
+    }
+    .total.summary-item{
+      display: flex;
+      flex-direction: column;
+      font-size: 22px;
+      .line{
+        border-bottom: 1px solid #b5b5b5;
+        margin: 15px 0;
+      }
+      .d-flex {
+        justify-content: space-between;
+      }
+    }
+    .stripe-section{
+      margin-top: 20px;
+      .payment-sections-header{
+        margin: 0;
+      }
+      .secure-payment-wrapper{
+        justify-content: space-evenly;
+        p{
+          font-size: 16px;
+        }
+      }
+    }
+  }
+}

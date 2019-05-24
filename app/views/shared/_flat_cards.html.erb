@@ -1,0 +1,10 @@
+<div class="flat-card">
+  <div class="flat-card-picture" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url('https://res.cloudinary.com/dvuqwvjay/image/upload/v1553613447/eppendorf-hoheluft-hamburg-min.jpg');">
+    <h1>Project <%= flat.project_name %></h1>
+  </div>
+  <a href="/users/<%= applicant.id %>/flats/<%= flat.id %>/rooms/<%= authentity_token_contract %>" class='flat-card-link'>Explore the suites of this project</a>
+</div>
+<% if current_user.admin? %>
+  <%#= link_to 'Edit', edit_flat_path(flat) %>
+  <%#= link_to 'Delete', flat_path(flat), method: :delete %>
+<% end %>

@@ -1,6 +1,7 @@
 class ContractsController < ApplicationController
   before_action :authenticate_user_for_contract_pages!, only: [:new, :create]
   skip_before_action :authenticate_user!, only: [:new, :create]
+  layout 'booking'
 
   def new
     @user = User.find(params[:user_id])
