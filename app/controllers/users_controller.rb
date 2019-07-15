@@ -13,7 +13,7 @@ class UsersController < ApplicationController
     @user.last_name = @user.last_name.capitalize
     @user.password = 'stacey-living'
     if @user.save
-      # UserMailer.welcome(@user).deliver_now
+      UserMailer.welcome(@user).deliver_now
       # later(wait_until: 8.minutes.from_now)
       send_users_info_via_slack(@user)
       redirect_to users_success_path
