@@ -1,6 +1,6 @@
 /* Main navbar */
 .navbar-stacey-container {
-  background: #000;
+  background: #808080;
   position: fixed;
   left: 0;
   top: 0;
@@ -63,7 +63,7 @@
 .navbar-stacey-link {
   color: white;
   font-size: 14px;
-  transition: color 525ms ease,background-color 525ms ease,opacity 525ms ease;
+  transition: color 525ms ease,background-color 525ms ease,opacity 525ms ease, border-color 525ms ease;
 }
 
 .interested {

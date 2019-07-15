@@ -49,9 +49,9 @@
         </div>
       <% else %>
       <!-- Login link (when logged out) -->
-        <%= link_to "Home", "http://www.stacey-living.de", class: "navbar-stacey-item navbar-stacey-link" %>
-        <%= link_to "Community", "http://www.stacey-living.de/community", class: "navbar-stacey-item navbar-stacey-link" %>
-        <%= link_to "Vision", "http://www.stacey-living.de/vision", class: "navbar-stacey-item navbar-stacey-link" %>
+        <%#= link_to "Home", "http://www.stacey-living.de", class: "navbar-stacey-item navbar-stacey-link" %>
+        <%#= link_to "Community", "http://www.stacey-living.de/community", class: "navbar-stacey-item navbar-stacey-link" %>
+        <%#= link_to "Vision", "http://www.stacey-living.de/vision", class: "navbar-stacey-item navbar-stacey-link" %>
         <%= link_to t(".sign_in", default: "Login"), new_user_session_path, class: "navbar-stacey-item navbar-stacey-link interested" %>
       <% end %>
     </div>

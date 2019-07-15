@@ -25,7 +25,7 @@
             <%= f.input :date_of_birth, as: :date, start_year: Date.today.year - 70, end_year: Date.today.year - 18, order: [:day, :month, :year], label: "WHEN WERE YOU BORN?", selected: 22.years.ago, required: false, class: 'date-test' %>
           </div>
           <div class="apply-field">
-            <%= f.input :job, label: "WHAT DO YOU DO FOR LIVING?", placeholder: "YOUR JOB TITLE", required: false %>
+            <%= f.input :job, label: "WHAT DO YOU DO FOR A LIVING?", placeholder: "YOUR JOB TITLE", required: false %>
           </div>
           <div class="apply-field date">
             <%= f.input :move_in_date, as: :date, start_year: Date.today.year, end_year: Date.today.year + 1, order: [:day, :month, :year], label: "WHEN DO YOU WANT TO MOVE IN?", required: false %>

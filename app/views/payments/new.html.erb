@@ -16,7 +16,7 @@
     </div>
   </div>
   <div class="phone">
-    <%= link_to 'Call us on 022198819134', "tel: 022198819134" %>
+    <%= link_to 'Call us on +49 40 606389600', "tel: +4940606389600" %>
   </div>
 </div>
 <div class="payment-wrapper">
@@ -28,21 +28,21 @@
       <div class="payment-section">
         <div class="form-section">
           <h2 class="payment-sections-header">Personal information</h2>
-          <%= simple_form_for(@applicant) do |f| %>
-          <%= f.input :first_name, required: false %>
-          <%= f.input :last_name, required: false %>
-          <%= f.input :email, required: false %>
-          <%= f.label :phone, 'Mobile Number' %>
-          <div class="phone">
-            <%= f.input :phone_code, required: false, label: false, collection: @phone_code %>
-            <%= f.input :phone, required: false, label: false %>
-          </div>
-          <%= f.label :gender, 'What is your Gender?' %>
-          <div class="gender">
-            <%= f.collection_check_boxes :gender, [['Male'], ['Female'], ['Other']], :first, :first, required: false %>
-          </div>
-          <%= f.input :date_of_birth, as: :date, order: [:day, :month, :year], required: false, class: 'date' %>
-          <%= f.submit 'Update User', id: 'update-user-button', class: 'hidden'%>
+          <%= simple_form_for @applicant, method: :patch, url: update_applicant_payment_path(@booking) do |f| %>
+            <%= f.input :first_name, required: false %>
+            <%= f.input :last_name, required: false %>
+            <%= f.input :email, required: false %>
+            <%= f.label :phone, 'Mobile Number' %>
+            <div class="phone">
+              <%= f.input :phone_code, required: false, label: false, collection: @phone_code %>
+              <%= f.input :phone, required: false, label: false %>
+            </div>
+            <%= f.label :gender, 'What is your Gender?', id: 'gender-label' %>
+            <div class="gender">
+              <%= f.collection_check_boxes :gender, [['Male'], ['Female'], ['Other']], :first, :first, required: false %>
+            </div>
+            <%= f.input :date_of_birth, as: :date, order: [:day, :month, :year], required: false, class: 'date' %>
+            <%= f.submit 'Update User', id: 'update-user-button', class: 'hidden'%>
           <% end %>
         </div>
       </div>
@@ -81,9 +81,16 @@
             By providing your IBAN and confirming this payment, you are authorizing STACEY Real Estate UG and Stripe, our payment service provider, to send instructions to your bank to debit your account and your bank to debit your account in accordance with those instructions. You are entitled to a refund from your bank under the terms and conditions of your agreement with your bank. A refund must be claimed within 8 weeks starting from the date on which your account was debited.
           </div>
           <div class="terms-and-conditions">
-            <%= check_box "TermsConditions", "terms-and-conditions", id: 'terms-and-conditions' %> I have read and agree to the terms and conditions
+            <%= check_box "TermsConditions", "terms-and-conditions", id: 'terms-and-conditions' %>
+            <p class="terms-and-conditions-label">I have read and agree to the terms and conditions</p>
           </div>
-          <button class="payment-button">Complete Reservation & Process Payment</button>
+          <div class="privacy-policy">
+            <p>By completing the reservation you agree to our <%= link_to 'privacy policy', 'https://www.stacey.de/datenschutz' %></p>
+          </div>
+          <div class="buttons">
+            <div id='overlay-button'></div>
+            <button class="payment-button" disabled="true">Complete Reservation & Process Payment</button>
+          </div>
         <% end %>
       </div>
     </div>
@@ -102,12 +109,8 @@
         </div>
       </div>
       <div class="payment-section">
-        <h2 class="payment-sections-header"><%= @room.art_of_room %></h2>
-        <p class="summary-items-header">Booking Summary</p>
-        <div class="summary-item">
-          <p>Room price</p>
-          <p><%= @amount_per_month %> €</p>
-        </div>
+        <h2 class="payment-sections-header">Booking Summary</h2>
+        <p class="summary-items-header"><%= @room.art_of_room %></p>
         <div class="summary-item">
           <p>Duration of your stay</p>
           <p><%= @applicant.duration_of_stay %></p>
@@ -118,7 +121,7 @@
         </div>
         <div class="summary-item">
           <p>Move-out</p>
-          <p><%= (@applicant.move_in_date + @applicant.duration_of_stay[0].to_i.months).strftime('%d.%m.%Y') %></p>
+          <p><%= (@applicant.move_in_date + @applicant.duration_of_stay[0].to_i.months - 1.day).strftime('%d.%m.%Y') %></p>
         </div>
         <div class="line"></div>
         <div class="total-payment">
@@ -131,10 +134,14 @@
             <p>Deposit</p>
             <p><%= @deposit %> €</p>
           </div>
+          <div class="summary-item">
+            <p>Booking Fee</p>
+            <p>80 €</p>
+          </div>
           <div class="total summary-item">
             <div class="line"></div>
             <div class="d-flex">
-              <p>Total</p>
+              <p>Total Today</p>
               <p><%= @total_amount %> €</p>
             </div>
           </div>

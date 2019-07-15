@@ -166,7 +166,7 @@ function signingProcess() { // Begin scoping function
   }
 };
 
-function injectSigningProcess(argument) {
+function injectSigningProcess() {
   if (canvas) {
     signingProcess();
   }
