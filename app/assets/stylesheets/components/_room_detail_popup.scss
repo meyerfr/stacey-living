@@ -1,0 +1,104 @@
+.room-popup-container{
+  width: 100%;
+  height: 380px;
+  background: white;
+  margin-bottom: 30px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  display: flex;
+  border-radius: 5px;
+  .room-popup-description {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 40%;
+    border-radius: 5px 0 0 0;
+    .services-icons {
+      display: flex;
+      width: 50%;
+      justify-content: space-between;
+      img{
+        width: 30px;
+        height: 30px;
+      }
+      i{
+        font-size: 28px;
+      }
+    }
+    .description-duration-staying {
+      margin-top: 18px;
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+      p{
+        margin-bottom: 8px;
+      }
+      form {
+        height: 25px;
+        margin-bottom: 8px;
+        margin-left: 8px;
+        .form-group {
+          border-bottom: 1px solid black;
+        }
+        .form-control {
+          border: none !important;
+          box-shadow: none;
+          width: 100px;
+          -webkit-appearance: none;
+          padding: 0;
+          height: 25px;
+          font-size: 18px;
+        }
+      }
+
+    }
+    .pricing {
+      display: flex;
+      justify-content: space-evenly;
+      width: 100%;
+      margin-bottom: 22px;
+      .pricing-category {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.25);
+        min-width: 125px;
+        height: 70px;
+        p{
+          margin-bottom: 0;
+        }
+      }
+      .active {
+        border: 2px solid #00B2FF;
+      }
+    }
+    .description-header {
+      width: 100%;
+      height: 60px;
+      background: #C4C4C4;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 5px 0 0 0;
+      margin-bottom: 8px;
+      color: white;
+      h3 {
+        margin: 0;
+      }
+    }
+    .select-suite-button {
+      margin-top: 15px;
+      height: 35px;
+      border-radius: 5px;
+      width: 88%;
+      height: 50px;
+    }
+  }
+  .room-popup-picture {
+    height: 100%;
+    width: 60%;
+    background-size: cover !important;
+    background-position: center;
+    border-radius: 0 5px 5px 0;
+  }
+}

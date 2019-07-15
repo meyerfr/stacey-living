@@ -47,7 +47,11 @@ class ApplicantsController < ApplicationController
       Job: #{applicant.job},
       Einzugsdatum: #{applicant.move_in_date},
       Zeitraum: #{applicant.duration_of_stay},
-      Anzahl an Leuten: #{applicant.amount_of_people}",
+      Anzahl an Leuten: #{applicant.amount_of_people},
+      Instagram: #{applicant.instagram},
+      Facebook: #{applicant.facebook},
+      LinkedIn: #{applicant.linked_in},
+      Twitter: #{applicant.twitter}",
       as_user: true
     )
   end

@@ -1,0 +1,75 @@
+<div class="three-steps-navbar">
+  <div class="go-back-button">
+    <p>< Go Back</p>
+  </div>
+  <div class="three-steps-container">
+    <div class="ring">
+      <p>1</p>
+    </div>
+    <div class="line"></div>
+    <div class="ring active">
+      <p>2</p>
+    </div>
+    <div class="line"></div>
+    <div class="ring">
+      <p>3</p>
+    </div>
+  </div>
+  <div class="phone">
+    <%= link_to 'Call us on 022198819134', "tel: 022198819134" %>
+  </div>
+</div>
+<div class="contracts-page-wrapper">
+  <div class="contract-page-container">
+    <h1>Rental Contract</h1>
+    <div id="pdf">
+      <%#= render 'pdf_embed', booking: @booking, authentity_token_contract: @authentity_token_contract %>
+      <embed src="/contracts/<%= @contract.id %>/<%= @authentity_token_contract %>.pdf" type="application/pdf">
+    </div>
+    <div class="button-container">
+      <div class="button sign change-position" id="sign-button">Sign</div>
+      <%= link_to 'Next', new_booking_payment_path(@booking.id), class: 'button next-step' %>
+    </div>
+  </div>
+</div>
+
+<%= simple_form_for @contract, method: :patch, url: contract_update_path(@contract, @authentity_token_contract) do |f| %>
+  <div class="signature-pad-wrapper hidden">
+    <div id="signature-pad" class="signature-pad">
+      <div class="signature-navbar">
+        <div class="signing-option-container">
+          <div class="signing-option active" id="keyboard">
+            <i class="fas fa-keyboard"></i>
+            <p>Sign</p>
+            <div class="line" id="line-keyboard"></div>
+          </div>
+          <div class="signing-option" id="draw">
+            <i class="fas fa-pen-nib"></i>
+            <p>Draw</p>
+            <div class="line hidden" id="line-draw"></div>
+          </div>
+        </div>
+      </div>
+      <div class="signature-text">
+        <%= f.input_field :signature, as: :hidden, class: 'signature_pad_input' %>
+        <%= f.input_field :signed_on, as: :hidden, value: Date.today %>
+        <div class="signature-pad-body">
+          <canvas class="hidden"></canvas>
+          <input type="text" id="signature-type-text">
+          <div class="line"></div>
+          <div type="button" class="clear change" data-action="clear">Clear</div>
+          <div type="button" class="undo change" data-action="undo">Undo</div>
+          <div class="sign-shield">Sign</div>
+          <div class="sign-shield-arrow"></div>
+        </div>
+        <div class="signature-pad-footer">
+          <div class="signature-pad-actions">
+            <button type="button" class="button signature-pad-close" data-action="close">Close</button>
+            <!-- <button type="button" class="button signature-pad-close" data-action="save-png">Sign</button> -->
+            <%= f.button :submit, 'Sign', class: 'btn btn-success save save-signature' %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

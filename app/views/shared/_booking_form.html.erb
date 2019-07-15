@@ -1,0 +1,41 @@
+<div class="booking-form-container">
+  <div class="booking-form">
+    <%= simple_form_for @user, method: :patch, url: update_applicant_path(@user, @flat, @room, @authentity_token_contract) do |f| %>
+      <div class="user-update-input-field">
+        <%= f.input :duration_of_stay, collection: ["3 Months", "4 Months", "5 Months", "6 Months", "7 Months", "8 Months", "9 Months", "9+ Months"], selected: user.duration_of_stay, class: 'user-duration-of-stay-input' %>
+      </div>
+      <div class="user-update-input-field">
+        <%= f.input :move_in_date, as: :date, start_year: Date.today.year, end_year: Date.today.year + 1, order: [:day, :month, :year], label: "WHEN DO YOU WANT TO MOVE IN?", required: true, value: user.move_in_date, class: 'date', class: 'user-move-in-date-input' %>
+      </div>
+      <div class="line"></div>
+      <div class="hidden" id="prices">
+        <div><%= room.price[0] %></div>
+        <div><%= room.price[1] %></div>
+        <div><%= room.price[2] %></div>
+      </div>
+      <div class="booking-form-pricing">
+        <div class="info-field rent">
+          <p class="header">RENT PER MONTH</p>
+          <% if user.duration_of_stay[0].to_i < 4 %>
+            <p class="price-per-month">€ <%= room.price[0] %> per Month</p>
+          <% elsif user.duration_of_stay[0].to_i < 7 %>
+            <p class="price-per-month">€ <%= room.price[1] %> per Month</p>
+          <% else %>
+            <p class="price-per-month">€ <%= room.price[2] %> per Month</p>
+          <% end %>
+        </div>
+        <div class="info-field deposit">
+          <p class="header">REFUNDABLE DEPOSIT</p>
+          <% if user.duration_of_stay[0].to_i < 4 %>
+            <p class="deposit-text">1 monthly rent</p>
+          <% elsif user.duration_of_stay[0].to_i < 7 %>
+            <p class="deposit-text">2 monthly rents</p>
+          <% else %>
+            <p class="deposit-text">3 monthly rents</p>
+          <% end %>
+        </div>
+      </div>
+      <%= f.submit 'Book', id: 'book-button' %>
+    <% end %>
+  </div>
+</div>

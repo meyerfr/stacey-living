@@ -1,4 +1,4 @@
 class Flat < ApplicationRecord
-  validates :street, :zipcode, :city, presence: true
-  has_many :bookings
+  validates :project_name, :street, :zipcode, :city, presence: true
+  has_many :rooms
 end

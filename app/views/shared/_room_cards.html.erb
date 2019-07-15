@@ -1,0 +1,39 @@
+<div class="room-card">
+  <div class="room-card-picture" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url('https://kitt.lewagon.com/placeholder/cities/shanghai');">
+  </div>
+  <div class="room-card-description">
+    <div class="room-category">
+      <p class="room-art"><%= room.art_of_room %></p>
+      <% if room.balcony? %>
+        <p class="balcony light-font">with balcony</p>
+      <% else %>
+        <p class="balconym light-font">no balcony</p>
+      <% end %>
+    </div>
+    <div class="room-price">
+      <p class="from light-font">from</p>
+      <p class="price"><%= room.price[0] %>€</p>
+    </div>
+  </div>
+  <div class="card-details">
+    <div class="room-details wrap-list">
+      <p>Fully Furnished</p>
+      <p>Weekly Cleaning</p>
+      <!-- <p>Queen Size Bed</p> -->
+      <!-- <p>Free Onsite Laundry</p> -->
+      <p>High Speed Wifi</p>
+      <!-- <p>1 Person</p> -->
+    <!-- </div>
+    <p class="community-service-header">Community Area Services</p>
+    <div class="community-details wrap-list"> -->
+      <p>Netflix</p>
+      <p>Sonos Speakers</p>
+      <!-- <p>Communal Living Room</p> -->
+      <p>Communal Kitchen</p>
+      <p>Working Spaces</p>
+      <p>Pooltable</p>
+    </div>
+  </div>
+  <a href="<%= link %>" class='room-card-link'>Explore this Suite</a>
+  <%#= link_to 'Explore this Suite', link, class: 'room-card-link' %>
+</div>

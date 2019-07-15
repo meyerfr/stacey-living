@@ -1,0 +1,111 @@
+.room-cards-list-wrapper {
+  display: flex;
+  justify-content: center;
+  background: white;
+}
+
+.room-card-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  width: 95%;
+  margin-top: 50px;
+}
+
+.room-card {
+  width: 434px;
+  color: black;
+  position: relative;
+  margin-bottom: 70px;
+  background: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid #BCBCBC;
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.2);
+  padding-bottom: 30px;
+  p {
+    margin-bottom: 0;
+  }
+  .room-card-picture {
+    height: 200px;
+    width: 100%;
+    background-size: cover !important;
+    background-position: center;
+  }
+  .room-card-description {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 95px;
+    color: black;
+    border-bottom: 1px solid #BCBCBC;
+    .light-font {
+      font-size: 16px;
+      opacity: 0.6;
+    }
+    .room-category {
+      margin-left: 30px;
+      .room-art{
+        margin-bottom: -5px;
+        font-size: 32px;
+      }
+    }
+    .room-price {
+      margin-right: 20px;
+      border-left: 1px solid #BCBCBC;
+      width: 20%;
+      height: 100%;
+      padding-left: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      .from {
+        margin-bottom: -5px;
+      }
+      .price {
+        font-size: 20px;
+      }
+    }
+  }
+  .card-details {
+    color: #777777;
+    font-size: 14px;
+    .community-service-header {
+      margin: 20px 0 0 30px;
+      color: black;
+    }
+    .wrap-list {
+      display: flex;
+      flex-wrap: wrap;
+      p{
+        width: 50%;
+        padding-left: 45px;
+        margin-bottom: 10px;
+      }
+    }
+    .room-details {
+      margin-top: 15px;
+    }
+    .community-details {
+      margin-top: 5px;
+    }
+  }
+  .room-card-link {
+    width: 88%;
+    border: 1px solid #258d35;
+    color: #258d35;
+    text-align: center;
+    padding: 8px;
+    margin-top: 20px;
+    transition: all 0.5s ease;
+  }
+  .room-card-link:hover{
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
+    background: #258d35;
+    color: white;
+    text-decoration: none;
+  }
+}

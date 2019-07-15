@@ -1,11 +1,11 @@
 <p><strong>Wir haben einen neuen Applicant</strong></p>
-<p>Name: <%= @applicant.first_name %> <%= @applicant.last_name %></p>
-<p>Email: <%= @applicant.email %></p>
-<p>Telefonnummer: <%= @applicant.phone_code %> <%= @applicant.phone %></p>
-<p>Geburtstag: <%= @applicant.date_of_birth.strftime('%m.%d.%Y') %></p>
-<p>Job: <%= @applicant.job %></p>
-<p>Einzugsdatum: <%= @applicant.move_in_date.strftime('%m.%d.%Y') %></p>
-<p>Zeitraum: <%= @applicant.duration_of_stay %></p>
-<p>Anzahl an Leuten: <%= @applicant.amount_of_people %></p>
+<p>Name: <%= @user.first_name %> <%= @user.last_name %></p>
+<p>Email: <%= @user.email %></p>
+<p>Telefonnummer: <%= @user.phone_code %> <%= @user.phone %></p>
+<p>Geburtstag: <%= @user.date_of_birth.strftime('%m.%d.%Y') %></p>
+<p>Job: <%= @user.job %></p>
+<p>Einzugsdatum: <%= @user.move_in_date.strftime('%m.%d.%Y') %></p>
+<p>Zeitraum: <%= @user.duration_of_stay %></p>
+<p>Anzahl an Leuten: <%= @user.amount_of_people %></p>
 <br><br>
-<p>Im Moment haben wir <%= Applicant.count %> Applicants</p>
+<p>Im Moment haben wir <%= User.all.where(applicant: true).count %> Applicants</p>

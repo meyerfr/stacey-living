@@ -10,44 +10,38 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_28_102511) do
+ActiveRecord::Schema.define(version: 2019_05_07_082237) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "applicants", force: :cascade do |t|
-    t.string "first_name"
-    t.string "last_name"
-    t.string "email"
-    t.string "phone"
-    t.date "date_of_birth"
-    t.string "job"
-    t.date "move_in_date"
-    t.string "duration_of_stay"
-    t.string "amount_of_people"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "phone_code"
-    t.boolean "invited"
-    t.string "linked_in"
-    t.string "instagram"
-    t.string "twitter"
-    t.string "facebook"
-  end
-
   create_table "bookings", force: :cascade do |t|
     t.bigint "user_id"
-    t.bigint "flat_id"
+    t.bigint "room_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["flat_id"], name: "index_bookings_on_flat_id"
+    t.string "state", default: "pending"
+    t.jsonb "payment"
+    t.index ["room_id"], name: "index_bookings_on_room_id"
     t.index ["user_id"], name: "index_bookings_on_user_id"
+  end
+
+  create_table "contracts", force: :cascade do |t|
+    t.bigint "booking_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.binary "signature"
+    t.date "signed_on"
+    t.index ["booking_id"], name: "index_contracts_on_booking_id"
   end
 
   create_table "flats", force: :cascade do |t|
     t.string "street"
     t.integer "zipcode"
     t.string "city"
+    t.string "project_name"
+    t.text "description"
+    t.json "pictures"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -63,6 +57,22 @@ ActiveRecord::Schema.define(version: 2019_02_28_102511) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "rooms", force: :cascade do |t|
+    t.integer "price", default: [], array: true
+    t.string "art_of_room"
+    t.boolean "balcony"
+    t.string "room_size"
+    t.text "description"
+    t.integer "deposit", default: [], array: true
+    t.json "pictures"
+    t.bigint "flat_id"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["flat_id"], name: "index_rooms_on_flat_id"
+    t.index ["user_id"], name: "index_rooms_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -73,12 +83,23 @@ ActiveRecord::Schema.define(version: 2019_02_28_102511) do
     t.datetime "updated_at", null: false
     t.string "first_name"
     t.string "last_name"
+    t.string "phone_code"
     t.string "phone"
     t.date "date_of_birth"
     t.string "job"
     t.date "move_in_date"
     t.string "duration_of_stay"
+    t.string "amount_of_people"
+    t.text "description"
     t.boolean "admin", default: false
+    t.boolean "applicant", default: true
+    t.string "photo"
+    t.string "instagram"
+    t.string "twitter"
+    t.string "facebook"
+    t.string "linked_in"
+    t.string "authentity_token_contract"
+    t.date "authentity_token_contract_expiration"
     t.string "invitation_token"
     t.datetime "invitation_created_at"
     t.datetime "invitation_sent_at"
@@ -87,13 +108,8 @@ ActiveRecord::Schema.define(version: 2019_02_28_102511) do
     t.string "invited_by_type"
     t.bigint "invited_by_id"
     t.integer "invitations_count", default: 0
-    t.string "amount_of_people"
-    t.string "photo"
-    t.string "instagram"
-    t.string "twitter"
-    t.string "facebook"
-    t.string "linked_in"
-    t.text "description"
+    t.string "gender"
+    t.string "nationality"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true
     t.index ["invitations_count"], name: "index_users_on_invitations_count"
@@ -102,6 +118,9 @@ ActiveRecord::Schema.define(version: 2019_02_28_102511) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "bookings", "flats"
+  add_foreign_key "bookings", "rooms"
   add_foreign_key "bookings", "users"
+  add_foreign_key "contracts", "bookings"
+  add_foreign_key "rooms", "flats"
+  add_foreign_key "rooms", "users"
 end

@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>STACEY | Booking</title>
+  <%= favicon_link_tag "stacey-favicon.png", rel: 'icon', type: 'image/png', sizes: "32x32" %>
+  <%= stylesheet_link_tag 'application', media: 'all' %>
+  <script src="https://js.stripe.com/v3/"></script>
+</head>
+<body>
+  <%= yield %>
+  <%= javascript_include_tag 'application' %>
+  <%= javascript_pack_tag 'application' %>
+</body>
+</html>

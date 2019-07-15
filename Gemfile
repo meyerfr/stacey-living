@@ -17,6 +17,13 @@ gem 'redis'
 gem 'iso_country_codes', '~> 0.7.8'
 gem 'cloudinary', '~> 1.9.1'
 gem 'carrierwave', '~> 1.2'
+gem 'turbolinks', '~> 5.x'
+
+gem 'stripe'
+
+gem 'jquery-rails'
+gem 'wicked_pdf'
+gem 'wkhtmltopdf-binary'
 
 gem 'autoprefixer-rails'
 gem 'bootstrap-sass', '~> 3.3'
