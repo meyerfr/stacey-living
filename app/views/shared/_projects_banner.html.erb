@@ -8,7 +8,11 @@
 </div>
 <div class="projects-sentence-container">
   <div class="projects-sentence">
-    <p>A microcosm of the world; everything is in Eppendorf. Find every culture, industry, and opportunity in the city that never sleeps. Our community in Eppendorf is just as diverse as the neighbourhood.</p>
+    <% if flat.project_name == 'Eppendorf' %>
+      <p>A beautiful neighborhood in central Hamburg; everything is here. Find local shops, restaurants and bars nearby. Our community in Eppendorf is just as energetic as the neighborhood.</p>
+    <% else %>
+      <p>A microcosm of the world; everything is in Mühlenkamp. Find every culture, industry, and opportunity in this juvenile neighborhood. Our community in Mühlenkamp is the newest addition to STACEYs Co-Living network.</p>
+    <% end %>
   </div>
 </div>
 

@@ -46,7 +46,7 @@ Rails.application.routes.draw do
   end
 
   patch 'users/:user_id/flats/:flat_id/rooms/:room_id/:authentity_token_contract', to: 'users#updateapplicant', as: 'update_applicant'
-
+  patch 'bookings/:booking_id/payment/new', to: 'users#updateapplicantpayment', as: 'update_applicant_payment'
 
 
   get 'user/applicants', to: 'users#applicants', as: 'applicants_index'

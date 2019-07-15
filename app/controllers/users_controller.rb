@@ -55,6 +55,11 @@ class UsersController < ApplicationController
     end
   end
 
+  def updateapplicantpayment
+    @applicant = User.find(Booking.find(params[:booking_id]).user.id)
+    @applicant.update(users_params)
+  end
+
   def destroy
     @user = User.find(params[:id])
     @user.destroy

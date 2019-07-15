@@ -11,8 +11,32 @@
   .terms-and-conditions{
     font-size: 15px;
     margin-top: 12px;
+    display: flex;
+    align-items: center;
+    p{
+      margin: 0;
+    }
+    #terms-and-conditions{
+      margin: 0 10px 0 0;
+    }
+  }
+  .terms-and-conditions.error{
+    color: red;
   }
   .payment-button{
+    margin-top: 20px;
+    width: 100%;
+  }
+  .buttons{
+    position: relative;
+  }
+  #overlay-button{
+    cursor: pointer;
+    position: absolute;
+    bottom: 0;
+    top: 0;
+    right: 0;
+    left: 0;
     margin-top: 20px;
     width: 100%;
   }

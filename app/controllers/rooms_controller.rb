@@ -20,6 +20,7 @@ class RoomsController < ApplicationController
   def new
     @flat = Flat.find(params[:flat_id])
     @room = Room.new
+    # Stripe: new Product
   end
 
   def create
@@ -28,6 +29,13 @@ class RoomsController < ApplicationController
     @room.user_id = 1
     @flat = Flat.find(params[:flat_id])
     if @room.save!
+      Stripe.api_key = 'sk_test_pblbbDNQnHAALD1MrdaNtOx6'
+      Stripe::Product.create(
+        caption: @flat.project_name.uppercase,
+        name: @room.art_of_room.uppercase,
+        statement_descriptor: "STACEY REAL ESTATE UG",
+        type: 'service'
+      )
       redirect_to flat_room_path(@flat, @room)
     else
       render :new
