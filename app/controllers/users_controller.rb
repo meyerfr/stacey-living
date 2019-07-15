@@ -15,7 +15,7 @@ class UsersController < ApplicationController
     if @user.save
       # UserMailer.welcome(@user).deliver_now
       # later(wait_until: 8.minutes.from_now)
-      # send_users_info_via_slack(@user)
+      send_users_info_via_slack(@user)
       redirect_to users_success_path
     else
       render :new
