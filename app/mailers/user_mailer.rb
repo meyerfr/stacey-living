@@ -9,6 +9,11 @@ class UserMailer < ApplicationMailer
     mail(to: @user.email, subject: 'Stacey - Co-Living')
   end
 
+  def waiting_list_mail(user)
+    @user = user
+    mail(to: @user.email, subject: 'Stacey - Co-Living')
+  end
+
   def new_applicant_info(user)
     @user = user
     mail(to: 'newapplicant@stacey-living.de', subject: 'New Applicant')

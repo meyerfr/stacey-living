@@ -13,9 +13,13 @@ class UsersController < ApplicationController
     @user.last_name = @user.last_name.capitalize
     @user.password = 'stacey-living'
     if @user.save
-      UserMailer.welcome(@user).deliver_now
-      # later(wait_until: 8.minutes.from_now)
       send_users_info_via_slack(@user)
+      if @user.move_in_date > Date.new(2019, 9, 1) && !@user.prefered_suite.include?('Premium') && !@user.prefered_suite.include?('Jumbo')
+        UserMailer.waiting_list_mail(@user).deliver_now
+      else
+        UserMailer.welcome(@user).deliver_now
+      end
+      # later(wait_until: 8.minutes.from_now)
       redirect_to users_success_path
     else
       render :new
@@ -90,7 +94,7 @@ class UsersController < ApplicationController
   private
 
   def users_params
-    params.require(:user).permit(:first_name, :last_name, :email, :phone_code, :phone, :date_of_birth, :job, :move_in_date, :duration_of_stay, :amount_of_people, :linked_in, :facebook, :twitter, :instagram, :photo)
+    params.require(:user).permit(:first_name, :last_name, :email, :phone_code, :phone, :date_of_birth, :job, :move_in_date, :duration_of_stay, :amount_of_people, :linked_in, :facebook, :twitter, :instagram, :photo, {:prefered_suite => []})
   end
 
   def authenticate_user_for_contract_pages
