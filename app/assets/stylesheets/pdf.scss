@@ -1,0 +1,19 @@
+.contract-pdf-wrapper{
+  margin: 0 5% 0 5%;
+  .pdf-header{
+    text-align: center;
+    .stacey-logo-pdf{
+      margin-top: 30px;
+      width: 350px;
+    }
+    .line{
+      align-items: center;
+      border-bottom: 1px solid black;
+      margin: 7px 0 7px 0;
+    }
+    .header-pdf-text{
+      width: 300px;
+      text-align: center;
+    }
+  }
+}

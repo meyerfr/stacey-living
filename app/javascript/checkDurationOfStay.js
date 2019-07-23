@@ -33,11 +33,25 @@ const checkDurationErrors = (event) => {
   }
 }
 
+const checkPreferedSuite = (event) => {
+  const invalid_feedback_prefered_suite = document.querySelector('.invalid-feedback-prefered-suite');
+  let basic = document.getElementById('user_prefered_suite_basic_').checked;
+  let premium = document.getElementById('user_prefered_suite_premium').checked;
+  let jumbo = document.getElementById('user_prefered_suite_jumbo').checked;
+  if (basic === false && premium === false && jumbo === false){
+    invalid_feedback_prefered_suite.classList.remove('hidden');
+  }else{
+    invalid_feedback_prefered_suite.classList.add('hidden');
+    document.getElementById('users-apply-button').click();
+  }
+}
+
 function checkDuration() {
   console.log('checkDuration');
   if(date){
     document.getElementById('user_duration_of_stay_2i').addEventListener('change', checkDurationErrors);
-    console.log('function checkDurationErrors runs')
+    console.log('function checkDurationErrors runs');
+    document.querySelector('.apply-button').addEventListener('click', checkPreferedSuite);
   };
 };
 

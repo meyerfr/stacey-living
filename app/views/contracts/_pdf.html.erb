@@ -1,7 +1,10 @@
 <div class="contract-pdf-wrapper">
-  <%= image_tag 'stacey-logo.png' %>
+  <div class="pdf-header">
+    <%= wicked_pdf_image_tag 'stacey-logo.png', class: 'stacey-logo-pdf' %>
+    <div class="line"></div>
+    <p class="header-pdf-text">Rental Agreement between <strong><%= @user.first_name %></strong> and <strong>STACEY Real Estate UG (haftungsbeschränkt)</strong></p>
+  </div>
 
-  <p>Rental Adreement between <strong><%= @user.first_name %></strong> and <strong>STACEY Real Estate UG (haftungsbeschränkt)</strong></p>
   <p>Date <%= Date.today.strftime("%d.%m %Y") %></p>
 
   <table>

@@ -59,6 +59,7 @@
             <div class="suite-check-boxes">
               <%= f.collection_check_boxes :prefered_suite, [['Basic +'], ['Premium'], ['Jumbo']], :first, :last, checked: false %>
             </div>
+            <div class="invalid-feedback-prefered-suite hidden">Please click on at least one Suite</div>
           </div>
         </div>
         <!-- LinkedIn field to add LinkedIn Profile -->
@@ -81,8 +82,12 @@
           <%= f.input :facebook, placeholder: 'Add your Facebook profile URL' %>
           <div class="btn social-button social-button-facebook">ADD</div>
         </div>
-
-        <div class="apply-button-position"><%= f.submit 'APPLY', class: "btn stacey-button apply-button" %></div>
+        <div class="apply-button-position">
+          <div class="stacey-button apply-button">
+            <p style="margin: 0;">APPLY</p>
+          </div>
+        </div>
+        <%= f.submit 'APPLY', class: 'hidden', id: 'users-apply-button' %>
       <% end %>
     </div>
   </div>

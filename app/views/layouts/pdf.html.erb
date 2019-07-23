@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html>
-<head>
-<title>Contract - STACEY</title>
-  <%= favicon_link_tag "stacey-favicon.png", rel: 'icon', type: 'image/png', sizes: "32x32" %>
-  <%= stylesheet_link_tag 'application', media: 'all' %>
-  <%= wicked_pdf_stylesheet_link_tag "pages/contract" %>
-</head>
-<body>
-  <%= yield %>
-  <%= javascript_include_tag 'application' %>
-  <%= javascript_pack_tag 'application' %>
-</body>
+  <head>
+    <meta charset="UTF-8">
+    <title>Contract - STACEY</title>
+    <%= favicon_link_tag "stacey-favicon.png", rel: 'icon', type: 'image/png', sizes: "32x32" %>
+    <%= stylesheet_link_tag 'application', media: 'all' %>
+    <%= wicked_pdf_stylesheet_link_tag "pdf" %>
+  </head>
+  <body>
+    <%= yield %>
+    <%= javascript_include_tag 'application' %>
+    <%= javascript_pack_tag 'application' %>
+  </body>
 </html>
