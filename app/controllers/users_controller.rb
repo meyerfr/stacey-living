@@ -12,6 +12,7 @@ class UsersController < ApplicationController
     @user.first_name = @user.first_name.capitalize
     @user.last_name = @user.last_name.capitalize
     @user.password = 'stacey-living'
+    @user.prefered_suite = @user.prefered_suite.shift
     if @user.save
       send_users_info_via_slack(@user)
       if @user.move_in_date > Date.new(2019, 9, 1) && !@user.prefered_suite.include?('Premium') && !@user.prefered_suite.include?('Jumbo')
@@ -122,7 +123,8 @@ class UsersController < ApplicationController
       Job: #{user.job},
       Einzugsdatum: #{user.move_in_date},
       Zeitraum: #{user.duration_of_stay},
-      Anzahl an Leuten: #{user.amount_of_people}",
+      Anzahl an Leuten: #{user.amount_of_people},
+      Interessiert an: #{user.prefered_suite.join(', ')}",
       as_user: true
     )
   end
