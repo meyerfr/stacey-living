@@ -9,10 +9,10 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(users_params)
+    # raise
     @user.first_name = @user.first_name.capitalize
     @user.last_name = @user.last_name.capitalize
     @user.password = 'stacey-living'
-    @user.prefered_suite = @user.prefered_suite.shift
     if @user.save
       send_users_info_via_slack(@user)
       if @user.move_in_date > Date.new(2019, 9, 1) && !@user.prefered_suite.include?('Premium') && !@user.prefered_suite.include?('Jumbo')
@@ -95,7 +95,7 @@ class UsersController < ApplicationController
   private
 
   def users_params
-    params.require(:user).permit(:first_name, :last_name, :email, :phone_code, :phone, :date_of_birth, :job, :move_in_date, :duration_of_stay, :amount_of_people, :linked_in, :facebook, :twitter, :instagram, :photo, {:prefered_suite => []})
+    params.require(:user).permit(:first_name, :last_name, :email, :phone_code, :phone, :date_of_birth, :job, :move_in_date, :duration_of_stay, :amount_of_people, :linked_in, :facebook, :twitter, :instagram, :photo, { :prefered_suite => [] })
   end
 
   def authenticate_user_for_contract_pages
