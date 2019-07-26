@@ -91,7 +91,6 @@ class UsersController < ApplicationController
     @flat = Flat.first
   end
 
-
   private
 
   def users_params

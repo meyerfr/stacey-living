@@ -51,10 +51,10 @@ class ContractsController < ApplicationController
         page_size: 'A4',
         template: "contracts/_pdf.html.erb",
         layout: "pdf.html",
-        orientation: "Landscape",
-        lowquality: true,
-        zoom: 1,
-        dpi: 75
+        zoom: 3
+        # orientation: "Landscape"
+        # zoom: 1,
+        # dpi: 75
       end
     end
   end

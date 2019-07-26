@@ -2,13 +2,35 @@
   <div class="pdf-header">
     <%= wicked_pdf_image_tag 'stacey-logo.png', class: 'stacey-logo-pdf' %>
     <div class="line"></div>
-    <p class="header-pdf-text">Rental Agreement between <strong><%= @user.first_name %></strong> and <strong>STACEY Real Estate UG (haftungsbeschränkt)</strong></p>
+    <p class="header-pdf-text">Rental Agreement between <strong><%= @user.first_name %></strong></p>
+    <p class="header-pdf-text">and <strong>STACEY Real Estate UG</strong></p>
+    <p class="header-pdf-text"><strong>(haftungsbeschränkt)</strong></p>
   </div>
-
-  <p>Date <%= Date.today.strftime("%d.%m %Y") %></p>
-
-  <table>
+  <table class="date-address-table">
     <tr class="row">
+      <td></td>
+      <td class="table-stacey-address">STACEY Real Estate UG</td>
+    </tr>
+    <tr class="row">
+      <td class="table-date">Date:</td>
+      <td class="table-stacey-address">Brandstwiete 36</td>
+    </tr>
+    <tr class="row">
+      <% if @contract.signed_on.present? %>
+        <td class="table-date"><%= @contract.signed_on.strftime("%d.%m %Y") %></td>
+      <% else %>
+        <td class="table-date"><%= Date.today.strftime("%d.%m %Y") %></td>
+      <% end %>
+      <td class="table-stacey-address">20457 Hamburg</td>
+    </tr>
+    <tr class="row">
+      <td></td>
+      <td class="table-stacey-address">Germany</td>
+    </tr>
+  </table>
+
+  <table class="details-table">
+    <tr class="row table-headline">
       <th class="col">Description</th>
       <th class="col">Property Address</th>
       <th class="col">Room</th>
@@ -16,47 +38,68 @@
       <th class="col">Start Date</th>
       <th class="col">Duration (months)</th>
     </tr>
-    <tr class="row">
-      <td>Stacey Rent</td>
-      <td><%= @flat.street %> <%= @flat.zipcode %> <%= @flat.city %></td>
-      <td><%= @room.art_of_room %> <%= @room.id %></td>
-      <td><%= @room.price[0] %> €</td>
-      <td><%= @user.move_in_date %></td>
-      <td><%= @user.duration_of_stay %></td>
+    <tr class="row table-content">
+      <td class="col">Stacey Rent</td>
+      <td class="col address"><%= @flat.street %> <br> <%= @flat.zipcode %> <%= @flat.city %></td>
+      <td class="col"><%= @room.art_of_room %> <%= @room.id %></td>
+      <td class="col"><%= @room.price[0] %> €</td>
+      <td class="col"><%= @user.move_in_date %></td>
+      <td class="col"><%= @user.duration_of_stay %></td>
     </tr>
   </table>
-  <p>
+  <p class="table-payment-terms">
     Payment terms: monthly, due 1 day before 'start date' for the first month, and due the 1st day of each month, for the following months. Deposit in form of X-month rent together with the rent for the first month is due before the start date.
-    Payment method: direct debit mandate
+      Payment method: direct debit mandate
   </p>
-  <p style="border: 1px solid gray">This is the rental contract for your STACEY room. By signing, you acknowledge that you have read, understood and agree to the (1) Rental Agreement, (2) Terms and Condition of Internet Use, (3) House Rules and (4) STACEY Terms of Service which can be found at www.stacey-lving.de/terms/  and is incorporated into this document by reference. Any other terms and conditions do not apply to this contract and are null and void.</p>
 
-  <div class="signature-field">
-    <p>Signature</p>
-    <% if @contract.signature.present? %>
-      <% if @contract.signature[0..5] == "data:i" %>
-        <p style="width: 80px; height: 80px;"><%= image_tag @contract.signature, style: 'width: 150px; height: 80px;' %></p>
-      <% else %>
-        <p style="font-family: 'Mr De Haviland', cursive; font-size: 28px;"><%= @contract.signature %></p>
+  <table class="terms-of-service-table">
+    <tr class="row">
+      <th class="col">Terms of Service</th>
+    </tr>
+    <tr class="row">
+      <td class="col">This is the rental contract for your STACEY room. By signing, you acknowledge that you have read, understood and agree to the (1) Rental Agreement, (2) Terms and Condition of Internet Use, (3) House Rules and (4) STACEY Terms of Service which can be found at <%= link_to 'www.stacey-living.de/terms/', 'www.stacey-living.de/terms/' %> and is incorporated into this document by reference. Any other terms and conditions do not apply to this contract and are null and void.</td>
+    </tr>
+  </table>
+
+  <div class="payment-information">
+    <div class="header">
+      <p>Payment Information</p>
+    </div>
+    <div class="content">
+      <p>The monthly rent is automatically transferred to the following account:</p>
+      <p class="bank-info">STACEY Real Estate UG</p>
+      <p class="bank-info">IBAN: DE34120400000043810100</p>
+      <p class="bank-info">BIC: SOBKDEBBXXX</p>
+    </div>
+  </div>
+
+  <table class="contract-singature-and-client">
+    <tr class="row">
+      <td class="col header">Signature</td>
+      <% if @contract.signature.present? %>
+        <% if @contract.signature[0..5] == "data:i" %>
+          <td class="col signature draw border-bottom"><%= image_tag @contract.signature, style: 'width: 150px; height: 80px;' %></td>
+        <% else %>
+          <td class="col signature sign border-bottom"><%= @contract.signature %></td>
+        <% end %>
       <% end %>
-      <p>Terms and Conditions accepted on <%= @contract.signed_on %></p>
-    <% end %>
-    <div class="line"></div>
-  </div>
+    </tr>
+    <tr class="row">
+      <td class="col header">Client Name</td>
+      <td class="col client-name border-bottom"><%= @user.first_name %> <%= @user.last_name %></td>
+    </tr>
+  </table>
 
-  <div>
-    <div class="line"></div>
-    <p>Terms of Service</p>
-  </div>
+  <div class="page-break"></div>
 
-  <h3>(1) Rental Contract</h3>
+  <h2>(1) Rental Contract</h2>
   <h4>1. Subject Matter of the Agreement</h4>
   <p>STACEY rents out only furnished rooms of the shared apartments. The rooms of shared apartments operated by STACEY are rented out to each member as private rooms. The apartments are rented to the STACEY member for exclusive use as living space. The STACEY member shall not use the living space for commercial room rentals as holiday apartments. STACEY member is not allowed to sublet the apartment to third parties.</p>
   <p>The contractual obligations of STACEY include but are not limited to making a room available for sole private use by the user; providing access to and allowing shared use of the shared space within the property; providing furniture for the rented room and the shared space of the property; internet service (subject to 'Terms of Conditions of Internet Use' here attached and part of the agreement); organization of a weekly cleaning service (for furnished rooms and common areas); maintenance or repair of the facilities if such need [for maintenance or repair] arises from using the property in compliance with the agreement.</p>
   <p>Members are individually responsible for how they organize the communal life in the shared apartment.</p>
-  <p>The duration of the tenants stay is limited to the rent duration, as the property will be experience major physical alteration after the end of the tenants lease period. The rental period starts on the <%= @user.move_in_date %> and ends on the <%= @user.duration_of_stay %>.</p>
+  <p>The duration of the tenants stay is limited to the rent duration, as the property will be experience major physical alteration after the end of the tenants lease period. The rental period starts on the <%= @user.move_in_date.strftime("%d.%m %Y") %> and ends on the <%= @user.duration_of_stay.strftime("%d.%m %Y") %>.</p>
 
-  <h4>2. Subject Matter of the Agreement</h4>
+  <h4>2. Contract Signing</h4>
   <p>On its website, STACEY publishes pictures of a variety of generic rooms, common areas, etc., which show the different residential designs on its website. </p>
   <ol>
     <li><p>If the customer is interested in the offer, he the can clicks the button “APPLY”. When a customer applies STACEY gets the personal information of the user. The customer will then receive a YES or NO answer on his application, which is based on the information provided and the availability of rooms at that specific moment.</p></li>
@@ -67,7 +110,7 @@
     <li><p>The STACEY member shall inform the local registration office of his new place of residence or secondary residence within two weeks of moving according to the Meldegesetz (German Registration Act).</p></li>
   </ol>
 
-  <h4>3. contractual obligation</h4>
+  <h4>3. Contractual obligation</h4>
   <p>In signing an effective rental agreement, the STACEY member undertakes to pay the monthly rent specified in the individual agreement. Rent is transferred to the STACEY Real Estate UG through the direct debit mandate at the commencement of the periods of time according to which it is computed but at the latest by the third business day of each such period.</p>
   <p>The member agrees to a direct debit mandate with STACEY and provides [other necessary] payment details, and shall immediately notify STACEY of any changes thereto.</p>
   <p>Monthly rent is all-inclusive. The rent includes ongoing costs, in particular utilities and incidental expenses.</p>
@@ -83,18 +126,18 @@
   <p>The termination is not  possible during the mandatory rent period. The termination is possible at any time with a notice period of one month after the mandatory rent period. The mandatory rent period is X months. This period is selected during the application process and is of importance as it influences the monthly rental price.</p>
 
   <h4>6. Extraordinary termination of mermbership</h4>
-  <p>STACEY may terminate the extraordinarily independently of the existence of the lease if the user seriously violates this Rental Agreement or any of the terms at www.stacey-living.de/terms.</p>
+  <p>STACEY may terminate the extraordinarily independently of the existence of the lease if the user seriously violates this Rental Agreement or any of the terms at <%= link_to 'www.stacey-living.de/terms', 'www.stacey-living.de/terms' %>.</p>
   <p>A serious violation is deemed to be committed, in particular, when the user the peaceful cohabitation within the residential community continues to disrupt or violates the rules of conduct as defined in section 5 or creates multiple member accounts, uses the website in a manner violating applicable law, provides false, out-of-date or incomplete information during the registration process or fails to update same.</p>
-  <p>Reasons for extraordinary termination are:</p>
-  <ul>
-    <li><p>Subletting room on Airbnb, equivalents or else to third parties</p></li>
-    <li><p>Incorporate use of internet (= "Terms of Conditions of Internet Use" see Point (2)</p></li>
-    <li><p>Persistent breach of house rules (see Point (3))</p></li>
-    <li><p>Permanently payment defaults</p></li>
-    <li><p>Disturbance of domestic peace</p></li>
-    <li><p>Breach the pet-ban, smoking-ban, drugs-ban</p></li>
-    <li><p>Deliberate damages to the rental object</p></li>
-    <li><p>Running a business in own apartment</p></li>
+  <p class="margin-bottom">Reasons for extraordinary termination are:</p>
+  <ul class="less-distance">
+    <li>Subletting room on Airbnb, equivalents or else to third parties</li>
+    <li>Incorporate use of internet (= "Terms of Conditions of Internet Use" see Point (2))</li>
+    <li>Persistent breach of house rules (see Point (3))</li>
+    <li>Permanently payment defaults</li>
+    <li>Disturbance of domestic peace</li>
+    <li>Breach the pet-ban, smoking-ban, drugs-ban</li>
+    <li>Deliberate damages to the rental object</li>
+    <li>Running a business in own apartment</li>
   </ul>
 
   <h4>7. Damage</h4>
@@ -107,32 +150,41 @@
   <p>According to § 312 c BGB, distance contracts are contracts for which the trader, or a person acting in the trader’s name or on his behalf, and the consumer exclusively avail themselves of means of distance communication in negotiating and concluding the contract, unless the contract is concluded via a sales or a service system designated for distance sales.</p>
   <p>Means of distance communication in this context are all means of communication which can be used to initiate or to conclude a contract, without requiring the simultaneous physical presence of the parties to the contract, such as letters, catalogues, telephone calls, faxes, emails, text messages sent via the mobile telephone service (SMS) as well as messages broadcast and sent via teleservices.</p>
 
-  <h4>INFROMATION OF THE RIGHT OF WITHDRAWAL</h4>
-  <h5>right of withdrawal</h5>
-  <p>You are entitled to withdraw from the membership within 14 days without giving reasons. The time limit for the withdrawal is 14 days from the date of concluding the agreement.</p>
-  <p>To exercise the right of withdrawal, please inform us (STACEY Real Estate UG (haftungsbeschränkt), Brandstwiete 36, 20457 Hamburg, phone.: 0221 988191 34, email: hello@stacey-living.de) of your decision to withdraw from the Agreement as per item 8, by submitting a clearly worded declaration (e.g. by sending a letter by post, or sending a fax or email). You can use the attached withdrawal form template for this purpose, but the use of this form is not mandatory.</p>
-  <p>In order to meet the withdrawal deadline it is sufficient to send the information about the exercise of the right of withdrawal before the end of the withdrawal deadline.</p>
-  <h5>Consequences of withdrawal</h5>
+  <div class="page-break"></div>
+
+  <h4 class="underline">INFROMATION OF THE RIGHT OF WITHDRAWAL</h4>
+  <p class="bold">Right of withdrawal</p>
+  <p class="text-closer">You are entitled to withdraw from the membership within 14 days without giving reasons. The time limit for the withdrawal is 14 days from the date of concluding the agreement.</p>
+  <p class="text-closer">To exercise the right of withdrawal, please inform us (STACEY Real Estate UG (haftungsbeschränkt), Brandstwiete 36, 20457 Hamburg, phone.: 0221 988191 34, email: hello@stacey-living.de) of your decision to withdraw from the Agreement as per item 8, by submitting a clearly worded declaration (e.g. by sending a letter by post, or sending a fax or email). You can use the attached withdrawal form template for this purpose, but the use of this form is not mandatory.</p>
+  <p class="text-closer">In order to meet the withdrawal deadline it is sufficient to send the information about the exercise of the right of withdrawal before the end of the withdrawal deadline.</p>
+  <p class="bold">Consequences of withdrawal</p>
   <p>If you withdraw from this Agreement, we will return to you all payments from you immediately no later than 14 days of the date on which we received the notice of your withdrawal from this Agreement. We will refund the above expenses using the same means of payment as you used for the original transaction unless expressly agreed otherwise with you; in no case will we charge you a fee for this refund. If your requested period of service performance overlaps with the withdrawal period, you will have to pay us an appropriate fee equal to the portion payable for the services performed until the date on which you informed us that you withdraw from the Agreement in relation to the entire scope of services provided for in the agreement.</p>
-  <h5>Withdrawal form template</h5>
+  <p class="bold">Withdrawal form template</p>
   <p>If you wish to withdraw from the agreement as per the paragraphs above, you can complete and submit this form. You are not required to use this form, though.</p>
+  <p class="text-closer">I/We (*) hereby withdraw from the agreement signed by me/us (*) on the provision of the following services (*)</p>
+  <p class="text-closer">Ordered on (*)/received on (*)</p>
+  <p class="text-closer">Name of the consumer(s)</p>
+  <p class="text-closer">Postal address of the consumer(s)</p>
+  <p class="text-closer">Signature of the consumer(s) (only if notification is in paper form)</p>
+  <p class="text-closer">Date</p>
+  <p class="text-closer">(*) delete as appropriate.</p>
 
+  <div class="page-break"></div>
 
-
-  <h3>(2) TERMS AND CONDITIONS FOR INTERNET USE</h3>
+  <h2>(2) TERMS AND CONDITIONS FOR INTERNET USE</h2>
   <h4>1. Mode and duration of the internet use</h4>
   <p>1.1 The lessee is allowed to use the internet access point available in the rented apartment in accordance with the following terms and conditions.</p>
-  <p>1.2 The lessee may use the internet access in a normal, reasonable way (e- mailing, surfing, downloading, etc.). Any use that violates copyrights, trademarks, personal rights or that falls under criminal law provisions is prohibited. Particularly forbidden is:</p>
-  <ul>
-    <li><p>Any sort of file sharing and any use of file sharing software, peer-to-peer and bittorrent networks, etc.</p></li>
-    <li><p>The violation of copyrights or other legally protected rights by up- or downloading content protected by copyright (movies, music, software, etc.)</p></li>
-    <li><p>Insulting or humiliating other individuals</p></li>
-    <li><p>Sharing photos of other people without permission</p></li>
-    <li><p> Publishing harmful and/or illegal content</p></li>
-    <li><p>Sending mass-e-mails (spamming)</p></li>
-    <li><p>Spreading computer viruses</p></li>
-    <li><p>Visiting websites with indictable content (hate-speech, child- or underage pornography, violence-glorifying, etc.) or which contain links to such content</p></li>
-    <li><p>Entering (or trying to enter) foreign data-networks, which are not meant for public access (hacking).</p></li>
+  <p class="margin-bottom">1.2 The lessee may use the internet access in a normal, reasonable way (e- mailing, surfing, downloading, etc.). Any use that violates copyrights, trademarks, personal rights or that falls under criminal law provisions is prohibited. Particularly forbidden is:</p>
+  <ul class="less-distance">
+    <li>Any sort of file sharing and any use of file sharing software, peer-to-peer and bittorrent networks, etc.</li>
+    <li>The violation of copyrights or other legally protected rights by up- or downloading content protected by copyright (movies, music, software, etc.)</li>
+    <li>Insulting or humiliating other individuals</li>
+    <li>Sharing photos of other people without permission</li>
+    <li> Publishing harmful and/or illegal content</li>
+    <li>Sending mass-e-mails (spamming)</li>
+    <li>Spreading computer viruses</li>
+    <li>Visiting websites with indictable content (hate-speech, child- or underage pornography, violence-glorifying, etc.) or which contain links to such content</li>
+    <li>Entering (or trying to enter) foreign data-networks, which are not meant for public access (hacking).</li>
   </ul>
   <p>1.3 The lessee shall not use any online services that cause claims against the lessor.</p>
 
@@ -152,7 +204,9 @@
   <p>5.1 The lessor shall not be liable for any damage that happens to the lessee in connection with the internet use. That applies particularly to damage of the lessee’s computer, to virus attacks and to content used by the lessee (on the hard-drive and / or in the internet). That, however, does not apply in case of deliberate or grossly negligent conduct of the lessor.</p>
   <p>5.2 The lessor is allowed to immediately block the internet access without substitution in case the lessee violates these terms and conditions for the internet use. In the case of persistent breach of these terms and conditions for internet using the lessor is allowed to terminate the lease extraordinary.</p>
 
-  <h3>(3) House Rules</h3>
+  <div class="page-break"></div>
+
+  <h2>(3) House Rules</h2>
   <h4>A. Mutual Consideration</h4>
   <ul>
     <li><p>Avoid disturbing noises inside the lessee's apartment, inside the house, in the courtyard and on the property as far as possible, in particular through the use of technical equipment, through heavy doors slamming and stairs running or through heavy music making.</p></li>
