@@ -1,3 +1,4 @@
+@import "config/fonts";
 .contract-pdf-wrapper{
   margin: 0 5% 0 5%;
   .page-break { display:block; clear:both; page-break-after:always; }
@@ -130,7 +131,7 @@
     }
     .sign{
       font-family: 'Mr De Haviland', cursive;
-      font-size: 22px;
+      font-size: 28px;
     }
   }
   h2{
