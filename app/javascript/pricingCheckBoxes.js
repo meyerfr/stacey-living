@@ -1,7 +1,5 @@
-const genderCheckBox = document.querySelector('gender')
-if(genderCheckBox){
-  const genderCheckBoxesInputs = document.querySelector('.gender').querySelectorAll('span');
-}
+const genderCheckBox = document.querySelector('.gender');
+const genderCheckBoxesInputs = document.querySelectorAll('span');
 const terms_and_conditions_check_box = document.querySelector('#terms-and-conditions');
 const payment_button = document.querySelector('.payment-button');
 const update_user_button = document.getElementById('update-user-button');
@@ -105,7 +103,7 @@ const checkErrors = (event) => {
 }
 
 function checkBeforeSubmit() {
-  if(genderCheckBoxesInputs){
+  if(genderCheckBox){
     addEventListenerToGenderCheckBoxes();
     makeTermsAndConditionsEverywhereClickable();
     overlay_button.addEventListener('click', checkErrors);

@@ -2,9 +2,13 @@
   <div class="pdf-header">
     <%= wicked_pdf_image_tag 'stacey-logo.png', class: 'stacey-logo-pdf' %>
     <div class="line"></div>
-    <p class="header-pdf-text">Rental Agreement between <strong><%= @user.first_name %></strong></p>
-    <p class="header-pdf-text">and <strong>STACEY Real Estate UG</strong></p>
-    <p class="header-pdf-text"><strong>(haftungsbeschränkt)</strong></p>
+    <p class="header-pdf-text" id="space">Rental Agreement between <strong>the lessor</strong></p>
+    <p class="header-pdf-text">STACEY Real Estate UG (haftungsbeschränkt)</p>
+    <p class="header-pdf-text">Brandstwiete 36</p>
+    <p class="header-pdf-text">20457 Hamburg</p>
+    <p class="header-pdf-text" id="space">and <strong>the tenant</strong></p>
+    <p class="header-pdf-text"><%= @user.first_name %> <%= @user.last_name %></p>
+    <p class="header-pdf-text">Born <%= @user.date_of_birth.strftime('%d.%m %Y') %></p>
   </div>
   <table class="date-address-table">
     <tr class="row">
@@ -39,7 +43,7 @@
       <th class="col">Duration (months)</th>
     </tr>
     <tr class="row table-content">
-      <td class="col">Stacey Rent</td>
+      <td class="col">STACEY Rent</td>
       <td class="col address"><%= @flat.street %> <br> <%= @flat.zipcode %> <%= @flat.city %></td>
       <td class="col"><%= @room.art_of_room %> <%= @room.id %></td>
       <td class="col"><%= @room.price[0] %> €</td>
@@ -75,7 +79,11 @@
 
   <table class="contract-singature-and-client">
     <tr class="row">
-      <td class="col header">Signature</td>
+      <td class="col header">Tenant Name</td>
+      <td class="col client-name border-bottom"><%= @user.first_name %> <%= @user.last_name %></td>
+    </tr>
+    <tr class="row">
+      <td class="col header">Location, Date & Signature (<strong>tenant</strong>)</td>
       <% if @contract.signature.present? %>
         <% if @contract.signature[0..5] == "data:i" %>
           <td class="col signature draw border-bottom"><%= image_tag @contract.signature, style: 'width: 150px; height: 80px;' %></td>
@@ -85,8 +93,8 @@
       <% end %>
     </tr>
     <tr class="row">
-      <td class="col header">Client Name</td>
-      <td class="col client-name border-bottom"><%= @user.first_name %> <%= @user.last_name %></td>
+      <td class="col header">Location, Date & Signature (<strong>lessor</strong>)</td>
+      <td class="col signature border-bottom"><%= wicked_pdf_image_tag 'stacey-logo.png', class: 'stacey-signature' %></td>
     </tr>
   </table>
 

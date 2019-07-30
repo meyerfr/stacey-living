@@ -1,4 +1,4 @@
-const date = document.getElementById('user_move_in_date_3i').value;
+const date = document.getElementById('user_move_in_date_3i');
 
 function checkDateDiffernce() {
   let move_in_date_day = parseInt(document.getElementById('user_move_in_date_3i').value);

@@ -6,7 +6,7 @@
     text-align: center;
     .stacey-logo-pdf{
       margin-top: 30px;
-      width: 350px;
+      width: 280px;
     }
     .line{
       align-items: center;
@@ -17,6 +17,10 @@
       // width: 300px;
       text-align: center;
       margin: 0;
+    }
+    #space{
+      font-size: 20px;
+      margin: 5px 0 5px 0;
     }
   }
   .date-address-table{
@@ -122,7 +126,7 @@
   .contract-singature-and-client{
     // margin-top: 70px;
     border-collapse: separate;
-    border-spacing: 20px 60px;
+    border-spacing: 10px 30px;
     .col{
       padding: 10px 10px 10px 10px;
     }
@@ -132,6 +136,15 @@
     .sign{
       font-family: 'Mr De Haviland', cursive;
       font-size: 28px;
+    }
+    .signature{
+      text-align: center;
+    }
+    .header{
+      width: 150px;
+    }
+    .stacey-signature{
+      width: 125px;
     }
   }
   h2{

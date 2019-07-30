@@ -67,7 +67,7 @@ class PaymentsController < ApplicationController
       customer: correct_customer.id,
       billing: "charge_automatically",
       billing_cycle_anchor: @applicant.move_in_date.to_time.to_i,
-      cancel_at: (@applicant.move_in_date + @applicant.duration_of_stay[0].to_i.month + 1.month).to_time.to_i,
+      cancel_at: (@applicant.move_in_date + @applicant.duration_of_stay + 1.month).to_time.to_i,
       items: [
         {
           plan: deposit_plan,
@@ -75,7 +75,7 @@ class PaymentsController < ApplicationController
         },
         {
           plan: rent_plan,
-          quantity: @applicant.duration_of_stay[0]
+          quantity: ((@applicant.duration_of_stay - @applicant.move_in_date).to_i) / 29
         }
       ]
     })
@@ -119,10 +119,11 @@ class PaymentsController < ApplicationController
   def set_price_and_deposit
     @applicant = User.find(@booking.user_id)
     @room = Room.find(@booking.room_id)
-    if @applicant.duration_of_stay[0].to_i < 4
+    duration = ((@applicant.duration_of_stay - @applicant.move_in_date).to_i) / 29
+    if duration < 4
       @amount_per_month = @room.price[0]
       @deposit = @room.price[0]
-    elsif @applicant.duration_of_stay[0].to_i < 8
+    elsif duration < 8
       @amount_per_month = @room.price[1]
       @deposit = @room.price[1] * 2
     else

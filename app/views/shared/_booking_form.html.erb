@@ -16,9 +16,9 @@
       <div class="booking-form-pricing">
         <div class="info-field rent">
           <p class="header">RENT PER MONTH</p>
-          <% if user.duration_of_stay[0].to_i < 4 %>
+          <% if (((user.duration_of_stay - user.move_in_date).to_i) / 29) < 4 %>
             <p class="price-per-month">€ <%= room.price[0] %> per Month</p>
-          <% elsif user.duration_of_stay[0].to_i < 7 %>
+          <% elsif (((user.duration_of_stay - user.move_in_date).to_i) / 29) < 7 %>
             <p class="price-per-month">€ <%= room.price[1] %> per Month</p>
           <% else %>
             <p class="price-per-month">€ <%= room.price[2] %> per Month</p>
@@ -26,9 +26,9 @@
         </div>
         <div class="info-field deposit">
           <p class="header">REFUNDABLE DEPOSIT</p>
-          <% if user.duration_of_stay[0].to_i < 4 %>
+          <% if (((user.duration_of_stay - user.move_in_date).to_i) / 29) < 4 %>
             <p class="deposit-text">1 monthly rent</p>
-          <% elsif user.duration_of_stay[0].to_i < 7 %>
+          <% elsif (((user.duration_of_stay - user.move_in_date).to_i) / 29) < 7 %>
             <p class="deposit-text">2 monthly rents</p>
           <% else %>
             <p class="deposit-text">3 monthly rents</p>
