@@ -19,6 +19,11 @@ class UserMailer < ApplicationMailer
     mail(to: 'newapplicant@stacey-living.de', subject: 'New Applicant')
   end
 
+  def no_basic_suite_mail(user)
+    @user = user
+    mail(to: @user.email, subject: 'Stacey - Co-living')
+  end
+
   def contract_mail(user, flat, authentity_token_contract)
     @user = user
     @flat = flat

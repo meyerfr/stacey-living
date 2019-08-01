@@ -16,7 +16,7 @@
   justify-content: space-between;
   .booking-form-container{
     width: 430px;
-    height: 425px;
+    height: 450px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -130,9 +130,14 @@
         border-top: 1px solid #777777;
         border-bottom: 1px solid #777777;
         padding: 30px 0;
-        p{
+        .detail{
+          display: flex;
           width: 50%;
-          padding-left: 45px;
+          i{
+           font-size: 18px;
+           width: 35px;
+           text-align: center;
+          }
         }
       }
     }
