@@ -123,7 +123,7 @@ class UsersController < ApplicationController
       Geburtstag: #{user.date_of_birth},
       Job: #{user.job},
       Einzugsdatum: #{user.move_in_date.strftime("%d.%m %Y")},
-      Zeitraum: #{user.duration_of_staystrftime("%d.%m %Y")},
+      Zeitraum: #{user.duration_of_stay.strftime("%d.%m %Y")},
       Anzahl an Leuten: #{user.amount_of_people},
       Interessiert an: #{user.prefered_suite.join(', ')}",
       as_user: true
