@@ -74,6 +74,9 @@
     border-top: none;
     text-align: center;
     padding: 10px 15px 10px 15px;
+    .no-margin-top{
+      margin-top: 0;
+    }
   }
   .terms-of-service-table{
     margin-top: 50px;
@@ -139,6 +142,11 @@
     }
     .signature{
       text-align: center;
+      .signature-field-sign{
+        border-collapse: separate;
+        border-spacing: 10px 0;
+        margin: 0 -10px;
+      }
     }
     .header{
       width: 150px;
@@ -149,7 +157,7 @@
   }
   h2{
     text-align: center;
-    margin-top: 100px;
+    margin-top: 25px;
   }
   h4{
     margin-top: 25px;

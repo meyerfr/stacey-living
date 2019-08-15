@@ -14,7 +14,7 @@ class UsersController < ApplicationController
     @user.last_name = @user.last_name.capitalize
     @user.password = 'stacey-living'
     if @user.save
-      send_users_info_via_slack(@user)
+      # send_users_info_via_slack(@user)
       if @user.move_in_date > Date.new(2019, 9, 1) && !@user.prefered_suite.include?('Premium') && !@user.prefered_suite.include?('Jumbo')
         UserMailer.waiting_list_mail(@user).deliver_now
       elsif @user.prefered_suite.include?('Basic +') && !@user.prefered_suite.include?('Premium') && !@user.prefered_suite.include?('Jumbo')

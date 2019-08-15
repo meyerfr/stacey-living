@@ -4,7 +4,6 @@ class PaymentsController < ApplicationController
   layout 'booking'
   skip_before_action :authenticate_user!, only: [:new, :create]
 
-
   def new
     @phone_code = []
     IsoCountryCodes.all.each do |country|
@@ -20,7 +19,7 @@ class PaymentsController < ApplicationController
     Stripe::Customer.list.data.each do |c|
       correct_customer = c if c.email == @applicant.email
     end
-    unless @customer.present?
+    unless correct_customer.present?
       correct_customer = Stripe::Customer.create(
         source: params[:stripeSource],
         email:  @applicant.email,
@@ -49,7 +48,7 @@ class PaymentsController < ApplicationController
       interval: 'month',
       product: correct_product.id,
       currency: 'eur',
-      nickname: 'Deposit'
+      nickname: "Deposit of #{@applicant.first_name} #{@applicant.last_name}"
     })
 
     # Rent Plans
@@ -58,7 +57,7 @@ class PaymentsController < ApplicationController
       interval: 'month',
       product: correct_product.id,
       currency: 'eur',
-      nickname: 'Rent'
+      nickname: "Rent of #{@applicant.first_name} #{@applicant.last_name}"
     })
 
     # Subscription to Applicant for rent
@@ -67,7 +66,7 @@ class PaymentsController < ApplicationController
       customer: correct_customer.id,
       billing: "charge_automatically",
       billing_cycle_anchor: @applicant.move_in_date.to_time.to_i,
-      cancel_at: (@applicant.move_in_date + @applicant.duration_of_stay + 1.month).to_time.to_i,
+      cancel_at: (@applicant.duration_of_stay + 1.month).to_time.to_i,
       items: [
         {
           plan: deposit_plan,

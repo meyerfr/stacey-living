@@ -12,6 +12,7 @@
         <% if current_user.admin? %>
           <%= link_to 'Applicants', applicants_index_path, class: 'navbar-stacey-item navbar-stacey-link' %>
           <%= link_to 'Flats', user_flats_path(current_user, 'TE2znbcTuxyamuHysrNs'), class: 'navbar-stacey-item navbar-stacey-link' %>
+          <%= link_to 'Tenants', users_path, class: 'navbar-stacey-item navbar-stacey-link' %>
         <% else %>
         <!-- Links when logged in -->
           <%= link_to "Home", "http://www.stacey-living.de", class: "navbar-stacey-item navbar-stacey-link" %>
