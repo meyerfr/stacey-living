@@ -56,6 +56,7 @@ class UsersController < ApplicationController
     @room = Room.find(params[:room_id])
     @authentity_token_contract = params[:authentity_token_contract]
     if @user.update(users_params)
+      # Booking probably must be created here
       redirect_to user_contract_new_path(@user, @flat, @room, @authentity_token_contract)
     else
       render user_room_path(@user, @flat, @room, @authentity_token_contract)
