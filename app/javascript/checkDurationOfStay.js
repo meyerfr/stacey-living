@@ -35,10 +35,11 @@ const checkDurationErrors = (event) => {
 
 const checkPreferedSuite = (event) => {
   const invalid_feedback_prefered_suite = document.querySelector('.invalid-feedback-prefered-suite');
-  let basic = document.getElementById('user_prefered_suite_basic_').checked;
+  // let basic = document.getElementById('user_prefered_suite_basic_').checked;
+  let mighty = document.getElementById('user_prefered_suite_mighty').checked;
   let premium = document.getElementById('user_prefered_suite_premium').checked;
   let jumbo = document.getElementById('user_prefered_suite_jumbo').checked;
-  if (basic === false && premium === false && jumbo === false){
+  if (/*basic === false && */mighty === false && premium === false && jumbo === false){
     invalid_feedback_prefered_suite.classList.remove('hidden');
   }else{
     invalid_feedback_prefered_suite.classList.add('hidden');
