@@ -7,7 +7,6 @@ class ContractsController < ApplicationController
     @user = User.find(params[:user_id])
     @room = Room.find(params[:room_id])
     @flat = Flat.find(params[:flat_id])
-    @booking = Booking.create(user: @user, room: @room)
     @contract = Contract.new
     @authentity_token_contract = params[:authentity_token_contract]
 
@@ -25,7 +24,12 @@ class ContractsController < ApplicationController
 
   def create
     # Booking.create must be in this method otherwise one the page reloads a Booking gets created.
+    @user = User.find(params[:user_id])
+    @room = Room.find(params[:room_id])
+    @flat = Flat.find(params[:flat_id])
+    @booking = Booking.create(user: @user, room: @room)
     @contract = Contract.new(contract_params)
+    @contract.booking_id = @booking.id
     @booking = params[:booking_id]
     @authentity_token_contract = params[:authentity_token_contract]
     if @contract.save!

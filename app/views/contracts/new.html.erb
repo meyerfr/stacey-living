@@ -52,7 +52,7 @@
       <div class="signature-text">
         <%= f.input_field :signature, as: :hidden, class: 'signature_pad_input' %>
         <%= f.input_field :signed_on, as: :hidden, value: Date.today %>
-        <%= f.input_field :booking_id, as: :hidden, value: @booking.id %>
+        <%#= f.input_field :booking_id, as: :hidden, value: @booking.id %>
         <div class="signature-pad-body">
           <canvas class="hidden"></canvas>
           <input type="text" id="signature-type-text">
