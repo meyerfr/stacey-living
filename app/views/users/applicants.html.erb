@@ -21,7 +21,7 @@
         <% else %>
           <td class="col"><%= link_to 'Contract again', users_send_invitation_for_contract_pages_path(user: user.id), method: :post %></td>
         <% end %>
-        <td class="col"><%= link_to 'Delete', method: :delete %></td>
+        <td class="col"><%= link_to 'delete', user, :method => :delete %></td>
       </tr>
     <% end %>
   </table>
