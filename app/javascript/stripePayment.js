@@ -112,7 +112,7 @@ function proceedPayment() {
 
 function stripeProcess() {
   if (stripe_section) {
-    proceedPayment;
+    proceedPayment();
   }
 }
 

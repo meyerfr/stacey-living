@@ -1,4 +1,4 @@
-console.log('applicant.js wird geladen');
+console.log('application.js wird geladen');
 import "bootstrap";
 import { checkDuration } from '../checkDurationOfStay';
 import { addEventListenerToDuration } from '../updatePricingInBookingForm';

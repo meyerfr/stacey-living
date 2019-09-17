@@ -62,22 +62,31 @@ class PaymentsController < ApplicationController
 
     # Subscription to Applicant for rent
 
-    subscription = Stripe::Subscription.create({
+    subscription_rent = Stripe::Subscription.create({
       customer: correct_customer.id,
       billing: "charge_automatically",
       billing_cycle_anchor: @applicant.move_in_date.to_time.to_i,
       cancel_at: (@applicant.duration_of_stay + 1.month).to_time.to_i,
       items: [
         {
-          plan: deposit_plan,
-          quantity: 1
-        },
-        {
-          plan: rent_plan,
-          quantity: ((@applicant.duration_of_stay - @applicant.move_in_date).to_i) / 29
+          plan: rent_plan
         }
       ]
     })
+
+    # Subscription to Applicant for Deposit
+    subscription_deposit = Stripe::Subscription.create({
+      customer: correct_customer.id,
+      billing: "charge_automatically",
+      billing_cycle_anchor: @applicant.move_in_date.to_time.to_i,
+      cancel_at: (@applicant.move_in_date + 1.day).to_time.to_i,
+      items: [
+        {
+          plan: deposit_plan
+        }
+      ]
+    })
+
 
     # Subscription to User for billing Fee
     # billing_fee_subscription = Stripe::Subscription.create({
@@ -96,7 +105,7 @@ class PaymentsController < ApplicationController
     #   description:  "Payment for Renting #{@booking.room.art_of_room} for order #{@booking.id}",
     #   currency:     'eur'
     # )
-    @booking.update(payment: charge.to_json, state: 'paid')
+    @booking.update(state: 'paid')
     redirect_to users_success_path
     # redirect_to booking_path(@booking)
   rescue Stripe::CardError => e
