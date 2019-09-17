@@ -77,7 +77,15 @@ class UsersController < ApplicationController
   end
 
   def applicants
-    @users = User.all.where(applicant: true)
+    @users = User.all
+    respond_to do |format|
+      format.xlsx {
+        response.headers[
+          'Content-Disposition'
+        ] = "attachment; filename='users.xlsx'"
+      }
+      format.html { render :applicants }
+    end
   end
 
   def send_invitation_for_contract_pages

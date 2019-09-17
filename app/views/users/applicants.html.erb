@@ -2,6 +2,7 @@
 
 <div class="applicant-overview-container">
   <h3>Currently we have <%= User.all.where(applicant: true).count %> applicants</h3>
+  <%= link_to 'Download as Excel', applicants_index_path(format: :xlsx) %>
   <table class="applicant-overview-table">
     <tr class="row">
       <th class="col">Name</th>
