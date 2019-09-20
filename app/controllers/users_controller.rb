@@ -77,15 +77,7 @@ class UsersController < ApplicationController
   end
 
   def applicants
-    @users = User.all
-    respond_to do |format|
-      format.xlsx {
-        response.headers[
-          'Content-Disposition'
-        ] = "attachment; filename='users.xlsx'"
-      }
-      format.html { render :applicants }
-    end
+    @users = User.all.where(applicant: true)
   end
 
   def send_invitation_for_contract_pages
@@ -102,6 +94,26 @@ class UsersController < ApplicationController
     @rooms = Room.all
     @user = User.first
     @flat = Flat.first
+  end
+
+  def updatespreadsheet
+    # Authenticate a session with your Service Account
+    session = GoogleDrive::Session.from_service_account_key("user_secret.json")
+    # Get the spreadsheet by its title
+    spreadsheet = session.spreadsheet_by_title("STACEY Users")
+    # Get the first worksheet
+    worksheet = spreadsheet.worksheets.first
+    # Print out the first 6 columns of each row
+    applicants = User.all.where(applicant: true)
+    #Delete worksheet cells
+    worksheet.delete_rows(3, applicants.length + 3)
+    worksheet["B2"] = Time.now.strftime('%d.%m %Y (%k:%M)')
+    #inserting all applicants in spreadsheet
+    applicants.each do |applicant|
+      worksheet.insert_rows(worksheet.num_rows + 1, [[applicant.first_name, applicant.last_name, applicant.email, applicant.phone_code, applicant.phone, applicant.date_of_birth.strftime('%d.%m %Y'), applicant.job, applicant.move_in_date.strftime('%d.%m %Y'), applicant.duration_of_stay.strftime('%d.%m %Y'), applicant.amount_of_people]])
+    end
+    worksheet.save
+    redirect_to applicants_index_path
   end
 
   private
