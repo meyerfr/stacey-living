@@ -50,6 +50,7 @@ Rails.application.routes.draw do
 
 
   get 'user/applicants', to: 'users#applicants', as: 'applicants_index'
+  get 'user/updatespreadsheet', to: 'users#updatespreadsheet', as: 'applicants_spreadsheet'
   get 'user/success', to: 'users#success', as: 'users_success'
   get 'user/contract', to: 'users#contract'
   #get 'users/contract/:id/:authentity_token_contract', to: 'users#contract', as: 'contract'
