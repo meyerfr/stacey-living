@@ -16,7 +16,13 @@ class UsersController < ApplicationController
     if @user.save
       send_users_info_via_slack(@user)
       UserMailer.welcome(@user).deliver_now
-
+      # Authenticate a session with your Service Account
+      session = GoogleDrive::Session.from_service_account_key("user_secret.json")
+      # Get the spreadsheet by its title
+      spreadsheet = session.spreadsheet_by_title("STACEY Users")
+      # Get the first worksheet
+      worksheet = spreadsheet.worksheets.first
+      worksheet.insert_rows(worksheet.num_rows + 1, [[@user.first_name, @user.last_name, @user.email, @user.phone_code, @user.phone, @user.date_of_birth.strftime('%d.%m %Y'), @user.job, @user.move_in_date.strftime('%d.%m %Y'), @user.duration_of_stay.strftime('%d.%m %Y'), @user.amount_of_people]])
       # if @user.move_in_date > Date.new(2019, 9, 1) && !@user.prefered_suite.include?('Premium') && !@user.prefered_suite.include?('Jumbo')
       #   UserMailer.waiting_list_mail(@user).deliver_now
       # elsif @user.prefered_suite.include?('Basic +') && !@user.prefered_suite.include?('Premium') && !@user.prefered_suite.include?('Jumbo')
@@ -110,7 +116,7 @@ class UsersController < ApplicationController
     worksheet["B2"] = Time.now.strftime('%d.%m %Y (%k:%M)')
     #inserting all applicants in spreadsheet
     applicants.each do |applicant|
-      worksheet.insert_rows(worksheet.num_rows + 1, [[applicant.first_name, applicant.last_name, applicant.email, applicant.phone_code, applicant.phone, applicant.date_of_birth.strftime('%d.%m %Y'), applicant.job, applicant.move_in_date.strftime('%d.%m %Y'), applicant.duration_of_stay, applicant.amount_of_people]])
+      worksheet.insert_rows(worksheet.num_rows + 1, [[applicant.first_name, applicant.last_name, applicant.email, applicant.phone_code, applicant.phone, applicant.date_of_birth.strftime('%d.%m %Y'), applicant.job, applicant.move_in_date.strftime('%d.%m %Y'), applicant.duration_of_stay.strftime('%d.%m %Y'), applicant.amount_of_people]])
     end
     worksheet.save
     redirect_to applicants_index_path
