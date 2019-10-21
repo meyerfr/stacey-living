@@ -4,7 +4,6 @@ class PaymentsController < ApplicationController
   layout 'booking'
   skip_before_action :authenticate_user!, only: [:new, :create]
 
-
   def new
     @phone_code = []
     IsoCountryCodes.all.each do |country|
@@ -16,11 +15,9 @@ class PaymentsController < ApplicationController
     Stripe.api_key = 'sk_test_pblbbDNQnHAALD1MrdaNtOx6'
 
     # Find Customer if existing
-    correct_customer = ''
-    Stripe::Customer.list.data.each do |c|
-      correct_customer = c if c.email == @applicant.email
-    end
-    unless @customer.present?
+    correct_customer = find_stripe_customer
+
+    unless correct_customer.present?
       correct_customer = Stripe::Customer.create(
         source: params[:stripeSource],
         email:  @applicant.email,
@@ -28,56 +25,29 @@ class PaymentsController < ApplicationController
       )
     end
 
-    # Charge Booking Fee
-    # charge = Stripe::Charge.create({
-    #   amount: 9000,
-    #   currency: 'eur',
-    #   customer: correct_customer.id,
-    #   source: params[:stripeSource],
-    #   description: "Booking Fee"
-    # })
-
     # Find correct Product for this Room
-    correct_product = ''
-    Stripe::Product.list.data.each do |p|
-      correct_product = p if p.name == @room.art_of_room
-    end
+    correct_product = find_stripe_product(@room, @room.flat)
 
-    # Create Plans
-    deposit_plan = Stripe::Plan.create({
-      amount: @deposit * 100,
-      interval: 'month',
-      product: correct_product.id,
-      currency: 'eur',
-      nickname: 'Deposit'
-    })
+    correct_plan = find_stripe_plan
 
-    # Rent Plans
-    rent_plan = Stripe::Plan.create({
-      amount: @amount_per_month * 100,
-      interval: 'month',
-      product: correct_product.id,
+    # Charge Booking Fee and Depoit
+    charge = Stripe::Charge.create({
+      amount: (@deposit + 80) * 100,
       currency: 'eur',
-      nickname: 'Rent'
+      customer: correct_customer.id,
+      source: params[:stripeSource],
+      description: "Booking Fee and Depoit"
     })
 
     # Subscription to Applicant for rent
 
     subscription = Stripe::Subscription.create({
+      # what´s the billing cycle?
       customer: correct_customer.id,
       billing: "charge_automatically",
-      billing_cycle_anchor: @applicant.move_in_date.to_time.to_i,
-      cancel_at: (@applicant.move_in_date + @applicant.duration_of_stay[0].to_i.month + 1.month).to_time.to_i,
-      items: [
-        {
-          plan: deposit_plan,
-          quantity: 1
-        },
-        {
-          plan: rent_plan,
-          quantity: @applicant.duration_of_stay[0]
-        }
-      ]
+      cancel_at: (@applicant.duration_of_stay[0].to_i.month + 1.month).to_time.to_i,
+      items: [{ plan: correct_plan }],
+      trial_end: @applicant.move_in_date.to_time.to_i
     })
 
     # Subscription to User for billing Fee
@@ -129,6 +99,31 @@ class PaymentsController < ApplicationController
       @amount_per_month = @room.price[2]
       @deposit = @room.price[2] * 3
     end
-    @total_amount = 80
+    @total_amount = @deposit + 80
+  end
+
+  def find_stripe_product(room, flat)
+    Stripe::Product.list.data.each do |p|
+      return p if p.name == "#{room.art_of_room} #{flat.street}"
+    end
+  end
+
+  def find_stripe_plan
+    if @applicant.duration_of_stay[0].to_i < 4
+      @duration_string = '3-5'
+    elsif @applicant.duration_of_stay[0].to_i < 8
+      @duration_string = '6-8'
+    else
+      @duration_string = '9+'
+    end
+    Stripe::Plan.list.data.each do |p|
+      return p if p.nickname = "#{@room.art_of_room} Rent for #{@duration_string} Months"
+    end
+  end
+
+  def find_stripe_customer
+    Stripe::Customer.list.data.each do |c|
+      return c if c.email == @applicant.email
+    end
   end
 end
