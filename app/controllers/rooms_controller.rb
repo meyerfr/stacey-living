@@ -29,14 +29,8 @@ class RoomsController < ApplicationController
     @room.user_id = 1
     @flat = Flat.find(params[:flat_id])
     if @room.save!
-      Stripe.api_key = 'sk_test_pblbbDNQnHAALD1MrdaNtOx6'
-      Stripe::Product.create(
-        caption: @flat.project_name.uppercase,
-        name: @room.art_of_room.uppercase,
-        statement_descriptor: "STACEY REAL ESTATE UG",
-        type: 'service'
-      )
-      redirect_to flat_room_path(@flat, @room)
+      create_stripe_product_and_plan(@room, @flat)
+      redirect_to user_rooms_path(current_user, @flat, @room)
     else
       render :new
     end
@@ -70,5 +64,29 @@ class RoomsController < ApplicationController
 
   def room_params
     params.require(:room).permit(:art_of_room, :availability, :user_id, :balcony, :flat_id, :room_size, :description, {pictures: []}, price: [], deposit: [])
+  end
+
+  def create_stripe_product_and_plan(room, flat)
+    product = Stripe::Product.create(
+      name: "#{room.art_of_room.capitalize} #{flat.street}",
+      statement_descriptor: "STACEY Rent",
+      type: 'service'
+    )
+    room.price.each_with_index do |price, ind|
+      if ind.zero?
+        text = '3-5'
+      elsif ind == 1
+        text = '6-8'
+      else
+        text = '9+'
+      end
+      Stripe::Plan.create(
+        product: product.id,
+        amount: price * 100,
+        interval: 'month',
+        nickname: "#{room.art_of_room} Rent for #{text} Months",
+        currency: "eur"
+      )
+    end
   end
 end

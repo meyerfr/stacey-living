@@ -1,4 +1,6 @@
-function stripeProcess() {
+const stripe_section = document.querySelector('.stripe-section');
+
+function proceedPayment() {
   // Create a Stripe client.
   // Note: this merchant has been set up for demo purposes.
   var stripe = Stripe('pk_test_FSjxxtkIfO0UtESzFKdjLarS');
@@ -106,6 +108,12 @@ function stripeProcess() {
       }
     });
   });
+}
+
+function stripeProcess() {
+  if (stripe_section) {
+    proceedPayment();
+  }
 }
 
 export { stripeProcess };

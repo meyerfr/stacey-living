@@ -7,6 +7,16 @@ class UserMailerPreview < ActionMailer::Preview
     UserMailer.welcome(user)
   end
 
+  def waiting_list_mail
+    user = User.first
+    UserMailer.waiting_list_mail(user)
+  end
+
+  def no_basic_suite_mail
+    user = User.first
+    UserMailer.no_basic_suite_mail(user)
+  end
+
   def new_applicant_info
     user = User.first
     UserMailer.new_applicant_info(user)

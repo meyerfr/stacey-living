@@ -76,17 +76,21 @@
       margin: 20px 0 0 30px;
       color: black;
     }
-    .wrap-list {
-      display: flex;
-      flex-wrap: wrap;
-      p{
-        width: 50%;
-        padding-left: 45px;
-        margin-bottom: 10px;
-      }
-    }
     .room-details {
       margin-top: 15px;
+      display: flex;
+      flex-wrap: wrap;
+      .detail{
+        display: flex;
+        width: 50%;
+        padding-left: 18px;
+        margin-bottom: 10px;
+        i{
+          font-size: 18px;
+          width: 35px;
+          text-align: center;
+        }
+      }
     }
     .community-details {
       margin-top: 5px;

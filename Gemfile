@@ -18,6 +18,12 @@ gem 'iso_country_codes', '~> 0.7.8'
 gem 'cloudinary', '~> 1.9.1'
 gem 'carrierwave', '~> 1.2'
 gem 'turbolinks', '~> 5.x'
+gem 'rubyzip', '>= 1.2.1'
+gem 'axlsx', git: 'https://github.com/randym/axlsx.git', ref: 'c8ac844'
+gem 'axlsx_rails'
+source "https://rubygems.org"
+
+gem "google_drive"
 
 gem 'stripe'
 

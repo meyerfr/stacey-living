@@ -20,7 +20,6 @@
   </div>
 </div>
 <div class="room-photo" style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('<%= image_path 'https://res.cloudinary.com/dvuqwvjay/image/upload/v1553613447/eppendorf-hoheluft-hamburg-min.jpg', crop: :fill %>');">
-  <p style="color: white; font-size: 26px;">Room show page</p>
 </div>
 <div class="details-wrapper">
   <%= render 'shared/booking_form', flat: @flat, room: @room, user: @user, booking: @booking, authentity_token_contract: @authentity_token_contract, contract: @contract %>
@@ -34,12 +33,30 @@
         <% end %>
       </div>
       <div class="room-infos-services">
-        <p>Fully Furnished</p>
-        <p>Weekly Cleaning</p>
-        <p>Queen Size Bed</p>
-        <p>Free Onsite Laundry</p>
-        <p>High Speed Wifi</p>
-        <p>1 Person</p>
+        <div class="detail">
+          <i class="fas fa-couch"></i>
+          <p>Fully Furnished</p>
+        </div>
+        <div class="detail">
+          <i class="fas fa-broom"></i>
+          <p>Weekly Cleaning</p>
+        </div>
+        <div class="detail">
+          <i class="fas fa-bed"></i>
+          <p>Queen Size Bed</p>
+        </div>
+        <div class="detail">
+          <i class="fas fa-lock-open"></i>
+          <p>Smart Lock</p>
+        </div>
+        <div class="detail">
+          <i class="fas fa-wifi"></i>
+          <p>High Speed Wifi</p>
+        </div>
+        <div class="detail">
+          <i class="fas fa-user"></i>
+          <p>1 Person</p>
+        </div>
       </div>
     </div>
     <div class="about-this-room section">

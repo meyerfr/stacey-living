@@ -23,7 +23,7 @@
   <div class="contract-page-container">
     <h1>Rental Contract</h1>
     <div id="pdf">
-      <%#= render 'pdf_embed', booking: @booking, authentity_token_contract: @authentity_token_contract %>
+      <%#= render 'pdf', booking: @booking, authentity_token_contract: @authentity_token_contract %>
       <embed src="/contracts/<%= @contract.id %>/<%= @authentity_token_contract %>.pdf" type="application/pdf">
     </div>
     <div class="button-container">

@@ -1,0 +1,186 @@
+@import "config/fonts";
+.contract-pdf-wrapper{
+  margin: 0 5% 0 5%;
+  .page-break { display:block; clear:both; page-break-after:always; }
+  .pdf-header{
+    text-align: center;
+    .stacey-logo-pdf{
+      margin-top: 30px;
+      width: 280px;
+    }
+    .line{
+      align-items: center;
+      border-bottom: 1px solid black;
+      margin: 7px 0 7px 0;
+    }
+    .header-pdf-text{
+      // width: 300px;
+      text-align: center;
+      margin: 0;
+    }
+    #space{
+      font-size: 20px;
+      margin: 5px 0 5px 0;
+    }
+  }
+  .date-address-table{
+    width: 100%;
+    margin: 10px 0 50px 0;
+    border-collapse: collapse;
+    border-spacing: -10px -10px;
+    th{
+      padding: 0;
+    }
+    td{
+      padding: 0;
+      vertical-align: top;
+    }
+    .row{
+      margin: 0;
+      padding: 0;
+      .table-stacey-address{
+        text-align: right;
+      }
+    }
+  }
+  .details-table{
+    width: 100%;
+    // border: 1px solid lightgray;
+    // text-align: center;
+    .row{
+      width: fit-content;
+      th{
+        background: #BFBFBF;
+      }
+      td{
+        text-align: center;
+      }
+      // .table-payment-terms{
+      //   width: 100%;
+      // }
+      .col{
+        width: fit-content;
+        outline: 1px solid lightgray;
+        padding: 10px 0 10px 0;
+      }
+      .col.address{
+        padding: 5px 0 5px 0;
+      }
+    }
+  }
+  .table-payment-terms{
+    margin: 0;
+    border: 1px solid lightgray;
+    border-top: none;
+    text-align: center;
+    padding: 10px 15px 10px 15px;
+    .no-margin-top{
+      margin-top: 0;
+    }
+  }
+  .terms-of-service-table{
+    margin-top: 50px;
+    th{
+      background: #BFBFBF;
+    }
+    .row{
+      text-align: center;
+      .col{
+        padding: 10px 15px 10px 15px;
+        outline: 1px solid lightgray;
+      }
+    }
+  }
+  .payment-information-table{
+    margin-top: 50px;
+    width: 100%;
+    th{
+      background: #BFBFBF;
+      outline: 1px solid lightgray;
+      text-align: center;
+    }
+    .col{
+      padding: 10px 5px 10px 5px;
+    }
+  }
+
+  .payment-information{
+    margin-top: 50px;
+    width: 50%;
+    p{
+      margin: 0;
+    }
+    .header{
+      background: #BFBFBF;
+      font-weight: bolder;
+      margin-bottom: 5px;
+      text-align: center;
+      padding: 10px;
+    }
+    .content{
+      border: 1px solid lightgray;
+      padding: 10px 10px 10px 10px;
+      .bank-info{
+        margin-top: 5px;
+        text-align: center;
+      }
+    }
+  }
+  .contract-singature-and-client{
+    // margin-top: 70px;
+    border-collapse: separate;
+    border-spacing: 10px 30px;
+    .col{
+      padding: 10px 10px 10px 10px;
+    }
+    .border-bottom{
+      border-bottom: 1px solid black;
+    }
+    .sign{
+      font-family: 'Mr De Haviland', cursive;
+      font-size: 28px;
+    }
+    .signature{
+      text-align: center;
+      .signature-field-sign{
+        border-collapse: separate;
+        border-spacing: 10px 0;
+        margin: 0 -10px;
+      }
+    }
+    .header{
+      width: 150px;
+    }
+    .stacey-signature{
+      width: 125px;
+    }
+  }
+  h2{
+    text-align: center;
+    margin-top: 25px;
+  }
+  h4{
+    margin-top: 25px;
+  }
+  .margin-bottom{
+    margin-bottom: 3px;
+  }
+  .less-distance{
+    margin-top: 0;
+    padding-top: 0;
+    li{
+      margin: 3px 0;
+    }
+  }
+  .underline{
+    border-bottom: 1px solid black;
+    padding-bottom: 2px;
+    width: 48%;
+  }
+  .bold{
+    font-weight: bolder;
+  }
+  .text-closer{
+    margin: 0;
+  }
+}

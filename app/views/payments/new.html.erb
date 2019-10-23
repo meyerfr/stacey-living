@@ -85,7 +85,7 @@
             <p class="terms-and-conditions-label">I have read and agree to the terms and conditions</p>
           </div>
           <div class="privacy-policy">
-            <p>By completing the reservation you agree to our <%= link_to 'privacy policy', 'https://www.stacey.de/datenschutz' %></p>
+            <p>By completing the reservation you agree to our <%= link_to 'privacy policy', 'https://www.stacey.de/datenschutz', target: :_blank %></p>
           </div>
           <div class="buttons">
             <div id='overlay-button'></div>
@@ -112,16 +112,16 @@
         <h2 class="payment-sections-header">Booking Summary</h2>
         <p class="summary-items-header"><%= @room.art_of_room %></p>
         <div class="summary-item">
-          <p>Duration of your stay</p>
-          <p><%= @applicant.duration_of_stay %></p>
-        </div>
-        <div class="summary-item">
           <p>Move-in</p>
           <p><%= @applicant.move_in_date.strftime('%d.%m.%Y') %></p>
         </div>
         <div class="summary-item">
           <p>Move-out</p>
-          <p><%= (@applicant.move_in_date + @applicant.duration_of_stay[0].to_i.months - 1.day).strftime('%d.%m.%Y') %></p>
+          <p><%= @applicant.duration_of_stay.strftime('%d.%m.%Y') %></p>
+        </div>
+        <div class="summary-item">
+          <p>Duration of your stay</p>
+          <p><%= (@applicant.duration_of_stay - @applicant.move_in_date).to_i %> Days</p>
         </div>
         <div class="line"></div>
         <div class="total-payment">

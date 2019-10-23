@@ -8,7 +8,9 @@
     <div class="users-list-wrapper">
       <div class="users-list-container">
         <% @users.each do |user| %>
-          <%= render 'user_cards', user: user %>
+          <% if !user.applicant? %>
+            <%= render 'user_cards', user: user %>
+          <% end %>
         <% end %>
       </div>
     </div>

@@ -9,13 +9,29 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(users_params)
+    # raise
     @user.first_name = @user.first_name.capitalize
     @user.last_name = @user.last_name.capitalize
     @user.password = 'stacey-living'
     if @user.save
-      # UserMailer.welcome(@user).deliver_now
-      # later(wait_until: 8.minutes.from_now)
       # send_users_info_via_slack(@user)
+      UserMailer.welcome(@user).deliver_now
+      # Authenticate a session with your Service Account
+      # session = GoogleDrive::Session.from_service_account_key("user_secret.json")
+      # # Get the spreadsheet by its title
+      # spreadsheet = session.spreadsheet_by_title("STACEY Users")
+      # # Get the first worksheet
+      # worksheet = spreadsheet.worksheets.first
+
+      # worksheet.insert_rows(worksheet.num_rows + 1, [[@user.first_name, @user.last_name, @user.email, @user.phone_code, @user.phone, @user.date_of_birth.strftime('%d.%m %Y'), @user.job, @user.move_in_date.strftime('%d.%m %Y'), @user.duration_of_stay.strftime('%d.%m %Y'), @user.amount_of_people]])
+      # if @user.move_in_date > Date.new(2019, 9, 1) && !@user.prefered_suite.include?('Premium') && !@user.prefered_suite.include?('Jumbo')
+      #   UserMailer.waiting_list_mail(@user).deliver_now
+      # elsif @user.prefered_suite.include?('Basic +') && !@user.prefered_suite.include?('Premium') && !@user.prefered_suite.include?('Jumbo')
+      #   UserMailer.no_basic_suite_mail(@user).deliver_now
+      # else
+      #   UserMailer.welcome(@user).deliver_now
+      # end
+      # later(wait_until: 8.minutes.from_now)
       redirect_to users_success_path
     else
       render :new
@@ -49,6 +65,7 @@ class UsersController < ApplicationController
     @room = Room.find(params[:room_id])
     @authentity_token_contract = params[:authentity_token_contract]
     if @user.update(users_params)
+      # Booking probably must be created here
       redirect_to user_contract_new_path(@user, @flat, @room, @authentity_token_contract)
     else
       render user_room_path(@user, @flat, @room, @authentity_token_contract)
@@ -86,11 +103,30 @@ class UsersController < ApplicationController
     @flat = Flat.first
   end
 
+  def updatespreadsheet
+    # Authenticate a session with your Service Account
+    session = GoogleDrive::Session.from_service_account_key("user_secret.json")
+    # Get the spreadsheet by its title
+    spreadsheet = session.spreadsheet_by_title("STACEY Users")
+    # Get the first worksheet
+    worksheet = spreadsheet.worksheets.first
+    # Print out the first 6 columns of each row
+    applicants = User.all.where(applicant: true)
+    #Delete worksheet cells
+    worksheet.delete_rows(3, applicants.length + 3)
+    worksheet["B2"] = Time.now.strftime('%d.%m %Y (%k:%M)')
+    #inserting all applicants in spreadsheet
+    applicants.each do |applicant|
+      worksheet.insert_rows(worksheet.num_rows + 1, [[applicant.first_name, applicant.last_name, applicant.email, applicant.phone_code, applicant.phone, applicant.date_of_birth.strftime('%d.%m %Y'), applicant.job, applicant.move_in_date.strftime('%d.%m %Y'), applicant.duration_of_stay.strftime('%d.%m %Y'), applicant.amount_of_people]])
+    end
+    worksheet.save
+    redirect_to applicants_index_path
+  end
 
   private
 
   def users_params
-    params.require(:user).permit(:first_name, :last_name, :email, :phone_code, :phone, :date_of_birth, :job, :move_in_date, :duration_of_stay, :amount_of_people, :linked_in, :facebook, :twitter, :instagram, :photo)
+    params.require(:user).permit(:first_name, :last_name, :email, :phone_code, :phone, :date_of_birth, :job, :move_in_date, :duration_of_stay, :amount_of_people, :linked_in, :facebook, :twitter, :instagram, :photo, { :prefered_suite => [] })
   end
 
   def authenticate_user_for_contract_pages
@@ -116,9 +152,10 @@ class UsersController < ApplicationController
       Phone: #{user.phone_code} #{user.phone},
       Geburtstag: #{user.date_of_birth},
       Job: #{user.job},
-      Einzugsdatum: #{user.move_in_date},
-      Zeitraum: #{user.duration_of_stay},
-      Anzahl an Leuten: #{user.amount_of_people}",
+      Einzugsdatum: #{user.move_in_date.strftime("%d.%m %Y")},
+      Zeitraum: #{user.duration_of_stay.strftime("%d.%m %Y")},
+      Anzahl an Leuten: #{user.amount_of_people},
+      Interessiert an: #{user.prefered_suite.join(', ')}",
       as_user: true
     )
   end
