@@ -12,7 +12,7 @@ User.create!(email: 'matteo@stacey-living.de', password: 'MatteoKreidler', first
 User.create!(email: 'applicant@applicant.de', password: 'Applicant', first_name: 'Applicant', last_name: 'ApplicantsLast', phone_code: '+49', phone: '0987654332', date_of_birth: '20-08-1996', job: 'Applicant', move_in_date: '01-07-2019', duration_of_stay: '01-11-2018', amount_of_people: 'Single', description: 'Glad to be part of STACEY', admin: false, applicant: true, prefered_suite: ['Basic Suite', 'Jumbo Suite'])
 
 puts 'creating Project'
-Flat.create!(street: 'Dorotheenstrasse', zipcode: 12022, city: "Hamburg", project_name: "Muehlenkamp", description: "Perfect Place to have space indoor and outdoor.", pictures: nil, house_number: "3b")
+Flat.create!(street: 'Dorotheenstrasse', zipcode: 12022, city: "Hamburg", project_name: "Mühlenkamp", description: "Perfect Place to have space indoor and outdoor.", pictures: nil, house_number: "3b")
 
 # puts 'creating Rooms'
 # Room.create(price: [800, 900, 1000], art_of_room: 'Basic Suite', balcony: false, room_size: '10', deposit: [1000, 1200, 1400], flat_id: 1, user_id: User.first )
