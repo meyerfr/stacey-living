@@ -6,12 +6,12 @@ class UserMailer < ApplicationMailer
   #
   def welcome(user)
     @user = user
-    mail(to: @user.email, subject: 'Stacey - Co-Living')
+    mail(to: @user.email, subject: 'Stacey - coliving')
   end
 
   def waiting_list_mail(user)
     @user = user
-    mail(to: @user.email, subject: 'Stacey - Co-Living')
+    mail(to: @user.email, subject: 'Stacey - coliving')
   end
 
   def new_applicant_info(user)
@@ -21,7 +21,7 @@ class UserMailer < ApplicationMailer
 
   def no_basic_suite_mail(user)
     @user = user
-    mail(to: @user.email, subject: 'Stacey - Co-living')
+    mail(to: @user.email, subject: 'Stacey - coliving')
   end
 
   def contract_mail(user, flat, authentity_token_contract)
