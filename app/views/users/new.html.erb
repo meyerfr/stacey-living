@@ -53,6 +53,26 @@
               </li>
             </ul>
             <%#= f.input :linked_in, label: "YOUR LinkedIn PROFILE", placeholder: "URL" %>
+            <!-- LinkedIn field to add LinkedIn Profile -->
+            <div class="apply-field linked_in social-links hidden" id="linked-in-form">
+              <%= f.input :linked_in, placeholder: 'Add your LinkedIn profile URL' %>
+              <div class="btn social-button social-button-linked-in">ADD</div>
+            </div>
+            <!-- Twitter field to add Twitter Profile -->
+            <div class="apply-field twitter social-links hidden" id="twitter-form">
+              <%= f.input :twitter, placeholder: 'Add your Twitter profile URL' %>
+              <div class="btn social-button social-button-twitter">ADD</div>
+            </div>
+            <!-- Instagram field to add Instagram Profile -->
+            <div class="apply-field instagram social-links hidden" id="instagram-form">
+              <%= f.input :instagram, placeholder: 'Add your Instagram profile URL' %>
+              <div class="btn social-button social-button-instagram">ADD</div>
+            </div>
+            <!-- Facebook field to add Facebook Profile -->
+            <div class="apply-field facebook social-links hidden" id="facebook-form">
+              <%= f.input :facebook, placeholder: 'Add your Facebook profile URL' %>
+              <div class="btn social-button social-button-facebook">ADD</div>
+            </div>
           </div>
           <div class="apply-field">
             <%= f.label 'What Suite do you prefer '%>
@@ -61,26 +81,6 @@
             </div>
             <div class="invalid-feedback-prefered-suite hidden">Please click on at least one Suite</div>
           </div>
-        </div>
-        <!-- LinkedIn field to add LinkedIn Profile -->
-        <div class="apply-field linked_in social-links hidden" id="linked-in-form">
-          <%= f.input :linked_in, placeholder: 'Add your LinkedIn profile URL' %>
-          <div class="btn social-button social-button-linked-in">ADD</div>
-        </div>
-        <!-- Twitter field to add Twitter Profile -->
-        <div class="apply-field twitter social-links hidden" id="twitter-form">
-          <%= f.input :twitter, placeholder: 'Add your Twitter profile URL' %>
-          <div class="btn social-button social-button-twitter">ADD</div>
-        </div>
-        <!-- Instagram field to add Instagram Profile -->
-        <div class="apply-field instagram social-links hidden" id="instagram-form">
-          <%= f.input :instagram, placeholder: 'Add your Instagram profile URL' %>
-          <div class="btn social-button social-button-instagram">ADD</div>
-        </div>
-        <!-- Facebook field to add Facebook Profile -->
-        <div class="apply-field facebook social-links hidden" id="facebook-form">
-          <%= f.input :facebook, placeholder: 'Add your Facebook profile URL' %>
-          <div class="btn social-button social-button-facebook">ADD</div>
         </div>
         <div class="apply-button-position">
           <div class="stacey-button apply-button">
