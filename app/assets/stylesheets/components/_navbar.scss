@@ -1,7 +1,7 @@
 /* Main navbar */
 .navbar-stacey-container {
-  background: #808080;
-  position: fixed;
+  background: transparent;
+  // position: fixed;
   left: 0;
   top: 0;
   right: 0;
@@ -61,7 +61,7 @@
 
 /* Navbar link */
 .navbar-stacey-link {
-  color: white;
+  color: black;
   font-size: 14px;
   transition: color 525ms ease,background-color 525ms ease,opacity 525ms ease, border-color 525ms ease;
 }

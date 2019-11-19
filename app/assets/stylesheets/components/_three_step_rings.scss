@@ -1,10 +1,5 @@
 .three-steps-navbar {
-  background: #808080;
-  position: fixed;
-  left: 0;
-  top: 0;
-  right: 0;
-  z-index: 100;
+  background: transparent;
   display: flex;
   height: 60px;
   width: 100%;
@@ -13,6 +8,7 @@
   align-items: center;
   p{
     margin: 0;
+    color: black;
   }
   .go-back-button {
     position: absolute;
@@ -23,12 +19,12 @@
     right: 100px;
     a{
       text-decoration: none;
-      color: white;
+      color: black;
     }
   }
 
   .phone a:hover{
-    color: #dfdfdf;
+    color: #000000c2;;
   }
 
   .three-steps-container {
@@ -38,18 +34,19 @@
     width: 20%;
     min-width: fit-content;
     .line {
-      width: 75px;
-      border-bottom: 1px dotted white;
+      width: 100%;
+      border-bottom: 1px dotted #fd8fb8;
       border-width: 3px;
     }
     .active-line{
       border: 1px solid white;
     }
     .ring {
-      border: 1px solid white;
+      color: black;
+      border: 1px solid #fd8fb8;
       border-radius: 50%;
-      width: 40px;
-      height: 40px;
+      min-width: 40px;
+      min-height: 40px;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -59,8 +56,7 @@
       }
     }
     .active {
-      background: white;
-      color: black;
+      color: #fd8fb8;
     }
   }
 }

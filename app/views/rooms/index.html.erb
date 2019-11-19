@@ -30,5 +30,9 @@
   <p>TOGETHER WE CAN DO SO MUCH”</p>
   <p class="quote-name">Helen Keller</p>
 </div>
+<% if current_user.admin? %>
+  <%= link_to 'Create new Room', new_flat_room_path, class: "stacey-button" %>
+<% end %>
+
 <%#= render 'shared/community_area' %>
 <%= render 'shared/contract_footer', flat: @flat %>

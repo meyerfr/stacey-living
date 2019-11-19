@@ -1,5 +1,5 @@
 .apply-formpage-container {
-  padding-top: 60px;
+  // padding-top: 60px;
   background-color: #F9F9F9;
 }
 
@@ -86,7 +86,7 @@
   height: 100%;
   background: transparent;
   color: black;
-  border: 1px solid #000;
+  border: 1px solid #fd8fb8;
   transition: all .5s ease;
   @media screen and (max-width: 850px) {
     height: 40px;
@@ -124,6 +124,10 @@
       }
     }
   }
+}
+
+.apply-field.social-media{
+  position: relative;
 }
 
 
@@ -191,6 +195,8 @@
   height: 50px;
   display: flex;
   align-self: flex-end;
+  position: absolute;
+  width: 100%;
   @media screen and (max-width: 850px) {
     align-self: unset;
   }
@@ -231,7 +237,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 5px;
+  // margin-top: 5px;
   background: white;
   min-height: 45vh;
   margin-bottom: 10px;

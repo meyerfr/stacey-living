@@ -14,15 +14,16 @@ class UsersController < ApplicationController
     @user.last_name = @user.last_name.capitalize
     @user.password = 'stacey-living'
     if @user.save
-      send_users_info_via_slack(@user)
+      # send_users_info_via_slack(@user)
       UserMailer.welcome(@user).deliver_now
       # Authenticate a session with your Service Account
-      session = GoogleDrive::Session.from_service_account_key("user_secret.json")
-      # Get the spreadsheet by its title
-      spreadsheet = session.spreadsheet_by_title("STACEY Users")
-      # Get the first worksheet
-      worksheet = spreadsheet.worksheets.first
-      worksheet.insert_rows(worksheet.num_rows + 1, [[@user.first_name, @user.last_name, @user.email, @user.phone_code, @user.phone, @user.date_of_birth.strftime('%d.%m %Y'), @user.job, @user.move_in_date.strftime('%d.%m %Y'), @user.duration_of_stay.strftime('%d.%m %Y'), @user.amount_of_people]])
+      # session = GoogleDrive::Session.from_service_account_key("user_secret.json")
+      # # Get the spreadsheet by its title
+      # spreadsheet = session.spreadsheet_by_title("STACEY Users")
+      # # Get the first worksheet
+      # worksheet = spreadsheet.worksheets.first
+
+      # worksheet.insert_rows(worksheet.num_rows + 1, [[@user.first_name, @user.last_name, @user.email, @user.phone_code, @user.phone, @user.date_of_birth.strftime('%d.%m %Y'), @user.job, @user.move_in_date.strftime('%d.%m %Y'), @user.duration_of_stay.strftime('%d.%m %Y'), @user.amount_of_people]])
       # if @user.move_in_date > Date.new(2019, 9, 1) && !@user.prefered_suite.include?('Premium') && !@user.prefered_suite.include?('Jumbo')
       #   UserMailer.waiting_list_mail(@user).deliver_now
       # elsif @user.prefered_suite.include?('Basic +') && !@user.prefered_suite.include?('Premium') && !@user.prefered_suite.include?('Jumbo')

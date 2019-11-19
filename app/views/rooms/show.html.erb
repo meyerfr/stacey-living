@@ -26,11 +26,7 @@
   <div class="details-container">
     <div class="room-infos section">
       <div class="room-infos-header">
-        <% if @room.balcony? %>
-          <h3><%= @room.art_of_room %></h3><h3 class="balcony">(+ Balcony)</h3>
-        <% else %>
-          <h3><%= @room.art_of_room %></h3>
-        <% end %>
+        <h3><%= @room.art_of_room %></h3>
       </div>
       <div class="room-infos-services">
         <div class="detail">
@@ -61,12 +57,20 @@
     </div>
     <div class="about-this-room section">
       <div class="header">
-        <h3>About this suite</h3>
+        <h3>The Suite</h3>
       </div>
       <div class="text">
-        <p>Our Private Suites are fully equipped with a comfy queen-size bed, bedding and bed linen, desk and desk chair, leather armchair, ample storage and of course, free wi-fi. Cosy, thoughtfully-designed and all yours.</p>
-        <p>For the days you want to kick back and relax, the private spaces offers the perfect save haven if you need some time for yourself.</p>
-        <p>Rooms start from € 800 per month.</p>
+        <% if @room.art_of_room == 'Basic' || @room.art_of_room == 'Mighty' %>
+          <p>Scandinavian minimalism in the heart of Hamburg. Our Mighty Suites are our flagship with regard to modern living. A comfy double bed, side table, armchair, floor lamp, closet, hangers, artwork & even bedding are included.</p>
+        <% elsif @room.art_of_room == 'Premium' %>
+          <p>Live like a Queen! Our Premium Suites fulfill all essential needs and even provides you with private space to work within a location that is focused on community. This category features a comfy double bed, side table, desk & chair, armchair, floor lamp, closet, hangers, artwork & even bedding.</p>
+        <% elsif @room.art_of_room == 'Premium plus' %>
+          <p> Live like a King! The Premium+ Suite is the bigger brother of our Premium Suites. With additional sqm for you and and all your thoughts. This category features a comfy double bed, side table, desk & chair, armchair, floor lamp, closet, hangers, artwork & even bedding.</p>
+        <% elsif @room.art_of_room == 'Premium plus' %>
+          <p>Live like a King! The Premium+ Suite is the bigger brother of our Premium Suites. With additional sqm for you and and all your thoughts. This category features a comfy double bed, side table, desk & chair, armchair, floor lamp, closet, hangers, artwork & even bedding.</p>
+        <% elsif @room.art_of_room == 'Jumbo' %>
+          <p>Screw the minimalism. Your dream of your own walk-in closet becomes reality. Our Jumbo suites feature 25m<sup>2</sup> designed for your needs with a queen-size bed, walk-in closet, desk, armchair, floor lamp, hangers, artwork and even bedding.</p>
+        <% end %>
       </div>
       <div class="photo">
         <%= image_tag 'https://res.cloudinary.com/dvuqwvjay/image/upload/v1554202321/floorplan_placeholder.png' %>
@@ -74,11 +78,13 @@
     </div>
     <div class="about-this-project section">
       <div class="header">
-        <h3>About the STACEY <%= @flat.project_name %> location</h3>
+        <h3>The Location</h3>
       </div>
       <div class="text">
-        <p>At  STACEY we believe that beautifully designed spaces bring people together. Whether you’re looking to mingle with new people, get creative in the kitchen or open yourself up to new experiences, our Eppendorf location can give you all this and more.</p>
-        <p>From the work space, communal kitchen and living room to the pool table, your passion points will be catered for. Not to mention the monthly exclusive member events!</p>
+        <% if @flat.project_name == 'Mühlenkamp' %>
+          <p>At  STACEY we believe that beautifully designed spaces bring people together. Whether you’re looking to mingle with new people, get creative in the kitchen or open yourself up to new experiences, our Eppendorf location can give you all this and more.</p>
+          <p>From the great living room and the shared kitchen to our beautiful terrace with a barbecue, your passion points will be catered for. Not to mention the included monthly member events!</p>
+        <% end %>
       </div>
       <div class="photo">
         <%= image_tag 'https://res.cloudinary.com/dvuqwvjay/image/upload/v1553613447/eppendorf-hoheluft-hamburg-min.jpg' %>
@@ -86,12 +92,12 @@
     </div>
     <div class="about-co-living section">
       <div class="header">
-        <h3>What is the Co-Living buzz all about?</h3>
+        <h3>What Is The Coliving Buzz All About?</h3>
       </div>
       <div class="text">
-        <p>We have developed a new way of living in cities that focuses on community and convenience. Our members have their own private rooms whilst also sharing beautiful spaces and having access to thought-provoking events, all designed to bring people together.</p>
-        <p>Everything you need to make the most of city life is included in one convenient payment: rent, superfast internet, all utilities and taxes, room cleaning, monthly events and included Netflix & Spotify.</p>
-        <p>Don’t just take our word for it, though, come and see it for yourself.</p>
+        <p>Our members enjoy their individual private suites whilst sharing beautiful common spaces</p>
+        <p>Everything you need is included in one convenient payment (except GEZ): Rent, furniture, internet, utilities, cleaning, events & Netflix + Spotify in the common spaces.</p>
+        <p>Do not take our word for granted, move in and experience the STACEY way of living!</p>
       </div>
     </div>
   </div>
