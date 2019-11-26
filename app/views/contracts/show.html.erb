@@ -24,7 +24,7 @@
   <div class="contract-page-container">
     <div class="contract-form">
       <%= simple_form_for(@user) do |f| %>
-        <%= f.input :first_name %>
+        <%= f.input :address %>
       <% end %>
 
       <%= simple_form_for @contract, method: :patch, url: contract_update_path(@contract, @authentity_token_contract) do |f| %>
