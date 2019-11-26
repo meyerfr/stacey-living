@@ -38,6 +38,9 @@
       border-bottom: 1px dotted #fd8fb8;
       border-width: 3px;
     }
+    .line.active{
+      border: 1px solid #fd8fb8;
+    }
     .active-line{
       border: 1px solid white;
     }
@@ -56,7 +59,8 @@
       }
     }
     .active {
-      color: #fd8fb8;
+      background: #fd8fb8;
+      p{color: white;}
     }
   }
 }

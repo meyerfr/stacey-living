@@ -155,7 +155,7 @@ function signingProcess() { // Begin scoping function
     loadSignaturePad();
     signingOptionKeyboard.addEventListener('click', optionKeyboard);
     signingOptionDraw.addEventListener('click', optionDraw);
-    signButton.addEventListener('click', sign);
+    // signButton.addEventListener('click', sign);
     closeButton.addEventListener('click', close);
     clearButton.addEventListener('click', clear);
     undoButton.addEventListener('click', undo);

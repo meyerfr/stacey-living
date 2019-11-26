@@ -4,18 +4,22 @@
   justify-content: center;
   align-items: center;
   background: #000000a3;
-  height: 100vh;
+  height: calc(100vh - 60px);
   position: relative;
   .contract-page-container{
-    width: 800px;
+    width: 90%;
+    height: 100%;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     color: white;
-    embed{
-      height: 500px;
-      width: 800px;
+    #pdf{
+      width: 60%;
+      height: 92%;
+      embed{
+        height: 100%;
+        width: 100%;
+      }
     }
     .button {
       padding: 5px;
@@ -39,6 +43,9 @@
       width: 100%;
       display: flex;
       justify-content: flex-end;
+    }
+    .contract-form{
+      width: 40%;
     }
   }
 }
