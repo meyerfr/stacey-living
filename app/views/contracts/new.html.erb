@@ -24,7 +24,10 @@
   <div class="contract-page-container">
     <div class="contract-form">
       <%= simple_form_for(@user) do |f| %>
-        <%= f.input :address %>
+        <%= f.input :street %>
+        <%= f.input :zipcode %>
+        <%= f.input :city %>
+        <%= f.input :country %>
       <% end %>
 
       <%= simple_form_for @contract, method: :post, url: user_contract_create_path(@user, @flat, @room, @authentity_token_contract) do |f| %>

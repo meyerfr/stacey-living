@@ -8,6 +8,6 @@
     <% end %>
   </div>
 </div>
-<% if current_user.admin? %>
+<% if current_user.present? && current_user.admin? %>
   <%= link_to 'Create new Flat', new_flat_path, class: "stacey-button" %>
 <% end %>
