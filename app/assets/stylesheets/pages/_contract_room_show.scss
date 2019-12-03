@@ -2,7 +2,7 @@
   height: 380px;
   background-size: cover;
   background-position: center;
-  margin-top: 60px;
+  // margin-top: 60px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -133,10 +133,12 @@
         .detail{
           display: flex;
           width: 50%;
+          align-items: baseline;
           i{
            font-size: 18px;
            width: 35px;
            text-align: center;
+           margin-right: 8px;
           }
         }
       }

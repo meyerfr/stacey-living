@@ -2,7 +2,7 @@
   <div class="booking-form">
     <%= simple_form_for @user, method: :patch, url: update_applicant_path(@user, @flat, @room, @authentity_token_contract) do |f| %>
       <div class="user-update-input-field">
-        <%= f.input :move_in_date, as: :date, start_year: Date.today.year, end_year: Date.today.year + 1, order: [:day, :month, :year], label: "WHEN DO YOU WANT TO MOVE IN?", required: true, value: user.move_in_date, class: 'date', class: 'user-move-in-date-input' %>
+        <%= f.input :move_in_date, as: :date, start_year: Date.today.year, end_year: Date.today.year + 1, order: [:day, :month, :year], label: "WHEN DO YOU WANT TO MOVE IN?", required: true, value: user.move_in_date, class: 'user-move-in-date-input date' %>
       </div>
       <div class="user-update-input-field">
         <%= f.input :duration_of_stay, as: :date, start_year: Date.today.year, end_year: Date.today.year + 1, order: [:day, :month, :year], default: (Date.today + 3.months), label: "UNTIL WHEN ARE YOU GOING TO STAY?", required: true, class: 'user-duration-of-stay-input' %>

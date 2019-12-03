@@ -6,3 +6,95 @@
   <%= f.input :price, as: :array, label: 'price for 9+ Months' %>
   <%= f.submit %>
 <% end %>
+
+<!-- empty div with option to add pictuers, one picture required -->
+<div class="room-photo" style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('<%= image_path 'https://res.cloudinary.com/dvuqwvjay/image/upload/v1553613447/eppendorf-hoheluft-hamburg-min.jpg', crop: :fill %>');">
+</div>
+
+<div class="details-wrapper">
+  <div class="details-container">
+    <div class="room-infos section">
+      <!-- a range of options where you can choose the ameneties -->
+      <div class="room-infos-header">
+        <!-- input fied of room name -->
+        <h3><%= @room.art_of_room %></h3>
+      </div>
+      <div class="room-infos-services">
+        <div class="detail">
+          <i class="fas fa-couch"></i>
+          <p>Fully Furnished</p>
+        </div>
+        <div class="detail">
+          <i class="fas fa-broom"></i>
+          <p>Weekly Cleaning</p>
+        </div>
+        <div class="detail">
+          <i class="fas fa-bed"></i>
+          <p>Queen Size Bed</p>
+        </div>
+        <div class="detail">
+          <i class="fas fa-lock-open"></i>
+          <p>Smart Lock</p>
+        </div>
+        <div class="detail">
+          <i class="fas fa-wifi"></i>
+          <p>High Speed Wifi</p>
+        </div>
+        <div class="detail">
+          <i class="fas fa-user"></i>
+          <p>1 Person</p>
+        </div>
+      </div>
+    </div>
+    <div class="about-this-room section">
+      <div class="header">
+        <h3>The Suite</h3>
+      </div>
+      <!-- add text about the suite -->
+      <div class="text">
+        <% if @room.art_of_room == 'Basic' || @room.art_of_room == 'Mighty' %>
+          <p>Scandinavian minimalism in the heart of Hamburg. Our Mighty Suites are our flagship with regard to modern living. A comfy double bed, side table, armchair, floor lamp, closet, hangers, artwork & even bedding are included.</p>
+        <% elsif @room.art_of_room == 'Premium' %>
+          <p>Live like a Queen! Our Premium Suites fulfill all essential needs and even provides you with private space to work within a location that is focused on community. This category features a comfy double bed, side table, desk & chair, armchair, floor lamp, closet, hangers, artwork & even bedding.</p>
+        <% elsif @room.art_of_room == 'Premium plus' %>
+          <p> Live like a King! The Premium+ Suite is the bigger brother of our Premium Suites. With additional sqm for you and and all your thoughts. This category features a comfy double bed, side table, desk & chair, armchair, floor lamp, closet, hangers, artwork & even bedding.</p>
+        <% elsif @room.art_of_room == 'Premium plus' %>
+          <p>Live like a King! The Premium+ Suite is the bigger brother of our Premium Suites. With additional sqm for you and and all your thoughts. This category features a comfy double bed, side table, desk & chair, armchair, floor lamp, closet, hangers, artwork & even bedding.</p>
+        <% elsif @room.art_of_room == 'Jumbo' %>
+          <p>Screw the minimalism. Your dream of your own walk-in closet becomes reality. Our Jumbo suites feature 25m<sup>2</sup> designed for your needs with a queen-size bed, walk-in closet, desk, armchair, floor lamp, hangers, artwork and even bedding.</p>
+        <% end %>
+      </div>
+      <div class="photo">
+        <!-- input for room ground plan -->
+        <%= image_tag 'https://res.cloudinary.com/dvuqwvjay/image/upload/v1554202321/floorplan_placeholder.png' %>
+      </div>
+    </div>
+    <div class="about-this-project section">
+      <div class="header">
+        <h3>The Location</h3>
+      </div>
+      <div class="text">
+        <!-- this is fixed and can be edited in the flat#edit page -->
+        <% if @flat.project_name == 'Mühlenkamp' %>
+          <p>At  STACEY we believe that beautifully designed spaces bring people together. Whether you’re looking to mingle with new people, get creative in the kitchen or open yourself up to new experiences, our Eppendorf location can give you all this and more.</p>
+          <p>From the great living room and the shared kitchen to our beautiful terrace with a barbecue, your passion points will be catered for. Not to mention the included monthly member events!</p>
+        <% end %>
+      </div>
+      <div class="photo">
+        <!-- this picture is fixed and can be edited in the flat#ediit page -->
+        <%= image_tag 'https://res.cloudinary.com/dvuqwvjay/image/upload/v1553613447/eppendorf-hoheluft-hamburg-min.jpg' %>
+      </div>
+    </div>
+    <div class="about-co-living section">
+      <!-- This is fixed, if you want to edit this, rewrite this code (will be changed for all room#show pages) -->
+      <div class="header">
+        <h3>What Is The Coliving Buzz All About?</h3>
+      </div>
+      <div class="text">
+        <p>Our members enjoy their individual private suites whilst sharing beautiful common spaces</p>
+        <p>Everything you need is included in one convenient payment (except GEZ): Rent, furniture, internet, utilities, cleaning, events & Netflix + Spotify in the common spaces.</p>
+        <p>Do not take our word for granted, move in and experience the STACEY way of living!</p>
+      </div>
+    </div>
+  </div>
+</div>
