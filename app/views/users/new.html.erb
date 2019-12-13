@@ -31,8 +31,11 @@
             <%= f.input :move_in_date, as: :date, start_year: Date.today.year, end_year: Date.today.year + 1, order: [:day, :month, :year], label: "WHEN DO YOU WANT TO MOVE IN?", required: false %>
           </div>
           <div class="apply-field date">
-            <%= f.input :duration_of_stay, as: :date, start_year: Date.today.year, end_year: Date.today.year + 1, order: [:day, :month, :year], default: (Date.today + 3.months), label: "UNTIL WHEN ARE YOU GOING TO STAY?", required: false %>
+            <%= f.input :duration_of_stay, as: :date, start_year: Date.today.year, end_year: Date.today.year + 1, order: [:day, :month, :year], selected: (Date.today + 3.months), label: "UNTIL WHEN ARE YOU GOING TO STAY?", required: false %>
             <div class="duration-of-stay-error hidden"><p>The minimum membership duration is 3 months</p></div>
+            <% if @user.errors[:duration_of_stay].any? %>
+              <div class="duration-of-stay-error d-block duration"><p><%= @user.errors[:duration_of_stay].first %></p></div>
+            <% end %>
           </div>
           <!-- <div class="apply-field apply-dropdown"><%#= f.input :duration_of_stay, collection: ["3 Months", "4 Months", "5 Months", "6 Months", "7 Months", "8 Months", "9 Months", "9+ Months"], selected: "6 Months", label: "HOW LONG ARE YOU PLANING TO STAY?", required: false %></div> -->
           <div class="apply-field apply-dropdown"><%= f.input :amount_of_people, collection: ["YES", "NO"], selected: "NO", label: "AS A COUPLE",  required: false %></div>
