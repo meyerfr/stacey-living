@@ -14,9 +14,8 @@ class UsersController < ApplicationController
     @user.last_name = @user.last_name.capitalize
     @user.password = 'stacey-living'
     if @user.save
-      # raise
-      # send_users_info_via_slack(@user)
-      # UserMailer.welcome(@user).deliver_now
+      send_users_info_via_slack(@user)
+      UserMailer.welcome(@user).deliver_now
       # Authenticate a session with your Service Account
       # session = GoogleDrive::Session.from_service_account_key("user_secret.json")
       # # Get the spreadsheet by its title
