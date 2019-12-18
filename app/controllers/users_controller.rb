@@ -143,7 +143,6 @@ class UsersController < ApplicationController
   end
 
   def send_users_info_via_slack(user)
-    raise
     client = Slack::Web::Client.new
     client.chat_postMessage(
       channel: '#applicants',
@@ -151,7 +150,7 @@ class UsersController < ApplicationController
       Name: #{user.first_name} #{user.last_name},
       Email: #{user.email},
       Phone: #{user.phone_code} #{user.phone},
-      Geburtstag: #{user.date_of_birth},
+      Geburtstag: #{Date.new(user.date_of_birth[1], user.date_of_birth[2], user.date_of_birth[3])},
       Job: #{user.job},
       Einzugsdatum: #{Date.new(user.move_in_date[1], user.move_in_date[2], user.move_in_date[3])},
       Zeitraum: #{Date.new(user.duration_of_stay[1], user.duration_of_stay[2], user.duration_of_stay[3])},
