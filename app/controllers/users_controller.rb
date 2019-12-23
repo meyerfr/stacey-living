@@ -117,7 +117,7 @@ class UsersController < ApplicationController
     worksheet["B2"] = Time.now.strftime('%d.%m %Y (%k:%M)')
     #inserting all applicants in spreadsheet
     applicants.each do |applicant|
-      worksheet.insert_rows(worksheet.num_rows + 1, [[applicant.first_name, applicant.last_name, applicant.email, applicant.phone_code, applicant.phone, applicant.date_of_birth.strftime('%d.%m %Y'), applicant.job, applicant.move_in_date.strftime('%d.%m %Y'), applicant.duration_of_stay.strftime('%d.%m %Y'), applicant.amount_of_people]])
+      worksheet.insert_rows(worksheet.num_rows + 1, [[applicant.first_name, applicant.last_name, applicant.email]])
     end
     worksheet.save
     redirect_to applicants_index_path

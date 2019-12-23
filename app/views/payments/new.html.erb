@@ -113,15 +113,15 @@
         <p class="summary-items-header"><%= @room.art_of_room %></p>
         <div class="summary-item">
           <p>Move-in</p>
-          <p><%= @applicant.move_in_date.strftime('%d.%m.%Y') %></p>
+          <p><%= Date.today %><%#= @applicant.move_in_date.strftime('%d.%m.%Y') %></p>
         </div>
         <div class="summary-item">
           <p>Move-out</p>
-          <p><%= @applicant.duration_of_stay.strftime('%d.%m.%Y') %></p>
+          <p><%= Date.today + 3.months %><%#= @applicant.duration_of_stay.strftime('%d.%m.%Y') %></p>
         </div>
         <div class="summary-item">
           <p>Duration of your stay</p>
-          <p><%= (@applicant.duration_of_stay - @applicant.move_in_date).to_i %> Days</p>
+          <p>100<%#= (@applicant.duration_of_stay - @applicant.move_in_date).to_i %> Days</p>
         </div>
         <div class="line"></div>
         <div class="total-payment">

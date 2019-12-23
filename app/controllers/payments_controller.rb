@@ -87,7 +87,7 @@ class PaymentsController < ApplicationController
   def set_price_and_deposit
     @applicant = User.find(@booking.user_id)
     @room = Room.find(@booking.room_id)
-    duration = ((@applicant.duration_of_stay - @applicant.move_in_date).to_i) / 29
+    duration = 4#((@applicant.duration_of_stay - @applicant.move_in_date).to_i) / 29
     if duration < 4
       @amount_per_month = @room.price[0]
       @deposit = @room.price[0]
