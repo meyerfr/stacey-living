@@ -9,6 +9,7 @@
 print('create Admins')
 fritz = User.create(first_name: 'Fritz', last_name: 'Meyer', email: 'fritz@stacey-living.de', password: 'FritzMeyer', role: 'Admin', dob: '2000-04-02', job: 'Developer', gender: ['Male'], phone_code: '+49', phone_number: '01737557722', prefered_suite: ['Mighty'])
 matteo = User.create!(first_name: 'Matteo', last_name: 'Kreidler', email: 'matteo@stacey-living.de', password: 'MatteoKreidler', role: 'Admin', dob: '1996-08-26', job: 'CEO', gender: ['Male'], phone_code: '+49', phone_number: '015234514111', prefered_suite: ['Mighty'])
+anna = User.create!(first_name: 'Anna', last_name: 'Weirauch', email: 'hello@stacey-living.de', password: 'AnnaWeirauch', role: 'Admin', dob: '1999-03-01', job: 'Community Manager', gender: ['Female'], phone_code: '+49', phone_number: '01784309464', prefered_suite: ['Mighty'])
 
 # print('create Bookings')
 # fritz_booking = Booking.create(user_id: fritz.id, move_in: Date.tomorrow, move_out: Date.tomorrow + 3.months)
