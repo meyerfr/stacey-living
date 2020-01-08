@@ -2,32 +2,40 @@ class UserMailer < ApplicationMailer
   # Subject can be set in your I18n file at config/locales/en.yml
   # with the following lookup:
   #
-  #   en.user_mailer.welcome.subject
+  #   en.user_mailer.welcome_call.subject
   #
-  def welcome(user)
-    @user = user
-    mail(to: @user.email, subject: 'Stacey - coliving')
+  before_action :set_logo_attachment
+
+  def welcome(booking)
+    @booking = booking
+    @user = @booking.user
+    if WelcomeCall.find_by(booking_id: @booking.id)
+      message.perform_deliveries = false
+    else
+      email_with_name = %("#{@user.full_name}" <#{@user.email}>)
+      mail(to: email_with_name, subject: 'Stacey - coliving')
+    end
   end
 
-  def waiting_list_mail(user)
-    @user = user
-    mail(to: @user.email, subject: 'Stacey - coliving')
+  def welcome_call(welcome_call)
+    @welcome_call = welcome_call
+    @booking = @welcome_call.booking
+    @user = @booking.user
+    email_with_name = %("#{@user.full_name}" <#{@user.email}>)
+    mail(to: email_with_name, subject: 'Stacey - coliving - Call invitation')
   end
 
-  def new_applicant_info(user)
-    @user = user
-    mail(to: 'newapplicant@stacey-living.de', subject: 'New Applicant')
+  def welcome_call_rescheduled(welcome_call)
+    @welcome_call = welcome_call
+    @booking = @welcome_call.booking
+    @user = @booking.user
+    email_with_name = %("#{@user.full_name}" <#{@user.email}>)
+    mail(to: email_with_name, subject: 'Stacey - coliving - welcome call')
   end
 
-  def no_basic_suite_mail(user)
-    @user = user
-    mail(to: @user.email, subject: 'Stacey - coliving')
-  end
+  private
 
-  def contract_mail(user, flat, authentity_token_contract)
-    @user = user
-    @flat = flat
-    @authentity_token_contract = authentity_token_contract
-    mail(to: '@user.email', subject: "Stacey - Next Steps to finally move in")
+  def set_logo_attachment
+    attachments.inline['logo.png'] = File.read("#{Rails.root}/app/assets/images/stacey_logo_pink.png")
   end
 end

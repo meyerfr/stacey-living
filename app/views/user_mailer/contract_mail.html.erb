@@ -1,8 +1,0 @@
-<h1>Hello <%= @user.first_name %></h1>
-<p>We would love to have you in our community and would like to offer you an Apartment in our coliving space in Eppendorf.</p>
-<p>The next steps would be, that you take a look at all the Rooms and to choose one of them.</p>
-<p>Furthermore you can have a look at the contract you will have to sign.</p>
-<p>This link will lead you to those step, but it´s only accessable for the next 2 Weeks.</p>
-<p><%= link_to 'Next Steps to finally move in', user_rooms_url(@user, @flat, @authentity_token_contract) %></p>
-<p>Best regards</p>
-<p>Matteo</p>

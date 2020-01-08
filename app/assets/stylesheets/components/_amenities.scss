@@ -1,0 +1,15 @@
+.amenities{
+  display: flex;
+  flex-wrap: wrap;
+  color: #777777;
+  .amenity{
+    display: flex;
+    align-items: baseline;
+    width: 50%;
+    margin-bottom: 3px;
+    padding-left: 25px;
+    i{
+      margin-right: 9px;
+    }
+  }
+}

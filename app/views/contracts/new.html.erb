@@ -1,133 +1,22 @@
-<div class="three-steps-navbar">
-  <div class="go-back-button">
-    <p>< Go Back</p>
-  </div>
-  <div class="three-steps-container">
-    <div class="ring">
-      <p>1</p>
-    </div>
-    <div class="line active"></div>
-    <div class="ring active">
-      <p>2</p>
-    </div>
-    <div class="line"></div>
-    <div class="ring">
-      <p>3</p>
-    </div>
-  </div>
-  <div class="phone">
-    <%= link_to 'Call us on +49 40 606389600', "tel: +4940606389600" %>
-  </div>
-</div>
-<div class="contracts-page-wrapper">
-  <h1>Rental Contract</h1>
+<%= render 'shared/three_steps_navbar', step: 2 %>
+<div class="contract-page-wrapper">
+  <h2 class="contract-page-header">Rental Contract</h2>
   <div class="contract-page-container">
-    <div class="contract-form">
-      <%= simple_form_for(@user) do |f| %>
+    <div class="contract-user-form">
+      <span class="info-text">There are just a few more information we need to set up the Contract.</span>
+      <%= simple_form_for @user, html: { method: :patch } do |f| %>
         <%= f.input :street %>
-        <%= f.input :zipcode %>
         <%= f.input :city %>
-        <%= f.input :country %>
+        <%= f.input :zipcode %>
+        <%= f.input :country, as: :string %>
+        <%= f.submit 'Sign Contract', class: 'stacey-button reverse-hover' %>
       <% end %>
-
-      <%= simple_form_for @contract, method: :post, url: user_contract_create_path(@user, @flat, @room, @authentity_token_contract) do |f| %>
-        <div class="signature-pad-wrapper">
-          <div id="signature-pad" class="signature-pad">
-            <div class="signature-navbar">
-              <div class="signing-option-container">
-                <div class="signing-option active" id="keyboard">
-                  <i class="fas fa-keyboard"></i>
-                  <p>Sign</p>
-                  <div class="line" id="line-keyboard"></div>
-                </div>
-                <div class="signing-option" id="draw">
-                  <i class="fas fa-pen-nib"></i>
-                  <p>Draw</p>
-                  <div class="line hidden" id="line-draw"></div>
-                </div>
-              </div>
-            </div>
-            <div class="signature-text">
-              <%= f.input_field :signature, as: :hidden, class: 'signature_pad_input' %>
-              <%= f.input_field :signed_on, as: :hidden, value: Date.today %>
-              <%#= f.input_field :booking_id, as: :hidden, value: @booking.id %>
-              <div class="signature-pad-body">
-                <canvas class="hidden"></canvas>
-                <input type="text" id="signature-type-text">
-                <div class="line"></div>
-                <div type="button" class="clear change hidden" data-action="clear">Clear</div>
-                <div type="button" class="undo change hidden" data-action="undo">Undo</div>
-                <div class="sign-shield">Sign</div>
-                <div class="sign-shield-arrow"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="signature-pad-footer">
-          <div class="signature-pad-actions">
-            <button type="button" class="button signature-pad-close" data-action="close">Close</button>
-            <!-- <button type="button" class="button signature-pad-close" data-action="save-png">Sign</button> -->
-            <%= f.button :submit, 'Signing', class: 'btn btn-success save save-signature' %>
-          </div>
-        </div>
-
-        <%#= f.input_field :signature, as: :hidden, class: 'signature_pad_input' %>
-        <%#= f.input_field :signed_on, as: :hidden, value: Date.today %>
-        <%#= f.button :submit, 'Sign', class: 'btn btn-primary' %>
-      <% end %>
-
     </div>
     <div id="pdf">
-      <%#= render 'pdf_embed', booking: @booking, authentity_token_contract: @authentity_token_contract %>
-      <embed src="/users/<%= @user.id %>/flats/<%= @flat.id %>/rooms/<%= @room.id %>/contracts/new/<%= @authentity_token_contract %>.pdf" type="application/pdf">
+      <!-- this is loading the contract as PDF -->
+      <embed src="/bookings/<%= @booking.booking_auth_token %>/<%= @booking.id %>/contracts/new.pdf" type="application/pdf">
     </div>
-    <!-- <div class="button-container">
-      <div class="button sign" id="sign-button">Sign</div>
-    </div> -->
   </div>
 </div>
-
-
-<!-- Old Signature Popup Window. Now immediatly on the page  -->
-
-<%#= simple_form_for @contract, method: :post, url: user_contract_create_path(@user, @flat, @room, @authentity_token_contract) do |f| %>
-  <!-- <div class="signature-pad-wrapper hidden">
-    <div id="signature-pad" class="signature-pad">
-      <div class="signature-navbar">
-        <div class="signing-option-container">
-          <div class="signing-option active" id="keyboard">
-            <i class="fas fa-keyboard"></i>
-            <p>Sign</p>
-            <div class="line" id="line-keyboard"></div>
-          </div>
-          <div class="signing-option" id="draw">
-            <i class="fas fa-pen-nib"></i>
-            <p>Draw</p>
-            <div class="line hidden" id="line-draw"></div>
-          </div>
-        </div>
-      </div>
-      <div class="signature-text">
-        <%#= f.input_field :signature, as: :hidden, class: 'signature_pad_input' %>
-        <%#= f.input_field :signed_on, as: :hidden, value: Date.today %>
-        <%#= f.input_field :booking_id, as: :hidden, value: @booking.id %>
-        <div class="signature-pad-body">
-          <canvas class="hidden"></canvas>
-          <input type="text" id="signature-type-text">
-          <div class="line"></div>
-          <div type="button" class="clear change hidden" data-action="clear">Clear</div>
-          <div type="button" class="undo change hidden" data-action="undo">Undo</div>
-          <div class="sign-shield">Sign</div>
-          <div class="sign-shield-arrow"></div>
-        </div>
-        <div class="signature-pad-footer">
-          <div class="signature-pad-actions">
-            <button type="button" class="button signature-pad-close" data-action="close">Close</button>
-            <!-- <button type="button" class="button signature-pad-close" data-action="save-png">Sign</button> -->
-            <%#= f.button :submit, 'Signing', class: 'btn btn-success save save-signature' %>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div> -->
-<%# end %>
+<%= link_to 'payment', booking_payment_path(@booking.booking_auth_token, @booking.id) %>
+<%= render 'shared/footer' %>

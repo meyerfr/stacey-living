@@ -1,0 +1,93 @@
+<div class="list-position">
+  <div class="list-wrapper">
+    <div class="list-navbar">
+      <div class="options">
+        <% if params[:period] == 'past' %>
+          <%= link_to 'Upcoming', welcome_calls_path(period: 'upcoming'), class: 'option' %>
+          <%= link_to 'Past', welcome_calls_path(period: 'past'), class: 'option active' %>
+        <% else %>
+          <%= link_to 'Upcoming', welcome_calls_path(period: 'upcoming'), class: 'option active' %>
+          <%= link_to 'Past', welcome_calls_path(period: 'past'), class: 'option' %>
+        <% end %>
+        <!-- <div class="option"><%#= link_to 'Date Range', '#' %></div> -->
+      </div>
+      <div class="jump-to-call">
+        <%= link_to 'click here to open whereby', 'https://whereby.com/stacey-living', target: :_blank %>
+      </div>
+      <div class="query">
+        <%= form_tag welcome_calls_path, method: :get do %>
+          <%= text_field_tag :search,
+            params[:search],
+            class: "form-control",
+            placeholder: "Find a welcome call"
+          %>
+          <%= submit_tag "Search", class: "btn btn-primary d-none" %>
+        <% end %>
+      </div>
+    </div>
+    <div class="list-container">
+      <% @dates.each do |date| %>
+        <div class="date">
+          <%= date.strftime("%A, %d %B %Y") %>
+        </div>
+        <!-- <div class="list-context-container"> -->
+          <% unless @welcome_calls.empty? %>
+            <% @welcome_calls.where(start_time: date.all_day).each do |call| %>
+              <!-- <div class="call-list-item-container"> -->
+                <div class="list-context-container">
+                  <div class="list-info">
+                    <span><%= call.start_time.strftime("%H:%M") %> - <%= call.end_time.strftime("%H:%M") %></span>
+                    <span><%= call.name %></span>
+                    <div class="details d-flex">
+                      <i class="fas fa-caret-right"></i>
+                      <i class="fas fa-caret-down d-none"></i>
+                      <span>Details</span>
+                    </div>
+                  </div>
+                  <!-- <div class="call-time">
+                    <p><%#= call.start_time.strftime("%H:%M") %> - <%#= call.end_time.strftime("%H:%M") %></p>
+                  </div> -->
+                  <!-- <div class="call-info">
+                    <p><%#= call.name %></p>
+                  </div> -->
+                  <!-- this the dropdown -->
+                 <!--  <div class="details d-flex">
+                    <i class="fas fa-caret-right"></i>
+                    <i class="fas fa-caret-down d-none"></i>
+                    <p>Details</p>
+                  </div> -->
+                  <div class="list-detail d-none">
+                    <% user = call.booking.user %>
+                    <ul>
+                      <li>moves in: <%= call.booking.move_in.strftime("%d.%B %Y") %></li>
+                      <li>moves out: <%= call.booking.move_out.strftime("%d.%B %Y") %></li>
+                      <li>Phone: <%= user.phone_code %> <%= user.phone_number %></li>
+                      <li>Prefered Suites: <%= user.prefered_suite.join(', ') %></li>
+                      <li>moves in <%= user.amount_of_people == 1 ? 'alone' : 'as a couple' %></li>
+                      <li>Job: <%= user.job %></li>
+                      <% if user.linkedin.present? %>
+                        <li>LinkedIn: <%= user.linkedin %></li>
+                      <% end %>
+                      <% if user.facebook.present? %>
+                        <li>Facebook: <%= user.facebook %></li>
+                      <% end %>
+                      <% if user.instagram.present? %>
+                        <li>Instagram: <%= user.instagram %></li>
+                      <% end %>
+                      <% if user.twitter.present? %>
+                        <li>Twitter: <%= user.twitter %></li>
+                      <% end %>
+                    </ul>
+                  </div>
+                </div>
+              <!-- </div> -->
+            <% end %>
+          <% else %>
+            <p>Sorry, but there are no calls with that person scheduled</p>
+          <% end %>
+        <!-- </div> -->
+      <% end %>
+      <p class="list-end">You´ve reached the end of the list</p>
+    </div>
+  </div>
+</div>

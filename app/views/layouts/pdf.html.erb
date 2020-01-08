@@ -3,13 +3,12 @@
   <head>
     <meta charset="UTF-8">
     <title>Contract - STACEY</title>
-    <%#= favicon_link_tag "stacey-favicon.png", rel: 'icon', type: 'image/png', sizes: "32x32" %>
-    <%#= stylesheet_link_tag 'application', media: 'all' %>
+    <%= favicon_link_tag "stacey_favicon.png", rel: 'icon', type: 'image/png', sizes: "32x32" %>
     <%= wicked_pdf_stylesheet_link_tag "pdf" %>
   </head>
   <body>
     <%= yield %>
-    <%#= javascript_include_tag 'application' %>
-    <%#= javascript_pack_tag 'application' %>
+    <%= javascript_include_tag 'application' %>
+    <%= javascript_pack_tag 'application' %>
   </body>
 </html>

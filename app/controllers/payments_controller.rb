@@ -1,127 +1,19 @@
 class PaymentsController < ApplicationController
-  before_action :set_booking
-  before_action :set_price_and_deposit
-  layout 'booking'
-  skip_before_action :authenticate_user!, only: [:new, :create]
+  def calendar
+    @bookings = Booking.all
+  end
 
   def new
-    @phone_code = []
-    IsoCountryCodes.all.each do |country|
-      @phone_code << country.calling
-    end
+    @phone_code = %w(+61 +43 +32 +55 +1 +86 +45 +358 +33 +49 +852 +353 +39 +81 +352 +52 +31 +64 +47 +351 +65 +34 +46 +41 +44)
+    @booking = Booking.find(params[:booking_id])
   end
 
   def create
-    # Find Customer if existing
-    correct_customer = find_stripe_customer(@applicant)
-
-    unless correct_customer.present?
-      correct_customer = Stripe::Customer.create(
-        source: params[:stripeSource],
-        email:  @applicant.email,
-        name: "#{@applicant.first_name} #{@applicant.last_name}"
-        )
-    end
-
-    # Find correct Product for this Room
-    correct_product = find_stripe_product(@room, @room.flat)
-
-    correct_plan = find_stripe_plan(@applicant, @room, correct_product)
-
-    # Charge Booking Fee and Depoit
-    charge = Stripe::Charge.create({
-      amount: (@deposit + 80) * 100,
-      currency: 'eur',
-      customer: correct_customer.id,
-      source: params[:stripeSource],
-      description: "Booking Fee and Depoit"
-    })
-
-    # Subscription to Applicant for rent
-    subscription = Stripe::Subscription.create({
-      # what´s the billing cycle?
-      customer: correct_customer.id,
-      billing: "charge_automatically",
-      cancel_at: @applicant.duration_of_stay.to_time.to_i,
-      items: [{ plan: correct_plan }],
-      trial_end: @applicant.move_in_date.to_time.to_i
-    })
-
-
-    # Subscription to User for billing Fee
-    # billing_fee_subscription = Stripe::Subscription.create({
-    #   customer: correct_customer.id,
-    #   billing_cycle_anchor: Time.now.getutc.to_i,
-    #   items: [{ plan: 'plan_FCkWhQFQ09s5uo'}]
-    # })
-
-    # Stripe: once Booking Fee: 90 Euro
-    # Stripe: new Subscription for every new Booking
-
-    # charge = Stripe::Charge.create(
-    #   type: 'sepa_debit',
-    #   customer:     customer.id, # You should store this customer id and re-use it.
-    #   amount:       ,
-    #   description:  "Payment for Renting #{@booking.room.art_of_room} for order #{@booking.id}",
-    #   currency:     'eur'
-    # )
-    @booking.update(state: 'paid')
-    redirect_to users_success_path
-    # redirect_to booking_path(@booking)
-  rescue Stripe::CardError => e
-    flash[:alert] = e.message
-    raise
   end
 
   private
 
-  def payment_params
+  def payments_params
     params.require(:order).permit(:stripeSource)
-  end
-
-  def set_booking
-    @booking = Booking.find(params[:booking_id])
-    @applicant = @booking.user
-  end
-
-  def set_price_and_deposit
-    @applicant = User.find(@booking.user_id)
-    @room = Room.find(@booking.room_id)
-    duration = 4#((@applicant.duration_of_stay - @applicant.move_in_date).to_i) / 29
-    if duration < 4
-      @amount_per_month = @room.price[0]
-      @deposit = @room.price[0]
-    elsif duration < 8
-      @amount_per_month = @room.price[1]
-      @deposit = @room.price[1] * 2
-    else
-      @amount_per_month = @room.price[2]
-      @deposit = @room.price[2] * 3
-    end
-    @total_amount = @deposit + 80
-  end
-
-  def find_stripe_product(room, flat)
-    Stripe::Product.list.data.each do |p|
-      return p if p.name == "#{room.art_of_room} #{flat.street}"
-    end
-  end
-
-  def find_stripe_plan(applicant, room, correct_product)
-    duration = ((applicant.duration_of_stay - applicant.move_in_date).to_i) / 29
-    if duration < 4
-      duration_string = '3-5'
-    elsif duration < 8
-      duration_string = '6-8'
-    else
-      duration_string = '9+'
-    end
-    Stripe::Plan.list({ product: correct_product.id }).data.each do |p|
-      return p if p.nickname == "#{room.art_of_room} Rent for #{duration_string} Months"
-    end
-  end
-
-  def find_stripe_customer(customer)
-    return Stripe::Customer.list({ email: customer.email }).data.reduce(:+)
   end
 end

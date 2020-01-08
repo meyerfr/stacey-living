@@ -1,0 +1,9 @@
+<p>Hello <%= @user.first_name %>,</p>
+<p>Our Call is now rescheduled and will be on the <%= @welcome_call.start_time.strftime('%d.%B %Y') %> at <%= @welcome_call.start_time.strftime('%H:%M') %> and will take approximately 15min.</p>
+<p>If you have to reschedule the call once more, you can do so by clicking on the following link.</p>
+<p><%= link_to 'reschedule call', edit_booking_welcome_call_url(@booking.booking_auth_token, @booking, @welcome_call), style: 'color: blue;' %></p>
+<p>If problems occur, reply to this email or call me at +49 (0)178 4309464.</p>
+<p>Looking forward to our call.</p>
+<p>Cheers</p>
+<p>Anna</p>
+<%= image_tag attachments['logo.png'].url, style: 'width: 150px' %>

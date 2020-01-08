@@ -1,19 +1,50 @@
-<div class="applicants-overview-container">
-  <h3>Currently we have <%= Partner.count %> partners</h3>
-  <% if current_user.admin? %>
-    <ol class="applicant-list">
+<div class="list-position">
+  <div class="list-wrapper">
+    <div class="list-navbar">
+  <!--     <div class="options">
+        <%# if params[:user_group] == 'tenants' %>
+          <%#= link_to 'Tenants', users_path(user_group: 'tenants'), class: 'option active' %>
+          <%#= link_to 'Applicants', users_path(user_group: 'applicants'), class: 'option' %>
+        <%# else %>
+          <%#= link_to 'Tenants', users_path(user_group: 'tenants'), class: 'option' %>
+          <%#= link_to 'Applicants', users_path(user_group: 'applicants'), class: 'option active' %>
+        <%# end %>
+      </div> -->
+
+      <span>We have <%= @partners.count %> <%= @partners.count > 1 ? 'partner-applications.' : 'partner-application.' %></span>
+      <div class="query">
+        <%= form_tag partners_path, method: :get do %>
+          <%= text_field_tag :search,
+          params[:search],
+          class: "form-control",
+            placeholder: "Find a partner"
+            %>
+            <%= submit_tag "Search", class: "btn btn-primary d-none" %>
+        <% end %>
+      </div>
+    </div>
+    <div class="list-container">
       <% @partners.each do |partner| %>
-        <li class="applicant-list-item">
-          Name: <%= partner.name %>,
-          Email: <%= partner.email %>,
-          Phone: <%= partner.phone_code %> <%= partner.phone %>,
-          Company: <%= partner.company %>,
-          Message: <%= partner.message %>
-          <%= link_to 'Delete', partner_path(partner), method: :delete %>
-        </li>
+        <div class="list-context-container">
+          <div class="list-info">
+            <span class="set-width"><%= partner.name %></span>
+            <span class="set-width"><%= partner.company %></span>
+            <span class="set-width"><%= partner.email %></span>
+            <div class="details d-flex set-width">
+              <i class="fas fa-caret-right"></i>
+              <i class="fas fa-caret-down d-none"></i>
+              <span>Details</span>
+            </div>
+          </div>
+          <div class="list-detail d-none">
+            <ul>
+              <li>Phone: <%= partner.phone_code %> <%= partner.phone %></li>
+              <li>Message: <%= partner.message %></li>
+            </ul>
+          </div>
+        </div>
       <% end %>
-    </ol>
-  <% else %>
-    <h1>To access this page you have to be logged in as an admin of this page. </h1>
-  <% end %>
+      <p class="list-end">You´ve reached the end of the list</p>
+    </div>
+  </div>
 </div>
