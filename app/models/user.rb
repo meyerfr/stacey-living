@@ -1,8 +1,8 @@
 class User < ApplicationRecord
   attr_accessor :skip_password_validation, :name, :bookings_attributes # virtual attribute to skip password validation while saving
-  # validate :validate_array
+  validate :validate_array
   # validate :stay_duration
-  # validate :move_in_future
+  validate :move_in_future
   # validate :validate_prefered_suite
   # validate :validate_gender
   validates :first_name, :last_name, :email, :dob, :phone_number, :job, :amount_of_people, presence: true
