@@ -28,22 +28,23 @@
   </table>
 </div>
 
-<%# @users.each do |user| %>
-  <%#= raise %>
-  <!-- <p style="margin: 0;">User.create(first_name: '<%#= user.first_name %>',
-    last_name: '<%#= user.last_name %>',
-    email: '<%#= user.email %>',
-    phone_code: '<%#= user.phone_code %>',
-    phone_number: '<%#= user.phone %>',
-    dob: '<%#= user.date_of_birth %>',
-    job: '<%#= user.job %>',
-    move_in: '<%#= user.move_in_date %>',
-    move_out: '<%#= user.duration_of_stay %>',
-    amount_of_people: '<%#= user.amount_of_people %>',
-    linkedin: '<%#= user.linked_in %>',
-    facebook: '<%#= user.facebook %>',
-    twitter: '<%#= user.twitter %>',
-    instagram: '<%#= user.instagram %>',
-    prefered_suite: <%#= user.prefered_suite %>
-  )</p> -->
-<%# end %>
+<% @users.each do |user| %>
+  <p style="margin: 0;">User.create(first_name: '<%= user.first_name %>',
+    last_name: '<%= user.last_name %>',
+    email: '<%= user.email %>',
+    phone_code: '<%= user.phone_code %>',
+    phone_number: '<%= user.phone %>',
+    dob: '<%= user.date_of_birth %>',
+    job: '<%= user.job %>',
+    <% if user.move_in_date != nil && user.duration_of_stay != nil %>
+      move_in: '<%= user.move_in_date %>',
+      move_out: '<%= user.duration_of_stay %>',
+    <% end %>
+    amount_of_people: '<%= user.amount_of_people %>',
+    linkedin: '<%= user.linked_in %>',
+    facebook: '<%= user.facebook %>',
+    twitter: '<%= user.twitter %>',
+    instagram: '<%= user.instagram %>',
+    prefered_suite: <%= user.prefered_suite %>
+  )</p>
+<% end %>
