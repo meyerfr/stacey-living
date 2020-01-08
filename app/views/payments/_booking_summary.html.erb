@@ -1,0 +1,63 @@
+<div class="booking-summary-wrapper">
+  <div class="payment-section-header">
+    <div class="header">
+      <i class="fas fa-lock"></i>
+      <span>SecurePayment</span>
+    </div>
+    <div class="icons">
+      <i class="fab fa-cc-amex"></i>
+      <i class="fab fa-cc-visa"></i>
+      <i class="fab fa-cc-mastercard"></i>
+    </div>
+  </div>
+  <div class="booking-summary-container payment-section">
+    <h3 class="booking-summary-header add-margin-bottom-to-header">Booking Summary</h3>
+    <div class="summary-section">
+      <div class="summary-item">
+        <span class="category">roomcategory</span>
+        <span><%= @booking.room.name %></span>
+      </div>
+      <div class="summary-item">
+        <span class="category">Move-in</span>
+        <span><%= @booking.move_in.strftime('%d.%m %Y') %></span>
+      </div>
+      <div class="summary-item">
+        <span class="category">Move-out</span>
+        <span><%= @booking.move_out.strftime('%d.%m %Y') %></span>
+      </div>
+      <div class="summary-item">
+        <span class="category">Duration of your stay</span>
+        <span>100 Days</span>
+      </div>
+    </div>
+    <div class="summary-section">
+      <p class="section-header">TOTAL YOU'LL PAY</p>
+      <div class="summary-item">
+        <span class="category">Room Price per Month</span>
+        <% if @booking.room.price.first % 1 == 0 %>
+          <span><%= @booking.room.price.first.to_i %> €</span>
+        <% else %>
+          <span><%= @booking.room.price.first %> €</span>
+        <% end %>
+      </div>
+      <div class="summary-item">
+        <span class="category">Deposit</span>
+        <% if @booking.room.price.first % 1 == 0 %>
+          <span><%= @booking.room.price.first.to_i %> €</span>
+        <% else %>
+          <span><%= @booking.room.price.first %> €</span>
+        <% end %>
+      </div>
+      <div class="summary-item">
+        <span class="category">Booking Fee</span>
+        <span>80 €</span>
+      </div>
+    </div>
+    <div class="summary-section price-summary">
+      <div class="summary-item">
+        <span class="total-price">TOTAL TODAY</span>
+        <span>2000€</span>
+      </div>
+    </div>
+  </div>
+</div>

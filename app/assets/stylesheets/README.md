@@ -1,14 +1,26 @@
+First of all make sure you've created a rails app with the `--webpack` flag, like this
+
+```bash
+rails new APP_NAME --webpack
+# If you have, don't run the command again!
+```
+
 ## Setup
+
+Ensure you have bootstrap and it's dependencies
+
+```bash
+yarn add bootstrap
+yarn add jquery popper.js
+```
 
 Ensure you have the following gems in your Rails `Gemfile`
 
 ```ruby
 # Gemfile
-gem 'bootstrap-sass'
-gem 'font-awesome-sass', '~> 5.0.9'
-gem 'simple_form'
 gem 'autoprefixer-rails'
-gem 'jquery-rails' # Add this line if you use Rails 5.1 or higher
+gem 'font-awesome-sass', '~> 5.6.1'
+gem 'simple_form'
 ```
 
 In your terminal, generate SimpleForm Bootstrap config.
@@ -26,17 +38,6 @@ curl -L https://github.com/lewagon/stylesheets/archive/master.zip > stylesheets.
 unzip stylesheets.zip -d app/assets && rm stylesheets.zip && mv app/assets/rails-stylesheets-master app/assets/stylesheets
 ```
 
-Don't forget the sprockets directives in `assets/javascripts/application.js`
-
-```javascript
-// app/assets/javascripts/application.js
-
-//= require jquery
-//= require jquery_ujs
-//= require bootstrap-sprockets
-//= require_tree .
-```
-
 And the viewport in the layout
 
 ```html
@@ -50,6 +51,43 @@ And the viewport in the layout
 </head>
 ```
 
+## Bootstrap JS
+
+Make sure you change the webpack config with the following code to include jQuery & Popper in webpack:
+
+```js
+// config/webpack/environment.js
+const { environment } = require('@rails/webpacker')
+
+// Bootstrap 4 has a dependency over jQuery & Popper.js:
+const webpack = require('webpack')
+environment.plugins.prepend('Provide',
+  new webpack.ProvidePlugin({
+    $: 'jquery',
+    jQuery: 'jquery',
+    Popper: ['popper.js', 'default']
+  })
+)
+
+module.exports = environment
+```
+
+Finally import bootstrap:
+
+```js
+// app/javascript/packs/application.js
+import 'bootstrap';
+```
+And add this to `application.html.erb`
+```erb
+<!-- app/views/layouts/application.html.erb -->
+
+  <!-- [...] -->
+
+  <%= javascript_include_tag "application" %> <!-- from app/assets/javascripts/application.js -->
+  <%= javascript_pack_tag "application" %>    <!-- from app/javascript/packs/application.js -->
+</body>
+```
 ## Adding new `.scss` files
 
 Look at your main `application.scss` file to see how SCSS files are imported. There should **not** be a `*= require_tree .` line in the file.
@@ -63,18 +101,16 @@ Look at your main `application.scss` file to see how SCSS files are imported. Th
 @import "config/bootstrap_variables";
 
 // External libraries
-@import "bootstrap-sprockets";
-@import "bootstrap";
+@import "bootstrap/scss/bootstrap"; // from the node_modules
 @import "font-awesome-sprockets";
 @import "font-awesome";
 
 // Your CSS partials
-@import "layouts/index";
 @import "components/index";
 @import "pages/index";
 ```
 
-For every folder (**`components`**, **`layouts`**, **`pages`**), there is one `_index.scss` partial which is responsible for importing all the other partials of its folder.
+For every folder (**`components`**, **`pages`**), there is one `_index.scss` partial which is responsible for importing all the other partials of its folder.
 
 **Example 1**: Let's say you add a new `_contact.scss` file in **`pages`** then modify `pages/_index.scss` as:
 
@@ -84,18 +120,18 @@ For every folder (**`components`**, **`layouts`**, **`pages`**), there is one `_
 @import "contact";
 ```
 
-**Example 2**: Let's say you add a new `_sidebar.scss` file in **`layouts`** then modify `layouts/_index.scss` as:
+**Example 2**: Let's say you add a new `_card.scss` file in **`components`** then modify `components/_index.scss` as:
 
 ```scss
-// layouts/_index.scss
-@import "sidebar";
+// components/_index.scss
+@import "card";
 ```
 
 ## Navbar template
 
 Our `layouts/_navbar.scss` code works well with our home-made ERB template which you can find here:
 
-- [version without login](https://github.com/lewagon/awesome-navbars/blob/master/templates/_navbar_wagon_without_login.html.erb).
-- [version with login](https://github.com/lewagon/awesome-navbars/blob/master/templates/_navbar_wagon.html.erb).
+- [version without login](https://github.com/lewagon/awesome-navbars/blob/master/templates/_navbar_wagon_without_login.html.erb)
+- [version with login](https://github.com/lewagon/awesome-navbars/blob/master/templates/_navbar_wagon.html.erb)
 
 Don't forget that `*.html.erb` files go in the `app/views` folder, and `*.scss` files go in the `app/assets/stylesheets` folder. Also, our navbar have a link to the `root_path`, so make sure that you have a `root to: "controller#action"` route in your `config/routes.rb` file.

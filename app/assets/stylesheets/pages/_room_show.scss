@@ -1,0 +1,38 @@
+.room-show-wrapper{
+  width: 60vw;
+  margin-top: 20px;
+  padding-left: 80px;
+  font-size: 18px;
+  h3{
+    font-size: 31px;
+  }
+  .section{
+    margin: 60px 0;
+    p{color: #363636}
+  }
+  .room-basic-infos{
+    h3{
+      font-size: 32px;
+      font-weight: bolder;
+      margin-bottom: 30px;
+    }
+    .amenities{
+      padding: 30px 0px 30px 5px;
+      border-top: 1px solid #777777;
+      border-bottom: 1px solid #777777;
+      color: #777777;
+      .amenity{
+        padding-left: 0;
+        // font-size: 18px;
+        margin-bottom: 12.5px;
+        i{
+          width: 26px;
+        }
+      }
+    }
+  }
+}
+.wrap-room-show-and-booking-form{
+  display: flex;
+  justify-content: space-between;
+}

@@ -1,41 +1,23 @@
-<div class="booking-form-container">
-  <div class="booking-form">
-    <%= simple_form_for @user, method: :patch, url: update_applicant_path(@user, @flat, @room, @authentity_token_contract) do |f| %>
-      <div class="user-update-input-field">
-        <%= f.input :move_in_date, as: :date, start_year: Date.today.year, end_year: Date.today.year + 1, order: [:day, :month, :year], label: "WHEN DO YOU WANT TO MOVE IN?", required: true, value: user.move_in_date, class: 'user-move-in-date-input date' %>
-      </div>
-      <div class="user-update-input-field">
-        <%= f.input :duration_of_stay, as: :date, start_year: Date.today.year, end_year: Date.today.year + 1, order: [:day, :month, :year], default: (Date.today + 3.months), label: "UNTIL WHEN ARE YOU GOING TO STAY?", required: true, class: 'user-duration-of-stay-input' %>
-      </div>
-      <div class="line"></div>
-      <div class="hidden" id="prices">
-        <div><%= room.price[0] %></div>
-        <div><%= room.price[1] %></div>
-        <div><%= room.price[2] %></div>
-      </div>
-      <div class="booking-form-pricing">
-        <div class="info-field rent">
-          <p class="header">RENT PER MONTH</p>
-          <% if (((user.duration_of_stay - user.move_in_date).to_i) / 29) < 4 %>
-            <p class="price-per-month">€ <%= room.price[0] %> per Month</p>
-          <% elsif (((user.duration_of_stay - user.move_in_date).to_i) / 29) < 7 %>
-            <p class="price-per-month">€ <%= room.price[1] %> per Month</p>
-          <% else %>
-            <p class="price-per-month">€ <%= room.price[2] %> per Month</p>
-          <% end %>
-        </div>
-        <div class="info-field deposit">
-          <p class="header">REFUNDABLE DEPOSIT</p>
-          <% if (((user.duration_of_stay - user.move_in_date).to_i) / 29) < 4 %>
-            <p class="deposit-text">1 monthly rent</p>
-          <% elsif (((user.duration_of_stay - user.move_in_date).to_i) / 29) < 7 %>
-            <p class="deposit-text">2 monthly rents</p>
-          <% else %>
-            <p class="deposit-text">3 monthly rents</p>
-          <% end %>
-        </div>
-      </div>
-      <%= f.submit 'Book', id: 'book-button' %>
+<div class="booking-form-wrapper">
+  <div class="booking-form-section">
+    <%= simple_form_for(booking) do |f| %>
+      <%= f.input :move_in, as: :date, order: [:day, :month, :year], start_year: Date.today.year, end_year: Date.today.year + 1, label: 'WHEN DO YOU WANT TO MOVE IN?' %>
+      <%= f.input :move_out, as: :date, order: [:day, :month, :year], start_year: (Date.today + 3.months).year, end_year: (Date.today + 3.months).year + 1, selected: Date.today + 3.months, label: 'UNTIL WHEN ARE YOU PLANING TO STAY?' %>
+      <%= f.button :button, 'BOOK', type: 'submit', name: 'room', value: room.id, class: 'stacey-button reverse-hover book-button' %>
+      <%#= f.submit 'BOOK', value: room, class: 'stacey-button reverse-hover book-button' %>
     <% end %>
+
+  </div>
+  <div class="booking-form-section pricing">
+    <div class="info-field">
+      <!-- this must be the rent of the month -->
+      <span class="header">rent per month</span>
+      <span class="content">€ 800 per Month</span>
+    </div>
+    <div class="info-field">
+      <span class="header">refundable deposit</span>
+      <span class="content">1 monthly rent</span>
+    </div>
   </div>
 </div>
+

@@ -1,0 +1,19 @@
+<%= simple_form_for(partner, html: { class: 'apply-form' }) do |f| %>
+  <%= f.input :name, label: 'NAME', placeholder: 'MAX', wrapper_html:{ class: 'apply-field'} %>
+
+  <%= f.input :email, label: 'EMAIL', placeholder: 'MAX@GMAIL.DE', wrapper_html:{ class: 'apply-field'} %>
+
+  <%= f.input :company, label: 'COMPANY', placeholder: 'STACEY REAL-ESTATE UG', wrapper_html:{ class: 'apply-field'} %>
+
+  <div class="apply-field d-flex">
+    <%= f.input :phone_code, label: 'CODE', collection: @phone_code, selected: '+49', wrapper_html:{ class: 'phone code'} %>
+
+    <%= f.input :phone, label: 'PHONENUMBER', placeholder: '1682857925', wrapper_html:{ class: 'phone number'} %>
+  </div>
+
+  <%= f.input :message, label: 'YOUR MESSAGE', placeholder: 'MORE INFORMATION', wrapper_html:{ class: 'message'} %>
+
+  <div class="form-action">
+    <%= f.submit 'SEND', class: 'stacey-button apply-button' %>
+  </div>
+<% end %>

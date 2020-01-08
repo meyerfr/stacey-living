@@ -1,0 +1,36 @@
+.three-steps-navbar{
+  display: flex;
+  justify-content: center;
+  background: white;
+  padding: 17px;
+  align-items: center;
+  z-index: 10;
+  .three-steps-navbar-logo{
+    position: absolute;
+    left: 40px;
+    height: 28px;
+    img{height: inherit;}
+  }
+  .ring{
+    color: black;
+    border: 1px solid #fd8fb8;
+    border-radius: 50%;
+    min-width: 40px;
+    min-height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .line{
+    min-width: 8%;
+    border-bottom: 1px dotted;
+    border-width: 2px;
+  }
+  .active{
+    border-color: $stacey-pink;
+    color: white;
+  }
+  .ring.active{
+    background: $stacey-pink;
+  }
+}

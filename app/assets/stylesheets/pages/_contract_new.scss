@@ -1,54 +1,35 @@
-.contracts-page-wrapper{
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background: #000000a3;
-  height: calc(100vh - 60px);
-  position: relative;
+.contract-page-wrapper{
+  .contract-page-header{
+    text-align: center;
+    padding: 10px 24px;
+    border-bottom: 1px solid #DADADA;
+  }
   .contract-page-container{
-    width: 90%;
-    height: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    color: white;
+    // height: calc(100vh - 133px);
+    margin: 50px;
+    .contract-user-form{
+      border: 1px solid #777777;
+      border-radius: 5px;
+      padding: 30px;
+      width: 30%;
+      height: fit-content;
+      display: flex;
+      flex-direction: column;
+      .stacey-button{
+        width: 100%;
+        padding: 9px;
+      }
+    }
     #pdf{
       width: 60%;
-      height: 92%;
+      height: calc(100vh - 133px);
       embed{
         height: 100%;
         width: 100%;
       }
     }
-    .button {
-      padding: 5px;
-      bottom: -40px;
-      width: 100px;
-      border: 1px solid #000;
-      background-color: white;
-      -webkit-transition: all 0.5s ease;
-      transition: all 0.5s ease;
-      color: #000;
-      text-align: center;
-      margin: 5px;
-      cursor: pointer;
-      text-decoration: none;
-    }
-    .button:hover{
-      background-color: #000;
-      color: #fff;
-    }
-    .button-container{
-      width: 100%;
-      display: flex;
-      justify-content: flex-end;
-    }
-    .contract-form{
-      width: 40%;
-    }
   }
-}
-.opacity{
-  opacity: 0.5;
 }

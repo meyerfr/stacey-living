@@ -1,0 +1,39 @@
+<%= render 'shared/three_steps_navbar', step: 1 %>
+<div class="cards-wrapper">
+  <div class="project-choose">
+    <h2>Where Do You Want To Live Next?</h2>
+  </div>
+  <div class="cards-container">
+    <%# 8.times do %>
+    <% @projects.each do |project| %>
+      <div class="stacey-card flat-card">
+        <%= render 'shared/carousel', pictures: project.pictures %>
+        <div class="stacey-card-header">
+          <span class="name"><%= project.name %></span>
+          <div class="price">
+            <span class="small">from</span>
+            <span>800 €</span>
+          </div>
+        </div>
+        <%= render 'shared/amenities', amenities: project.amenities %>
+        <!-- <div class="amenities">
+          <span class="amenity">Furnished</span>
+          <span class="amenity">Wifi</span>
+          <span class="amenity">Speakers</span>
+          <span class="amenity">Work Spaces</span>
+          <span class="amenity">Cleaning</span>
+          <span class="amenity">Netflix</span>
+          <span class="amenity">Kitchen</span>
+          <span class="amenity">Tabletennis</span>
+        </div> -->
+        <%= link_to "explore #{project.name}", booking_project_rooms_path(@booking.booking_auth_token, @booking, project), class: 'stacey-card-button stacey-button' %>
+      </div>
+    <% end %>
+    <%# end %>
+  </div>
+</div>
+<% if current_user.present? && current_user.admin? %>
+  <%= link_to 'Create new Flat', new_project_path, class: "stacey-button" %>
+<% end %>
+
+<%= render 'shared/footer' %>

@@ -1,0 +1,32 @@
+<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" data-interval='3000' data-hover="false">
+  <!-- <ol class="carousel-indicators">
+    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+  </ol> -->
+  <div class="carousel-inner">
+    <!-- first picture must get class active -->
+    <% pictures.each_with_index do |picture, index| %>
+      <% if index == 0 %>
+        <div class="carousel-item active">
+          <!-- must be picture -->
+          <div class="photo" style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('<%= image_path picture, crop: :fill %>');">
+          </div>
+        </div>
+      <% else %>
+        <div class="carousel-item">
+          <div class="photo" style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('<%= image_path picture, crop: :fill %>');">
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+ <!--  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true" style="background-image: url(data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' f…3Cpath d='M5.25 0l-4 4 4 4 1.5-1.5-2.5-2.5 2.5-2.5-1.5-1.5z'/%3E%3C/svg%3E);"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true" style="background-image: url(data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' f…3Cpath d='M2.75 0l-1.5 1.5 2.5 2.5-2.5 2.5 1.5 1.5 4-4-4-4z'/%3E%3C/svg%3E);"></span>
+    <span class="sr-only">Next</span>
+  </a> -->
+</div>

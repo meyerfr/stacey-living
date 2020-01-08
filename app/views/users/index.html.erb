@@ -1,18 +1,83 @@
-<%= render 'shared/navbar' %>
-<div class="users-index-wrapper">
-  <div class="users-index-container">
-    <h1>This page shows all users</h1>
-    <p class="users-index-total-count">
-      <strong><%= User.count %></strong> results
-    </p>
-    <div class="users-list-wrapper">
-      <div class="users-list-container">
-        <% @users.each do |user| %>
-          <% if !user.applicant? %>
-            <%= render 'user_cards', user: user %>
-          <% end %>
+<div class="list-position">
+  <div class="list-wrapper">
+    <div class="list-navbar">
+      <div class="options">
+        <% if params[:user_group] == 'tenants' %>
+          <%= link_to 'Tenants', users_path(user_group: 'tenants'), class: 'option active' %>
+          <%= link_to 'Applicants', users_path(user_group: 'applicants'), class: 'option' %>
+        <% else %>
+          <%= link_to 'Tenants', users_path(user_group: 'tenants'), class: 'option' %>
+          <%= link_to 'Applicants', users_path(user_group: 'applicants'), class: 'option active' %>
         <% end %>
       </div>
+      <% if params[:user_group] == 'tenants' %>
+        <span>We have <%= User.all.where(role: 'tenant').count %> <%= User.all.where(role: 'Tenant').count > 1 ? 'tenants' : 'tenant' %></span>
+      <% else %>
+        <span>We have <%= User.all.where(role: 'applicant').count %> <%= User.all.where(role: 'applicant').count > 1 ? 'applicants' : 'applicant' %></span>
+      <% end %>
+      <div class="query">
+        <%= form_tag users_path, method: :get do %>
+          <%= text_field_tag :search,
+          params[:search],
+          class: "form-control",
+            placeholder: "Find a user"
+            %>
+            <%= submit_tag "Search", class: "btn btn-primary d-none" %>
+        <% end %>
+      </div>
+    </div>
+    <div class="list-container">
+      <% @users.each do |user| %>
+        <div class="list-context-container">
+          <div class="list-info">
+            <span class="set-width"><%= user.full_name %></span>
+            <span class="set-width"><%= user.email %></span>
+            <div class="duration-dates set-width">
+              <% if user.bookings.length.positive? %>
+                <%= user.bookings.last.move_in.strftime("%d.%m %Y") %> – <%= user.bookings.last.move_out.strftime("%d.%m %Y") %>
+              <% end %>
+            </div>
+            <div class="details d-flex set-width">
+              <i class="fas fa-caret-right"></i>
+              <i class="fas fa-caret-down d-none"></i>
+              <span>Details</span>
+            </div>
+          </div>
+          <div class="list-detail d-none">
+            <ul>
+              <% if user.role == 'tenant' %>
+                <li>move in: <%= user.bookings.last.move_in.strftime("%d.%B %Y") %></li>
+                <li>move out: <%= user.bookings.last.move_out.strftime("%d.%B %Y") %></li>
+              <% end %>
+              <li>Phone: <%= user.phone_code %> <%= user.phone_number %></li>
+              <li>moves in <%= user.amount_of_people == 1 ? 'alone' : 'as a couple' %></li>
+              <li>Job: <%= user.job %></li>
+              <% if user.gender.present? %>
+                <li>Gender: <%= user.gender.first %></li>
+              <% end %>
+              <% if user.street.present? %>
+                <li>Address: <%= user.street %>, <%= user.zipcode %> <%= user.city %>, <%= user.country %></li>
+              <% end %>
+              <% if user.linkedin.present? %>
+                <li>LinkedIn: <%= user.linkedin %></li>
+              <% end %>
+              <% if user.facebook.present? %>
+                <li>Facebook: <%= user.facebook %></li>
+              <% end %>
+              <% if user.instagram.present? %>
+                <li>Instagram: <%= user.instagram %></li>
+              <% end %>
+              <% if user.twitter.present? %>
+                <li>Twitter: <%= user.twitter %></li>
+              <% end %>
+              <% if Booking.find_by(user_id: user.id) %>
+                <li>Booking Id: <%= Booking.find_by(user_id: user.id).id %></li>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+      <% end %>
+      <p class="list-end">You´ve reached the end of the list</p>
     </div>
   </div>
 </div>

@@ -1,0 +1,157 @@
+<div class="calendar-postion">
+  <div class="calendar-wrapper">
+    <div class="calendar-section info-text">
+      <%= image_tag 'stacey_logo_schwarz.png', class: 'stacey-logo' %>
+      <h2 class="header">STACEY video call</h2>
+      <div class="duration info">
+        <i class="far fa-clock"></i>
+        <p>15 Minutes</p>
+      </div>
+      <div class="location info">
+        <i class="fas fa-map-marker-alt"></i>
+        <p>Click on https://appear.in/stacey-living to start the call</p>
+      </div>
+      <p class="text">Perfect! You´re one step closer to the the start of your coliving adventure.</p>
+      <p class="text">Now we just want to get to know you a little better & answer every question you might have. Please select your favorite time for a short introduction into the world of STACEY.</p>
+    </div>
+    <div class="calendar-section calendar">
+      <h3 class="header">Select a Date & Time</h3>
+      <div class="calendar-header">
+        <div class="title"><%= Date::MONTHNAMES[@month_param.month] %> <%= @month_param.strftime("%Y") %></div>
+        <div class="arrows">
+          <% if (@month_param + 9.days).month == Date.today.next_month.month && (@month_param + 9.days).month != @month_param.month %>
+            <%= link_to '<', '#', class: 'not-clickable title' %>
+            <%= link_to '>', new_booking_welcome_call_path(@booking.booking_auth_token, @booking, date: @date.strftime("%Y-%m-%d"), month: @month_param.next_month.beginning_of_month.strftime('%Y-%m-%d')), class: 'title' %>
+          <% elsif (@month_param.month == Date.today.next_month.month) %>
+            <%= link_to '<', new_booking_welcome_call_path(@booking.booking_auth_token, @booking, date: @date.strftime("%Y-%m-%d"), month: @month_param.next_month.strftime('%Y-%m-%d')), class: 'title' %>
+            <%= link_to '>', '#', class: 'not-clickable title' %>
+          <% end %>
+          <%# if (Date.today + 9.days).month == Date.today.next_month.month %>
+            <%#= link_to '<', '#', class: 'not-clickable title' %>
+            <%#= link_to '>', new_booking_welcome_call_path(@booking.booking_auth_token, @booking, date: @date.strftime("%Y-%m-%d"), month: @month_param.next_month.beginning_of_month.strftime('%Y-%m-%d')), class: 'title' %>
+          <%# elsif (@month_param.month == Date.today.next_month.month) %>
+            <%#= link_to '<', new_booking_welcome_call_path(@booking.booking_auth_token, @booking, date: @date.strftime("%Y-%m-%d"), month: @month_param.next_month.strftime('%Y-%m-%d')), class: 'title' %>
+            <%#= link_to '>', '#', class: 'not-clickable title' %>
+          <%# else %>
+            <%#= link_to '<', '#', class: 'not-clickable title' %>
+            <%#= link_to '>', '#', class: 'not-clickable title' %>
+          <%# end %>
+        </div>
+      </div>
+      <table class="calendar-table">
+        <thead>
+          <tr class="calendar-weeks">
+            <% @date_range.slice(0, 7).each do |day| %>
+              <th><%= I18n.t("date.abbr_day_names")[day.wday] %></th>
+            <% end %>
+          </tr>
+        </thead>
+        <tbody>
+           <% @date_range.each_slice(7) do |week| %>
+            <tr>
+              <% week.each do |day| %>
+                <td>
+                  <!-- correct Code -->
+<!--
+                          Rules for available days:
+                            - all the available days -> are clickable
+                            - these buttons are opening the right side and update available to be false
+                            - user must be redirected to success page and gets a mail with options for canceling or reschedueling
+ -->
+                  <% if day.month == @month_param.month %>
+                    <% if @available_times.select { |available_time| available_time.to_date == day }.length.positive? %>
+                      <% if day.today? %>
+                        <%= link_to day.strftime("%-d"), new_booking_welcome_call_path(@booking.booking_auth_token, @booking, date: day.strftime("%Y-%m-%d"), month: day.strftime("%Y-%m-%d")), class: 'calendar-day is-today available btn' %>
+                        <!-- <button class="calendar-day is-today available"><span><%#= day.strftime("%-d") %></span></button> -->
+                      <% else %>
+                        <%= link_to day.strftime("%-d"), new_booking_welcome_call_path(@booking.booking_auth_token, @booking, date: day.strftime("%Y-%m-%d"), month: day.strftime("%Y-%m-%d")), class: 'calendar-day available btn' %>
+                        <!-- <button class="calendar-day available"><span><%#= day.strftime("%-d") %></span></button> -->
+                      <% end %>
+                    <% else %>
+                       <% if day.today? %>
+                        <button class="calendar-day is-today"><span><%= day.strftime("%-d") %></span></button>
+                      <% else %>
+                        <button class="calendar-day"><span><%= day.strftime("%-d") %></span></button>
+                      <% end %>
+                    <% end %>
+                  <% end %>
+                  <!--  if @available_times.where(start_dat: day, available: true).lenght > 0
+                          if day.today?
+                            <button class="calendar-day is-today available"><span><%#= day.strftime("%-d") %></span></button>
+                          else
+                            <button class="calendar-day available"><span><%#= day.strftime("%-d") %></span></button>
+                          end
+                        else
+
+                          Rules for not available days:
+                            - all the not-available days -> are not clickable
+                          if day.today?
+                            <button class="calendar-day is-today"><span><%#= day.strftime("%-d") %></span></button>
+                          else
+                            <button class="calendar-day"><span><%#= day.strftime("%-d") %></span></button>
+                          end
+                        end -->
+
+                  <!-- wrong Code, not considering the availability  -->
+                  <%# if day.month == @month_param.month %>
+                    <%# if day.today? %>
+                      <!-- <button class="calendar-day is-today"><span><%#= day.strftime("%-d") %></span></button> -->
+                    <%# else %>
+                      <!-- <button class="calendar-day"><span><%#= day.strftime("%-d") %></span></button> -->
+                    <%# end %>
+                  <%# end %>
+                </td>
+              <% end %>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+      <div class="timezone info">
+        <i class="fas fa-globe-europe"></i>
+        <p>Central European Time (<%= Time.now.strftime("%H:%M") %>)</p>
+      </div>
+    </div>
+    <div class="calendar-section choose-time">
+      <div class="title">
+        <!-- This must be the selected day, detected by params -->
+        <% if !@available_times.length.positive? %>
+          <p>Sorry, but it seems we do not have any available timeslots left. Please check again tomorrow.</p>
+        <% elsif @date == Date.today %>
+          <%#= @date.strftime("%A, %d %B") %>
+          <p>Please choose one of the marked dates which have available timeslots.</p>
+        <% elsif params[:date] && @date != params[:date].to_date && @date_available_times %>
+          <p class="title">Next available timeslot</p>
+          <%= @date_available_times.first.strftime("%A, %d %B") %>
+        <% elsif @date_available_times %>
+          <% if !params[:date] %>
+            <p class="title">Next available timeslot</p>
+          <% end %>
+          <%= @date_available_times.first.strftime("%A, %d %B") %>
+        <% end %>
+      </div>
+      <div class="choose-time-list">
+        <div class="time-list">
+          <% if @date_available_times %>
+            <% @date_available_times.each do |call| %>
+              <!-- <div class="available-time"> -->
+                <!-- every available time must be inserted in here -->
+                <div class="d-flex justify-content-between">
+                  <div class="time-button available-time"><%= call.strftime('%H:%M') %></div>
+                  <%#= link_to call.start_time.strftime('%H:%M'), 'confirm', class: 'confirm-button available-time not-expanded' %>
+                  <%#= simple_form_for(WelcomeCall.new) do |f| %>
+                    <%#= f.input :start_time, value: call, wrapper_html: {class: 'd-none'} %>
+                    <%#= f.input :end_time, value: call + 15.minutes, wrapper_html: {class: 'd-none'} %>
+                    <%#= f.submit 'Confirm', class: 'confirm-button available-time not-expanded' %>
+                  <%# end %>
+
+                  <%= link_to 'Confirm', booking_welcome_calls_path(@booking.booking_auth_token, @booking,welcome_call: {start_time: call, end_time: call + 15.minutes}), method: :post, class: 'confirm-button available-time not-expanded' %>
+                  <!-- <button class="time-button">12:00</button> -->
+                </div>
+              <!-- </div> -->
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

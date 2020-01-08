@@ -1,19 +1,11 @@
 Rails.application.configure do
+  config.action_mailer.default_url_options = { host: "join.stacey-living.de" }
   config.action_mailer.delivery_method = :postmark
   config.action_mailer.postmark_settings = { api_key: ENV['POSTMARK_API_KEY'] }
-  config.action_mailer.default_url_options = { host: "join.stacey-living.de" }
-  # Verifies that versions and hashed value of the package contents in the project's package.json
-  config.webpacker.check_yarn_integrity = false
   # Settings specified here will take precedence over those in config/application.rb.
-
-  Slack.configure do |config|
-    config.token = ENV['SLACK_API_TOKEN']
-  end
 
   # Code is not reloaded between requests.
   config.cache_classes = true
-
-  config.force_ssl = true
 
   # Eager load code on boot. This eager loads most of Rails and
   # your application in memory, allowing both threaded web servers
@@ -72,7 +64,7 @@ Rails.application.configure do
 
   # Use a real queuing backend for Active Job (and separate queues per environment)
   # config.active_job.queue_adapter     = :resque
-  # config.active_job.queue_name_prefix = "stacey-living_#{Rails.env}"
+  # config.active_job.queue_name_prefix = "stacey_#{Rails.env}"
 
   config.action_mailer.perform_caching = false
 

@@ -1,15 +1,18 @@
-console.log('application.js wird geladen');
 import "bootstrap";
-import { checkDuration } from '../checkDurationOfStay';
-import { addEventListenerToDuration } from '../updatePricingInBookingForm';
-import { addEventListenerToAllSocialMediaInputs } from '../openSocialMediaForm';
-import { injectSigningProcess } from './signature'
-import { stripeProcess } from '../stripePayment';
-import { checkBeforeSubmit } from '../pricingCheckBoxes';
+import { onlyOneBox } from '../onlyOneBox';
+import { socialMediaForms } from '../applySocialMediaForms';
+import { expandConfirm } from '../welcomeCallCalendar';
+import { showUserInfo } from '../welcomeCallCalendar';
+import { noNavbar } from '../noNavbar';
+import { checkDates } from '../bookingDates';
+import { addCoupleOption } from '../applyCoupleSection';
+import { infoOnHovering } from '../hover_effect_for_info'
 
-checkDuration();
-addEventListenerToDuration();
-addEventListenerToAllSocialMediaInputs();
-injectSigningProcess();
-stripeProcess();
-checkBeforeSubmit();
+onlyOneBox();
+socialMediaForms();
+expandConfirm();
+showUserInfo();
+noNavbar();
+checkDates();
+addCoupleOption();
+infoOnHovering();

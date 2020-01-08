@@ -1,0 +1,33 @@
+<div class="personal-information-wrapper">
+  <div class="payment-section-header">
+    <h3 class="bigger-font-weight">Secure A Room</h3>
+  </div>
+  <div class="personal-information-container payment-section">
+    <h3 class="personal-information-header">Personal information</h3>
+    <%= simple_form_for @booking.user, method: :patch do |f| %>
+      <%= f.input :first_name %>
+
+      <%= f.input :last_name %>
+
+      <%= f.input :email %>
+
+      <%= f.label :phone_number, 'PHONENUMBER' %>
+
+      <div class="phone">
+        <%= f.input :phone_code, label: false, collection: @phone_code, selected: '+49' %>
+        <%= f.input :phone_number, label: false %>
+      </div>
+      <%= f.label :gender, 'WHAT IS YOUR GENDER?' %>
+      <div class="gender">
+        <div class="check-boxes only-one-box">
+          <%= f.collection_check_boxes :gender, [['Male'], ['Female'], ['Other']], :first, :first, multiple: false %>
+        </div>
+      </div>
+
+      <%= f.input :dob, as: :date, order: [:day, :month, :year], start_year: Date.today.year - 70, end_year: Date.today.year - 18, selected: 22.years.ago, label: 'WHEN WERE YOU BORN?' %>
+
+
+      <%= f.submit 'Update User', id: 'update-user-button', class: 'd-none'%>
+    <% end %>
+  </div>
+</div>

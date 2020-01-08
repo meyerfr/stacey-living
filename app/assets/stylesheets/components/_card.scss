@@ -1,0 +1,53 @@
+.cards-wrapper{
+  min-height: calc(100vh - 74px - 286px);
+  .cards-container{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 25px;
+    .stacey-card{
+      display: flex;
+      flex-direction: column;
+      max-width: 400px;
+      width: 25%;
+      position: relative;
+      border: 1px solid #c2c2c2;
+      background: white;
+      margin: 10px 12px;
+      min-width: 335px;
+      .stacey-card-header{
+        display: flex;
+        padding: 0 30px;
+        align-items: center;
+        justify-content: space-between;
+        border-bottom: 1px solid #c2c2c2;
+        .name{
+          font-size: 28px;
+        }
+        .price{
+          display: flex;
+          flex-direction: column;
+          padding: 12px 0 12px 20px;
+          border-left: 1px solid #c2c2c2;
+          align-items: center;
+        }
+      }
+      .amenities{
+        margin-bottom: 50px;
+        padding: 15px 0;
+        font-size: 14px;
+      }
+      .photo{
+        height: 200px;
+      }
+      .stacey-card-button{
+        align-self: center;
+        width: 87%;
+        text-align: center;
+        margin: 10px 0 20px;
+        position: absolute;
+        bottom: 0;
+      }
+    }
+  }
+}

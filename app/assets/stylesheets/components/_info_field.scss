@@ -1,0 +1,25 @@
+.info-field-wrapper{
+  display: flex;
+  flex-direction: row-reverse;
+  font-size: 12px;
+  position: absolute;
+  justify-content: center;
+  right: 0;
+  align-items: baseline;
+  border: 0.5px solid gray;
+  border-radius: 5px;
+  height: fit-content;
+  .info-on-hover{
+    width: 30px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .info-field-container{
+    span{margin-left: 5px;}
+  }
+}
+.info-position{
+  position: relative;
+}

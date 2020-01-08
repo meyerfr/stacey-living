@@ -3,17 +3,16 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>STACEY | Modern coliving apartments in Hamburg</title>
-    <%= favicon_link_tag "stacey-favicon.png", rel: 'icon', type: 'image/png', sizes: "32x32" %>
+    <title>STACEY | Modern coliving apaertments in Hamburg</title>
+    <%= favicon_link_tag "stacey_favicon.png", rel: 'icon', type: 'image/png', sizes: '32x32' %>
     <%= csrf_meta_tags %>
     <%= action_cable_meta_tag %>
     <%= stylesheet_link_tag 'application', media: 'all' %>
-    <script src="https://js.stripe.com/v3/"></script>
     <%#= stylesheet_pack_tag 'application', media: 'all' %> <!-- Uncomment if you import CSS in app/javascript/packs/application.js -->
   </head>
   <body>
-    <%= render 'shared/flashes' %>
     <%= render 'shared/navbar' %>
+    <%= render 'shared/flashes' %>
     <%= yield %>
     <%= javascript_include_tag 'application' %>
     <%= javascript_pack_tag 'application' %>

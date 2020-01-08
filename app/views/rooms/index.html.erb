@@ -1,38 +1,33 @@
-<div class="three-steps-navbar">
-  <div class="three-steps-container">
-    <div class="ring active">
-      <p>1</p>
-    </div>
-    <div class="line"></div>
-    <div class="ring">
-      <p>2</p>
-    </div>
-    <div class="line"></div>
-    <div class="ring">
-      <p>3</p>
-    </div>
-  </div>
-  <div class="phone">
-    <%= link_to 'Call us on +49 40 606389600', "tel: +4940606389600" %>
-  </div>
+<%= render 'shared/three_steps_navbar', step: 1 %> <!-- must be step 1 because choosing Project doesn´t count -->
+<!-- this must be the banner of projects pictures -->
+<%= render 'shared/carousel', pictures: @rooms.first.project.pictures %>
+<!-- the quote -->
+
+<div class="project-short-description">  <!-- should actually be @project.short-description -->
+  A beautiful neighborhood in central Hamburg; everything is here. Find local shops, restaurants and bars nearby. Our community in Eppendorf is just as energetic as the neighborhood.
 </div>
-<%= render 'shared/projects_banner', flat: @flat %>
-<div class="room-cards-list-wrapper">
-  <div class="room-card-wrapper">
+<div class="cards-wrapper">
+  <div class="cards-container">
+    <%# 6.times do %>
     <% @rooms.each do |room| %>
-      <%= render 'shared/room_cards', flat: @flat, room: room, link: "/users/#{@user.id}/flats/#{@flat.id}/rooms/#{room.id}/#{@authentity_token_contract}" %>
+      <div class="stacey-card" id='room-card'>
+        <%= render 'shared/carousel', pictures: room.pictures %>
+        <div class="stacey-card-header">
+          <span class="name"><%= room.name.titleize %> Suite</span>
+          <div class="price">
+            <span class="small">from</span>
+            <span>800 €</span> <!-- room.price[0] -->
+          </div>
+        </div>
+        <%= render 'shared/amenities', amenities: room.amenities %>
+        <%= link_to "explore #{room.name}", booking_project_room_path(@booking.booking_auth_token, @booking, room.project, room), class: 'stacey-card-button stacey-button' %>
+      </div>
     <% end %>
-    <%#= render 'shared/rooms_detail_popup', room: Room.first %>
+    <%# end %>
   </div>
-</div>
-<div class="contract-page-quote">
-  <p>”ALONE WE CAN DO SO LITTLE;</p>
-  <p>TOGETHER WE CAN DO SO MUCH”</p>
-  <p class="quote-name">Helen Keller</p>
 </div>
 <% if current_user.present? && current_user.admin? %>
-  <%= link_to 'Create new Room', new_flat_room_path, class: "stacey-button" %>
+  <%= link_to 'Create new Room', new_project_room_path, class: "stacey-button" %>
 <% end %>
 
-<%#= render 'shared/community_area' %>
-<%= render 'shared/contract_footer', flat: @flat %>
+<%= render 'shared/footer' %>

@@ -10,41 +10,39 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_03_121919) do
+ActiveRecord::Schema.define(version: 2020_01_08_114500) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "amenities", force: :cascade do |t|
+    t.string "icon_text"
+    t.string "title"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "bookings", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "room_id"
+    t.date "move_in"
+    t.date "move_out"
+    t.string "state"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "state", default: "pending"
-    t.jsonb "payment"
+    t.string "booking_auth_token"
+    t.date "booking_auth_token_exp"
     t.index ["room_id"], name: "index_bookings_on_room_id"
     t.index ["user_id"], name: "index_bookings_on_user_id"
   end
 
   create_table "contracts", force: :cascade do |t|
     t.bigint "booking_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
     t.binary "signature"
-    t.date "signed_on"
-    t.index ["booking_id"], name: "index_contracts_on_booking_id"
-  end
-
-  create_table "flats", force: :cascade do |t|
-    t.string "street"
-    t.integer "zipcode"
-    t.string "city"
-    t.string "project_name"
-    t.text "description"
-    t.json "pictures"
+    t.date "signed_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "house_number"
+    t.index ["booking_id"], name: "index_contracts_on_booking_id"
   end
 
   create_table "partners", force: :cascade do |t|
@@ -58,20 +56,48 @@ ActiveRecord::Schema.define(version: 2019_12_03_121919) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "rooms", force: :cascade do |t|
-    t.integer "price", default: [], array: true
-    t.string "art_of_room"
-    t.boolean "balcony"
-    t.string "room_size"
-    t.text "description"
-    t.integer "deposit", default: [], array: true
-    t.json "pictures"
-    t.bigint "flat_id"
-    t.bigint "user_id"
+  create_table "project_amenities", force: :cascade do |t|
+    t.bigint "amenity_id"
+    t.bigint "project_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["flat_id"], name: "index_rooms_on_flat_id"
-    t.index ["user_id"], name: "index_rooms_on_user_id"
+    t.index ["amenity_id"], name: "index_project_amenities_on_amenity_id"
+    t.index ["project_id"], name: "index_project_amenities_on_project_id"
+  end
+
+  create_table "projects", force: :cascade do |t|
+    t.string "street"
+    t.string "house_number"
+    t.string "city"
+    t.integer "zipcode"
+    t.string "name"
+    t.text "description"
+    t.json "pictures"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "room_amenities", force: :cascade do |t|
+    t.bigint "amenity_id"
+    t.bigint "room_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["amenity_id"], name: "index_room_amenities_on_amenity_id"
+    t.index ["room_id"], name: "index_room_amenities_on_room_id"
+  end
+
+  create_table "rooms", force: :cascade do |t|
+    t.bigint "project_id"
+    t.string "number"
+    t.string "house_number"
+    t.float "price", array: true
+    t.string "name"
+    t.float "size"
+    t.text "description"
+    t.json "pictures"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["project_id"], name: "index_rooms_on_project_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -82,51 +108,45 @@ ActiveRecord::Schema.define(version: 2019_12_03_121919) do
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "role", default: "applicant"
     t.string "first_name"
     t.string "last_name"
-    t.string "phone_code"
-    t.string "phone"
-    t.date "date_of_birth"
-    t.string "job"
-    t.date "move_in_date"
-    t.string "amount_of_people"
-    t.text "description"
-    t.boolean "admin", default: false
-    t.boolean "applicant", default: true
-    t.string "photo"
-    t.string "instagram"
-    t.string "twitter"
-    t.string "facebook"
-    t.string "linked_in"
-    t.string "authentity_token_contract"
-    t.date "authentity_token_contract_expiration"
-    t.string "invitation_token"
-    t.datetime "invitation_created_at"
-    t.datetime "invitation_sent_at"
-    t.datetime "invitation_accepted_at"
-    t.integer "invitation_limit"
-    t.string "invited_by_type"
-    t.bigint "invited_by_id"
-    t.integer "invitations_count", default: 0
-    t.string "gender"
-    t.string "nationality"
-    t.string "prefered_suite", array: true
-    t.date "duration_of_stay"
+    t.date "dob"
     t.string "street"
     t.string "city"
     t.integer "zipcode"
     t.string "country"
+    t.string "instagram"
+    t.string "facebook"
+    t.string "twitter"
+    t.string "linkedin"
+    t.string "job"
+    t.integer "amount_of_people", default: 1
+    t.string "gender", array: true
+    t.string "prefered_suite", array: true
+    t.string "phone_number"
+    t.string "phone_code"
+    t.string "photo"
     t.index ["email"], name: "index_users_on_email", unique: true
-    t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true
-    t.index ["invitations_count"], name: "index_users_on_invitations_count"
-    t.index ["invited_by_id"], name: "index_users_on_invited_by_id"
-    t.index ["invited_by_type", "invited_by_id"], name: "index_users_on_invited_by_type_and_invited_by_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  end
+
+  create_table "welcome_calls", force: :cascade do |t|
+    t.string "name"
+    t.datetime "start_time"
+    t.datetime "end_time"
+    t.bigint "booking_id"
+    t.boolean "available", default: true
+    t.index ["booking_id"], name: "index_welcome_calls_on_booking_id"
   end
 
   add_foreign_key "bookings", "rooms"
   add_foreign_key "bookings", "users"
   add_foreign_key "contracts", "bookings"
-  add_foreign_key "rooms", "flats"
-  add_foreign_key "rooms", "users"
+  add_foreign_key "project_amenities", "amenities"
+  add_foreign_key "project_amenities", "projects"
+  add_foreign_key "room_amenities", "amenities"
+  add_foreign_key "room_amenities", "rooms"
+  add_foreign_key "rooms", "projects"
+  add_foreign_key "welcome_calls", "bookings"
 end

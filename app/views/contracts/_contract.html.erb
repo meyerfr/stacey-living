@@ -1,0 +1,404 @@
+<div class="contract-pdf-wrapper">
+  <div class="pdf-header">
+    <%= wicked_pdf_image_tag 'stacey_logo_schwarz.png', class: 'stacey-logo-pdf' %>
+    <div class="line"></div>
+    <p class="header-pdf-text" id="space">Rental Agreement between <strong>the lessor</strong></p>
+    <p class="header-pdf-text">STACEY Real Estate UG (haftungsbeschränkt)</p>
+    <p class="header-pdf-text">Brandstwiete 36</p>
+    <p class="header-pdf-text">20457 Hamburg</p>
+    <p class="header-pdf-text" id="space">and <strong>the tenant</strong></p>
+    <p class="header-pdf-text"><%= @user.first_name %> <%= @user.last_name %></p>
+    <p class="header-pdf-text">Born <%= @user.dob.strftime('%d/%m/%Y') %></p>
+  </div>
+  <table class="date-address-table">
+    <tr class="row">
+      <td class="table-date">Date:</td>
+    </tr>
+    <tr class="row">
+      <% if @contract.signed_date.present? %>
+        <td class="table-date"><%= @contract.signed_date.strftime("%d/%m/%Y") %></td>
+      <% else %>
+        <td class="table-date"><%= Date.today.strftime("%d/%m/%Y") %></td>
+      <% end %>
+    </tr>
+  </table>
+
+  <table class="details-table">
+    <tr class="row table-headline">
+      <th class="col">Description</th>
+      <th class="col">Property Address</th>
+      <th class="col">Room</th>
+      <th class="col">Monthly Price</th>
+      <th class="col">Start Date</th>
+      <th class="col">End Date</th>
+    </tr>
+    <tr class="row table-content">
+      <td class="col">STACEY Rent</td>
+      <td class="col address"><%= @project.street %> <%= @project.house_number %> <br> <%= @project.zipcode %> <%= @project.city %></td>
+      <td class="col"><%= @room.name %> Suite <%= @room.id %></td>
+      <td class="col"><%= @room.price[0] %> €</td>
+      <td class="col"><%= @booking.move_in.strftime("%d/%m/%Y") %></td>
+      <td class="col"><%= @booking.move_out.strftime("%d/%m/%Y") %></td>
+    </tr>
+  </table>
+  <div class="table-payment-terms">
+    <p class="no-margin-top">
+      Payment terms: monthly, due 1 day before 'start date' for the first month, and due the 1st day, at latest by the 3rd business day of each month for the following months. Deposit in form of 1-month rent together with the rent for the first month is due upon signing the agreement.
+    </p>
+    <p>Payment method: direct debit mandate</p>
+  </div>
+
+  <table class="terms-of-service-table">
+    <tr class="row">
+      <th class="col">Terms of Service</th>
+    </tr>
+    <tr class="row">
+      <td class="col">This is the rental contract for your STACEY room. By signing, you acknowledge that you have read, understood and agree to the (1) Rental Agreement, (2) Terms and Condition of Internet Use, (3) House Rules and (4) STACEY Terms of Service which can be found at <%= link_to 'www.stacey-living.de/terms/', 'www.stacey-living.de/terms/' %> and is incorporated into this document by reference. Any other terms and conditions do not apply to this contract and are null and void.</td>
+    </tr>
+  </table>
+
+  <div class="payment-information">
+    <div class="header">
+      <p>Payment Information</p>
+    </div>
+    <div class="content">
+      <p>Your monthly rent will be transferred to the following account:</p>
+      <p class="bank-info">STACEY Real Estate UG</p>
+      <p class="bank-info">IBAN: DE79 1101 0100 2492 6109 33</p>
+    </div>
+  </div>
+
+  <table class="contract-singature-and-client">
+    <tr class="row">
+      <td class="col header">Tenant Name</td>
+      <td class="col client-name border-bottom"><%= @user.first_name %> <%= @user.last_name %></td>
+    </tr>
+    <tr class="row">
+      <td class="col header">Date & Signature (<strong>tenant</strong>)</td>
+      <% if @contract.signature.present? %>
+        <% if @contract.signature[0..5] == "data:i" %>
+          <td class="col signature draw border-bottom"><%= @contract.signed_date.strftime("%d/%m/%Y") %>, <%= image_tag @contract.signature, style: 'width: 150px; height: 80px;' %></td>
+        <% else %>
+          <td class="col signature border-bottom">
+            <table class="signature-field-sign">
+              <tr class="row">
+                <td><%= @contract.signed_date.strftime("%d/%m/%Y") %>, </td>
+                <td class="sign"><%= @contract.signature %></td>
+              </tr>
+            </table>
+          </td>
+        <% end %>
+      <% else %>
+        <td class="col signature border-bottom"></td>
+      <% end %>
+    </tr>
+    <tr class="row">
+      <td class="col header">Date & Signature (<strong>lessor</strong>)</td>
+      <td class="col signature border-bottom">
+        <table class="signature-field-sign">
+          <tr class="row">
+            <% if @contract.signature.present? %>
+            <td><%= @contract.signed_date.strftime("%d/%m/%Y") %>, </td>
+            <% else %>
+            <td><%= Date.today.strftime("%d/%m/%Y") %>, </td>
+            <% end %>
+            <td class="sign">Matteo Kreidler</td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+
+  <div class="page-break"></div>
+
+  <h2>(1) Rental Contract</h2>
+  <h4>1. Subject Matter of the Agreement</h4>
+  <p>STACEY rents out only furnished rooms of the shared apartments. The rooms of shared apartments operated by STACEY are rented out to each member as private rooms. The apartments are rented to the STACEY member for exclusive use as living space. The STACEY member shall not use the living space for commercial room rentals as holiday apartments. STACEY members are not allowed to sublet the apartment to third parties.</p>
+  <p>The contractual obligations of STACEY include but are not limited to making a room available for sole private use by the user; providing access to and allowing shared use of the shared space within the property; providing furniture for the rented room and the shared space of the property; internet service (subject to 'Terms of Conditions of Internet Use' here attached and part of the agreement); organization of a weekly cleaning service (for furnished rooms and common areas); maintenance or repair of the facilities if such need [for maintenance or repair] arises from using the property in compliance with the agreement.</p>
+  <p>Members are individually responsible for how they organize the communal life in the shared apartment.</p>
+  <p>The duration of the tenants stay is limited to the rent duration, as the property will experience major physical alteration after the end of the tenant's lease period. The homeowner will conduct the refurbishment of the house's facade, snaitary- & electrical installations, as well as the house's roof. Due to the construction measures, the layout of the leased room will change. The utilization of the room by the tenant is an obstruction during the refurbishment of the listed measures above. Thus, it is in the interest of the lessor that the room will not be hired out till the end of the construction & refurbishment.</p>
+  <p>The rental period starts on the <%= @booking.move_in.strftime("%d/%m/%Y") %> and ends on the <%= @booking.move_out.strftime("%d/%m/%Y") %>.</p>
+
+  <h4>2. Contract Signing</h4>
+  <p>On its website, STACEY publishes pictures of a variety of generic rooms, common areas, etc., which show the different residential designs on its website. </p>
+  <ol>
+    <li><p>If the customer is interested in the offer, he the can clicks the button “APPLY”. When a customer applies STACEY gets the personal information of the user. The customer will then receive a YES or NO answer on his application, which is based on the information provided and the availability of rooms at that specific moment.</p></li>
+    <li><p>Upon request, STACEY will provide interested parties with photos of the individual rooms to be rented and further information.</p></li>
+    <li><p>The tenant agrees to a direct debit mandate via the Stripe payment integration, which allows STACEY to collect the X-month deposit as well as the monthly rent.</p></li>
+    <li><p>STACEY will then send the tenancy agreement for the provided room to the prospective tenant. The tenant concludes the official contract with the signing of the rental agreement. The tenant is then given an opposing copy of the lease agreement.</p></li>
+    <li><p>The STACEY member shall inform the local registration office of his new place of residence or secondary residence within two weeks of moving according to the Meldegesetz (German Registration Act).</p></li>
+  </ol>
+
+  <h4>3. Contractual obligation</h4>
+  <p>In signing an effective rental agreement, the STACEY member undertakes to pay the monthly rent specified in the individual agreement. Rent is transferred to the STACEY Real Estate UG through the direct debit mandate at the commencement of the periods of time according to which it is computed but at the latest by the third business day of each such period.</p>
+  <p>The member agrees to a direct debit mandate with STACEY and provides [other necessary] payment details, and shall immediately notify STACEY of any changes thereto.</p>
+  <p>Monthly rent is all-inclusive. The rent includes ongoing costs, in particular utilities and incidental expenses.</p>
+  <p>In case the STACEY member is in default with paying the monthly rent, the STACEY member shall pay interest at 5% over the basic interest rate on the monthly rent during the late payment period. STACEY may terminate extraordinary per $ 543 subsection (2) No. 3 BGB, if the STACEY member is in default, on two successive times, of payment of the rent or a portion of the rent that is not insignificant, or in a period of time spanning more than two times is in default of payment of the rent in an amount that is as much as the amount of rent for two months.</p>
+  <p>The monthly rent does not include costs of any repairs and maintenance required in connection with damage caused through the member's fault.</p>
+  <p>STACEY may separately bill any additionally performed services only with prior consent of the user.</p>
+  <div class="page-break"></div>
+  <h4>4. Deposit</h4>
+  <p>Upon signing the contract the lessee pays a deposit that, depending on the length of the lease period, shall not exceed the sum of three basic rental charges (total rent excl. service charge). The deposit will be transferred through the direct debit mandate via the Stripe Billing integration to STACEY’s bank account.</p>
+  <p>The deposit serves as a security for the lessor who is allowed to deduct any claims that arise under this contract from the deposit.</p>
+
+  <h4>5. Termination</h4>
+  <p>The termination is not possible during the rent period as it is a fixed-term tenancy agreement. However, both parties agreed to the special termination right, stating that both parties have the right to annul the contract on the <%= (@booking.move_in + 3.months).strftime('%d/%m/%Y') %>. Therefore, the tenant or the lessor has to inform the other party 1 month prior to this date, otherwise this clause is void.</p>
+
+  <h4>6. Extraordinary termination of mermbership</h4>
+  <p>STACEY may terminate the extraordinarily independently of the existence of the existence of the lease if the member seriously violates this Rental Agreement or any of the terms at <%= link_to 'www.stacey-living.de/terms', 'www.stacey-living.de/terms' %>.</p>
+  <p>A serious violation is deemed to be committed, in particular, when the member continously disrupts the peaceful cohabitation within the residential community, or violates the rules of conduct as defined in section 5 or creates multiple member accounts, uses the website in a manner violating applicable law, provides false, out-of-date or incomplete information during the registration process or fails to update same.</p>
+  <p class="margin-bottom">Reasons for extraordinary termination are:</p>
+  <ul class="less-distance">
+    <li>Subletting room on Airbnb, equivalents or else to third parties</li>
+    <li>Incorporate use of internet (= "Terms of Conditions of Internet Use" see Point (2))</li>
+    <li>Persistent breach of house rules (see Point (3))</li>
+    <li>Permanently payment defaults</li>
+    <li>Disturbance of domestic peace</li>
+    <li>Breach the pet-ban, smoking-ban, drugs-ban</li>
+    <li>Deliberate damages to the rental object</li>
+    <li>Running a business in his/her own apartment</li>
+  </ul>
+
+  <h4>7. Damage</h4>
+  <p>The lessee shall report any identified damage to the facilities within 48 hours of moving in. If no such report is made, the room is deemed to be accepted in a condition compliant with the Agreement.</p>
+  <p>Any damage to the facilities of the rented room or the shared space and the rooms identified later on must be photographically documented by the member and notified to STACEY within 48 hours of identifying such damage. Any costs of defects caused by the member in connection with using the property in a manner contrary to the Agreement or resulting from late notification of a defect shall be borne by the member.</p>
+  <p>If the damage in the shared spaces cannot be associated with one individual member, the damage costs are split between all tenants within the community.</p>
+
+  <h4>8. Special events</h4>
+  <p>In the case of special events the lessor has the right to relocate the tenant to a different room within the community. The room has to be the same or a better room category than the category mentioned in this agreement.</p>
+
+  <h4>9. Right of withdrawal</h4>
+  <p>If the user is a consumer within the meaning of §13 BGB [German Civil Code], he has the right of withdrawal as per § 355 BGB in respect of the membership agreement, provided that the agreement is a distance contract as per § 312 c BGB.</p>
+  <p>According to § 312 c BGB, distance contracts are contracts for which the trader, or a person acting in the trader's name or on his behalf, and the consumer exclusively avail themselves of means of distance communication in negotiating and concluding the contract, unless the contract is concluded via a sales or a service system designated for distance sales.</p>
+  <p>Means of distance communication in this context are all means of communication which can be used to initiate or to conclude a contract, without requiring the simultaneous physical presence of the parties to the contract, such as letters, catalogues, telephone calls, faxes, emails, text messages sent via the mobile telephone service (SMS) as well as messages broadcast and sent via teleservices.</p>
+
+  <div class="page-break"></div>
+
+  <h4>10. Severability</h4>
+  <p>If a provision of this agreement is or becomes leagally invalid or if there is any gap that needs to be filled, the valiedity of the remainder of the agreement shall not be affected therby. Invalid provisions shall be replaced by common consent with such provisions which come as close as possible to the intended result of the invalid provision.</p>
+  <p>In the event of gaps such provision shall come into force by common consent which comes as close as possible to the intended result of the agreement, should matter have been considered in advance. Any changes of or amendments to this agrrement mus be in writing to become effective</p>
+
+
+  <table class="contract-singature-and-client">
+    <tr class="row">
+      <td class="col header">Tenant Name</td>
+      <td class="col client-name border-bottom"><%= @user.first_name %> <%= @user.last_name %></td>
+    </tr>
+    <tr class="row">
+      <td class="col header">Date & Signature (<strong>tenant</strong>)</td>
+      <% if @contract.signature.present? %>
+        <% if @contract.signature[0..5] == "data:i" %>
+          <td class="col signature draw border-bottom"><%= @contract.signed_date.strftime("%d/%m/%Y") %>, <%= image_tag @contract.signature, style: 'width: 150px; height: 80px;' %></td>
+        <% else %>
+          <td class="col signature border-bottom">
+            <table class="signature-field-sign">
+              <tr class="row">
+                <td><%= @contract.signed_date.strftime("%d/%m/%Y") %>, </td>
+                <td class="sign"><%= @contract.signature %></td>
+              </tr>
+            </table>
+          </td>
+        <% end %>
+      <% else %>
+        <td class="col signature border-bottom"></td>
+      <% end %>
+    </tr>
+    <tr class="row">
+      <td class="col header">Date & Signature (<strong>lessor</strong>)</td>
+      <td class="col signature border-bottom">
+        <table class="signature-field-sign">
+          <tr class="row">
+            <% if @contract.signature.present? %>
+            <td><%= @contract.signed_date.strftime("%d/%m/%Y") %>, </td>
+            <% else %>
+            <td><%= Date.today.strftime("%d/%m/%Y") %>, </td>
+            <% end %>
+            <td class="sign">Matteo Kreidler</td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+
+  <div class="page-break"></div>
+
+  <h4 class="underline">INFROMATION OF THE RIGHT OF WITHDRAWAL</h4>
+  <p class="bold">Right of withdrawal</p>
+  <p class="text-closer">You are entitled to withdraw from the membership within 14 days without giving reasons. The time limit for the withdrawal is 14 days from the date of concluding the agreement.</p>
+  <p class="text-closer">To exercise the right of withdrawal, please inform us (STACEY Real Estate UG (haftungsbeschränkt), Brandstwiete 36, 20457 Hamburg, phone.: 040 696389600, email: hello@stacey-living.de) of your decision to withdraw from the Agreement as per item 8, by submitting a clearly worded declaration (e.g. by sending a letter by post, or sending a fax or email). You can use the attached withdrawal form template for this purpose, but the use of this form is not mandatory.</p>
+  <p class="text-closer">In order to meet the withdrawal deadline it is sufficient to send the information about the exercise of the right of withdrawal before the end of the withdrawal deadline.</p>
+  <p class="bold">Consequences of withdrawal</p>
+  <p>If you withdraw from this Agreement, we will return to you all payments from you immediately no later than 14 days of the date on which we received the notice of your withdrawal from this Agreement. We will refund the above expenses using the same means of payment as you used for the original transaction unless expressly agreed otherwise with you; in no case will we charge you a fee for this refund. If your requested period of service performance overlaps with the withdrawal period, you will have to pay us an appropriate fee equal to the portion payable for the services performed until the date on which you informed us that you withdraw from the Agreement in relation to the entire scope of services provided for in the agreement.</p>
+  <p class="bold">Withdrawal form template:</p>
+  <p>If you wish to withdraw from the agreement as per the paragraphs above, you can complete and submit this form. You are not required to use this form, though.</p>
+  <p class="text-closer">I/We (*) hereby withdraw from the agreement signed by me/us (*) on the provision of the following services (*)</p>
+  <p class="text-closer">Ordered on (*)/received on (*)</p>
+  <p class="text-closer">Name of the consumer(s)</p>
+  <p class="text-closer">Postal address of the consumer(s)</p>
+  <p class="text-closer">Signature of the consumer(s) (only if notification is in paper form)</p>
+  <p class="text-closer">Date</p>
+  <p class="text-closer">(*) delete as appropriate.</p>
+
+  <div class="page-break"></div>
+
+  <h2>(2) TERMS AND CONDITIONS FOR INTERNET USE</h2>
+  <h4>1. Mode and duration of the internet use</h4>
+  <p>1.1 The lessee is allowed to use the internet access point available in the rented apartment in accordance with the following terms and conditions.</p>
+  <p class="margin-bottom">1.2 The lessee may use the internet access in a normal, reasonable way (e- mailing, surfing, downloading, etc.). Any use that violates copyrights, trademarks, personal rights or that falls under criminal law provisions is prohibited. Particularly forbidden is:</p>
+  <ul class="less-distance">
+    <li>Any sort of file sharing and any use of file sharing software, peer-to-peer and bittorrent networks, etc.</li>
+    <li>The violation of copyrights or other legally protected rights by up- or downloading content protected by copyright (movies, music, software, etc.)</li>
+    <li>Insulting or humiliating other individuals</li>
+    <li>Sharing photos of other people without permission</li>
+    <li> Publishing harmful and/or illegal content</li>
+    <li>Sending mass-e-mails (spamming)</li>
+    <li>Spreading computer viruses</li>
+    <li>Visiting websites with indictable content (hate-speech, child- or underage pornography, violence-glorifying, etc.) or which contain links to such content</li>
+    <li>Entering (or trying to enter) foreign data-networks, which are not meant for public access (hacking).</li>
+  </ul>
+  <p>1.3 The lessee shall not use any online services that cause claims against the lessor.</p>
+
+  <h4>2. Login data</h4>
+  <p>2.1 The lessee shall maintain the secrecy of the login data provided by the lessor (SSID of the wireless network, network key, etc.). He shall not reveal it to any third person without permission of the lessor. This obligation also applies after the expiration of the contract term.</p>
+  <p>2.2 In case the lessee finds out that a third person – for whatever reason – has knowledge about the login data, he is obliged to immediately inform the lessor so that he can secure the internet access by changing the login data.</p>
+
+  <h4>3. Availability of the internet access</h4>
+  <p>3.1 The internet access is only provided within the limits of the technical requirements and the contract with the access provider of the apartment’s internet access point. The lessee is not entitled to claim a minimum band width or other performance features.</p>
+  <p>3.2 The lessor is not liable for any disfunction of the internet access because of force majeure, line fault or maintenance activity by the internet provider. The lessor guarantees no minimum level of service, nor for a permanent availability of the internet access.</p>
+
+  <h4>4. Liability of the lessee</h4>
+  <p>4.1 The lessee is responsible for all his activities in the internet as well as for all content he up or downloads.</p>
+  <p>4.2 The lessee releases the lessor from any liability or damage that arises from the violation of these terms and conditions of the internet use. In case the internet use by the lessee causes any costs to the lessor the lessee shall reimburse the lessor for these costs.</p>
+
+  <h4>5. liability and Rights of the lessor</h4>
+  <p>5.1 The lessor shall not be liable for any damage that happens to the lessee in connection with the internet use. That applies particularly to damage of the lessee’s computer, to virus attacks and to content used by the lessee (on the hard-drive and / or in the internet). That, however, does not apply in case of deliberate or grossly negligent conduct of the lessor.</p>
+  <p>5.2 The lessor is allowed to immediately block the internet access without substitution in case the lessee violates these terms and conditions for the internet use. In the case of persistent breach of these terms and conditions for internet using the lessor is allowed to terminate the lease extraordinary.</p>
+
+  <div class="page-break"></div>
+
+  <table class="contract-singature-and-client">
+    <tr class="row">
+      <td class="col header">Tenant Name</td>
+      <td class="col client-name border-bottom"><%= @user.first_name %> <%= @user.last_name %></td>
+    </tr>
+    <tr class="row">
+      <td class="col header">Date & Signature (<strong>tenant</strong>)</td>
+      <% if @contract.signature.present? %>
+        <% if @contract.signature[0..5] == "data:i" %>
+          <td class="col signature draw border-bottom"><%= @contract.signed_date.strftime("%d/%m/%Y") %>, <%= image_tag @contract.signature, style: 'width: 150px; height: 80px;' %></td>
+        <% else %>
+          <td class="col signature border-bottom">
+            <table class="signature-field-sign">
+              <tr class="row">
+                <td><%= @contract.signed_date.strftime("%d/%m/%Y") %>, </td>
+                <td class="sign"><%= @contract.signature %></td>
+              </tr>
+            </table>
+          </td>
+        <% end %>
+      <% else %>
+        <td class="col signature border-bottom"></td>
+      <% end %>
+    </tr>
+    <tr class="row">
+      <td class="col header">Date & Signature (<strong>lessor</strong>)</td>
+      <td class="col signature border-bottom">
+        <table class="signature-field-sign">
+          <tr class="row">
+            <% if @contract.signature.present? %>
+            <td><%= @contract.signed_date.strftime("%d/%m/%Y") %>, </td>
+            <% else %>
+            <td><%= Date.today.strftime("%d/%m/%Y") %>, </td>
+            <% end %>
+            <td class="sign">Matteo Kreidler</td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+
+  <h2>(3) House Rules</h2>
+  <h4>A. Mutual Consideration</h4>
+  <ul>
+    <li><p>Avoid disturbing noises inside the lessee's apartment, inside the house, in the courtyard and on the property as far as possible, in particular through the use of technical equipment, through heavy doors slamming and stairs running or through heavy music making.</p></li>
+    <li><p>Set the radio, tv, cd-player etc. to room volume at any time. Be more considerate in time of the lunch break from 1pm to 3 pm as well as in time of the night rest form 10 pm to 6 am.</p></li>
+  </ul>
+  <h4>B. User of common spaces</h4>
+  <ul>
+    <li><p>Remove your own items from common areas when leaving (i.e. clothes, water bottles, laptops, phones, keys, exc...)</p></li>
+    <li><p>No signs are allowed on each tenants individual door or in the common space of the building</p></li>
+    <li><p>Do not leave the building door open. Please close all doors to avoid external people entering the building and guaranteeing the security of all tenants. Do not attach your own names on the mailbox: the PROJECTS team has to take care of this in compliance with the rules of the building. We will provide you with the correct c/o to address your mail</p></li>
+    <li><p>Do not leave trash in the hallway</p></li>
+  </ul>
+  <h4>C. Use of shared kitchens</h4>
+  <ul>
+    <li><p>Put items in the dishwasher when finished using</p></li>
+    <li><p>Once you see dishwasher is at max capacity please make the dishwasher run</p></li>
+    <li><p>If you dishwasher is done running, please remove and place items in shelves</p></li>
+    <li><p>If you see a full trash bag, please bring the trash out.</p></li>
+  </ul>
+  <h4>D. Use of shared bathrooms</h4>
+  <ul>
+    <li><p>Always clean after youself in respect of your roommmates</p></li>
+    <li><p>Limit the amount of personal items you leave in the bathroom, use storage units provided in bathrooms and bedrooms.</p></li>
+  </ul>
+  <h4>F. Smoking and Drugs Consumption</h4>
+  <ul>
+    <li><p>Smoking is not allowed inside the house</p></li>
+    <li><p>Smoking is allowed on balconies with closed windows</p></li>
+    <li><p>Do not throw the cigarette stub off the balconies</p></li>
+    <li><p>Using drugs is not allowed inside or in front of the house</p></li>
+  </ul>
+  <h4>E. Pets</h4>
+  <p>The STACEY Member cannot keep any animal without the permission of STACEY.</p>
+  <h4>F. Guests</h4>
+  <ul>
+    <li><p>Day time guests are allowed at any time</p></li>
+    <li><p>Overnight guests are allowed for a maximum consecutive time of 7 days and max 7 days per month cumulative</p></li>
+    <li><p>Guests must always sleep in your room, it is not allowed for them to sleep in common areas (couches) nor in other rooms, even when vacant</p></li>
+    <li><p>If you want to invite an out of ordinary amount of guests that can be disruptive you must receive approval from your cohabitants.</p></li>
+  </ul>
+  <h4>G. Miscellaneous</h4>
+  <p>It is not allowed to bring or buy your own furniture nor hang things on the wall. If you need any additional items, please contact us first and we will try to find a solution for you.</p>
+
+  <table class="contract-singature-and-client">
+    <tr class="row">
+      <td class="col header">Tenant Name</td>
+      <td class="col client-name border-bottom"><%= @user.first_name %> <%= @user.last_name %></td>
+    </tr>
+    <tr class="row">
+      <td class="col header">Date & Signature (<strong>tenant</strong>)</td>
+      <% if @contract.signature.present? %>
+        <% if @contract.signature[0..5] == "data:i" %>
+          <td class="col signature draw border-bottom"><%= @contract.signed_date.strftime("%d/%m/%Y") %>, <%= image_tag @contract.signature, style: 'width: 150px; height: 80px;' %></td>
+        <% else %>
+          <td class="col signature border-bottom">
+            <table class="signature-field-sign">
+              <tr class="row">
+                <td><%= @contract.signed_date.strftime("%d/%m/%Y") %>, </td>
+                <td class="sign"><%= @contract.signature %></td>
+              </tr>
+            </table>
+          </td>
+        <% end %>
+      <% else %>
+        <td class="col signature border-bottom"></td>
+      <% end %>
+    </tr>
+    <tr class="row">
+      <td class="col header">Date & Signature (<strong>lessor</strong>)</td>
+      <td class="col signature border-bottom">
+        <table class="signature-field-sign">
+          <tr class="row">
+            <% if @contract.signature.present? %>
+            <td><%= @contract.signed_date.strftime("%d/%m/%Y") %>, </td>
+            <% else %>
+            <td><%= Date.today.strftime("%d/%m/%Y") %>, </td>
+            <% end %>
+            <td class="sign">Matteo Kreidler</td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</div>

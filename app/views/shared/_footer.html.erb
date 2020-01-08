@@ -1,0 +1,32 @@
+<div class="footer-wrapper">
+  <div class="footer-container">
+    <div class="footer-section">
+      <p class="header">Communities</p>
+      <% Project.all.each do |project| %>
+        <%= link_to "STACEY #{project.name}", '#' %>
+      <% end %>
+    </div>
+    <div class="footer-section">
+      <p class="header">Company</p>
+      <%= link_to 'Jobs', 'http://www.stacey.de/jobs', targe: :_blank %>
+      <%= link_to 'Community', 'http://www.stacey.de/community', targe: :_blank %>
+      <%= link_to 'Vision', 'http://www.stacey.de/vision', targe: :_blank %>
+      <%= link_to 'Partners', 'http://www.stacey.de/partners', targe: :_blank %>
+      <%= link_to 'FAQ', 'http://www.stacey.de/faq', targe: :_blank %>
+      <%= link_to 'Data Protection', 'http://www.stacey.de/data-protection', targe: :_blank %>
+    </div>
+    <div class="footer-section">
+      <p class="header">Contact</p>
+      <%= mail_to 'hello@stacey-living.de' %>
+      <%= link_to 'T. +49 40 696389600', 'tel: +4940696389600', class: 'phone', targe: :_blank %>
+      <%= link_to 'Instagram', 'https://www.instagram.com/stacey_coliving/', targe: :_blank %>
+      <%= link_to 'Facebook', 'https://www.facebook.com/staceycoliving/', targe: :_blank %>
+      <%= link_to 'LinkedIn', 'https://www.linkedin.com/company/stacey-living/', targe: :_blank %>
+      <%= link_to 'Imprint', 'https://www.stacey.de/imprint', targe: :_blank %>
+    </div>
+    <div class="footer-section logo">
+      <h3>JOIN</h3>
+      <%= image_tag 'stacey_logo_schwarz.png' %>
+    </div>
+  </div>
+</div>
