@@ -9,6 +9,7 @@
 puts 'creating Users'
 User.create!(email: 'fritz@stacey-living.de', password: 'FritzMeyer',first_name: 'Fritz', last_name: 'Meyer', phone_code: '+49', phone: '0173755772', date_of_birth: '04-02-2000', job: 'Developer', move_in_date: '01-07-2019', duration_of_stay: '01-11-2018', amount_of_people: 'Single', description: 'Glad to be part of STACEY', admin: true, applicant: false)
 User.create!(email: 'matteo@stacey-living.de', password: 'MatteoKreidler', first_name: 'Matteo', last_name: 'Kreidler', phone_code: '+49', phone: '09876543', date_of_birth: '20-08-1996', job: 'Entrepreneur', move_in_date: '01-07-2019', duration_of_stay: '01-11-2018', amount_of_people: 'Single', description: 'Glad to be part of STACEY', admin: true, applicant: false)
+User.create!(email: 'anna@stacey-living.de', password: 'AnnaWeirauch', first_name: 'Anna', last_name: 'Weirauch', phone_code: '+49', phone: '01784309464', date_of_birth: '01-03-1999', job: 'Community Manager', move_in_date: '01-02-2020', duration_of_stay: '01-10-2020', amount_of_people: 'Single', description: 'Glad to be part of STACEY', admin: true, applicant: false)
 User.create!(email: 'applicant@applicant.de', password: 'Applicant', first_name: 'Applicant', last_name: 'ApplicantsLast', phone_code: '+49', phone: '0987654332', date_of_birth: '20-08-1996', job: 'Applicant', move_in_date: '01-07-2019', duration_of_stay: '01-11-2018', amount_of_people: 'Single', description: 'Glad to be part of STACEY', admin: false, applicant: true, prefered_suite: ['Basic Suite', 'Jumbo Suite'])
 
 puts 'creating Project'
