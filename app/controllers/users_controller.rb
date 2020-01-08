@@ -30,7 +30,7 @@ class UsersController < ApplicationController
 
       UserMailer.welcome(@booking).deliver_later(wait_until: 20.minutes.from_now)
       # redirection to calendar page. Schedule welcome call
-      redirect_to booking_book_welcome_call_path(@booking.booking_auth_token, @booking, date: Date.today)
+      redirect_to new_booking_welcome_call_path(@booking.booking_auth_token, @booking, date: Date.today)
     else
       @user.bookings.new
       render :new
