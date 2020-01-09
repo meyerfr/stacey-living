@@ -25,7 +25,7 @@ class UsersController < ApplicationController
       move_out_date = Date.new(move_out_helper_array[0], move_out_helper_array[1], move_out_helper_array[2])
       @booking = @user.bookings.new(move_in: move_in_date, move_out: move_out_date)
       @booking.booking_auth_token = Devise.friendly_token
-      @booking.booking_auth_token_exp = Date.today + 1.week
+      @booking.booking_auth_token_exp = Date.today + 2.weeks
       @booking.save
 
       UserMailer.welcome(@booking).deliver_later(wait_until: 20.minutes.from_now)

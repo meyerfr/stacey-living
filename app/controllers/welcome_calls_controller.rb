@@ -138,6 +138,7 @@ class WelcomeCallsController < ApplicationController
 
       # else
         # send email with info to the new call
+        @booking.update(booking_auth_token_exp: @welcome_call.start_time.to_date + 1.day) if @booking.booking_auth_token_exp < @welcome_call.start_time.to_date
         UserMailer.welcome_call_rescheduled(@welcome_call).deliver_now
       end
       @old_welcome_call.delete
