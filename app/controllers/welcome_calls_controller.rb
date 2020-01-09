@@ -11,12 +11,12 @@ class WelcomeCallsController < ApplicationController
     period_param = params[:period] if params[:period]
     search_param = params[:search] if params[:search]
     # if search and period
-    @welcome_calls = WelcomeCall.select{ |call | call.start_time >= Time.now && call.available == false}
+    @welcome_calls = WelcomeCall.all.where("start_time >= ? AND available = ?", Time.now, false)
 
     # if period_param == 'upcoming'
-      # @welcome_calls = WelcomeCall.select("start_time >= ? AND available = ?", Time.now, false)
+    #   @welcome_calls = WelcomeCall.all.where("start_time >= ? AND available = ?", Time.now, false)
     if period_param == 'past'
-      @welcome_calls = WelcomeCall.select{ |call | call.start_time < Time.now && call.available == false}
+      @welcome_calls = WelcomeCall.all.where("start_time < ? AND available = ?", Time.now, false)
     end
 
     if search_param
