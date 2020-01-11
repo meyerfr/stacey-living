@@ -1,6 +1,7 @@
 <p>Hello <%= @user.first_name %>,</p>
 <p>We are excited to hear about your interest in living with us and in becoming a part of the STACEY family!</p>
 <p>Our Call is scheduled on the <%= @welcome_call.start_time.strftime('%d.%B %Y') %> at <%= @welcome_call.start_time.strftime('%H:%M') %> and takes approximately 15min.</p>
+<p>Start the call by clicking on the link: <%= link_to 'start_call', 'https://whereby.com/stacey-living' %></p>
 <p>If you have to reschedule the call, that´s of course no problem. You can do so by clicking on the following link.</p>
 <p><%= link_to 'reschedule call', edit_booking_welcome_call_url(@booking.booking_auth_token, @booking, @welcome_call), style: 'color: blue;' %></p>
 <p>This link expires on the <%= @booking.booking_auth_token_exp.strftime('%d.%B %Y'). %></p>
