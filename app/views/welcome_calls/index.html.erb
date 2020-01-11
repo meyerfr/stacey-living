@@ -77,6 +77,7 @@
                       <% if user.twitter.present? %>
                         <li>Twitter: <%= user.twitter %></li>
                       <% end %>
+                      <li>Applied on the <%= user.created_at.strftime('%d.%B %Y') %></li>
                     </ul>
                   </div>
                 </div>

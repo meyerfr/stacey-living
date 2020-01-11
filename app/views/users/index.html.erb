@@ -51,6 +51,7 @@
               <% end %>
               <li>Phone: <%= user.phone_code %> <%= user.phone_number %></li>
               <li>moves in <%= user.amount_of_people == 1 ? 'alone' : 'as a couple' %></li>
+              <li>Prefered Suites: <%= user.prefered_suite.join(', ') %></li>
               <li>Job: <%= user.job %></li>
               <% if user.gender.present? %>
                 <li>Gender: <%= user.gender.first %></li>
