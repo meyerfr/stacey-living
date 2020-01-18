@@ -1,5 +1,5 @@
 class WelcomeCallsController < ApplicationController
-  skip_before_action :authenticate_user!
+  skip_before_action :authenticate_user!, only: %I[new create edit update destroy]
   before_action :check_booking_auth_token!, only: %I[new create edit update destroy]
 
     # destroy(for user and admin, if admin cancels user gets appologize_mail, if user cancels send slack message)
@@ -35,6 +35,7 @@ class WelcomeCallsController < ApplicationController
 
     @dates = []
     @welcome_calls.each { |call| @dates << call.start_time.to_date unless @dates.include?(call.start_time.to_date) }
+    @dates.reverse!
     # @date = params[:date].to_date if present?
     # @month_param = params[:month] ? "#{params[:month]}-01".to_date : Date.today
     # @date_range = (@month_param.beginning_of_month.beginning_of_week..@month_param.end_of_month.end_of_week).to_a
