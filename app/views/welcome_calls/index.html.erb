@@ -59,6 +59,7 @@
                   <div class="list-detail d-none">
                     <% user = call.booking.user %>
                     <ul>
+                      <li>email: <%= user.email %></li>
                       <li>moves in: <%= call.booking.move_in.strftime("%d.%B %Y") %></li>
                       <li>moves out: <%= call.booking.move_out.strftime("%d.%B %Y") %></li>
                       <li>Phone: <%= user.phone_code %> <%= user.phone_number %></li>
