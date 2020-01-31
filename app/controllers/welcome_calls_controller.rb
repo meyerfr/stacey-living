@@ -133,18 +133,18 @@ class WelcomeCallsController < ApplicationController
     @welcome_call.available = false
     @welcome_call.booking_id = @booking.id
     @welcome_call.name = @user.full_name
-    if @welcome_call.save
-      if !current_user.admin?
+    if @welcome_call.save && !current_user.admin?
+      # if !current_user.admin?
         # send apologize email and ask if the new date is okay? and link to reschedule call
 
       # else
         # send email with info to the new call
         @booking.update(booking_auth_token_exp: @welcome_call.start_time.to_date + 1.day) if @booking.booking_auth_token_exp < @welcome_call.start_time.to_date
         UserMailer.welcome_call_rescheduled(@welcome_call).deliver_now
-      end
-      @old_welcome_call.delete
-      flash[:alert] = 'Our call has been reschedueled. Please check your mails'
-      redirect_to root_path
+        @old_welcome_call.delete
+        flash[:alert] = 'Our call has been reschedueled. Please check your mails'
+        redirect_to root_path
+      # end
     else
       flash[:alert] = "Oops, something wrent wrong. Please try it again."
       redirect_to booking_useredit_welcome_call(@booking.booking_auth_token, @booking, @old_welcome_call)

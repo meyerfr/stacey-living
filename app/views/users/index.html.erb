@@ -74,6 +74,7 @@
               <% if Booking.find_by(user_id: user.id) %>
                 <li>Booking Id: <%= Booking.find_by(user_id: user.id).id %></li>
               <% end %>
+              <li>Applied on the <%= user.created_at.strftime("%d.%B %Y") %></li>
             </ul>
           </div>
         </div>

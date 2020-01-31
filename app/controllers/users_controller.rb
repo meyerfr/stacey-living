@@ -41,7 +41,7 @@ class UsersController < ApplicationController
     user_group_param = params[:user_group] if params[:user_group].present?
     search_param = params[:search] if params[:search].present?
     # if search and period
-    @users = User.all
+    @users = User.all.order(created_at: :desc)
 
     if user_group_param
       if user_group_param == 'applicants'

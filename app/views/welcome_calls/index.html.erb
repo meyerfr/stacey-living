@@ -28,7 +28,7 @@
     <div class="list-container">
       <% @dates.each do |date| %>
         <div class="date">
-          <%= date.strftime("%A, %d %B %Y") %>
+          <%= date.today? ? 'Today' : date.strftime("%A, %d %B %Y") %>
         </div>
         <!-- <div class="list-context-container"> -->
           <% unless @welcome_calls.empty? %>
