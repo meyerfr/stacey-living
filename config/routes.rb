@@ -16,6 +16,8 @@ Rails.application.routes.draw do
     resources :payments, only: [:new, :create]
   end
   get 'bookings/(:booking_auth_token)/:id/payment', to: 'bookings#payment', as: 'booking_payment'
+  resources :bookings, only: [:index]
+  # get 'bookings/calendar/(:room_name)', to: 'bookings#calendar', as: 'booking_calendar'
 
   get 'home', to: 'pages#home', as: 'home'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

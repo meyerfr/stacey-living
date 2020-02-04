@@ -8,23 +8,29 @@ class WelcomeCallsController < ApplicationController
   # index view is the view where the user can choose a slot for his/her welcome call
   def index
     # @welcome_calls = WelcomeCall.all.where(available: false)
-    period_param = params[:period] if params[:period]
+    @time_param_options = ['past', 'upcoming', 'all']
+
+    @time_param = params[:time].present? ? params[:time] : 'upcoming'
     search_param = params[:search] if params[:search]
-    # if search and period
+    # if search and time
     @welcome_calls = WelcomeCall.all.where("start_time >= ? AND available = ?", Time.now, false)
 
-    # if period_param == 'upcoming'
+    # if time_param == 'upcoming'
     #   @welcome_calls = WelcomeCall.all.where("start_time >= ? AND available = ?", Time.now, false)
-    if period_param == 'past'
+
+    if @time_param == 'all'
+      @welcome_calls = WelcomeCall.all
+    elsif @time_param == 'past'
       @welcome_calls = WelcomeCall.all.where("start_time < ? AND available = ?", Time.now, false)
     end
+
 
     if search_param
       @welcome_calls = WelcomeCall.all.where("name ILIKE ?", "%#{params[:search]}%")
     end
 
-    # if search_param && period_param
-    #   if period_param == 'upcoming' # all upcoming calls
+    # if search_param && time_param
+    #   if time_param == 'upcoming' # all upcoming calls
     #     @welcome_calls = WelcomeCall.all.where("start_time >= ? AND available = ? AND lower(name) = ?", Time.now, false, search_param.downcase) if search_param
     #   else # all past calls
     #     @welcome_calls = WelcomeCall.all.where("start_time < ? AND available = ? AND lower(name) = ?", Time.now, false, search_param.downcase) if search_param

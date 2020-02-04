@@ -1,0 +1,54 @@
+var shortBookingCalendarWrapper = document.querySelector('.short_booking_calendar_wrapper');
+
+// function setEventListener() {
+//   document.getElementById('booking_calendar').addEventListener('focusout', function(){
+//     console.log(document.querySelector('.short_booking_calendar_wrapper'))
+//     // if (shortBookingCalendarWrapper) {
+//       shortBookingCalendarWrapper.remove();
+//     // }
+//   })
+// }
+
+
+function showBookingCalendar(calendarHTML) {
+  const calendarSpace = document.getElementById('booking_calendar');
+  var insertedElement = calendarSpace.insertAdjacentHTML('beforeend', calendarHTML);
+  // console.log(`1 ${document.querySelector('.short_booking_calendar_wrapper')}`);
+}
+
+// function setFocus() {
+//   // document.querySelector('.short_booking_calendar_wrapper').focus();
+//   // setTimeout(function() {
+//   //   document.querySelector(".short_booking_calendar_wrapper").focus().select();
+//   //  }, 100);
+//   document.getElementById('booking_calendar').addEventListener('focusout', function(){
+//     console.log(document.querySelector('.short_booking_calendar_wrapper'))
+//     if (shortBookingCalendarWrapper) {
+//       shortBookingCalendarWrapper.remove();
+//     }
+//   })
+// }
+
+document.getElementById('booking_calendar').addEventListener('focusout', function(){
+  if (shortBookingCalendarWrapper) {
+    shortBookingCalendarWrapper.remove();
+  }
+})
+
+function setEventListenerForCalendarButton() {
+  document.getElementById('booking_calendar').addEventListener('click', function(){
+    console.log('button clicked');
+    if (shortBookingCalendarWrapper){
+      console.log('true')
+      shortBookingCalendarWrapper.remove();
+    }
+  })
+}
+
+// setEventListener();
+
+// If the element has a child already, remove it, otherwise add it.
+if (!shortBookingCalendarWrapper) {
+  showBookingCalendar('<%= j render "bookings/short_calendar_form", available_booking_times: @available_booking_times, room_name: @room_name %>')
+  setEventListenerForCalendarButton()
+}

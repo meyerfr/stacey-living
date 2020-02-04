@@ -1,0 +1,13 @@
+.short_booking_calendar_wrapper{
+  position: absolute;
+  width: max-content;
+  right: 0;
+  top: 50px;
+  z-index: 10;
+  background: white;
+  padding: 5px 10px;
+  border-radius: 3px;
+  .available_time{
+    margin: 0 0 6px 0;
+  }
+}
