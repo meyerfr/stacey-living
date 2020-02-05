@@ -4,7 +4,8 @@ class RoomsController < ApplicationController
 
   def index
     @booking = Booking.find(params[:booking_id])
-    @rooms = Project.find(params[:project_id]).rooms
+    @rooms = find_one_room_of_each_art(params[:project_id])
+    @room_availability_hash = find_available_booking_dates_for_each_room_art(@rooms)
   end
 
   def new
@@ -62,5 +63,26 @@ class RoomsController < ApplicationController
       price: [],
       pictures: []
     )
+  end
+
+  def find_one_room_of_each_art(project_id)
+    room_names = []
+    Project.find(project_id).rooms.each{ |room| room_names << room.name unless room_names.include?(room.name)}
+    rooms = []
+    room_names.each{ |room_name| rooms << Room.find_by(name: room_name) }
+    rooms
+  end
+
+  def find_available_booking_dates_for_each_room_art(rooms)
+    availability = {}
+    rooms.each do |room|
+      lastBookingId = Booking.select{ |b| b.room.name.delete(' ').downcase == room.name.delete(' ').downcase && b.state == nil && b.move_out >= Date.today }.last
+      if lastBookingId.present?
+        availability.store(room.name, (lastBookingId.move_out + 1.day).strftime('%d.%B %Y'))
+      else
+        availability.store(room.name, 'today')
+      end
+    end
+    availability
   end
 end

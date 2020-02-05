@@ -11,6 +11,10 @@
     <%# 6.times do %>
     <% @rooms.each do |room| %>
       <div class="stacey-card" id='room-card'>
+        <div class="availability">
+          <span>Available from the</span>
+          <span><%= @room_availability_hash[room.name] %></span>
+        </div>
         <%= render 'shared/carousel', pictures: room.pictures %>
         <div class="stacey-card-header">
           <span class="name"><%= room.name.titleize %> Suite</span>

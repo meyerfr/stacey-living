@@ -10,7 +10,7 @@ class BookingsController < ApplicationController
       @bookings = Booking.all
       # @bookings = Booking.select{ |booking| booking.move_in >= Date.today && state == nil }
     else
-      @room_name = Room.select{ |room| room.name.delete(' ').downcase == @room_name.delete(' ').downcase }.first.name if @room_name.present?
+      @room_name = Room.select{ |room| room.name.delete(' ').downcase == @room_name_param.delete(' ').downcase }.first.name
       if @room_name && @bookings.length.positive?
         @bookings = @bookings.select{ |booking| booking.room.name.delete(' ').downcase == @room_name.downcase }
       end
@@ -79,8 +79,7 @@ class BookingsController < ApplicationController
 
   def find_all_room_names
     room_names = []
-    Room.all.each{ |room| room_names << room.name}
+    Room.all.each{ |room| room_names << room.name unless room_names.include?(room.name)}
     room_names.unshift('all')
-    room_names.uniq
   end
 end

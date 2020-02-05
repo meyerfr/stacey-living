@@ -24,7 +24,7 @@
     <% end %>
   <!-- </div> -->
   <% if @room %>
-    <%= link_to 'Availabilities', bookings_path(@room.name.delete(' ').downcase), remote: true, id: 'booking_calendar' %>
+    <%= link_to 'Availabilities', bookings_path(room_name: @room.name.delete(' ').downcase), remote: true, id: 'booking_calendar' %>
   <% else %>
     <%= link_to 'Availabilities', bookings_path, remote: true, id: 'booking_calendar' %>
   <% end %>
