@@ -1,6 +1,6 @@
 class BookingsController < ApplicationController
   def index
-    @time_param_options = ['upcoming', 'past', 'all']
+    @time_param_options = ['current', 'upcoming', 'past', 'all']
 
     @room_name_param = params[:room_name].present? ? params[:room_name] : 'all'
     @time_param = params[:time].present? ? params[:time] : 'all'
@@ -16,10 +16,12 @@ class BookingsController < ApplicationController
       end
     end
 
-    if @time_param == 'future'
-      @bookings = @bookings.select{ |booking| booking.move_out >= Date.today}
+    if @time_param == 'upcoming'
+      @bookings = @bookings.select{ |booking| booking.move_in >= Date.today}
     elsif @time_param == 'past'
       @bookings = @bookings.select{ |booking| booking.move_out <= Date.today}
+    elsif @time_param == 'current'
+      @bookings = @bookings.select{ |booking| booking.move_in <= Date.today && booking.move_out >= Date.today}
     end
 
     @all_room_names = find_all_room_names
