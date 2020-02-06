@@ -1,9 +1,20 @@
 <div class="booking-form-wrapper">
   <div class="booking-form-section">
     <%= simple_form_for(booking) do |f| %>
-      <%= f.input :move_in, as: :date, order: [:day, :month, :year], start_year: Date.today.year, end_year: Date.today.year + 1, label: 'WHEN DO YOU WANT TO MOVE IN?' %>
+      <%= f.label :move_in, label: 'WHEN DO YOU WANT TO MOVE IN?' %>
+      <div class="rooms_availabilities check-boxes only-one-box">
+        <% room_availability.each do |room, availability| %>
+          <%= f.check_box :move_in, value: availability, checked: false %>
+          <span><%= availability %></span>
+        <% end %>
+      </div>
+      <%#= f.label 'WHEN DO YOU WANT TO MOVE IN?' %>
+      <%# room_availability.each do |room_id, availability| %>
+        <!-- <p><%#= room_id %> is available on the <%#= availability %></p> -->
+      <%# end %>
+      <%#= f.input :move_in, as: :date, order: [:day, :month, :year], start_year: Date.today.year, end_year: Date.today.year + 1, label: 'WHEN DO YOU WANT TO MOVE IN?' %>
       <%= f.input :move_out, as: :date, order: [:day, :month, :year], start_year: (Date.today + 3.months).year, end_year: (Date.today + 3.months).year + 1, selected: Date.today + 3.months, label: 'UNTIL WHEN ARE YOU PLANING TO STAY?' %>
-      <%= f.button :button, 'BOOK', type: 'submit', name: 'room', value: room.id, class: 'stacey-button reverse-hover book-button' %>
+      <%= f.button :button, 'BOOK', type: 'submit', name: 'room', class: 'stacey-button reverse-hover book-button' %>
       <%#= f.submit 'BOOK', value: room, class: 'stacey-button reverse-hover book-button' %>
     <% end %>
 
@@ -20,4 +31,3 @@
     </div>
   </div>
 </div>
-

@@ -24,6 +24,8 @@ class RoomsController < ApplicationController
   def show
     @booking = Booking.find(params[:booking_id])
     @room = Room.select{|room| room.name.delete(' ').downcase == params[:name].downcase}.first
+    @room_availability = {}
+    Booking.all.each { |b| @room_availability.store(b.room.id, (b.move_out + 1.day).strftime('%d.%B %Y')) if b.room.name.delete(' ').downcase == params[:name].downcase && b.state == nil && b.move_out >= Date.today }
   end
 
   def edit
