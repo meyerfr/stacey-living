@@ -10,7 +10,8 @@ Rails.application.routes.draw do
   resources :bookings, path: 'bookings/(:booking_auth_token)', only: [:update] do
     resources :welcome_calls, only: [:new, :create, :edit, :update, :destroy]
     resources :projects, only: [:index] do
-      resources :rooms, only: [:index, :show]
+      resources :rooms, only: [:index]
+      get 'rooms/:name', to: 'rooms#show', as: 'room'
     end
     resources :contracts, only: [:new, :create, :show]
     resources :payments, only: [:new, :create]

@@ -23,7 +23,7 @@ class RoomsController < ApplicationController
 
   def show
     @booking = Booking.find(params[:booking_id])
-    @room = Room.find(params[:id])
+    @room = Room.select{|room| room.name.delete(' ').downcase == params[:name].downcase}.first
   end
 
   def edit
