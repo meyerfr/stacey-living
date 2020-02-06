@@ -30,6 +30,16 @@
       }
     }
     .simple_form{
+      .rooms_availabilities{
+        .one-availability{
+          display: flex;
+          align-items: baseline;
+          margin-bottom: 3px;
+          input[type='checkBox']{
+            margin-right: 15px;
+          }
+        }
+      }
       .d-flex.flex-row.justify-content-between.align-items-center{
         border: 1px solid #777777;
         border-radius: 5px;

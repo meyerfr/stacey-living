@@ -1,12 +1,22 @@
 <div class="booking-form-wrapper">
   <div class="booking-form-section">
     <%= simple_form_for(booking) do |f| %>
-      <%= f.label :move_in, label: 'WHEN DO YOU WANT TO MOVE IN?' %>
-      <div class="rooms_availabilities check-boxes only-one-box">
-        <% room_availability.each do |room, availability| %>
-          <%= f.check_box :move_in, value: availability, checked: false %>
-          <span><%= availability %></span>
-        <% end %>
+      <div class="form-group">
+        <%= f.label :move_in, label: 'WHEN DO YOU WANT TO MOVE IN?' %>
+        <div class="rooms_availabilities check-boxes only-one-box">
+          <% 5.times do %>
+          <% room_availability.each_with_index do |(room, availability), index| %>
+            <div class="one-availability">
+              <% if index == 0 %>
+                <%= f.check_box :move_in, value: availability, checked: true %>
+              <% else %>
+                <%= f.check_box :move_in, value: availability, checked: false %>
+              <% end %>
+              <span><%= availability %></span>
+            </div>
+          <% end %>
+          <% end %>
+        </div>
       </div>
       <%#= f.label 'WHEN DO YOU WANT TO MOVE IN?' %>
       <%# room_availability.each do |room_id, availability| %>

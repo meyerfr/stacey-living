@@ -22,12 +22,4 @@ function onlyOneBox() {
   }
 }
 
-// function rightRoom(allCheckBoxes, bookButton) {
-//   allCheckBoxes.forEach((checkBox) => {
-//     checkBox.addEventListener('click', function(){
-//       if (event.currentTarget) {}
-//     })
-//   })
-// }
-
 export { onlyOneBox }
