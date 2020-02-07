@@ -25,7 +25,8 @@ class RoomsController < ApplicationController
     @booking = Booking.find(params[:booking_id])
     @room = Room.select{|room| room.name.delete(' ').downcase == params[:name].downcase}.first
     @room_availability = {}
-    Booking.all.each { |b| @room_availability.store(b.room.id, (b.move_out + 1.day).strftime('%d.%B %Y')) if b.room.name.delete(' ').downcase == params[:name].downcase && b.state == nil && b.move_out >= Date.today }
+    Booking.all.order(:move_out).each { |b| @room_availability.store(b.room.id, (b.move_out + 1.day).strftime('%d.%B %Y')) if b.room.name.delete(' ').downcase == params[:name].downcase && b.state == nil && b.move_out >= Date.today }
+    # @room_availability = sort_dates(@room_availability)
   end
 
   def edit
@@ -87,4 +88,15 @@ class RoomsController < ApplicationController
     end
     availability
   end
+
+  # def sort_dates(dates)
+  #   # recursion einbauen
+  #   sorted_dates = {}
+  #   dates.each_with_index do |(key, first_date), index|
+  #     dates.each_value do |comparison_date|
+  #       if first_date.to_date <= comparison_date.to_date
+  #       end
+  #     end
+  #   end
+  # end
 end

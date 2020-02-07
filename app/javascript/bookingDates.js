@@ -77,4 +77,5 @@ function checkDates() {
   }
 }
 
-export { checkDates }
+export { checkDates };
+export { monthDiff };

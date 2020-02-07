@@ -35,9 +35,8 @@ class BookingsController < ApplicationController
   def update
     @booking = Booking.find(params[:id])
     @booking.room_id = params[:room]
-    @booking.move_out = bookings_params
-    @booking.move_in = Booking.select{ |b| b.room.name == @booking.room.name && b.state == nil && b.move_out >= Date.today }.last.move_out + 1.day
-    if @booking.save
+    # move_in = Booking.select{ |b| b.room.name == @booking.room.name && b.state == nil && b.move_out >= Date.today }.last.move_out + 1.day
+    if @booking.update(bookings_params)
       flash[:alert] = "Booking successfully updated."
       redirect_to new_booking_contract_path(@booking.booking_auth_token, @booking)
     else
