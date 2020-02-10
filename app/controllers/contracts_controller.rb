@@ -1,5 +1,10 @@
 class ContractsController < ApplicationController
+  skip_before_action :authenticate_user!
+  before_action :check_booking_auth_token!
+  layout "bookingprocess", only: [:new]
+
   def new
+    # layout booking
     @booking = Booking.find(params[:booking_id])
     @user = @booking.user
     @room = @booking.room

@@ -23,11 +23,10 @@
   }
   .line{
     min-width: 8%;
-    border-bottom: 1px dotted;
-    border-width: 2px;
+    border-bottom: 2px dotted;
   }
   .active{
-    border-color: $stacey-pink;
+    border-bottom: 2px solid $stacey-pink;
     color: white;
   }
   .ring.active{

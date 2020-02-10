@@ -1,6 +1,7 @@
 class RoomsController < ApplicationController
   skip_before_action :authenticate_user!
   before_action :check_booking_auth_token!
+  layout "bookingprocess", only: [:index, :show]
 
   def index
     @booking = Booking.find(params[:booking_id])
@@ -22,10 +23,14 @@ class RoomsController < ApplicationController
   end
 
   def show
+    # layout booking
     @booking = Booking.find(params[:booking_id])
     @room = Room.select{|room| room.name.delete(' ').downcase == params[:name].downcase}.first
     @room_availability = {}
     Booking.all.order(:move_out).each { |b| @room_availability.store(b.room.id, (b.move_out + 1.day).strftime('%d.%B %Y')) if b.room.name.delete(' ').downcase == params[:name].downcase && b.state == nil && b.move_out >= Date.today }
+    if @room_availability.empty?
+      @room_availability.store(@room.id, Date.tomorrow.strftime('%d.%B %Y'))
+    end
     # @room_availability = sort_dates(@room_availability)
   end
 

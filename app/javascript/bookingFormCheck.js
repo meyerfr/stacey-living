@@ -26,7 +26,10 @@ function checkBookingFormDuration() {
           }
         } else{
           if (!moveOut.querySelector('.invalid-feedback')) {
-            moveOut.insertAdjacentHTML('beforeend', '<div class="invalid-feedback d-block js-inserted">Please click on a move in date.</div>');
+            const roomsAvailabilities = document.querySelector('.rooms_availabilities');
+            if (!roomsAvailabilities.children[roomsAvailabilities.children.length - 1].classList.contains('invalid-feedback')) {
+              roomsAvailabilities.insertAdjacentHTML('beforeend', '<div class="invalid-feedback d-block js-inserted">Please click on a move in date.</div>');
+            }
           }
         }
       })
