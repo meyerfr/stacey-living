@@ -27,10 +27,19 @@ class RoomsController < ApplicationController
     @booking = Booking.find(params[:booking_id])
     @room = Room.select{|room| room.name.delete(' ').downcase == params[:name].downcase}.first
     @room_availability = {}
-    Booking.all.order(:move_out).each { |b| @room_availability.store(b.room.id, (b.move_out + 1.day).strftime('%d.%B %Y')) if b.room.name.delete(' ').downcase == params[:name].downcase && b.state == nil && b.move_out >= Date.today }
-    if @room_availability.empty?
-      @room_availability.store(@room.id, Date.tomorrow.strftime('%d.%B %Y'))
+    Room.all.where(name: @room.name).each do |room|
+      rooms_last_booking = Booking.all.where(room_id: room.id, state: nil).order(:move_out).last
+      if rooms_last_booking.present? && rooms_last_booking.move_out >= Date.today
+        @room_availability.store(room.id, (rooms_last_booking.move_out + 1.day).strftime('%d.%B %Y'))
+      else
+        @room_availability.store(room.id, Date.tomorrow.strftime('%d.%B %Y'))
+      end
     end
+    # Booking.all.order(:move_out).each { |b| @room_availability.store(b.room.id, (b.move_out + 1.day).strftime('%d.%B %Y')) if b.room.name.delete(' ').downcase == params[:name].downcase && b.state == nil && b.move_out >= Date.today }
+    # if @room_availability.empty?
+    #   @room_availability.store(@room.id, Date.tomorrow.strftime('%d.%B %Y'))
+    # end
+    # raise
     # @room_availability = sort_dates(@room_availability)
   end
 

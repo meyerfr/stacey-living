@@ -51,12 +51,12 @@
         <% if name == 'all' && @room_name == 'all' %>
           <div class="between-navbar-line"></div>
           <div class="navbar-infotext">
-            <span>We have <%= Room.count %> Rooms and we currently have <%= Booking.where("move_in <= ? AND move_out >= ? AND state = ?", Date.today, Date.today, nil).count %> of them booked.</span>
+            <span>We have <%= Room.count %> Rooms and we currently have <%= Booking.where("move_in <= ? AND move_out >= ? AND state = ?", Date.today, Date.today, 'booked').count %> of them booked.</span>
           </div>
         <% elsif @room_name == name && @room_name != 'all' %>
           <div class="between-navbar-line"></div>
           <div class="navbar-infotext">
-            <span>We have <%= Room.where(name: name).count %> <%= name %> Rooms and we currently have <%= Booking.where("move_in <= ? AND move_out >= ? AND state = ?", Date.today, Date.today, nil).count %> of them booked.</span>
+            <span>We have <%= Room.where(name: name).count %> <%= name %> Rooms and we currently have <%= Booking.select{|b| b.move_in <= Date.today && b.move_out >= Date.today && b.state == 'booked' && b.room.name.delete(' ').downcase == @room_name.delete(' ').downcase }.count %> of them booked.</span>
           </div>
         <% end %>
       <% end %>
