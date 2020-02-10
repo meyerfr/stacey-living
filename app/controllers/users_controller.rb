@@ -38,18 +38,22 @@ class UsersController < ApplicationController
   end
 
   def index
-    user_group_param = params[:user_group] if params[:user_group].present?
+    @user_group_param_options = ['applicant', 'tenant', 'all']
+    @time_param_options = ['upcoming', 'past', 'all']
+
+    @user_group_param = params[:user_group].present? ? params[:user_group] : 'all'
+    @time_param = params[:time].present? ? params[:time] : 'all'
+
     search_param = params[:search] if params[:search].present?
     # if search and period
     @users = User.all.order(created_at: :desc)
-
-    if user_group_param
-      if user_group_param == 'applicants'
-        @users = User.all.where(role: 'applicant').order(created_at: :desc)
-      elsif user_group_param == 'tenants'
-        @users = User.all.where(role: 'tenant').order(created_at: :desc)
-      end
+    @users = @users.where(role: @user_group_param) unless @user_group_param == 'all'
+    if @time_param == 'future'
+      @users = @users.select{ |user| user.bookings.last.move_in.future? || user.bookings.last.move_in.today? if user.bookings.length.positive? }
+    elsif @time_param == 'past'
+      @users = @users.select{ |user| user.bookings.last.move_in.past? if user.bookings.length.positive? }
     end
+
     if search_param
       sql_query = " \
         users.first_name @@ :search \

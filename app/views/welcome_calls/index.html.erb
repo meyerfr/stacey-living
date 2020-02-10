@@ -1,28 +1,31 @@
+<h3 class="list-header">All WelcomeCalls</h3>
 <div class="list-position">
   <div class="list-wrapper">
     <div class="list-navbar">
-      <div class="options">
-        <% if params[:period] == 'past' %>
-          <%= link_to 'Upcoming', welcome_calls_path(period: 'upcoming'), class: 'option' %>
-          <%= link_to 'Past', welcome_calls_path(period: 'past'), class: 'option active' %>
-        <% else %>
-          <%= link_to 'Upcoming', welcome_calls_path(period: 'upcoming'), class: 'option active' %>
-          <%= link_to 'Past', welcome_calls_path(period: 'past'), class: 'option' %>
-        <% end %>
-        <!-- <div class="option"><%#= link_to 'Date Range', '#' %></div> -->
-      </div>
-      <div class="jump-to-call">
-        <%= link_to 'click here to open whereby', 'https://whereby.com/stacey-living', target: :_blank %>
-      </div>
-      <div class="query">
-        <%= form_tag welcome_calls_path, method: :get do %>
-          <%= text_field_tag :search,
-            params[:search],
-            class: "form-control",
-            placeholder: "Find a welcome call"
-          %>
-          <%= submit_tag "Search", class: "btn btn-primary d-none" %>
-        <% end %>
+      <div class="one-list-navbar">
+        <div class="options">
+           <% @time_param_options.each do |time_option| %>
+            <% if @time_param == time_option %>
+              <%= link_to time_option.capitalize, welcome_calls_path(user_group: @user_group_param, time: time_option), class: 'option active' %>
+            <% else %>
+              <%= link_to time_option.capitalize, welcome_calls_path(user_group: @user_group_param, time: time_option), class: 'option' %>
+            <% end %>
+          <% end %>
+          <!-- <div class="option"><%#= link_to 'Date Range', '#' %></div> -->
+        </div>
+        <div class="jump-to-call">
+          <%= link_to 'click here to open whereby', 'https://whereby.com/stacey-living', target: :_blank %>
+        </div>
+        <div class="query">
+          <%= form_tag welcome_calls_path, method: :get do %>
+            <%= text_field_tag :search,
+              params[:search],
+              class: "form-control",
+              placeholder: "Find a welcome call"
+            %>
+            <%= submit_tag "Search", class: "btn btn-primary d-none" %>
+          <% end %>
+        </div>
       </div>
     </div>
     <div class="list-container">

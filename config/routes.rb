@@ -10,12 +10,15 @@ Rails.application.routes.draw do
   resources :bookings, path: 'bookings/(:booking_auth_token)', only: [:update] do
     resources :welcome_calls, only: [:new, :create, :edit, :update, :destroy]
     resources :projects, only: [:index] do
-      resources :rooms, only: [:index, :show]
+      resources :rooms, only: [:index]
+      get 'rooms/:name', to: 'rooms#show', as: 'room'
     end
     resources :contracts, only: [:new, :create, :show]
     resources :payments, only: [:new, :create]
   end
   get 'bookings/(:booking_auth_token)/:id/payment', to: 'bookings#payment', as: 'booking_payment'
+  resources :bookings, only: [:index]
+  # get 'bookings/calendar/(:room_name)', to: 'bookings#calendar', as: 'booking_calendar'
 
   get 'home', to: 'pages#home', as: 'home'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

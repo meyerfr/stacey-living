@@ -1,3 +1,4 @@
+<h3 class="list-header">All Partners</h3>
 <div class="list-position">
   <div class="list-wrapper">
     <div class="list-navbar">
@@ -10,17 +11,18 @@
           <%#= link_to 'Applicants', users_path(user_group: 'applicants'), class: 'option active' %>
         <%# end %>
       </div> -->
-
-      <span>We have <%= @partners.count %> <%= @partners.count > 1 ? 'partner-applications.' : 'partner-application.' %></span>
-      <div class="query">
-        <%= form_tag partners_path, method: :get do %>
-          <%= text_field_tag :search,
-          params[:search],
-          class: "form-control",
-            placeholder: "Find a partner"
-            %>
-            <%= submit_tag "Search", class: "btn btn-primary d-none" %>
-        <% end %>
+      <div class="one-list-navbar">
+        <span>We have <%= @partners.count %> <%= @partners.count > 1 ? 'partner-applications.' : 'partner-application.' %></span>
+        <div class="query">
+          <%= form_tag partners_path, method: :get do %>
+            <%= text_field_tag :search,
+            params[:search],
+            class: "form-control",
+              placeholder: "Find a partner"
+              %>
+              <%= submit_tag "Search", class: "btn btn-primary d-none" %>
+          <% end %>
+        </div>
       </div>
     </div>
     <div class="list-container">

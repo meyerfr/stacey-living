@@ -7,6 +7,7 @@ import { noNavbar } from '../noNavbar';
 import { checkDates } from '../bookingDates';
 import { addCoupleOption } from '../applyCoupleSection';
 import { infoOnHovering } from '../hover_effect_for_info'
+import { checkBookingFormDuration } from '../bookingFormCheck'
 
 onlyOneBox();
 socialMediaForms();
@@ -16,3 +17,4 @@ noNavbar();
 checkDates();
 addCoupleOption();
 infoOnHovering();
+checkBookingFormDuration();

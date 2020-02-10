@@ -11,6 +11,10 @@
     <%# 6.times do %>
     <% @rooms.each do |room| %>
       <div class="stacey-card" id='room-card'>
+        <div class="availability">
+          <span>Available</span>
+          <span><%= @room_availability_hash[room.name] %></span>
+        </div>
         <%= render 'shared/carousel', pictures: room.pictures %>
         <div class="stacey-card-header">
           <span class="name"><%= room.name.titleize %> Suite</span>
@@ -20,7 +24,7 @@
           </div>
         </div>
         <%= render 'shared/amenities', amenities: room.amenities %>
-        <%= link_to "explore #{room.name}", booking_project_room_path(@booking.booking_auth_token, @booking, room.project, room), class: 'stacey-card-button stacey-button' %>
+        <%= link_to "explore #{room.name}", booking_project_room_path(@booking.booking_auth_token, @booking, room.project, room.name), class: 'stacey-card-button stacey-button' %>
       </div>
     <% end %>
     <%# end %>

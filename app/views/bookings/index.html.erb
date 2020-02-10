@@ -1,28 +1,31 @@
-<h3 class="list-header">All Users</h3>
+<!-- <%# @bookings.each do |booking| %>
+  <li><%#= booking.user.full_name %></li>
+  <li><%#= booking.room.name %></li>
+  <li><%#= booking.move_in.strftime('%d.%B %Y') %></li>
+  <li><%#= booking.move_out.strftime('%d.%B %Y') %></li>
+<%# end %>
+<%# @bookings.each_with_index do |booking, index| %>
+  <li><%#= booking.move_out + 1.day %> - <%#=  @bookings[index + 1].present? ? @bookings[index + 1].move_in - 1.day : 'open' %></li>
+<%# end %>
+ -->
+
+<h3 class="list-header">All Bookings</h3>
+
 <div class="list-position">
   <div class="list-wrapper">
     <div class="list-navbar">
       <div class="one-list-navbar">
         <div class="options">
-          <% @user_group_param_options.each do |param_option| %>
-            <% if @user_group_param == param_option || !@user_group_param.present? && param_option == 'all' %>
-              <%= link_to param_option.capitalize, users_path(user_group: param_option), class: 'option active' %>
+          <% @all_room_names.each do |name| %>
+            <% if @room_name_param == name %>
+              <%= link_to name.capitalize, bookings_path(room_name: name), class: 'option active' %>
             <% else %>
-              <%= link_to param_option.capitalize, users_path(user_group: param_option), class: 'option' %>
+              <%= link_to name.capitalize, bookings_path(room_name: name), class: 'option' %>
             <% end %>
           <% end %>
         </div>
-        <% @user_group_param_options.each do |user_group_option| %>
-          <% if @user_group_param == user_group_option %>
-            <% if user_group_option == 'all' %>
-              <span>We have <%= User.all.count %> Users</span>
-            <% else %>
-              <span>We have <%= User.all.where(role: user_group_option).count %> <%= User.all.where(role: user_group_option.capitalize).count > 1 ? user_group_option.pluralize : user_group_option.singularize %></span>
-            <% end %>
-          <% end %>
-        <% end %>
         <div class="query">
-          <%= form_tag users_path, method: :get do %>
+          <%= form_tag bookings_path, method: :get do %>
             <%= text_field_tag :search,
             params[:search],
             class: "form-control",
@@ -32,28 +35,41 @@
           <% end %>
         </div>
       </div>
+      <div class="between-navbar-line"></div>
       <div class="one-list-navbar next">
         <div class="options">
           <% @time_param_options.each do |time_option| %>
             <% if @time_param == time_option %>
-              <%= link_to time_option.capitalize, users_path(user_group: @user_group_param, time: time_option), class: 'option active' %>
+              <%= link_to time_option.capitalize, bookings_path(room_name: @room_name_param, time: time_option), class: 'option active' %>
             <% else %>
-              <%= link_to time_option.capitalize, users_path(user_group: @user_group_param, time: time_option), class: 'option' %>
+              <%= link_to time_option.capitalize, bookings_path(room_name: @room_name_param, time: time_option), class: 'option' %>
             <% end %>
           <% end %>
         </div>
       </div>
+      <% @all_room_names.each do |name| %>
+        <% if name == 'all' && @room_name == 'all' %>
+          <div class="between-navbar-line"></div>
+          <div class="navbar-infotext">
+            <span>We have <%= Room.count %> Rooms and we currently have <%= Booking.where("move_in <= ? AND move_out >= ? AND state = ?", Date.today, Date.today, nil).count %> of them booked.</span>
+          </div>
+        <% elsif @room_name == name && @room_name != 'all' %>
+          <div class="between-navbar-line"></div>
+          <div class="navbar-infotext">
+            <span>We have <%= Room.where(name: name).count %> <%= name %> Rooms and we currently have <%= Booking.where("move_in <= ? AND move_out >= ? AND state = ?", Date.today, Date.today, nil).count %> of them booked.</span>
+          </div>
+        <% end %>
+      <% end %>
     </div>
     <div class="list-container">
-      <% @users.each do |user| %>
+      <% @bookings.each do |booking| %>
+        <% user = booking.user %>
         <div class="list-context-container">
           <div class="list-info">
             <span class="set-width"><%= user.full_name %></span>
             <span class="set-width"><%= user.email %></span>
             <div class="duration-dates set-width">
-              <% if user.bookings.length.positive? %>
-                <%= user.bookings.last.move_in.strftime("%d.%m %Y") %> – <%= user.bookings.last.move_out.strftime("%d.%m %Y") %>
-              <% end %>
+              <%= booking.move_in.strftime("%d.%m %Y") %> – <%= booking.move_out.strftime("%d.%m %Y") %>
             </div>
             <div class="details d-flex set-width">
               <i class="fas fa-caret-right"></i>
@@ -64,8 +80,8 @@
           <div class="list-detail d-none">
             <ul>
               <% if user.role == 'tenant' %>
-                <li>move in: <%= user.bookings.last.move_in.strftime("%d.%B %Y") %></li>
-                <li>move out: <%= user.bookings.last.move_out.strftime("%d.%B %Y") %></li>
+                <li>move in: <%= booking.move_in.strftime("%d.%B %Y") %></li>
+                <li>move out: <%= booking.move_out.strftime("%d.%B %Y") %></li>
               <% end %>
               <li>Phone: <%= user.phone_code %> <%= user.phone_number %></li>
               <li>moves in <%= user.amount_of_people == 1 ? 'alone' : 'as a couple' %></li>
@@ -89,9 +105,7 @@
               <% if user.twitter.present? %>
                 <li>Twitter: <%= user.twitter %></li>
               <% end %>
-              <% if Booking.find_by(user_id: user.id) %>
-                <li>Booking Id: <%= Booking.find_by(user_id: user.id).id %></li>
-              <% end %>
+              <li>Booking Id: <%= booking.id %></li>
               <li>Applied on the <%= user.created_at.strftime("%d.%B %Y") %></li>
             </ul>
           </div>
