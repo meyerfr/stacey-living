@@ -7,9 +7,11 @@
           <% room_availability.each_with_index do |(room, availability), index| %>
             <div class="one-availability">
               <% if index == 0 %>
-                <%= f.check_box :move_in, id: "move-in#{index}", value: availability, checked: true %>
+                <span class="d-none" id="correct-room"><%= room %></span>
+                <%= f.check_box :move_in, id: "move-in#{index}", value: room, checked: true %>
               <% else %>
-                <%= f.check_box :move_in, id: "", value: availability, checked: false %>
+                <span class="d-none" id="correct-room"><%= room %></span>
+                <%= f.check_box :move_in, id: "move-in#{index}", value: room, checked: false %>
               <% end %>
               <span><%= availability %></span>
             </div>

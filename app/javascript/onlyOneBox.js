@@ -13,7 +13,7 @@ function onlyOneBox() {
               moveInDateSelections[0].value = moveInDate.getDate() - 1;
               moveInDateSelections[1].value = moveInDate.getMonth() + 1;
               moveInDateSelections[2].value = moveInDate.getFullYear();
-              bookButton.value = event.currentTarget.value;
+              bookButton.value = event.currentTarget.parentElement.children[0].innerText;
             }
             allCheckBoxes.forEach((checkBox) => {
               if (checkBox != event.currentTarget) {

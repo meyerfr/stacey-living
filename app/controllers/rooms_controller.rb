@@ -23,24 +23,19 @@ class RoomsController < ApplicationController
   end
 
   def show
-    # layout booking
     @booking = Booking.find(params[:booking_id])
     @room = Room.select{|room| room.name.delete(' ').downcase == params[:name].downcase}.first
     @room_availability = {}
     Room.all.where(name: @room.name).each do |room|
-      rooms_last_booking = Booking.all.where(room_id: room.id, state: nil).order(:move_out).last
+      rooms_last_booking = Booking.all.where(room_id: room.id, state: 'booked').order(:move_out).last
       if rooms_last_booking.present? && rooms_last_booking.move_out >= Date.today
-        @room_availability.store(room.id, (rooms_last_booking.move_out + 1.day).strftime('%d.%B %Y'))
+        @room_availability.store(room.id, (rooms_last_booking.move_out + 1.day).strftime('%d.%B %Y')) if !@room_availability.values.include?((rooms_last_booking.move_out + 1.day).strftime('%d.%B %Y'))
       else
-        @room_availability.store(room.id, Date.tomorrow.strftime('%d.%B %Y'))
+        @room_availability.store(room.id, Date.tomorrow.strftime('%d.%B %Y')) if !@room_availability.values.include?(Date.tomorrow.strftime('%d.%B %Y'))
       end
     end
-    # Booking.all.order(:move_out).each { |b| @room_availability.store(b.room.id, (b.move_out + 1.day).strftime('%d.%B %Y')) if b.room.name.delete(' ').downcase == params[:name].downcase && b.state == nil && b.move_out >= Date.today }
-    # if @room_availability.empty?
-    #   @room_availability.store(@room.id, Date.tomorrow.strftime('%d.%B %Y'))
-    # end
-    # raise
-    # @room_availability = sort_dates(@room_availability)
+
+    @room_availability = @room_availability.sort_by { |key, value| value.to_date }.to_h
   end
 
   def edit
@@ -93,7 +88,7 @@ class RoomsController < ApplicationController
   def find_available_booking_dates_for_each_room_art(rooms)
     availability = {}
     rooms.each do |room|
-      lastBookingId = Booking.select{ |b| b.room.name.delete(' ').downcase == room.name.delete(' ').downcase && b.state == nil && b.move_out >= Date.today }.last
+      lastBookingId = Booking.select{ |b| b.room.name.delete(' ').downcase == room.name.delete(' ').downcase && b.state == 'booked' && b.move_out >= Date.today }.last
       if lastBookingId.present?
         availability.store(room.name, (lastBookingId.move_out + 1.day).strftime('%d.%B %Y'))
       else
@@ -102,15 +97,4 @@ class RoomsController < ApplicationController
     end
     availability
   end
-
-  # def sort_dates(dates)
-  #   # recursion einbauen
-  #   sorted_dates = {}
-  #   dates.each_with_index do |(key, first_date), index|
-  #     dates.each_value do |comparison_date|
-  #       if first_date.to_date <= comparison_date.to_date
-  #       end
-  #     end
-  #   end
-  # end
 end

@@ -1,13 +1,12 @@
 class BookingsController < ApplicationController
   skip_before_action :authenticate_user!
-  before_action :check_booking_auth_token!, only: [:update]
 
   def index
     @time_param_options = ['current', 'upcoming', 'past', 'all']
 
     @room_name_param = params[:room_name].present? ? params[:room_name] : 'all'
     @time_param = params[:time].present? ? params[:time] : 'all'
-    @bookings = Booking.select{ |b| b.move_in <= Date.today && b.move_out >= Date.today && b.state == nil }
+    @bookings = Booking.select{ |b| b.move_in <= Date.today && b.move_out >= Date.today && b.state == 'booked' }
     if @room_name_param == 'all'
       @room_name = @room_name_param
       @bookings = Booking.all

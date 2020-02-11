@@ -2,11 +2,15 @@ const moveIn = document.querySelector('.user_bookings_move_in');
 const moveOut = document.querySelector('.user_bookings_move_out');
 
 function monthDiff(d1, d2) {
-  var months;
-  months = (d2.getFullYear() - d1.getFullYear()) * 12;
-  months -= d1.getMonth() + 1;
-  months += d2.getMonth() + 1;
-  return months <= 0 ? 0 : months;
+  // var months;
+  // months = (d2.getFullYear() - d1.getFullYear()) * 12;
+  // months -= d1.getMonth() + 1;
+  // months += d2.getMonth() + 1;
+  // return months <= 0 ? 0 : months;
+  return(d2.getFullYear() - d1.getFullYear()) * 12 + (d2.getMonth() + 1) - (d1.getMonth() + 1) - ((d2.getDate() >= d1.getDate()) ? 0 : 1)
+  // const diffTime = Math.abs(d2 - d1);
+  // const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+  // return(diffDays/30);
 }
 
 // check if movin date is in the future
