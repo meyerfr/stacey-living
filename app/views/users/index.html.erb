@@ -45,6 +45,14 @@
       </div>
     </div>
     <div class="list-container">
+      <div class="list-context-container">
+        <div class="list-info">
+          <span class="list-header set-width">Name</span>
+          <span class="list-header set-width">Email</span>
+          <span class="list-header set-width">MoveIn - MoveOut</span>
+          <span class="list-header details set-width">Detail</span>
+        </div>
+      </div>
       <% @users.each do |user| %>
         <div class="list-context-container">
           <div class="list-info">
@@ -53,6 +61,8 @@
             <div class="duration-dates set-width">
               <% if user.bookings.length.positive? %>
                 <%= user.bookings.last.move_in.strftime("%d.%m %Y") %> – <%= user.bookings.last.move_out.strftime("%d.%m %Y") %>
+              <% else %>
+                <p>sgdkaslkdglkasdgkf</p>
               <% end %>
             </div>
             <div class="details d-flex set-width">

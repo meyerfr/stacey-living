@@ -29,6 +29,15 @@
       </div>
     </div>
     <div class="list-container">
+      <% unless @welcome_calls.empty?  %>
+        <div class="list-context-container">
+          <div class="list-info">
+            <span class="list-header">Time</span>
+            <span class="list-header">Applicants name</span>
+            <span class="list-header details">Detail</span>
+          </div>
+        </div>
+      <% end %>
       <% @dates.each do |date| %>
         <div class="date">
           <%= date.today? ? 'Today' : date.strftime("%A, %d %B %Y") %>

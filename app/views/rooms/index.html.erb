@@ -15,7 +15,7 @@
           <span>Available</span>
           <span><%= @room_availability_hash[room.name] %></span>
         </div>
-        <%= render 'shared/carousel', pictures: room.pictures %>
+        <%= render 'shared/carousel', pictures: room.project.pictures %>
         <div class="stacey-card-header">
           <span class="name"><%= room.name.titleize %> Suite</span>
           <div class="price">

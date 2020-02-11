@@ -62,6 +62,14 @@
       <% end %>
     </div>
     <div class="list-container">
+      <div class="list-context-container">
+        <div class="list-info">
+          <span class="list-header set-width">Name</span>
+          <span class="list-header set-width">Email</span>
+          <span class="list-header set-width">MoveIn - MoveOut</span>
+          <span class="list-header details set-width">Detail</span>
+        </div>
+      </div>
       <% @bookings.each do |booking| %>
         <% user = booking.user %>
         <div class="list-context-container">
