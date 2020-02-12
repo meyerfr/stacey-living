@@ -189,7 +189,7 @@ class WelcomeCallsController < ApplicationController
         @date = date_params
       else
         next_helper = @welcome_calls.select{ |call| call.start_time.to_date > date_params }
-        @date = next_helper.any? ? next_helper.first.to_date : Date.today
+        @date = next_helper.any? ? next_helper.first.start_time.to_date : Date.today
       end
     else
       @date = @welcome_calls.select{ |call| call.start_time.to_date > Date.today }.first.start_time.to_date
