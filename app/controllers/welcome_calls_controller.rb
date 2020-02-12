@@ -51,36 +51,12 @@ class WelcomeCallsController < ApplicationController
   def new
     @booking = Booking.find(params[:booking_id])
     @user = @booking.user
-    # booked_welcome_call_times = []
-    # WelcomeCall.all.where("start_time > ? AND available = ?", Date.today, false).each{ |call| booked_welcome_call_times << call.start_time }
-    # @available_times = array_of_dates(booked_welcome_call_times)
-    # # @welcome_calls = WelcomeCall.all.where("start_time > ? AND start_time < ? AND available = ?", (Date.today + 1.day), (Date.today + 9.days), true)
-    # date_params = params[:date].to_date if params[:date]
-    # if date_params && date_params < Date.today + 10.days
-    #   if @available_times.select { |available_time| available_time.to_date == date_params }.length.positive?
-    #     @date = date_params
-    #   else
-    #     next_helper = @available_times.select { |available_time| available_time.to_date > date_params }
-    #     @date = next_helper.any? ? next_helper.first.to_date : Date.today
-    #   end
-    # else
-    #   @date = @available_times.select { |available_time| available_time.to_date > Date.today }.first.to_date
-    # end
-
-    # @date_available_times = @available_times.select { |available_time| available_time.to_date == @date } if @available_times.select { |available_time| available_time.to_date == @date }.length.positive?
-
-    # @month_helper = params[:month].to_date if params[:month]
-    # @month_param = params[:month] && Date.today <= @month_helper && @month_helper <= Date.today + 9.days ? @month_helper : Date.today
-
-    # @date_range = (@month_param.beginning_of_month.beginning_of_week..@month_param.end_of_month.end_of_week).to_a
   end
 
   def create
     @booking = Booking.find(params[:booking_id])
     @user = @booking.user
-    @welcome_call = WelcomeCall.new(welcome_calls_params)
-    @welcome_call.start_time = @welcome_call.start_time + 1.hour
-    @welcome_call.end_time = @welcome_call.end_time + 1.hour
+    @welcome_call = WelcomeCall.find(welcome_calls_params[:id])
     @welcome_call.available = false
     @welcome_call.booking_id = @booking.id
     @welcome_call.name = @user.full_name
@@ -104,51 +80,26 @@ class WelcomeCallsController < ApplicationController
 
   def edit
     @old_welcome_call = WelcomeCall.find(params[:id])
-    @booking = @old_welcome_call.booking
+    @booking = Booking.find(params[:booking_id])
     @user = @booking.user
-    # booked_welcome_call_times = []
-    # WelcomeCall.all.where("start_time > ? AND available = ?", Date.today, false).each{ |call| booked_welcome_call_times << call.start_time }
-    # @available_times = array_of_dates(booked_welcome_call_times)
-    # # @welcome_calls = WelcomeCall.all.where("start_time > ? AND start_time < ? AND available = ?", (Date.today + 1.day), (Date.today + 9.days), true)
-    # date_params = params[:date].to_date if params[:date]
-    # if date_params && date_params < Date.today + 9.days
-    #   if @available_times.select { |available_time| available_time.to_date == date_params }.length.positive?
-    #     @date = date_params
-    #   else
-    #     next_helper = @available_times.select { |available_time| available_time.to_date > date_params }
-    #     @date = next_helper.any? ? next_helper.first.to_date : Date.today
-    #   end
-    # else
-    #   @date = @available_times.select { |available_time| available_time.to_date > Date.today }.first.to_date
-    # end
-
-    # @date_available_times = @available_times.select { |available_time| available_time.to_date == @date } if @available_times.select { |available_time| available_time.to_date == @date }.length.positive?
-
-    # @month_helper = params[:month].to_date if params[:month]
-    # @month_param = params[:month] && Date.today <= @month_helper && @month_helper <= Date.today + 9.days ? @month_helper : Date.today
-
-    # @date_range = (@month_param.beginning_of_month.beginning_of_week..@month_param.end_of_month.end_of_week).to_a
   end
 
   def update
     @old_welcome_call = WelcomeCall.find(params[:id])
     @booking = Booking.find(params[:booking_id])
     @user = @booking.user
-    @welcome_call = WelcomeCall.new(welcome_calls_params)
-    @welcome_call.start_time = @welcome_call.start_time + 1.hour
-    @welcome_call.end_time = @welcome_call.end_time + 1.hour
+    @welcome_call = WelcomeCall.find(welcome_calls_params[:id])
     @welcome_call.available = false
     @welcome_call.booking_id = @booking.id
     @welcome_call.name = @user.full_name
-    if @welcome_call.save && !current_user.admin?
+    if @welcome_call.save #&& !current_user.admin?
       # if !current_user.admin?
         # send apologize email and ask if the new date is okay? and link to reschedule call
-
       # else
         # send email with info to the new call
+        @old_welcome_call.update(name: nil, booking_id: nil, available: true)
         @booking.update(booking_auth_token_exp: @welcome_call.start_time.to_date + 1.day) if @booking.booking_auth_token_exp < @welcome_call.start_time.to_date
         UserMailer.welcome_call_rescheduled(@welcome_call).deliver_now
-        @old_welcome_call.delete
         flash[:alert] = 'Our call has been reschedueled. Please check your mails'
         redirect_to root_path
       # end
@@ -178,6 +129,7 @@ class WelcomeCallsController < ApplicationController
 
   def welcome_calls_params
     params.require(:welcome_call).permit(
+      :id,
       :name,
       :start_time,
       :end_time,
@@ -230,24 +182,40 @@ class WelcomeCallsController < ApplicationController
   end
 
   def calendar_data
-    booked_welcome_call_times = []
-    WelcomeCall.all.where("start_time > ? AND available = ?", Date.today, false).each{ |call| booked_welcome_call_times << call.start_time }
-    @available_times = array_of_dates(booked_welcome_call_times)
+    @welcome_calls = WelcomeCall.order(:start_time).select{ |call| call.available == true && call.start_time < Date.today + 9 && call.start_time > Date.today } # all available WelcomeCalls (@available_times)
     date_params = params[:date].to_date if params[:date]
     if date_params && date_params < Date.today + 9.days
-      if @available_times.select { |available_time| available_time.to_date == date_params }.length.positive?
+      if @welcome_calls.select{ |call| call.start_time.to_date == date_params }.length.positive?
         @date = date_params
       else
-        next_helper = @available_times.select { |available_time| available_time.to_date > date_params }
+        next_helper = @welcome_calls.select{ |call| call.start_time.to_date > date_params }
         @date = next_helper.any? ? next_helper.first.to_date : Date.today
       end
     else
-      @date = @available_times.select { |available_time| available_time.to_date > Date.today }.first.to_date
+      @date = @welcome_calls.select{ |call| call.start_time.to_date > Date.today }.first.start_time.to_date
     end
-    @date_available_times = @available_times.select { |available_time| available_time.to_date == @date }
+    @date_available_times = @welcome_calls.select { |call| call.start_time.to_date == @date }
     @month_helper = params[:month].to_date if params[:month]
     @month_param = params[:month] && Date.today <= @month_helper && @month_helper <= Date.today + 9.days ? @month_helper : Date.today
     @date_range = (@month_param.beginning_of_month.beginning_of_week..@month_param.end_of_month.end_of_week).to_a
+    # booked_welcome_call_times = []
+    # WelcomeCall.select{|call| booked_welcome_call_times << call.start_time if call.start_time > Date.today && call.available == false }
+    # @available_times = array_of_dates(booked_welcome_call_times)
+    # date_params = params[:date].to_date if params[:date]
+    # if date_params && date_params < Date.today + 9.days
+    #   if @available_times.select { |available_time| available_time.to_date == date_params }.length.positive?
+    #     @date = date_params
+    #   else
+    #     next_helper = @available_times.select { |available_time| available_time.to_date > date_params }
+    #     @date = next_helper.any? ? next_helper.first.to_date : Date.today
+    #   end
+    # else
+    #   @date = @available_times.select { |available_time| available_time.to_date > Date.today }.first.to_date
+    # end
+    # @date_available_times = @available_times.select { |available_time| available_time.to_date == @date }
+    # @month_helper = params[:month].to_date if params[:month]
+    # @month_param = params[:month] && Date.today <= @month_helper && @month_helper <= Date.today + 9.days ? @month_helper : Date.today
+    # @date_range = (@month_param.beginning_of_month.beginning_of_week..@month_param.end_of_month.end_of_week).to_a
   end
 
   # def array_of_dates
