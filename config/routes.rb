@@ -8,7 +8,8 @@ Rails.application.routes.draw do
   end
   resources :welcome_calls, only: [:index]
   resources :bookings, path: 'bookings/(:booking_auth_token)', only: [:update] do
-    resources :welcome_calls, only: [:new, :create, :edit, :update, :destroy]
+    resources :welcome_calls, only: [:new, :edit, :update, :destroy]
+    patch 'welcome_calls', to: 'welcome_calls#create', as: 'create_welcome_calls'
     resources :projects, only: [:index] do
       resources :rooms, only: [:index]
       get 'rooms/:name', to: 'rooms#show', as: 'room'
@@ -22,4 +23,8 @@ Rails.application.routes.draw do
 
   get 'home', to: 'pages#home', as: 'home'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  require "sidekiq/web"
+  authenticate :user, lambda { |u| u.admin? } do
+    mount Sidekiq::Web => '/sidekiq'
+  end
 end
