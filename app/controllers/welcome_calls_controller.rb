@@ -182,7 +182,7 @@ class WelcomeCallsController < ApplicationController
   end
 
   def calendar_data
-    @welcome_calls = WelcomeCall.order(:start_time).select{ |call| call.available == true && call.start_time < Date.today + 9 && call.start_time > Date.today } # all available WelcomeCalls (@available_times)
+    @welcome_calls = WelcomeCall.order(:start_time).select{ |call| call.available == true && call.start_time < Date.today + 9 && call.start_time.to_date > Date.today } # all available WelcomeCalls (@available_times)
     date_params = params[:date].to_date if params[:date]
     if date_params && date_params < Date.today + 9.days
       if @welcome_calls.select{ |call| call.start_time.to_date == date_params }.length.positive?
