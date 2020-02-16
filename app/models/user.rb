@@ -15,7 +15,8 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable,
-         :recoverable, :rememberable, :validatable
+         :recoverable, :rememberable, :validatable,
+         :omniauthable, :omniauth_providers => [:google_oauth2]
 
   def move_in_future
     move_in_helper_array = bookings_attributes['0'].values.first(3).map! { |e| e.to_i }.reverse

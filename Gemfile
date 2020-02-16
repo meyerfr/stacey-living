@@ -15,6 +15,10 @@ gem 'sidekiq'
 gem 'sidekiq-failures', '~> 1.0'
 gem 'sinatra', github: 'sinatra'
 
+gem 'google-api-client', '~> 0.34'
+gem 'omniauth'
+gem 'omniauth-google-oauth2'
+
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
 
