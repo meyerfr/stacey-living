@@ -88,7 +88,7 @@ class RoomsController < ApplicationController
   def find_available_booking_dates_for_each_room_art(rooms)
     availability = {}
     rooms.each do |room|
-      lastBookingId = Booking.select{ |b| b.room.name.delete(' ').downcase == room.name.delete(' ').downcase && b.state == 'booked' && b.move_out >= Date.today }.last
+      lastBookingId = Booking.select{ |b| b.state == 'booked' && b.move_out >= Date.today && b.room.name.delete(' ').downcase == room.name.delete(' ').downcase if b.room.present? }.last
       if lastBookingId.present?
         availability.store(room.name, (lastBookingId.move_out + 1.day).strftime('%d.%B %Y'))
       else
