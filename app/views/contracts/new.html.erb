@@ -3,13 +3,22 @@
   <h2 class="contract-page-header">Rental Contract</h2>
   <div class="contract-page-container">
     <div class="contract-user-form">
-      <span class="info-text">There are just a few more information we need to set up the Contract.</span>
-      <%= simple_form_for @user, html: { method: :patch } do |f| %>
-        <%= f.input :street %>
-        <%= f.input :city %>
-        <%= f.input :zipcode %>
-        <%= f.input :country, as: :string %>
-        <%= f.submit 'Sign Contract', class: 'stacey-button reverse-hover' %>
+      <i class="fas fa-arrow-left back-arrow change-form d-none"></i>
+      <span class="info-text">There are just a few more information we need to generate the Contract.</span>
+      <div class="line"></div>
+      <%= simple_form_for @contract, method: :post, url: booking_contracts_path(@booking) do |m| %>
+        <%= m.simple_fields_for :user do |f| %>
+          <%= f.input :street, wrapper_html: {class: 'contract-user-inputs'} %>
+          <%= f.input :city, wrapper_html: {class: 'contract-user-inputs'} %>
+          <%= f.input :zipcode, wrapper_html: {class: 'contract-user-inputs'} %>
+          <%= f.input :country, label: 'Country', collection: @countries, selected: 'Germany', wrapper_html:{ class: 'contract-user-inputs'} %>
+        <% end %>
+        <div class="signature-fields d-none">
+          <%= m.input :signature, as: :text, class: 'signature-pad' %>
+          <%= m.input :signed_date, as: :hidden, input_html: {value: Date.today} %>
+        </div>
+        <div class="stacey-button change-form" id="sign-next-button">Next</div>
+        <%= m.submit 'Sign Contract', class: 'stacey-button reverse-hover sign-button d-none' %>
       <% end %>
     </div>
     <div id="pdf">
@@ -18,5 +27,4 @@
     </div>
   </div>
 </div>
-<%= link_to 'payment', booking_payment_path(@booking.booking_auth_token, @booking.id) %>
 <%= render 'shared/footer' %>
