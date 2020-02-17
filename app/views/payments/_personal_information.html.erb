@@ -14,7 +14,7 @@
       <%= f.label :phone_number, 'PHONENUMBER' %>
 
       <div class="phone">
-        <%= f.input :phone_code, label: false, collection: @phone_code, selected: '+49' %>
+        <%= f.input :phone_code, label: false, collection: phone_code, selected: '+49' %>
         <%= f.input :phone_number, label: false %>
       </div>
       <%= f.label :gender, 'WHAT IS YOUR GENDER?' %>

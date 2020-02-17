@@ -3,11 +3,11 @@
 <div class="payment-wrapper">
   <div class="payment-container">
     <div class="payment-forms">
-      <%= render 'personal_information', user: @booking.user %>
+      <%= render 'personal_information', user: @booking.user, phone_code: @phone_code %>
       <%= render 'stripe_section' %>
     </div>
     <div class="booking-summary">
-      <%= render 'booking_summary' %>
+      <%= render 'booking_summary', booking: @booking %>
     </div>
   </div>
 </div>

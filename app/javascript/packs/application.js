@@ -1,4 +1,5 @@
 import "bootstrap";
+import { stripeProcess } from '../stripePayment'
 import { onlyOneBox } from '../onlyOneBox';
 import { socialMediaForms } from '../applySocialMediaForms';
 import { expandConfirm } from '../welcomeCallCalendar';
@@ -10,6 +11,7 @@ import { infoOnHovering } from '../hover_effect_for_info'
 import { checkBookingFormDuration } from '../bookingFormCheck'
 import { signing } from '../signingProcess'
 
+stripeProcess();
 onlyOneBox();
 socialMediaForms();
 expandConfirm();
