@@ -1,0 +1,13 @@
+<%= render 'shared/three_steps_navbar', step: 2 %>
+<div class="contract-page-wrapper">
+  <h2 class="contract-page-header">Rental Contract</h2>
+  <div class="contract-page-container contract-show">
+    <p>Your contract is now generated and ready for you to download.</p>
+    <div id="pdf">
+      <!-- this is loading the contract as PDF -->
+      <embed src="/bookings/<%= @booking.booking_auth_token %>/<%= @booking.id %>/contracts/<%= @contract.id %>.pdf" type="application/pdf">
+    </div>
+    <%= link_to 'Next Step', new_booking_payment_path(@booking.booking_auth_token, @booking.id), class: 'stacey-button contract-to-payment-button' %>
+  </div>
+</div>
+<%= render 'shared/footer' %>

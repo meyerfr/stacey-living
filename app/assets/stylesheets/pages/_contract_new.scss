@@ -9,7 +9,7 @@
     justify-content: space-between;
     align-items: center;
     // height: calc(100vh - 133px);
-    margin: 50px;
+    margin: 30px 50px 50px;
     .contract-user-form{
       border: 1px solid #777777;
       border-radius: 5px;
@@ -18,9 +18,36 @@
       height: fit-content;
       display: flex;
       flex-direction: column;
+      position: relative;
+      .back-arrow{
+        position: absolute;
+        left: 10px;
+        top: 10px;
+        cursor: pointer;
+      }
       .stacey-button{
         width: 100%;
         padding: 9px;
+      }
+      .line{
+        border-bottom: 1px solid lightgray;
+        width: calc(100% + 60px);
+        margin: 15px 0 15px -30px;
+      }
+      .new_contract{
+        .form-control{
+          text-transform: none;
+        }
+        .signature-fields{
+          textarea{
+            height: 100px;
+            text-align: center;
+            font-size: 60px;
+            font-family: 'Mr De Haviland', cursive;
+            color: black;
+            resize: none;
+          }
+        }
       }
     }
     #pdf{
@@ -32,4 +59,13 @@
       }
     }
   }
+  .contract-page-container.contract-show{
+    flex-direction: column;
+    .contract-to-payment-button{
+      align-self: flex-end;
+      margin-top: 30px;
+      font-size: 20px;
+    }
+  }
 }
+
