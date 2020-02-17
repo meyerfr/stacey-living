@@ -8,6 +8,7 @@ import { checkDates } from '../bookingDates';
 import { addCoupleOption } from '../applyCoupleSection';
 import { infoOnHovering } from '../hover_effect_for_info'
 import { checkBookingFormDuration } from '../bookingFormCheck'
+import { signing } from '../signingProcess'
 
 onlyOneBox();
 socialMediaForms();
@@ -18,3 +19,4 @@ checkDates();
 addCoupleOption();
 infoOnHovering();
 checkBookingFormDuration();
+signing();

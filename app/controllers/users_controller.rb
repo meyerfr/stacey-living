@@ -13,8 +13,8 @@ class UsersController < ApplicationController
     # Must delete first element of array, to keep database clean, because its an empty string
     @user.gender = @user.gender.pop(1) if @user.gender.length.positive?
     @user.prefered_suite = @user.prefered_suite.pop(1) if @user.prefered_suite.length.positive?
-    @user.first_name = @user.first_name.capitalize
-    @user.last_name = @user.last_name.capitalize
+    @user.first_name = @user.first_name.downcase.titleize
+    @user.last_name = @user.last_name.downcase.titleize
     @user.email = @user.email.downcase
     @user.role = 'applicant'
     if @user.save

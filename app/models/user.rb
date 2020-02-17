@@ -1,7 +1,7 @@
 class User < ApplicationRecord
   attr_accessor :skip_password_validation, :name, :bookings_attributes # virtual attribute to skip password validation while saving
   validate :validate_array
-  validate :move_in_future
+  # validate :move_in_future
   # validate :stay_duration
   # validate :validate_prefered_suite
   # validate :validate_gender
@@ -10,6 +10,7 @@ class User < ApplicationRecord
   has_many :rooms, through: :bookings
   has_many :welcome_calls
   has_many :bookings, index_errors: true, dependent: :destroy
+  has_many :contracts, through: :bookings
   accepts_nested_attributes_for :bookings, allow_destroy: true
 
   # Include default devise modules. Others available are:
