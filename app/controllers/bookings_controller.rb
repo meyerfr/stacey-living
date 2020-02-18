@@ -26,6 +26,8 @@ class BookingsController < ApplicationController
       @bookings = @bookings.select{ |booking| booking.move_in <= Date.today && booking.move_out >= Date.today}
     end
 
+    @bookings = @bookings.order(created_at: :desc)
+
     @all_room_names = find_all_room_names
     @available_booking_times = find_available_booking_dates(@bookings)
     respond_to do |format|

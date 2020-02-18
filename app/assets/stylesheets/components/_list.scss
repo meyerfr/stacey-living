@@ -82,10 +82,14 @@
             width: 25%;
           }
           .details{
+            cursor: pointer;
             display: flex;
             align-items: center;
             width: fit-content;
             i{margin-right: 3px;}
+          }
+          .details-header{
+            width: fit-content;
           }
           .list-header{
             font-weight: 500;
