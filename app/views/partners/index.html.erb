@@ -12,7 +12,7 @@
         <%# end %>
       </div> -->
       <div class="one-list-navbar">
-        <span>We have <%= @partners.count %> <%= @partners.count > 1 ? 'partner-applications.' : 'partner-application.' %></span>
+        <span>We have <%= @partners.count %> <%= @partners.count == 1 ? 'partner application.' : 'partner applications.' %></span>
         <div class="query">
           <%= form_tag partners_path, method: :get do %>
             <%= text_field_tag :search,
