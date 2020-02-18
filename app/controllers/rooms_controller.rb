@@ -1,6 +1,6 @@
 class RoomsController < ApplicationController
-  skip_before_action :authenticate_user!
-  before_action :check_booking_auth_token!
+  skip_before_action :authenticate_user!, except: [:index, :show]
+  before_action :check_booking_auth_token!, only: [:index, :show]
   layout "bookingprocess", only: [:index, :show]
 
   def index

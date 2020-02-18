@@ -1,5 +1,5 @@
 class WelcomeCallsController < ApplicationController
-  skip_before_action :authenticate_user!, only: %I[new create edit update destroy]
+  before_action :authenticate_user!, only: %I[index]
   before_action :check_booking_auth_token!, only: %I[new create edit update destroy]
   before_action :calendar_data, only: %I[new edit]
 

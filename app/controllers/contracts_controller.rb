@@ -1,5 +1,5 @@
 class ContractsController < ApplicationController
-  skip_before_action :authenticate_user!
+  before_action :authenticate_user!
   before_action :check_booking_auth_token!
   layout "bookingprocess", only: [:new, :show]
 

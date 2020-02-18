@@ -1,5 +1,5 @@
 class BookingsController < ApplicationController
-  skip_before_action :authenticate_user!
+  before_action :authenticate_user!
 
   def index
     @time_param_options = ['current', 'upcoming', 'past', 'all']
