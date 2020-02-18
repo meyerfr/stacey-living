@@ -20,7 +20,7 @@ class WelcomeCallsController < ApplicationController
     #   @welcome_calls = WelcomeCall.all.where("start_time >= ? AND available = ?", Time.now, false)
 
     if @time_param == 'all'
-      @welcome_calls = WelcomeCall.all
+      @welcome_calls = WelcomeCall.where(available: false)
     elsif @time_param == 'past'
       @welcome_calls = WelcomeCall.all.where("start_time < ? AND available = ?", Time.now, false)
     end
@@ -41,7 +41,7 @@ class WelcomeCallsController < ApplicationController
     # end
 
     @dates = []
-    @welcome_calls.each { |call| @dates << call.start_time.to_date unless @dates.include?(call.start_time.to_date) }
+    @welcome_calls.order(start_time: :desc).each { |call| @dates << call.start_time.to_date unless @dates.include?(call.start_time.to_date) }
     @dates.reverse!
     # @date = params[:date].to_date if present?
     # @month_param = params[:month] ? "#{params[:month]}-01".to_date : Date.today
