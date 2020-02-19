@@ -1,5 +1,5 @@
 class WelcomeCallsController < ApplicationController
-  skip_before_action :authenticate_user!, only: %I[new create edit update destroy]
+  before_action :authenticate_user!, only: %I[index]
   before_action :check_booking_auth_token!, only: %I[new create edit update destroy]
   before_action :calendar_data, only: %I[new edit]
 
@@ -14,20 +14,20 @@ class WelcomeCallsController < ApplicationController
     @time_param = params[:time].present? ? params[:time] : 'upcoming'
     search_param = params[:search] if params[:search]
     # if search and time
-    @welcome_calls = WelcomeCall.all.where("start_time >= ? AND available = ?", Time.now, false)
+    @welcome_calls = WelcomeCall.order(:start_time).where("start_time >= ? AND available = ?", Time.now, false)
 
     # if time_param == 'upcoming'
     #   @welcome_calls = WelcomeCall.all.where("start_time >= ? AND available = ?", Time.now, false)
 
     if @time_param == 'all'
-      @welcome_calls = WelcomeCall.all
+      @welcome_calls = WelcomeCall.order(:start_time).where(available: false)
     elsif @time_param == 'past'
-      @welcome_calls = WelcomeCall.all.where("start_time < ? AND available = ?", Time.now, false)
+      @welcome_calls = WelcomeCall.order(:start_time).where("start_time < ? AND available = ?", Time.now, false)
     end
 
 
     if search_param
-      @welcome_calls = WelcomeCall.all.where("name ILIKE ?", "%#{params[:search]}%")
+      @welcome_calls = WelcomeCall.order(:start_time).where("name ILIKE ?", "%#{params[:search]}%")
     end
 
     # if search_param && time_param
@@ -41,8 +41,13 @@ class WelcomeCallsController < ApplicationController
     # end
 
     @dates = []
-    @welcome_calls.each { |call| @dates << call.start_time.to_date unless @dates.include?(call.start_time.to_date) }
-    @dates.reverse!
+    if @time_param == 'past'
+      @welcome_calls.order(start_time: :desc).each { |call| @dates << call.start_time.to_date unless @dates.include?(call.start_time.to_date) }
+      @dates.reverse!
+    else
+      @welcome_calls.order(start_time: :desc).each { |call| @dates << call.start_time.to_date unless @dates.include?(call.start_time.to_date) }
+    end
+    # @dates.reverse!
     # @date = params[:date].to_date if present?
     # @month_param = params[:month] ? "#{params[:month]}-01".to_date : Date.today
     # @date_range = (@month_param.beginning_of_month.beginning_of_week..@month_param.end_of_month.end_of_week).to_a

@@ -1,5 +1,5 @@
 class ProjectsController < ApplicationController
-  skip_before_action :authenticate_user!
+  before_action :authenticate_user!, except: [:index]
   before_action :check_booking_auth_token!, only: [:index]
   layout "bookingprocess", only: [:index]
 

@@ -1,15 +1,15 @@
 class BookingsController < ApplicationController
-  skip_before_action :authenticate_user!
+  before_action :authenticate_user!
 
   def index
     @time_param_options = ['current', 'upcoming', 'past', 'all']
 
     @room_name_param = params[:room_name].present? ? params[:room_name] : 'all'
     @time_param = params[:time].present? ? params[:time] : 'all'
-    @bookings = Booking.select{ |b| b.move_in <= Date.today && b.move_out >= Date.today && b.state == 'booked' }
+    @bookings = Booking.order(created_at: :desc).select{ |b| b.move_in <= Date.today && b.move_out >= Date.today && b.state == 'booked' }
     if @room_name_param == 'all'
       @room_name = @room_name_param
-      @bookings = Booking.all
+      @bookings = Booking.order(created_at: :desc).where(state: 'booked')
       # @bookings = Booking.select{ |booking| booking.move_in >= Date.today && state == nil }
     else
       @room_name = Room.select{ |room| room.name.delete(' ').downcase == @room_name_param.delete(' ').downcase }.first.name
