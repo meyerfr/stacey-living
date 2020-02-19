@@ -15,6 +15,8 @@ gem 'sidekiq'
 gem 'sidekiq-failures', '~> 1.0'
 gem 'sinatra', github: 'sinatra'
 
+gem 'stripe'
+
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
 

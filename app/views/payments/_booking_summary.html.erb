@@ -15,15 +15,15 @@
     <div class="summary-section">
       <div class="summary-item">
         <span class="category">roomcategory</span>
-        <span><%= @booking.room.name %></span>
+        <span><%= booking.room.name %></span>
       </div>
       <div class="summary-item">
         <span class="category">Move-in</span>
-        <span><%= @booking.move_in.strftime('%d.%m %Y') %></span>
+        <span><%= booking.move_in.strftime('%d.%m %Y') %></span>
       </div>
       <div class="summary-item">
         <span class="category">Move-out</span>
-        <span><%= @booking.move_out.strftime('%d.%m %Y') %></span>
+        <span><%= booking.move_out.strftime('%d.%m %Y') %></span>
       </div>
       <div class="summary-item">
         <span class="category">Duration of your stay</span>
@@ -34,18 +34,18 @@
       <p class="section-header">TOTAL YOU'LL PAY</p>
       <div class="summary-item">
         <span class="category">Room Price per Month</span>
-        <% if @booking.room.price.first % 1 == 0 %>
-          <span><%= @booking.room.price.first.to_i %> €</span>
+        <% if booking.room.price.first % 1 == 0 %>
+          <span><%= booking.room.price.first.to_i %> €</span>
         <% else %>
-          <span><%= @booking.room.price.first %> €</span>
+          <span><%= booking.room.price.first %> €</span>
         <% end %>
       </div>
       <div class="summary-item">
         <span class="category">Deposit</span>
-        <% if @booking.room.price.first % 1 == 0 %>
-          <span><%= @booking.room.price.first.to_i %> €</span>
+        <% if booking.room.price.first % 1 == 0 %>
+          <span><%= booking.room.price.first.to_i %> €</span>
         <% else %>
-          <span><%= @booking.room.price.first %> €</span>
+          <span><%= booking.room.price.first %> €</span>
         <% end %>
       </div>
       <div class="summary-item">
