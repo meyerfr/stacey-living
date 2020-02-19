@@ -33,12 +33,12 @@ function proceedPayment() {
 
   // Create an instance of the iban Element.
   var iban = elements.create('iban', {
-    style: style,
+    // style: style,
     supportedCountries: ['SEPA'],
   });
 
   // Add an instance of the iban Element into the `iban-element` <div>.
-  console.log('insert iban element')
+  // console.log('insert iban element')
   iban.mount('#iban-element');
 
   var errorMessage = document.getElementById('error-message');
