@@ -61,8 +61,6 @@
             <div class="duration-dates set-width">
               <% if user.bookings.length.positive? %>
                 <%= user.bookings.last.move_in.strftime("%d.%m %Y") %> – <%= user.bookings.last.move_out.strftime("%d.%m %Y") %>
-              <% else %>
-                <p>sgdkaslkdglkasdgkf</p>
               <% end %>
             </div>
             <div class="details d-flex set-width">
