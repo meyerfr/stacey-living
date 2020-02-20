@@ -9,8 +9,8 @@
       <%= simple_form_for @contract, method: :post, url: booking_contracts_path(@booking) do |m| %>
         <%= m.simple_fields_for :user do |f| %>
           <%= f.input :street, wrapper_html: {class: 'contract-user-inputs'} %>
-          <%= f.input :city, wrapper_html: {class: 'contract-user-inputs'} %>
           <%= f.input :zipcode, wrapper_html: {class: 'contract-user-inputs'} %>
+          <%= f.input :city, wrapper_html: {class: 'contract-user-inputs'} %>
           <%= f.input :country, label: 'Country', collection: @countries, selected: 'Germany', wrapper_html:{ class: 'contract-user-inputs'} %>
         <% end %>
         <div class="signature-fields d-none">

@@ -14,7 +14,7 @@
     <h3 class="booking-summary-header add-margin-bottom-to-header">Booking Summary</h3>
     <div class="summary-section">
       <div class="summary-item">
-        <span class="category">roomcategory</span>
+        <span class="category">Room Category</span>
         <span><%= booking.room.name %></span>
       </div>
       <div class="summary-item">
@@ -31,32 +31,24 @@
       </div>
     </div>
     <div class="summary-section">
-      <p class="section-header">TOTAL YOU'LL PAY</p>
+      <p class="section-header">Monthly Costs</p>
       <div class="summary-item">
-        <span class="category">Room Price per Month</span>
-        <% if booking.room.price.first % 1 == 0 %>
-          <span><%= booking.room.price.first.to_i %> €</span>
-        <% else %>
-          <span><%= booking.room.price.first %> €</span>
-        <% end %>
+        <span class="category">All-inclusive Monthly Rent</span>
+        <span><%= @price % 1 == 0 ? "#{@price.to_i} €" : "#{@price.to_i} €" %></span>
       </div>
       <div class="summary-item">
         <span class="category">Deposit</span>
-        <% if booking.room.price.first % 1 == 0 %>
-          <span><%= booking.room.price.first.to_i %> €</span>
-        <% else %>
-          <span><%= booking.room.price.first %> €</span>
-        <% end %>
+        <span><%= @price * 2 % 1 == 0 ? "#{@price.to_i * 2} €" : "#{@price * 2} €" %></span>
       </div>
       <div class="summary-item">
         <span class="category">Booking Fee</span>
-        <span>80 €</span>
+        <span><%= @booking_fee %> €</span>
       </div>
     </div>
     <div class="summary-section price-summary">
       <div class="summary-item">
         <span class="total-price">TOTAL TODAY</span>
-        <span>2000€</span>
+        <span><%= @total_today * 2 % 1 == 0 ? "#{@total_today.to_i} €" : "#{@total_today} €" %></span>
       </div>
     </div>
   </div>
