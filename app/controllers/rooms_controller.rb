@@ -79,7 +79,7 @@ class RoomsController < ApplicationController
 
   def find_one_room_of_each_art(project_id)
     room_names = []
-    Project.find(project_id).rooms.each{ |room| room_names << room.name unless room_names.include?(room.name)}
+    Project.find(project_id).rooms.order(:size).each{ |room| room_names << room.name unless room_names.include?(room.name)}
     rooms = []
     room_names.each{ |room_name| rooms << Room.find_by(name: room_name) }
     rooms
