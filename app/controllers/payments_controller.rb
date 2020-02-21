@@ -3,9 +3,9 @@ class PaymentsController < ApplicationController
   before_action :check_booking_auth_token!, :set_booking, :set_price_and_deposit
   layout "bookingprocess", only: [:new]
 
-  def calendar
-    @bookings = Booking.all
-  end
+  # def calendar
+  #   @bookings = Booking.all
+  # end
 
   def new
     # layout booking
@@ -14,6 +14,7 @@ class PaymentsController < ApplicationController
   end
 
   def create
+    raise
     customer = find_stripe_customer(@user)
 
     unless customer.present?
@@ -74,16 +75,16 @@ class PaymentsController < ApplicationController
     duration = (move_out.year - move_in.year) * 12 + move_out.month - move_in.month - (move_out.day >= move_in.day ? 0 : 1)
     if duration <= 5
       @price = @room.price[0]
-      @deposit = @price * 2
     # this eleif only comes in place if we make deposit = @price * 3 when duration > 8
     # elsif duration <= 8
     #   @price = @room.price[1]
     #   @deposit = @price * 2
     else
       @price = @room.price[2]
-      @deposit = @price * 2
     end
-    @total_amount = @deposit + 80
+    @booking_fee = 80
+    @total_today = @booking_fee + (@price * 2)
+    # @total_amount = @deposit + 80
   end
 
   def find_stripe_product(room, flat)

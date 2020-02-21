@@ -16,7 +16,9 @@ class RoomsController < ApplicationController
   def create
     @room = Room.new(rooms_params)
     if @room.save
-      redirect_to @room
+      # create_stripe_product_and_plan(@room, @project)
+      # create Strpe Product if not yet present
+      redirect_to booking_project_room_path(Booking.first, @room.project, @room)
     else
       render :new
     end
@@ -79,7 +81,7 @@ class RoomsController < ApplicationController
 
   def find_one_room_of_each_art(project_id)
     room_names = []
-    Project.find(project_id).rooms.each{ |room| room_names << room.name unless room_names.include?(room.name)}
+    Project.find(project_id).rooms.order(:size).each{ |room| room_names << room.name unless room_names.include?(room.name)}
     rooms = []
     room_names.each{ |room_name| rooms << Room.find_by(name: room_name) }
     rooms
@@ -96,5 +98,29 @@ class RoomsController < ApplicationController
       end
     end
     availability
+  end
+
+  def create_stripe_product_and_plan(room, project)
+    product = Stripe::Product.create(
+      name: "#{room.name.capitalize} #{project.name}",
+      statement_descriptor: "STACEY Rent",
+      type: 'service'
+    )
+    room.price.each_with_index do |price, index|
+      if index.zero?
+        text = '3-5'
+      elsif index == 1
+        text = '6-8'
+      else
+        text = '9+'
+      end
+      Stripe::Plan.create(
+        product: product.id,
+        amount: price * 100,
+        interval: 'month',
+        nickname: "#{room.name} Rent for #{text} Months",
+        currency: "eur"
+      )
+    end
   end
 end
