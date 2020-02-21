@@ -23,6 +23,7 @@
               class: "form-control",
               placeholder: "Find a welcome call"
             %>
+            <%= text_field_tag :time, params[:time], class: 'd-none' %>
             <%= submit_tag "Search", class: "btn btn-primary d-none" %>
           <% end %>
         </div>

@@ -12,7 +12,10 @@ class WelcomeCallsController < ApplicationController
     @time_param_options = ['past', 'upcoming', 'all']
 
     @time_param = params[:time].present? ? params[:time] : 'upcoming'
-    search_param = params[:search] if params[:search]
+    search_param = params[:search] if params[:search] != ''
+    if params[:search] == ''
+      @time_param = 'all'
+    end
     # if search and time
     @welcome_calls = WelcomeCall.order(:start_time).where("start_time >= ? AND available = ?", Time.now, false)
 

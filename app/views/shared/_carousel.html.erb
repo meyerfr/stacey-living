@@ -1,21 +1,27 @@
 <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" data-interval='3000' data-hover="false">
-  <!-- <ol class="carousel-indicators">
+  <ol class="carousel-indicators">
     <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
     <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
     <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-  </ol> -->
+  </ol>
   <div class="carousel-inner">
     <!-- first picture must get class active -->
     <% pictures.each_with_index do |picture, index| %>
       <% if index == 0 %>
         <div class="carousel-item active">
           <!-- must be picture -->
-          <div class="photo" style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('<%= image_path picture, crop: :fill %>');">
+          <!-- <div class="photo" style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('<%= image_path picture.url, crop: :fill %>');">
+          </div> -->
+          <div class="photo">
+            <%= image_tag "#{Rails.root}#{picture.url}", style: 'width: 150px' %>
           </div>
         </div>
       <% else %>
         <div class="carousel-item">
-          <div class="photo" style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('<%= image_path picture, crop: :fill %>');">
+          <!-- <div class="photo" style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('<%= image_path picture.url, crop: :fill %>');">
+          </div> -->
+          <div class="photo">
+            <%= image_tag "#{Rails.root}#{picture.url}", style: 'width: 150px' %>
           </div>
         </div>
       <% end %>

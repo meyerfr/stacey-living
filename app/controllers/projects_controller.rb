@@ -61,7 +61,7 @@ class ProjectsController < ApplicationController
       :zipcode,
       :name,
       :description,
-      pictures: []
+      {pictures: []}
     )
   end
 end
