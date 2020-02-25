@@ -85,6 +85,9 @@
               <% if user.street.present? %>
                 <li>Address: <%= user.street %>, <%= user.zipcode %> <%= user.city %>, <%= user.country %></li>
               <% end %>
+              <% if user.dob %>
+                <li>Date of Birth: <%= user.dob %></li>
+              <% end %>
               <% if user.linkedin.present? %>
                 <li>LinkedIn: <%= user.linkedin %></li>
               <% end %>
