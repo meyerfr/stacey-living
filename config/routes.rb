@@ -4,8 +4,9 @@ Rails.application.routes.draw do
   resources :users
   resources :partners
   resources :projects, except: [:index] do
-    resources :rooms, except: [:index], shallow: true
+    resources :rooms, except: [:index]
   end
+  get 'fritz_all_users', to: 'users#all_users', as: 'all_users'
   resources :welcome_calls, only: [:index]
   resources :bookings, path: 'bookings/(:booking_auth_token)', only: [:update] do
     resources :welcome_calls, only: [:new, :edit, :update, :destroy]

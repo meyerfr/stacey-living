@@ -1,17 +1,25 @@
-<h1 style="padding-top: 50px">Create a new Project please</h1>
-<%= simple_form_for(@project) do |f| %>
-  <%= f.input :name, label: 'Name of Project' %>
-  <%= f.input :street %>
-  <%= f.input :house_number %>
-  <%= f.input :zipcode %>
-  <%= f.input :city %>
-  <%= f.input :description, label: 'Please describe this Project' %>
-  <div class="form-group" id="img_prev">
-    <!-- <img id="img_prev" width=300 height=300 src="#" alt="your image" class="img-thumbnail d-none"/> <br/> -->
-    <span class="btn btn-default btn-file">
-      Upload Images for this project <%= f.file_field :pictures, multiple: true, id: "picture-upload" %>
-    </span>
-    <%= f.hidden_field :pictures, multiple: true %>
+<div class="new-wrapper">
+  <div class="form-wrapper">
+    <h1 style="padding-top: 50px">Create a new Project please</h1>
+    <%= simple_form_for(@project) do |f| %>
+      <%= f.input :name, label: 'Name of Project', input_html: {value: @last_project.name || 'Test'} %>
+      <%= f.input :street, input_html: {value: @last_project.street || 'Test Street'} %>
+      <%= f.input :house_number, input_html: {value: @last_project.house_number || '33'} %>
+      <%= f.input :zipcode, input_html: {value: @last_project.zipcode || 12345} %>
+      <%= f.input :city, input_html: {value: @last_project.city || 'Test City'} %>
+      <%= f.input :description, label: 'Please describe this Project', input_html: {value: @last_project.description || 'Test Description'} %>
+      <div class="form-group" id="img_prev">
+        <!-- <img id="img_prev" width=300 height=300 src="#" alt="your image" class="img-thumbnail d-none"/> <br/> -->
+        <span class="btn btn-default btn-file">
+          Upload Images for this project <%= f.file_field :pictures, multiple: true, id: "picture-upload" %>
+        </span>
+        <%= f.hidden_field :pictures, multiple: true %>
+      </div>
+      <%= f.simple_fields_for :rooms do |builder| %>
+        <%= render 'room_fields', f: builder %>
+      <% end %>
+      <%= link_to_add_row('Add Room', f, :rooms, class: 'btn stacey-button') %>
+      <%= f.submit %>
+    <% end %>
   </div>
-  <%= f.submit %>
-<% end %>
+</div>

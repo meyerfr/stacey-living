@@ -28,20 +28,46 @@ const imagePreview = document.getElementById('img_prev');
 // }
 
 const insertPictures = (event) => {
-  imagePreview.classList.remove('d-none');
+  // imagePreview.classList.remove('d-none');
   if (event.target.files && event.target.files[0]) {
-    var reader = new FileReader();
-
-    reader.readAsDataURL(event.target.files[0])
-
-    reader.onload = function (e) {
-      console.log(e.target.result)
-      // imagePreview.src = e.target.result;
-      imagePreview.insertAdjacentHTML('afterbegin', `<img id="img_prev" width=300 height=300 src=${e.target.result} alt="Project Image" class="img-thumbnail"/>`);
+    var files = event.target.files
+    for (var i = 0; i < files.length; i++) {
+      (function(file) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+          console.log(e)
+          // event.target.files.forEach((file) => {
+          imagePreview.insertAdjacentHTML('afterbegin', `<img id="img_preview" width=300 height=300 src=${e.target.result} alt="Project Image" class="img-thumbnail"/>`);
+          // })
+          //console.log(e.target.result)
+          // imagePreview.src = e.target.result;
+        };
+        reader.readAsDataURL(file)
+      })(files[i]);
     }
   }
-  console.log(event.target);
+  // console.log(event.target)
 };
+
+
+// var files = document.getElementById("images").files;
+
+// for (var i = 0; i < files.length; i++) {
+//   // Closure to capture the file information.
+//   (function(file) {
+//     var reader = new FileReader();
+//     reader.onload = function(e) {
+//       // Render thumbnail.
+//       var span = document.createElement('span');
+//       span.innerHTML = ['<img src="', e.target.result,
+//         '" title="', escape(file.name), '">'
+//       ].join('');
+//       document.getElementById('list').insertBefore(span, null);
+//     };
+//     // Read in the image file as a data URL.
+//     reader.readAsDataURL(file);
+//   })(files[i]);
+// }
 
 
 function previewImages() {

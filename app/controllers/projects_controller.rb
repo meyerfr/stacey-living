@@ -11,6 +11,8 @@ class ProjectsController < ApplicationController
 
   def new
     @project = Project.new
+    # @project.rooms.build
+    @last_project = Project.last
   end
 
   def create
@@ -19,7 +21,7 @@ class ProjectsController < ApplicationController
     @project.street = @project.street.titleize
     @project.city = @project.city.titleize
     if @project.save
-      redirect_to projects_path
+      redirect_to booking_projects_path('sd', Booking.first.id)
     else
       render :new
     end
@@ -61,7 +63,10 @@ class ProjectsController < ApplicationController
       :zipcode,
       :name,
       :description,
-      {pictures: []}
+      {pictures: []},
+      rooms_attributes: [
+        :id, :project_id, :number, :house_number, :size, :description, :name, :amount, {price: []}, {pictures: []}
+      ]
     )
   end
 end

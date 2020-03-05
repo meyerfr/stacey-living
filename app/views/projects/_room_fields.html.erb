@@ -1,0 +1,34 @@
+<div class="one-input">
+  <div class="form-inputs">
+    <%= f.input_field :_destroy, as: :hidden %>
+    <%= link_to '<i class="far fa-trash-alt"></i>'.html_safe, '#', class: 'remove_record' %>
+    <%= f.input :name, label: 'Art of Room', collection: ['Mighty', 'Premium', 'Premium +', 'Jumbo'], selected: 'Mighty', include_blank: false %>
+    <%= f.input :number %>
+    <%= f.input :house_number %>
+    <%= f.input :size, input_html: {value: 12} %>
+    <%= f.input :description, label: 'Please describe this Project', input_html: {value: Room.last.description || 'Test Description Room'} %>
+    <%#= f.fields_for :prices, multiple: true do |price_fields| %>
+
+    <!-- You will need the data-id from the inserted element and change the price name and id with JavaScript. -->
+
+      <%#= f.input :price, label: 'Price for 3-5 Months' %>
+      <%#= f.input :price, label: 'Price for 6-8 Months' %>
+      <%#= f.input :price, label: 'Price for 9+ Months' %>
+    <div class="prices">
+      <%= f.label :price, 'Price for 3-5 Months' %>
+      <%= f.text_field :price %>
+      <%= f.label :price, 'Price for 6-8 Months' %>
+      <%= f.text_field :price %>
+      <%= f.label :price, 'Price for 9+ Months' %>
+      <%= f.text_field :price %>
+    </div>
+    <%# end %>
+    <div class="form-group" id="img_prev">
+      <!-- <img id="img_prev" width=300 height=300 src="#" alt="your image" class="img-thumbnail d-none"/> <br/> -->
+      <span class="btn btn-default btn-file">
+        Upload Images for this Room <%= f.file_field :pictures, multiple: true, id: "picture-upload" %>
+      </span>
+      <%= f.hidden_field :pictures, multiple: true %>
+    </div>
+  </div>
+</div>

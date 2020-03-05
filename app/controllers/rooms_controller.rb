@@ -7,10 +7,13 @@ class RoomsController < ApplicationController
     @booking = Booking.find(params[:booking_id])
     @rooms = find_one_room_of_each_art(params[:project_id])
     @room_availability_hash = find_available_booking_dates_for_each_room_art(@rooms)
+    @project = @rooms.first.project
   end
 
   def new
-    @room = Room.new
+    @project = Project.find(params[:project_id])
+    # @booking = Booking.find(params[:booking_id])
+    @room = @project.rooms.new
   end
 
   def create
@@ -26,9 +29,10 @@ class RoomsController < ApplicationController
 
   def show
     @booking = Booking.find(params[:booking_id])
-    @room = Room.select{|room| room.name.delete(' ').downcase == params[:name].downcase}.first
+    @project = Project.find(params[:project_id])
+    @room = @project.rooms.select{|room| room.name.delete(' ').downcase == params[:name].downcase}.first
     @room_availability = {}
-    Room.all.where(name: @room.name).each do |room|
+    @project.rooms.all.where(name: @room.name).each do |room|
       rooms_last_booking = Booking.all.where(room_id: room.id, state: 'booked').order(:move_out).last
       if rooms_last_booking.present? && rooms_last_booking.move_out >= Date.today
         @room_availability.store(room.id, (rooms_last_booking.move_out + 1.day).strftime('%d.%B %Y')) if !@room_availability.values.include?((rooms_last_booking.move_out + 1.day).strftime('%d.%B %Y'))
@@ -81,9 +85,10 @@ class RoomsController < ApplicationController
 
   def find_one_room_of_each_art(project_id)
     room_names = []
-    Project.find(project_id).rooms.order(:size).each{ |room| room_names << room.name unless room_names.include?(room.name)}
+    project = Project.find(project_id)
+    project.rooms.order(:size).each{ |room| room_names << room.name unless room_names.include?(room.name)}
     rooms = []
-    room_names.each{ |room_name| rooms << Room.find_by(name: room_name) }
+    room_names.each{ |room_name| rooms << project.rooms.find_by(name: room_name) }
     rooms
   end
 
