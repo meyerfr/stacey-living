@@ -1,0 +1,43 @@
+<div class="one-input">
+  <span class="project-room-header">Create a Room</span>
+  <div class="form-inputs">
+    <%= f.input_field :_destroy, as: :hidden %>
+    <%= link_to '<i class="far fa-trash-alt"></i>'.html_safe, '#', class: 'remove_record' %>
+    <%= f.input :name, label: 'Art of Room', collection: ['Mighty', 'Premium', 'Premium +', 'Jumbo'], selected: 'Mighty', include_blank: false %>
+    <%= f.input :number %>
+    <%= f.input :house_number %>
+    <%= f.input :size, input_html: {value: 12} %>
+    <%= f.input :description, label: 'Please describe this Project', input_html: {value: Room.last.description || 'Test Description Room'} %>
+    <div class="prices form-group">
+      <div class="price">
+        <%= f.label :price, 'Price for 3-5 Months' %>
+        <%= f.text_field :price, name: 'project[rooms_attributes][0][price][]', id: "project_rooms_attributes_0_price_0" %>
+      </div>
+      <div class="price">
+        <%= f.label :price, 'Price for 6-8 Months' %>
+        <%= f.text_field :price, name: 'project[rooms_attributes][0][price][]', id: "project_rooms_attributes_0_price_1" %>
+      </div>
+      <div class="price">
+        <%= f.label :price, 'Price for 9+ Months' %>
+        <%= f.text_field :price, name: 'project[rooms_attributes][0][price][]', id: "project_rooms_attributes_0_price_2" %>
+      </div>
+    </div>
+     <div class="form-group img_prev">
+      <%= f.label :pictures, 'Upload project images' %>
+      <div class="pictures d-flex"></div>
+      <%= f.file_field :pictures, multiple: true, class: "picture-upload", id: 'project_rooms_attributes_0_pictures_button' %>
+      <%= f.hidden_field :pictures, multiple: true, id: 'project_rooms_attributes_0_pictures_hidden' %>
+    </div>
+  </div>
+  <%= f.simple_fields_for :roomAmenities do |pa| %>
+    <%= pa.label 'Choose Rooms Amenities' %>
+    <div class="project-amenities">
+      <% @amenities.each_with_index do |amenity, index| %>
+        <label>
+          <%= pa.check_box("amenity_id", { name: "project[rooms_attributes][0][roomAmenities][#{index}][amenity_id]", id: "project_rooms_attributes_0_roomAmenities_#{index}_amenity_id" }, amenity.id, nil) %>
+          <%= amenity.title %>
+        </label>
+      <% end %>
+    </div>
+  <% end %>
+</div>
