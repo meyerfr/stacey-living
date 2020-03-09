@@ -5,14 +5,14 @@
   </div>
   <div class="cards-container">
     <%# 8.times do %>
-    <% @projects.each do |project| %>
+    <% @projects.each_with_index do |project, index| %>
       <div class="stacey-card flat-card">
-        <%= render 'shared/carousel', pictures: project.pictures, index: 0 %>
+        <%= render 'shared/carousel', pictures: project.pictures, index: index %>
         <div class="stacey-card-header">
           <span class="name"><%= project.name %></span>
           <div class="price">
             <span class="small">from</span>
-            <span>800 €</span>
+            <span><%= project.rooms.find_by(name: 'Mighty').price[0].to_i %> €</span>
           </div>
         </div>
         <%= render 'shared/amenities', amenities: project.amenities %>

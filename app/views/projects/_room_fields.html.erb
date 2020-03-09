@@ -31,4 +31,21 @@
       <%= f.hidden_field :pictures, multiple: true %>
     </div>
   </div>
+  <%= f.simple_fields_for :projectAmenities do |pa| %>
+    <div class="project-amenities">
+      <% @amenities.each_with_index do |amenity, index| %>
+        <%#= pa.input :project_id, as: :hidden, label: false, :input_html => { :value => @project.id, name: "project[project_amenities_attributes][#{index}][project_id]", id: "project_project_amenities_attributes_#{index}_project_id" } %>
+        <!-- check_box("gooddog", {}, "yes", "no") -->
+        <%= pa.check_box("amenity_id", { }, amenity.id, nil) %>
+        <%#= pa.check_box :amenity_id, value: amenity.id, name: "project[project_amenities_attributes][#{index}][amenity_id]", id: "project_amenities_attributes_#{index}_amenity_id" %>
+        <%= pa.label amenity.title %>
+      <% end %>
+      <%#= f.collection_check_boxes :project_amenities, @amenities, :id, :title, checked: false do |b| %>
+        <!-- <span> -->
+          <%#= b.check_box %>
+          <%#= b.label %>
+        <!-- </span> -->
+      <%# end %>
+    </div>
+  <% end %>
 </div>

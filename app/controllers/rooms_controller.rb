@@ -79,7 +79,8 @@ class RoomsController < ApplicationController
       :size,
       :description,
       price: [],
-      pictures: []
+      pictures: [],
+      room_amenities_attributes: [:amenity_id]
     )
   end
 
