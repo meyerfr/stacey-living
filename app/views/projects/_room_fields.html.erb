@@ -11,21 +11,22 @@
     <div class="prices form-group">
       <div class="price">
         <%= f.label :price, 'Price for 3-5 Months' %>
-        <%= f.text_field :price %>
+        <%= f.text_field :price, name: 'project[rooms_attributes][0][price][]', id: "project_rooms_attributes_0_price_0" %>
       </div>
       <div class="price">
         <%= f.label :price, 'Price for 6-8 Months' %>
-        <%= f.text_field :price %>
+        <%= f.text_field :price, name: 'project[rooms_attributes][0][price][]', id: "project_rooms_attributes_0_price_1" %>
       </div>
       <div class="price">
         <%= f.label :price, 'Price for 9+ Months' %>
-        <%= f.text_field :price %>
+        <%= f.text_field :price, name: 'project[rooms_attributes][0][price][]', id: "project_rooms_attributes_0_price_2" %>
       </div>
     </div>
-     <div class="form-group" id="img_prev">
+     <div class="form-group img_prev">
       <%= f.label :pictures, 'Upload project images' %>
-      <%= f.file_field :pictures, multiple: true, id: "picture-upload" %>
-      <%= f.hidden_field :pictures, multiple: true %>
+      <div class="pictures d-flex"></div>
+      <%= f.file_field :pictures, multiple: true, class: "picture-upload", id: 'project_rooms_attributes_0_pictures_button' %>
+      <%= f.hidden_field :pictures, multiple: true, id: 'project_rooms_attributes_0_pictures_hidden' %>
     </div>
   </div>
   <%= f.simple_fields_for :roomAmenities do |pa| %>
@@ -33,7 +34,7 @@
     <div class="project-amenities">
       <% @amenities.each_with_index do |amenity, index| %>
         <label>
-          <%= pa.check_box("amenity_id", { }, amenity.id, nil) %>
+          <%= pa.check_box("amenity_id", { name: "project[rooms_attributes][0][roomAmenities][#{index}][amenity_id]", id: "project_rooms_attributes_0_roomAmenities_#{index}_amenity_id" }, amenity.id, nil) %>
           <%= amenity.title %>
         </label>
       <% end %>

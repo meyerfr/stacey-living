@@ -1,4 +1,4 @@
-const imagePreview = document.getElementById('img_prev');
+const imagePreviews = document.querySelectorAll('.img_prev');
 
 // $(function() {
 //   function readURL(input) {
@@ -29,6 +29,7 @@ const imagePreview = document.getElementById('img_prev');
 
 const insertPictures = (event) => {
   // imagePreview.classList.remove('d-none');
+  var target = event.currentTarget
   if (event.target.files && event.target.files[0]) {
     var files = event.target.files
     for (var i = 0; i < files.length; i++) {
@@ -37,7 +38,7 @@ const insertPictures = (event) => {
         reader.onload = function (e) {
           console.log(e)
           // event.target.files.forEach((file) => {
-          imagePreview.insertAdjacentHTML('afterbegin', `<img id="img_preview" width=300 height=300 src=${e.target.result} alt="Project Image" class="img-thumbnail"/>`);
+          target.previousElementSibling.insertAdjacentHTML('afterbegin', `<img width=300 height=300 src=${e.target.result} alt="Project Image" class="img-thumbnail"/>`);
           // })
           //console.log(e.target.result)
           // imagePreview.src = e.target.result;
@@ -71,11 +72,13 @@ const insertPictures = (event) => {
 
 
 function previewImages() {
-  if (imagePreview) {
-    document.getElementById('picture-upload').addEventListener('change', insertPictures)
+  if (imagePreviews) {
+    document.querySelectorAll('.picture-upload').forEach((upload) => {
+      upload.addEventListener('change', insertPictures)
+    })
   }
 };
 
 export { previewImages };
-
+export { insertPictures };
 // <img id="img_prev" width=300 height=300 src="#" alt="your image" class="img-thumbnail d-none"/> <br/>

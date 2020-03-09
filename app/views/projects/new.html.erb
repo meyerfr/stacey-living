@@ -12,11 +12,12 @@
         <%= f.input :zipcode, input_html: {value: @last_project.zipcode || 12345} %>
       </div>
       <%= f.input :description, label: 'Please describe this Project', input_html: {value: @last_project.description || 'Test Description'} %>
-      <div class="form-group" id="img_prev">
+      <div class="form-group img_prev">
         <!-- <img id="img_prev" width=300 height=300 src="#" alt="your image" class="img-thumbnail d-none"/> <br/> -->
         <%= f.label :pictures, 'Upload project images' %>
-        <%= f.file_field :pictures, multiple: true, id: "picture-upload" %>
-        <%= f.hidden_field :pictures, multiple: true %>
+        <div class="pictures d-flex"></div>
+        <%= f.file_field :pictures, multiple: true, class: "picture-upload", id: 'project_pictures_button' %>
+        <%= f.hidden_field :pictures, multiple: true, id: 'project_pictures_hidden' %>
       </div>
       <%= f.simple_fields_for :projectAmenities do |pa| %>
         <%= pa.label 'Choose Projects Amenities' %>

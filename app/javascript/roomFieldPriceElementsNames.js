@@ -1,3 +1,5 @@
+import { insertPictures } from 'imagePreview'
+
 const changeRoomFieldNames = event => {
   var previousInput = event.currentTarget.previousElementSibling;
   var correctPriceElementName = previousInput.querySelector('.hidden').name.replace('[_destroy]', '[price]');
@@ -15,6 +17,9 @@ const changeRoomFieldNames = event => {
     amenityElements[i].name = correctAmenityElementName + `[${i}][amenity_id]`
     amenityElements[i].id = correctAmenityElementId + `_${i}_amenity_id`
   }
+
+  // addEventListener to Picture Upload
+  previousInput.querySelector('.picture-upload').addEventListener('change', insertPictures)
 }
 
 function checkPricesNames() {
