@@ -79,6 +79,7 @@
                       <li>Prefered Suites: <%= user.prefered_suite.join(', ') %></li>
                       <li>moves in <%= user.amount_of_people == 1 ? 'alone' : 'as a couple' %></li>
                       <li>Job: <%= user.job %></li>
+                      <li>DOB: <%= user.dob %></li>
                       <% if user.linkedin.present? %>
                         <li>LinkedIn: <%= user.linkedin %></li>
                       <% end %>

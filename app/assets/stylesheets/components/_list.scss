@@ -98,8 +98,14 @@
           }
         }
         .list-detail{
+          position: relative;
           ul{
             list-style: none;
+            .edit-user-button{
+              position: absolute;
+              right: 20px;
+              bottom: 0;
+            }
           }
         }
       }

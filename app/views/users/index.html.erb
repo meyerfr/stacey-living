@@ -101,6 +101,7 @@
                 <li>Booking Id: <%= Booking.find_by(user_id: user.id).id %></li>
               <% end %>
               <li>Applied on the <%= user.created_at.strftime("%d.%B %Y") %></li>
+              <%= link_to "Edit #{user.first_name}", edit_user_path(user), class: 'edit-user-button stacey-button' %>
             </ul>
           </div>
         </div>
