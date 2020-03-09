@@ -34,7 +34,7 @@
     <div class="project-amenities">
       <% @amenities.each_with_index do |amenity, index| %>
         <label>
-          <%= pa.check_box("amenity_id", { name: "project[rooms_attributes][0][roomAmenities][#{index}][amenity_id]", id: "project_rooms_attributes_0_roomAmenities_#{index}_amenity_id" }, amenity.id, nil) %>
+          <%= pa.check_box("amenity_id", { name: "project[rooms_attributes][0][room_amenities_attributes][#{index}][amenity_id]", id: "project_rooms_attributes_0_room_amenities_attributes_#{index}_amenity_id" }, amenity.id, nil) %>
           <%= amenity.title %>
         </label>
       <% end %>
