@@ -12,6 +12,7 @@ class RoomsController < ApplicationController
 
   def new
     @project = Project.find(params[:project_id])
+    @amenities = Amenity.all
     # @booking = Booking.find(params[:booking_id])
     @room = @project.rooms.new
   end

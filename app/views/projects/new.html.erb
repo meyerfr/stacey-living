@@ -1,7 +1,7 @@
 <h3 class="list-header">Create a new Project</h3>
 <div class="list-position">
   <div class="list-wrapper">
-    <%= simple_form_for(@project) do |f| %>
+    <%= simple_form_for @project, html: { class: 'new-form' } do |f| %>
       <%= f.input :name, label: 'Name of Project', input_html: {value: @last_project.name || 'Test'} %>
       <div class="inline">
         <%= f.input :street, input_html: {value: @last_project.street || 'Test Street'} %>

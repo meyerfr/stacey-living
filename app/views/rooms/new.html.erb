@@ -1,31 +1,11 @@
-<h1 style="padding-top: 50px">Create a new Room please</h1>
-<!-- have to know how many of these rooms must be created -->
-<!-- how many?  and then render as many input fieds for  -->
-<%= simple_form_for @room, url: booking_project_rooms_path('sd', Booking.first, @project) do |f| %>
-  <%= f.input :number, label: 'What´s the roomnumber?' %>
-  <%= f.input :name, label: 'Art of Room' %>
-  <%= f.input :size %>
-  <%= f.input :description, label: 'Please describe this Project' %>
-  <div class="prices">
-    <%= f.label :price, 'Price for 3-5 Months' %>
-    <%= f.text_field :price %>
-    <%= f.label :price, 'Price for 6-8 Months' %>
-    <%= f.text_field :price %>
-    <%= f.label :price, 'Price for 9+ Months' %>
-    <%= f.text_field :price %>
+<h3 class="list-header">Create more Rooms for <%= @project.name %></h3>
+<div class="list-position">
+  <div class="list-wrapper">
+    <%= simple_form_for @room, url: booking_project_rooms_path('sd', Booking.first, @project), html: {class: 'new-form'} do |f| %>
+      <%= render 'projects/room_fields', f: f %>
+      <div class="form-actions">
+        <%= f.submit class: 'stacey-button reverse-hover' %>
+      </div>
+    <% end %>
   </div>
-  <%#= f.input :price, as: :array, label: 'price for 3-5 Months' %>
-  <%#= f.input :price, as: :array, label: 'price for 6-8 Months' %>
-  <%#= f.input :price, as: :array, label: 'price for 9+ Months' %>
-  <%#= f.input :amenities, as: :array, label: 'Amentity' %>
-  <%#= f.input :amenities, as: :array, label: 'Amentity' %>
-  <%#= f.input :amenities, as: :array, label: 'Amentity' %>
-  <%#= f.input :amenities, as: :array, label: 'Amentity' %>
-  <%#= f.input :amenities, as: :array, label: 'Amentity' %>
-  <%#= f.input :amenities, as: :array, label: 'Amentity' %>
-  <%#= f.input :amenities, as: :array, label: 'Amentity' %>
-  <%#= f.input :amenities, as: :array, label: 'Amentity' %>
-  <%= f.label :pictures %>
-  <%= f.file_field :pictures, multiple: true %>
-  <%= f.submit 'create Room' %>
-<% end %>
+</div>

@@ -13,9 +13,15 @@ const addFields = event => {
   regexp = new RegExp(event.currentTarget.dataset.id, 'g');
   const target = event.currentTarget;
   // var insertIn = target.parentElement.lastElementChild; //field where the new form-field must be inserted
-  target.insertAdjacentHTML('beforebegin', event.currentTarget.dataset.fields.replace(regexp, time)); //insert form-field
-  var insertedRemoveButton = target.previousElementSibling.querySelector('.remove_record'); //inserted Remove_record Button
+  target.parentElement.insertAdjacentHTML('beforebegin', event.currentTarget.dataset.fields.replace(regexp, time)); //insert form-field
+  var insertedRemoveButton = target.parentElement.previousElementSibling.querySelector('.remove_record'); //inserted Remove_record Button
   if (insertedRemoveButton) insertedRemoveButton.addEventListener('click', removeRecord);
+
+  target.parentElement.previousElementSibling.scrollIntoView({behavior: "smooth", block: "start"});
+  // console.log(target.offsetTop)
+  // console.log(target.offsetTop - target.offsetHeight)
+  // window.scrollTo(0, target.offsetTop - target.offsetHeight);
+  return event.preventDefault();
 }
 
 

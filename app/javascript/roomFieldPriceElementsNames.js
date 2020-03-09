@@ -1,7 +1,7 @@
 import { insertPictures } from 'imagePreview'
 
 const changeRoomFieldNames = event => {
-  var previousInput = event.currentTarget.previousElementSibling;
+  var previousInput = event.currentTarget.parentElement.previousElementSibling;
   var correctPriceElementName = previousInput.querySelector('.hidden').name.replace('[_destroy]', '[price]');
   var correctPriceElementId = previousInput.querySelector('.hidden').id.replace('_destroy', 'price');
   var priceElements = previousInput.querySelector('.prices').querySelectorAll('input');
