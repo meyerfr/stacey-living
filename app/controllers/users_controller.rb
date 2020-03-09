@@ -59,6 +59,7 @@ class UsersController < ApplicationController
         users.first_name @@ :search \
         OR users.last_name @@ :search \
         OR users.email @@ :search \
+        OR CONCAT(users.first_name, ' ', users.last_name) @@ :search
       "
       @users = User.where(sql_query, search: "%#{params[:search]}%").order(created_at: :desc)
     end

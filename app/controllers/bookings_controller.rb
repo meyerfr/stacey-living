@@ -6,6 +6,7 @@ class BookingsController < ApplicationController
 
     @room_name_param = params[:room_name].present? ? params[:room_name] : 'all'
     @time_param = params[:time].present? ? params[:time] : 'all'
+    search_param = params[:search] if params[:search].present?
     @bookings = Booking.order(created_at: :desc).select{ |b| b.move_in <= Date.today && b.move_out >= Date.today && b.state == 'booked' }
     if @room_name_param == 'all'
       @room_name = @room_name_param
@@ -24,6 +25,18 @@ class BookingsController < ApplicationController
       @bookings = @bookings.select{ |booking| booking.move_out <= Date.today}
     elsif @time_param == 'current'
       @bookings = @bookings.select{ |booking| booking.move_in <= Date.today && booking.move_out >= Date.today}
+    end
+
+    if search_param
+      sql_query = " \
+        users.first_name @@ :search \
+        OR users.last_name @@ :search \
+        OR users.email @@ :search \
+        OR CONCAT(users.first_name, ' ', users.last_name) @@ :search
+      "
+      users = User.where(sql_query, search: "%#{params[:search]}%")
+
+      @bookings = Booking.order(created_at: :desc).select{|b| users.include?(b.user) }
     end
 
     @all_room_names = find_all_room_names
