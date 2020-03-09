@@ -1,0 +1,61 @@
+.new-form{
+  padding: 16px 24px;
+  position: relative;
+  .inline{
+    display: flex;
+    .form-group:first-child{
+      width: -webkit-fill-available;
+    }
+    .form-group:last-child{
+      width: max-content;
+    }
+  }
+  .project-amenities{
+    display: flex;
+    flex-wrap: wrap;
+    label{
+      margin: 0 13px 0.5rem;
+    }
+  }
+  textarea{
+    height: 200px;
+  }
+  .img_prev{
+    display: flex;
+    flex-direction: column;
+  }
+  label{
+    abbr[title="required"]{
+      display: none;
+    }
+  }
+  .project-room-header{
+    display: flex;
+    justify-content: center;
+    text-decoration: underline;
+    font-size: 18px;
+    border-top: 1px solid lightgray;
+    margin-top: 15px;
+    padding-top: 15px;
+  }
+  .prices{
+    display: flex;
+    justify-content: space-between;
+    input{width: 90px;}
+  }
+  .form-inputs{
+    position: relative;
+    .remove_record{
+      position: absolute;
+      color: $stacey-pink;
+      right: 0;
+    }
+  }
+  .form-actions{
+    margin-top: 25px;
+    .create-project-button{
+      position: absolute;
+      right: 26px;
+    }
+  }
+}

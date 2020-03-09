@@ -10,6 +10,9 @@ import { addCoupleOption } from '../applyCoupleSection';
 import { infoOnHovering } from '../hover_effect_for_info'
 import { checkBookingFormDuration } from '../bookingFormCheck'
 import { signing } from '../signingProcess'
+import { previewImages } from '../imagePreview'
+import { fieldHandler } from '../fieldHandler'
+import { checkPricesNames } from '../roomFieldPriceElementsNames'
 
 stripeProcess();
 onlyOneBox();
@@ -22,3 +25,6 @@ addCoupleOption();
 infoOnHovering();
 checkBookingFormDuration();
 signing();
+previewImages();
+fieldHandler();
+checkPricesNames();

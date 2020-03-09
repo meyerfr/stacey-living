@@ -1,2 +1,23 @@
-<h1>Users#edit</h1>
-<p>Find me in app/views/users/edit.html.erb</p>
+<h3 class="list-header">Update <%= @user.full_name %></h3>
+<div class="list-position">
+  <div class="list-wrapper">
+    <%= simple_form_for @user, html: { class: 'new-form', id: 'edit-user' } do |f| %>
+      <%= f.input :first_name %>
+      <%= f.input :last_name %>
+      <%= f.input :email %>
+      <%= f.input :dob, as: :date, order: [:day, :month, :year], start_year: Date.today.year - 70, end_year: Date.today.year - 18, label: 'Date Of Birth' %>
+      <div class="inline-phone">
+        <%= f.input :phone_code, label: 'CODE', collection: @phone_code %>
+        <%= f.input :phone_number %>
+      </div>
+      <%= f.input :street %>
+      <div class="inline">
+        <%= f.input :city %>
+        <%= f.input :zipcode %>
+      </div>
+      <%= f.input :country, collection: @countries, selected: @user.country || 'Germany' %>
+      <%= f.input :role, collection: ['Applicant', 'Admin', 'Superadmin'] %>
+      <%= f.submit class: 'stacey-button' %>
+    <% end %>
+  </div>
+</div>

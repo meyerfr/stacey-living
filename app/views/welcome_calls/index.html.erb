@@ -23,6 +23,7 @@
               class: "form-control",
               placeholder: "Find a welcome call"
             %>
+            <%= text_field_tag :time, params[:time], class: 'd-none' %>
             <%= submit_tag "Search", class: "btn btn-primary d-none" %>
           <% end %>
         </div>
@@ -78,6 +79,7 @@
                       <li>Prefered Suites: <%= user.prefered_suite.join(', ') %></li>
                       <li>moves in <%= user.amount_of_people == 1 ? 'alone' : 'as a couple' %></li>
                       <li>Job: <%= user.job %></li>
+                      <li>DOB: <%= user.dob %></li>
                       <% if user.linkedin.present? %>
                         <li>LinkedIn: <%= user.linkedin %></li>
                       <% end %>

@@ -1,7 +1,9 @@
 <%= render 'shared/three_steps_navbar', step: 1 %>
 <%#= render 'shared/carousel', pictures: @room.pictures %>
 
-<div class="carousel-test" style="min-width: 100vw; min-height: 380px; background: black;"></div>
+<div class="header-carousel">
+  <%= render 'shared/carousel', pictures: @project.pictures, index: 0 %>
+</div>
 
 <div class="wrap-room-show-and-booking-form">
   <div class="room-show-wrapper">

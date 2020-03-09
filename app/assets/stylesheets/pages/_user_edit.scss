@@ -1,0 +1,13 @@
+#edit-user{
+  .inline-phone{
+    display: flex;
+    .form-group:first-child{
+      width: auto;
+      min-width: 70px;
+    }
+    .form-group:last-child{
+      width: -webkit-fill-available;
+      min-width: 220px;
+    }
+  }
+}
