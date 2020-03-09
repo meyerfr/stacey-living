@@ -1,4 +1,5 @@
 <div class="one-input">
+  <span class="project-room-header">Create a Room</span>
   <div class="form-inputs">
     <%= f.input_field :_destroy, as: :hidden %>
     <%= link_to '<i class="far fa-trash-alt"></i>'.html_safe, '#', class: 'remove_record' %>
@@ -7,45 +8,35 @@
     <%= f.input :house_number %>
     <%= f.input :size, input_html: {value: 12} %>
     <%= f.input :description, label: 'Please describe this Project', input_html: {value: Room.last.description || 'Test Description Room'} %>
-    <%#= f.fields_for :prices, multiple: true do |price_fields| %>
-
-    <!-- You will need the data-id from the inserted element and change the price name and id with JavaScript. -->
-
-      <%#= f.input :price, label: 'Price for 3-5 Months' %>
-      <%#= f.input :price, label: 'Price for 6-8 Months' %>
-      <%#= f.input :price, label: 'Price for 9+ Months' %>
-    <div class="prices">
-      <%= f.label :price, 'Price for 3-5 Months' %>
-      <%= f.text_field :price %>
-      <%= f.label :price, 'Price for 6-8 Months' %>
-      <%= f.text_field :price %>
-      <%= f.label :price, 'Price for 9+ Months' %>
-      <%= f.text_field :price %>
+    <div class="prices form-group">
+      <div class="price">
+        <%= f.label :price, 'Price for 3-5 Months' %>
+        <%= f.text_field :price %>
+      </div>
+      <div class="price">
+        <%= f.label :price, 'Price for 6-8 Months' %>
+        <%= f.text_field :price %>
+      </div>
+      <div class="price">
+        <%= f.label :price, 'Price for 9+ Months' %>
+        <%= f.text_field :price %>
+      </div>
     </div>
-    <%# end %>
-    <div class="form-group" id="img_prev">
-      <!-- <img id="img_prev" width=300 height=300 src="#" alt="your image" class="img-thumbnail d-none"/> <br/> -->
-      <span class="btn btn-default btn-file">
-        Upload Images for this Room <%= f.file_field :pictures, multiple: true, id: "picture-upload" %>
-      </span>
+     <div class="form-group" id="img_prev">
+      <%= f.label :pictures, 'Upload project images' %>
+      <%= f.file_field :pictures, multiple: true, id: "picture-upload" %>
       <%= f.hidden_field :pictures, multiple: true %>
     </div>
   </div>
-  <%= f.simple_fields_for :projectAmenities do |pa| %>
+  <%= f.simple_fields_for :roomAmenities do |pa| %>
+    <%= pa.label 'Choose Rooms Amenities' %>
     <div class="project-amenities">
       <% @amenities.each_with_index do |amenity, index| %>
-        <%#= pa.input :project_id, as: :hidden, label: false, :input_html => { :value => @project.id, name: "project[project_amenities_attributes][#{index}][project_id]", id: "project_project_amenities_attributes_#{index}_project_id" } %>
-        <!-- check_box("gooddog", {}, "yes", "no") -->
-        <%= pa.check_box("amenity_id", { }, amenity.id, nil) %>
-        <%#= pa.check_box :amenity_id, value: amenity.id, name: "project[project_amenities_attributes][#{index}][amenity_id]", id: "project_amenities_attributes_#{index}_amenity_id" %>
-        <%= pa.label amenity.title %>
+        <label>
+          <%= pa.check_box("amenity_id", { }, amenity.id, nil) %>
+          <%= amenity.title %>
+        </label>
       <% end %>
-      <%#= f.collection_check_boxes :project_amenities, @amenities, :id, :title, checked: false do |b| %>
-        <!-- <span> -->
-          <%#= b.check_box %>
-          <%#= b.label %>
-        <!-- </span> -->
-      <%# end %>
     </div>
   <% end %>
 </div>
