@@ -51,15 +51,19 @@ class User < ApplicationRecord
   end
 
   def user?
-    role == 'User'
+    role == 'user'
   end
 
   def admin?
-    role == 'Admin'
+    role == 'admin'
   end
 
-  def superadmin?
-    role == 'Superadmin'
+  def tenant?
+    role == 'tenant'
+  end
+
+  def applicant?
+    role == 'applicant'
   end
 
   private
