@@ -31,7 +31,7 @@ class RoomsController < ApplicationController
   def show
     @booking = Booking.find(params[:booking_id])
     @project = Project.find(params[:project_id])
-    @room = @project.rooms.select{|room| room.name.delete(' ').downcase == params[:name].downcase}.first
+    @room = @project.rooms.select{|room| room.name.delete(' ').downcase == params[:name].delete(' ').downcase}.first
     @room_availability = {}
     @project.rooms.all.where(name: @room.name).each do |room|
       rooms_last_booking = Booking.all.where(room_id: room.id, state: 'booked').order(:move_out).last
