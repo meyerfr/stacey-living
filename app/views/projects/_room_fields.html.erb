@@ -25,8 +25,9 @@
      <div class="form-group img_prev">
       <%= f.label :pictures, 'Upload project images' %>
       <div class="pictures d-flex"></div>
-      <%= f.file_field :pictures, multiple: true, class: "picture-upload", id: 'project_rooms_attributes_0_pictures_button' %>
-      <%= f.hidden_field :pictures, multiple: true, id: 'project_rooms_attributes_0_pictures_hidden' %>
+      <%#= f.file_field :pictures, multiple: true, class: "picture-upload", id: 'project_rooms_attributes_0_pictures_button' %>
+      <%#= f.hidden_field :pictures, multiple: true, id: 'project_rooms_attributes_0_pictures_hidden' %>
+      <%= f.input :photos, as: :file, input_html: { multiple: true } %>
     </div>
   </div>
   <%= f.simple_fields_for :roomAmenities do |pa| %>

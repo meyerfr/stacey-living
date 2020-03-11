@@ -1,6 +1,6 @@
 class Room < ApplicationRecord
   # mount_uploaders :pictures, PictureUploader
-  has_many_attached :pictures
+  has_many_attached :photos
   belongs_to :project
   has_many :users, through: :bookings
   has_many :room_amenities, dependent: :destroy
