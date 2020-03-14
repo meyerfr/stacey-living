@@ -65,7 +65,7 @@ class PaymentsController < ApplicationController
   end
 
   def set_price_and_deposit
-    @room = @booking.room
+    @room = @booking.room_attribute.room
     move_in = @booking.move_in
     move_out = @booking.move_out
     duration = (move_out.year - move_in.year) * 12 + move_out.month - move_in.month - (move_out.day >= move_in.day ? 0 : 1)

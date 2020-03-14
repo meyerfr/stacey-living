@@ -18,7 +18,7 @@
         <div class="pictures d-flex"></div>
         <%#= f.file_field :pictures, multiple: true, class: "picture-upload", id: 'project_pictures_button' %>
         <%#= f.hidden_field :pictures, multiple: true, id: 'project_pictures_hidden' %>
-        <%= f.input :photos, as: :file, input_html: { multiple: true } %>
+        <%= f.input :photos, as: :file, label: false, input_html: { multiple: true, class: 'picture-upload' } %>
       </div>
       <%= f.simple_fields_for :projectAmenities do |pa| %>
         <%= pa.label 'Choose Projects Amenities' %>

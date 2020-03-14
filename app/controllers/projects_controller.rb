@@ -77,15 +77,17 @@ class ProjectsController < ApplicationController
       rooms_attributes: [
         :id,
         :project_id,
-        :number,
-        :house_number,
         :size,
         :description,
         :name,
         :amount,
         {price: []},
         {photos: []},
-        room_amenities_attributes: [:amenity_id]
+        room_amenities_attributes: [:amenity_id],
+        room_attributes_attributes: [
+          :number,
+          :house_number
+        ]
       ],
     )
   end

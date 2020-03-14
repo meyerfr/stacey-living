@@ -4,8 +4,6 @@
     <%= f.input_field :_destroy, as: :hidden %>
     <%= link_to '<i class="far fa-trash-alt"></i>'.html_safe, '#', class: 'remove_record' %>
     <%= f.input :name, label: 'Art of Room', collection: ['Mighty', 'Premium', 'Premium +', 'Jumbo'], selected: 'Mighty', include_blank: false %>
-    <%= f.input :number %>
-    <%= f.input :house_number %>
     <%= f.input :size, input_html: {value: 12} %>
     <%= f.input :description, label: 'Please describe this Project', input_html: {value: Room.last.description || 'Test Description Room'} %>
     <div class="prices form-group">
@@ -27,7 +25,7 @@
       <div class="pictures d-flex"></div>
       <%#= f.file_field :pictures, multiple: true, class: "picture-upload", id: 'project_rooms_attributes_0_pictures_button' %>
       <%#= f.hidden_field :pictures, multiple: true, id: 'project_rooms_attributes_0_pictures_hidden' %>
-      <%= f.input :photos, as: :file, input_html: { multiple: true } %>
+      <%= f.input :photos, as: :file, label: false, input_html: { multiple: true, class: 'picture-upload' } %>
     </div>
   </div>
   <%= f.simple_fields_for :roomAmenities do |pa| %>
@@ -41,4 +39,10 @@
       <% end %>
     </div>
   <% end %>
+  <%= f.simple_fields_for :room_attributes do |builder| %>
+    <%= render 'room_attribute_fields', f: builder %>
+  <% end %>
+  <div class="form-actions">
+    <%= link_to_add_row('Add Room', f, :room_attributes, amenities: @amenities, class: 'btn stacey-button') %>
+  </div>
 </div>

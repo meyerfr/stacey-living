@@ -1,7 +1,7 @@
 <%= render 'shared/three_steps_navbar', step: 1 %> <!-- must be step 1 because choosing Project doesn´t count -->
 <!-- this must be the banner of projects pictures -->
 <div class="header-carousel">
-  <%= render 'shared/carousel', pictures: @project.pictures, index: 0 %>
+  <%= render 'shared/carousel', pictures: @project.photos, index: 0 %>
 </div>
 <!-- the quote -->
 
@@ -17,7 +17,7 @@
           <span>Available</span>
           <span><%= @room_availability_hash[room.name] %></span>
         </div>
-        <%= render 'shared/carousel', pictures: room.pictures, index: index + 1 %>
+        <%= render 'shared/carousel', pictures: room.photos, index: index + 1 %>
         <div class="stacey-card-header">
           <span class="name"><%= room.name.titleize %> Suite</span>
           <div class="price">
