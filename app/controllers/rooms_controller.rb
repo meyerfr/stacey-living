@@ -33,12 +33,12 @@ class RoomsController < ApplicationController
     @project = Project.find(params[:project_id])
     @room = @project.rooms.select{|room| room.name.delete(' ').downcase == params[:name].delete(' ').downcase}.first
     @room_availability = {}
-    @project.rooms.all.where(name: @room.name).each do |room|
-      rooms_last_booking = Booking.all.where(room_id: room.id, state: 'booked').order(:move_out).last
+    @project.rooms.all.where(name: @room.name).first.room_attributes.each do |room_attribute|
+      rooms_last_booking = Booking.all.where(room_attribute_id: room_attribute.id, state: 'booked').order(:move_out).last
       if rooms_last_booking.present? && rooms_last_booking.move_out >= Date.today
-        @room_availability.store(room.id, (rooms_last_booking.move_out + 1.day).strftime('%d.%B %Y')) if !@room_availability.values.include?((rooms_last_booking.move_out + 1.day).strftime('%d.%B %Y'))
+        @room_availability.store(room_attribute.id, (rooms_last_booking.move_out + 1.day).strftime('%d.%B %Y')) if !@room_availability.values.include?((rooms_last_booking.move_out + 1.day).strftime('%d.%B %Y'))
       else
-        @room_availability.store(room.id, Date.tomorrow.strftime('%d.%B %Y')) if !@room_availability.values.include?(Date.tomorrow.strftime('%d.%B %Y'))
+        @room_availability.store(room_attribute.id, Date.tomorrow.strftime('%d.%B %Y')) if !@room_availability.values.include?(Date.tomorrow.strftime('%d.%B %Y'))
       end
     end
 
@@ -97,7 +97,7 @@ class RoomsController < ApplicationController
   def find_available_booking_dates_for_each_room_art(rooms)
     availability = {}
     rooms.each do |room|
-      lastBookingId = Booking.select{ |b| b.state == 'booked' && b.move_out >= Date.today && b.room.name.delete(' ').downcase == room.name.delete(' ').downcase if b.room.present? }.last
+      lastBookingId = Booking.select{ |b| b.state == 'booked' && b.move_out >= Date.today && b.room_attribute.room.name.delete(' ').downcase == room.name.delete(' ').downcase if b.room_attribute.present? }.last
       if lastBookingId.present?
         availability.store(room.name, (lastBookingId.move_out + 1.day).strftime('%d.%B %Y'))
       else

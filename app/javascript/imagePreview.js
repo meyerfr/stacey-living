@@ -29,16 +29,18 @@ const imagePreviews = document.querySelectorAll('.img_prev');
 
 const insertPictures = (event) => {
   // imagePreview.classList.remove('d-none');
-  var target = event.currentTarget
+  // console.log(event.target)
   if (event.target.files && event.target.files[0]) {
     var files = event.target.files
     for (var i = 0; i < files.length; i++) {
       (function(file) {
         var reader = new FileReader();
+        var target = event.target;
         reader.onload = function (e) {
           console.log(e)
+          console.log(target)
           // event.target.files.forEach((file) => {
-          target.previousElementSibling.insertAdjacentHTML('afterbegin', `<img width=300 height=300 src=${e.target.result} alt="Project Image" class="img-thumbnail"/>`);
+          target.parentElement.previousElementSibling.insertAdjacentHTML('afterbegin', `<img width=300 height=300 src=${e.target.result} alt="Project Image" class="img-thumbnail"/>`);
           // })
           //console.log(e.target.result)
           // imagePreview.src = e.target.result;

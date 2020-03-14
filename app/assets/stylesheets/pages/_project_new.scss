@@ -23,6 +23,9 @@
   .img_prev{
     display: flex;
     flex-direction: column;
+    .pictures{
+      overflow-y: auto;
+    }
   }
   label{
     abbr[title="required"]{

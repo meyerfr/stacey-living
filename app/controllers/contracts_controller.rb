@@ -7,7 +7,7 @@ class ContractsController < ApplicationController
     # layout booking
     @booking = Booking.find(params[:booking_id])
     @user = @booking.user
-    @room = @booking.room
+    @room = @booking.room_attribute.room
     @project = @room.project
     @contract = @booking.contracts.new
     @countries = ['Australia', 'Austria', 'Belgium', 'Brazil', 'United States', 'China', 'Denmark', 'Finland', 'France', 'Germany', 'Hong Kong', 'Ireland', 'Italy', 'Japan', 'Luxembourg', 'Mexico', 'Netherlands', 'New Zealand', 'Norway', 'Portugal', 'Singapore', 'Spain', 'Sweden', 'Switzerland', 'United Kingdom']
@@ -41,7 +41,7 @@ class ContractsController < ApplicationController
     @booking = Booking.find(params[:booking_id])
     @contract = @booking.contracts.last
     @user = @booking.user
-    @room = @booking.room
+    @room = @booking.room_attribute.room
     @project = @room.project
     respond_to do |format|
       format.html

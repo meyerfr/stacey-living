@@ -7,7 +7,7 @@
     <%# 8.times do %>
     <% @projects.each_with_index do |project, index| %>
       <div class="stacey-card flat-card">
-        <%= render 'shared/carousel', pictures: project.pictures, index: index %>
+        <%= render 'shared/carousel', pictures: project.photos, index: index %>
         <div class="stacey-card-header">
           <span class="name"><%= project.name %></span>
           <div class="price">

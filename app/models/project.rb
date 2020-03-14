@@ -1,5 +1,6 @@
 class Project < ApplicationRecord
-  mount_uploaders :pictures, PictureUploader
+  # mount_uploaders :pictures, PictureUploader
+  has_many_attached :photos
   has_many :rooms, dependent: :destroy
   has_many :project_amenities, dependent: :destroy
   has_many :amenities, through: :project_amenities

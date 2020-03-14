@@ -10,10 +10,31 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_08_114500) do
+ActiveRecord::Schema.define(version: 2020_03_12_152042) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "active_storage_attachments", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "record_type", null: false
+    t.bigint "record_id", null: false
+    t.bigint "blob_id", null: false
+    t.datetime "created_at", null: false
+    t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
+    t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
+  end
+
+  create_table "active_storage_blobs", force: :cascade do |t|
+    t.string "key", null: false
+    t.string "filename", null: false
+    t.string "content_type"
+    t.text "metadata"
+    t.bigint "byte_size", null: false
+    t.string "checksum", null: false
+    t.datetime "created_at", null: false
+    t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
+  end
 
   create_table "amenities", force: :cascade do |t|
     t.string "icon_text"
@@ -22,9 +43,15 @@ ActiveRecord::Schema.define(version: 2020_01_08_114500) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "articles", force: :cascade do |t|
+    t.string "title"
+    t.text "body"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "bookings", force: :cascade do |t|
     t.bigint "user_id"
-    t.bigint "room_id"
     t.date "move_in"
     t.date "move_out"
     t.string "state"
@@ -32,7 +59,8 @@ ActiveRecord::Schema.define(version: 2020_01_08_114500) do
     t.datetime "updated_at", null: false
     t.string "booking_auth_token"
     t.date "booking_auth_token_exp"
-    t.index ["room_id"], name: "index_bookings_on_room_id"
+    t.bigint "room_attribute_id"
+    t.index ["room_attribute_id"], name: "index_bookings_on_room_attribute_id"
     t.index ["user_id"], name: "index_bookings_on_user_id"
   end
 
@@ -86,10 +114,17 @@ ActiveRecord::Schema.define(version: 2020_01_08_114500) do
     t.index ["room_id"], name: "index_room_amenities_on_room_id"
   end
 
-  create_table "rooms", force: :cascade do |t|
-    t.bigint "project_id"
+  create_table "room_attributes", force: :cascade do |t|
     t.string "number"
     t.string "house_number"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "room_id"
+    t.index ["room_id"], name: "index_room_attributes_on_room_id"
+  end
+
+  create_table "rooms", force: :cascade do |t|
+    t.bigint "project_id"
     t.float "price", array: true
     t.string "name"
     t.float "size"
@@ -140,13 +175,15 @@ ActiveRecord::Schema.define(version: 2020_01_08_114500) do
     t.index ["booking_id"], name: "index_welcome_calls_on_booking_id"
   end
 
-  add_foreign_key "bookings", "rooms"
+  add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "bookings", "room_attributes"
   add_foreign_key "bookings", "users"
   add_foreign_key "contracts", "bookings"
   add_foreign_key "project_amenities", "amenities"
   add_foreign_key "project_amenities", "projects"
   add_foreign_key "room_amenities", "amenities"
   add_foreign_key "room_amenities", "rooms"
+  add_foreign_key "room_attributes", "rooms"
   add_foreign_key "rooms", "projects"
   add_foreign_key "welcome_calls", "bookings"
 end

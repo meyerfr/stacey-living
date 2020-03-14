@@ -17,7 +17,7 @@ class ProjectsController < ApplicationController
   end
 
   def create
-    @project = Project.new(projects_params.except(:amenities_ids))
+    @project = Project.new(projects_params)
     @project.name = @project.name.titleize
     @project.street = @project.street.titleize
     @project.city = @project.city.titleize
@@ -71,20 +71,23 @@ class ProjectsController < ApplicationController
       :name,
       :description,
       {pictures: []},
+      {photos: []},
       {amenities_ids: []},
       project_amenities_attributes: [:amenity_id],
       rooms_attributes: [
         :id,
         :project_id,
-        :number,
-        :house_number,
         :size,
         :description,
         :name,
         :amount,
         {price: []},
-        {pictures: []},
-        room_amenities_attributes: [:amenity_id]
+        {photos: []},
+        room_amenities_attributes: [:amenity_id],
+        room_attributes_attributes: [
+          :number,
+          :house_number
+        ]
       ],
     )
   end
