@@ -1,13 +1,13 @@
 GIT
   remote: https://github.com/sinatra/sinatra.git
-  revision: 2527f46bc4cbe3bffedc2a2658e8d737eaa5908b
+  revision: 0348d701adbd8c4450962790cf933151dddc225f
   specs:
-    rack-protection (2.0.8.1)
+    rack-protection (2.1.0)
       rack
-    sinatra (2.0.8.1)
+    sinatra (2.1.0)
       mustermann (~> 1.0)
       rack (~> 2.2)
-      rack-protection (= 2.0.8.1)
+      rack-protection (= 2.1.0)
       tilt (~> 2.0)
 
 GEM
@@ -140,11 +140,11 @@ GEM
       mini_portile2 (~> 2.4.0)
     orm_adapter (0.5.0)
     pg (0.21.0)
-    postmark (1.15.0)
+    postmark (1.20.0)
       json
-    postmark-rails (0.19.0)
+    postmark-rails (0.20.0)
       actionmailer (>= 3.0.0)
-      postmark (~> 1.15.0)
+      postmark (~> 1.15)
     pry (0.12.2)
       coderay (~> 1.1.0)
       method_source (~> 0.9.0)
