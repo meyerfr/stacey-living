@@ -22,7 +22,7 @@
           <span class="name"><%= room.name.titleize %> Suite</span>
           <div class="price">
             <span class="small">from</span>
-            <span>800 €</span> <!-- room.price[0] -->
+            <span><%= room.price[0] % 1 == 0 ? room.price[0].to_i : room.price[0] %> €</span> <!-- room.price[0] -->
           </div>
         </div>
         <%= render 'shared/amenities', amenities: room.amenities %>
@@ -33,7 +33,7 @@
   </div>
 </div>
 <% if current_user.present? && current_user.admin? %>
-  <%= link_to 'Create new Room', new_project_room_path, class: "stacey-button" %>
+  <%= link_to 'Create new Roomtype', new_project_room_path(@project), class: "stacey-button" %>
 <% end %>
 
 <%= render 'shared/footer' %>

@@ -29,17 +29,16 @@
       <div class="stacey-button reverse-hover book-button" id="book-button-overlay">BOOK</div>
       <%#= f.submit 'BOOK', value: room, class: 'stacey-button reverse-hover book-button' %>
     <% end %>
-
   </div>
   <div class="booking-form-section pricing">
     <div class="info-field">
       <!-- this must be the rent of the month -->
       <span class="header">rent per month</span>
-      <span class="content">€ 800 per Month</span>
+      <span class="content"><%= room.price[0] % 1 == 0 ? room.price[0].to_i : room.price[0] %> €</span>
     </div>
     <div class="info-field">
       <span class="header">refundable deposit</span>
-      <span class="content">1 monthly rent</span>
+      <span class="content">2 month rent</span>
     </div>
   </div>
 </div>
