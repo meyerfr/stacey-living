@@ -32,6 +32,6 @@
     <%= render 'room_fields', f: builder, amenities: amenities %>
   <% end %>
   <div class="form-actions">
-    <%= link_to_add_row('Add Roomtype', f, :rooms, amenities, class: 'btn stacey-button add-room-type') %>
+    <%= link_to_add_row('Add Roomtype', f, :rooms, amenities: amenities, class: 'btn stacey-button add-room-type') %>
     <%= f.submit class: 'create-project-button stacey-button reverse-hover' %>
   </div>
