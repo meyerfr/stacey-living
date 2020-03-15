@@ -1,44 +1,6 @@
 <h3 class="list-header">Create a new Project</h3>
 <div class="list-position">
   <div class="list-wrapper">
-    <%= simple_form_for @project, html: { class: 'new-form' } do |f| %>
-      <%= f.input :name, label: 'Name of Project', input_html: {value: @last_project.name || 'Test'} %>
-      <div class="inline">
-        <%= f.input :street, input_html: {value: @last_project.street || 'Test Street'} %>
-        <%= f.input :house_number, input_html: {value: @last_project.house_number || '33'} %>
-      </div>
-      <div class="inline">
-        <%= f.input :city, input_html: {value: @last_project.city || 'Test City'} %>
-        <%= f.input :zipcode, input_html: {value: @last_project.zipcode || 12345} %>
-      </div>
-      <%= f.input :description, label: 'Please describe this Project', input_html: {value: @last_project.description || 'Test Description'} %>
-      <div class="form-group img_prev">
-        <!-- <img id="img_prev" width=300 height=300 src="#" alt="your image" class="img-thumbnail d-none"/> <br/> -->
-        <%= f.label :pictures, 'Upload project images' %>
-        <div class="pictures d-flex"></div>
-        <%#= f.file_field :pictures, multiple: true, class: "picture-upload", id: 'project_pictures_button' %>
-        <%#= f.hidden_field :pictures, multiple: true, id: 'project_pictures_hidden' %>
-        <%= f.input :photos, as: :file, label: false, input_html: { multiple: true, class: 'picture-upload' } %>
-      </div>
-      <%= f.simple_fields_for :projectAmenities do |pa| %>
-        <%= pa.label 'Choose Projects Amenities' %>
-        <div class="project-amenities">
-          <% @amenities.each_with_index do |amenity, index| %>
-            <label>
-              <%= pa.check_box("amenity_id", { name: "project[project_amenities_attributes][#{index}][amenity_id]", id: "project_amenities_attributes_#{index}_amenity_id" }, amenity.id, nil) %>
-              <%= amenity.title %>
-            </label>
-          <% end %>
-        </div>
-      <% end %>
-      <%#= f.collection_check_boxes(:project, @amenities, :title, {}) %>
-      <%= f.simple_fields_for :rooms do |builder| %>
-        <%= render 'room_fields', f: builder %>
-      <% end %>
-      <div class="form-actions">
-        <%= link_to_add_row('Add Roomtype', f, :rooms, amenities: @amenities, class: 'btn stacey-button') %>
-        <%= f.submit class: 'create-project-button stacey-button reverse-hover' %>
-      </div>
-    <% end %>
+    <%= render 'form', project: @project, amenities: @amenities, last_project: @last_project %>
   </div>
 </div>

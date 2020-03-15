@@ -16,6 +16,10 @@ const addFields = event => {
   target.parentElement.insertAdjacentHTML('beforebegin', event.currentTarget.dataset.fields.replace(regexp, time)); //insert form-field
   var insertedRemoveButton = target.parentElement.previousElementSibling.querySelector('.remove_record'); //inserted Remove_record Button
   if (insertedRemoveButton) insertedRemoveButton.addEventListener('click', removeRecord);
+  console.log(target);
+
+  var insertedAddRoomattributeButton = document.querySelector('.add-room-type').parentElement.previousElementSibling.querySelector('.add_fields');
+  if (insertedAddRoomattributeButton) insertedAddRoomattributeButton.addEventListener('click', addFields);
 
   target.parentElement.previousElementSibling.scrollIntoView({behavior: "smooth", block: "start"});
   // console.log(target.offsetTop)
@@ -27,11 +31,11 @@ const addFields = event => {
 
 function fieldHandler() {
   const form = document.querySelector('.simple_form');
-  const addRoomButton = document.querySelector('.add_fields');
+  const addRoomButton = document.querySelectorAll('.add_fields');
   const alreadyPresentRemoveFieldButtons = document.querySelectorAll('.remove_record');
   if (addRoomButton) {
     // form.addEventListener('click', removeRecord)
-    addRoomButton.addEventListener('click', addFields)
+    addRoomButton.forEach((button) => { button.addEventListener('click', addFields) });
     alreadyPresentRemoveFieldButtons.forEach((removeFieldButton) => {
       removeFieldButton.addEventListener('click', removeRecord)
     })

@@ -23,7 +23,7 @@ const changeRoomFieldNames = event => {
 }
 
 function checkPricesNames() {
-  var addRoomButton = document.querySelector('.add_fields');
+  var addRoomButton = document.querySelector('.add-room-type');
   if (addRoomButton) {
     addRoomButton.addEventListener('click', changeRoomFieldNames)
   }
