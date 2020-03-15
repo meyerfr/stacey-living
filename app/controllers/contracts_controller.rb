@@ -18,7 +18,7 @@ class ContractsController < ApplicationController
         page_size: 'A4',
         template: "contracts/_contract.html.erb",
         layout: "pdf.html",
-        zoom: 3
+        zoom: 0.8
       end
     end
   end
@@ -50,7 +50,7 @@ class ContractsController < ApplicationController
         page_size: 'A4',
         template: "contracts/_contract.html.erb",
         layout: "pdf.html",
-        zoom: 3
+        zoom: 0.8
       end
     end
   end
