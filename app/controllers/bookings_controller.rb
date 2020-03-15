@@ -40,7 +40,7 @@ class BookingsController < ApplicationController
     end
 
     @all_room_names = find_all_room_names
-    @available_booking_times = find_available_booking_dates(@bookings)
+    # @available_booking_times = find_available_booking_dates(@bookings)
     respond_to do |format|
       format.html { render 'bookings/index' }
       format.js  # <-- will render `app/views/bookings/index.js.erb`
