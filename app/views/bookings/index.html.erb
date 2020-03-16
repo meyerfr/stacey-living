@@ -47,19 +47,10 @@
           <% end %>
         </div>
       </div>
-      <% @all_room_names.each do |name| %>
-        <% if name == 'all' && @room_name == 'all' %>
-          <div class="between-navbar-line"></div>
-          <div class="navbar-infotext">
-            <span>We have <%= RoomAttribute.count %> Rooms and we currently have <%= Booking.where("move_in <= ? AND move_out >= ? AND state = ?", Date.today, Date.today, 'booked').count %> of them booked.</span>
-          </div>
-        <% elsif @room_name == name && @room_name != 'all' %>
-          <div class="between-navbar-line"></div>
-          <div class="navbar-infotext">
-            <span>We have <%= Room.where(name: name).room_attributes.count %> <%= name %> Rooms and we currently have <%= Booking.select{|b| b.move_in <= Date.today && b.move_out >= Date.today && b.state == 'booked' && b.room_attribute.room.name.delete(' ').downcase == @room_name.delete(' ').downcase }.count %> of them booked.</span>
-          </div>
-        <% end %>
-      <% end %>
+      <div class="between-navbar-line"></div>
+      <div class="navbar-infotext">
+        <span>We have <%= @total_room_number %> <%= @room_name unless @room_name == 'all' %> Rooms and we currently have <%= @total_current_room_bookings %> of them booked.</span>
+      </div>
     </div>
     <div class="list-container">
       <div class="list-context-container">

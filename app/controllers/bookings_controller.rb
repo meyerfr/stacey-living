@@ -9,14 +9,20 @@ class BookingsController < ApplicationController
     search_param = params[:search] if params[:search].present?
     @bookings = Booking.order(created_at: :desc).select{ |b| b.move_in <= Date.today && b.move_out >= Date.today && b.state == 'booked' }
     if @room_name_param == 'all'
+      @total_room_number = RoomAttribute.count
+      @total_current_room_bookings = @bookings.count
+
       @room_name = @room_name_param
       @bookings = Booking.order(created_at: :desc).where(state: 'booked')
       # @bookings = Booking.select{ |booking| booking.move_in >= Date.today && state == nil }
     else
       @room_name = Room.select{ |room| room.name.delete(' ').downcase == @room_name_param.delete(' ').downcase }.first.name
       if @room_name && @bookings.length.positive?
-        @bookings = @bookings.select{ |booking| booking.room_attribute.room.name.delete(' ').downcase == @room_name.downcase }
+        @bookings = @bookings.select{ |booking| booking.room_attribute.room.name.delete(' ').downcase == @room_name.downcase if booking.room_attribute.present? }
       end
+
+      @total_current_room_bookings = @bookings.select{|b| b.room_attribute.room.name.delete(' ').downcase == @room_name.delete(' ').downcase if b.room_attribute.present? }.count
+      @total_room_number = Room.where(name: @room_name).first.room_attributes.count
     end
 
     if @time_param == 'upcoming'
