@@ -16,12 +16,12 @@ class BookingsController < ApplicationController
       @bookings = Booking.order(created_at: :desc).where(state: 'booked')
       # @bookings = Booking.select{ |booking| booking.move_in >= Date.today && state == nil }
     else
-      @room_name = Room.select{ |room| room.name.delete(' ').downcase == @room_name_param.delete(' ').downcase }.first.name
+      @room_name = Room.select{ |room| room.name.downcase == @room_name_param.downcase }.first.name
       if @room_name && @bookings.length.positive?
-        @bookings = @bookings.select{ |booking| booking.room_attribute.room.name.delete(' ').downcase == @room_name.downcase if booking.room_attribute.present? }
+        @bookings = @bookings.select{ |booking| booking.room_attribute.room.name.downcase == @room_name.downcase if booking.room_attribute.present? }
       end
 
-      @total_current_room_bookings = @bookings.select{|b| b.room_attribute.room.name.delete(' ').downcase == @room_name.delete(' ').downcase if b.room_attribute.present? }.count
+      @total_current_room_bookings = @bookings.select{|b| b.room_attribute.room.name.downcase == @room_name.downcase if b.room_attribute.present? }.count
       @total_room_number = Room.where(name: @room_name).first.room_attributes.count
     end
 
@@ -101,7 +101,8 @@ class BookingsController < ApplicationController
 
   def find_all_room_names
     room_names = []
-    Room.all.each{ |room| room_names << room.name unless room_names.include?(room.name)}
+    # order Rooms per size.
+    Room.order(:size).select{ |room| room_names << room.name unless room_names.include?(room.name)}
     room_names.unshift('all')
   end
 end
