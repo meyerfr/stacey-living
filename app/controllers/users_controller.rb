@@ -22,7 +22,7 @@ class UsersController < ApplicationController
     @user.email = @user.email.downcase
     @user.role = 'applicant'
     if @user.save
-      UserMailer.welcome(@booking).deliver_later(wait_until: 20.minutes.from_now)
+      UserMailer.welcome(@user.bookings.last).deliver_later(wait_until: 20.minutes.from_now)
       # redirection to calendar page. Schedule welcome call
       redirect_to new_booking_welcome_call_path(@booking.booking_auth_token, @booking, date: Date.today)
     else
