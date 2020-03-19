@@ -22,11 +22,12 @@ class UsersController < ApplicationController
     @user.email = @user.email.downcase
     @user.role = 'applicant'
     if @user.save
-      UserMailer.welcome(@user.bookings.last).deliver_later(wait_until: 20.minutes.from_now)
+      @booking = @user.bookings.last
+      UserMailer.welcome(@booking.last).deliver_later(wait_until: 20.minutes.from_now)
       # redirection to calendar page. Schedule welcome call
       redirect_to new_booking_welcome_call_path(@booking.booking_auth_token, @booking, date: Date.today)
     else
-      @user.bookings.build
+      @user.bookings.build(booking_auth_token: Devise.friendly_token, booking_auth_token_exp: Date.today+2.weeks)
       render :new
     end
   end
