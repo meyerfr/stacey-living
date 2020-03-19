@@ -8,7 +8,7 @@ class UsersController < ApplicationController
   def new
     @phone_code = %w(+61 +43 +32 +55 +1 +86 +45 +358 +33 +49 +852 +353 +39 +81 +352 +52 +31 +64 +47 +351 +65 +34 +46 +41 +44)
     @user = User.new
-    @user.bookings.new
+    @user.bookings.build(booking_auth_token: Devise.friendly_token, booking_auth_token_exp: Date.today+2.weeks)
   end
 
   def create
@@ -22,21 +22,11 @@ class UsersController < ApplicationController
     @user.email = @user.email.downcase
     @user.role = 'applicant'
     if @user.save
-      # create booking. Validation and correct duration has been checked
-      move_in_helper_array = users_params[:bookings_attributes]['0'].values.first(3).map! { |e| e.to_i }.reverse
-      move_in_date = Date.new(move_in_helper_array[0], move_in_helper_array[1], move_in_helper_array[2])
-      move_out_helper_array = users_params[:bookings_attributes]['0'].values.last(3).map! { |e| e.to_i }.reverse
-      move_out_date = Date.new(move_out_helper_array[0], move_out_helper_array[1], move_out_helper_array[2])
-      @booking = @user.bookings.new(move_in: move_in_date, move_out: move_out_date)
-      @booking.booking_auth_token = Devise.friendly_token
-      @booking.booking_auth_token_exp = Date.today + 2.weeks
-      @booking.save
-
       UserMailer.welcome(@booking).deliver_later(wait_until: 20.minutes.from_now)
       # redirection to calendar page. Schedule welcome call
       redirect_to new_booking_welcome_call_path(@booking.booking_auth_token, @booking, date: Date.today)
     else
-      @user.bookings.new
+      @user.bookings.build
       render :new
     end
   end
@@ -114,7 +104,13 @@ class UsersController < ApplicationController
       :photo,
       gender: [],
       prefered_suite: [],
-      bookings_attributes: Booking.attribute_names.map(&:to_sym).push(:_destroy)
+      bookings_attributes: [
+        :user_id,
+        :move_in,
+        :move_out,
+        :booking_auth_token,
+        :booking_auth_token_exp
+      ]
     )
   end
 end

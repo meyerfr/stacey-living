@@ -1,15 +1,16 @@
 class User < ApplicationRecord
-  attr_accessor :skip_password_validation, :name, :bookings_attributes # virtual attribute to skip password validation while saving
+  attr_accessor :skip_password_validation # virtual attribute to skip password validation while saving
+
   validate :validate_array, on: :create
   validate :move_in_future, on: :create
-  # validate :stay_duration
-  # validate :validate_prefered_suite
-  # validate :validate_gender
+  validate :stay_duration, on: :create
+  validate :validate_prefered_suite
+  validate :validate_gender
   validates :first_name, :last_name, :email, :dob, :phone_number, :job, :amount_of_people, presence: true
 
   has_many :rooms, through: :bookings
   has_many :welcome_calls
-  has_many :bookings, index_errors: true, dependent: :destroy
+  has_many :bookings, dependent: :destroy
   has_many :contracts, through: :bookings
   accepts_nested_attributes_for :bookings, allow_destroy: true
 
@@ -19,8 +20,8 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   def move_in_future
-    move_in_helper_array = bookings_attributes['0'].values.first(3).map! { |e| e.to_i }.reverse
-    move_in = Date.new(move_in_helper_array[0], move_in_helper_array[1], move_in_helper_array[2])
+    # move_in_helper_array = bookings_attributes['0'].values.first(3).map! { |e| e.to_i }.reverse
+    move_in = bookings.first.move_in
     if move_in >= Date.today
       true
     else
@@ -29,10 +30,10 @@ class User < ApplicationRecord
   end
 
   def stay_duration
-    move_in_helper_array = bookings_attributes['0'].values.first(3).map! { |e| e.to_i }.reverse
-    move_in = Date.new(move_in_helper_array[0], move_in_helper_array[1], move_in_helper_array[2])
-    move_out_helper_array = bookings_attributes['0'].values.last(3).map! { |e| e.to_i }.reverse
-    move_out = Date.new(move_out_helper_array[0], move_out_helper_array[1], move_out_helper_array[2])
+    # move_in_helper_array = bookings_attributes['0'].values.first(3).map! { |e| e.to_i }.reverse
+    move_in = bookings.first.move_in
+    # move_out_helper_array = bookings_attributes['0'].values.last(3).map! { |e| e.to_i }.reverse
+    move_out = bookings.first.move_out
     duration = (move_out.year - move_in.year) * 12 + move_out.month - move_in.month - (move_out.day >= move_in.day ? 0 : 1)
     if duration >= 3
       true
