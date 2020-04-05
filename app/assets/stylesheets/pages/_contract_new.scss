@@ -1,5 +1,6 @@
 
 .contract-page-wrapper{
+  margin: 0 50px;
   .contract-page-header{
     text-align: center;
     padding: 20px 10px;
@@ -19,7 +20,7 @@
     justify-content: space-between;
     align-items: center;
     // height: calc(100vh - 133px);
-    margin: 30px 50px 50px;
+    margin: 30px 0px 50px;
     .contract-user-form{
       border: 1px solid #777777;
       border-radius: 5px;
