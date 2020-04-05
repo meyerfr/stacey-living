@@ -1,7 +1,7 @@
 <%= render 'shared/three_steps_navbar', step: 1 %>
 <div class="cards-wrapper">
   <div class="project-choose">
-    <h2>Where Do You Want To Live Next?</h2>
+    <h2>Where do you want to live next?</h2>
   </div>
   <div class="cards-container">
     <%# 8.times do %>
@@ -9,11 +9,11 @@
       <div class="stacey-card flat-card">
         <%= render 'shared/carousel', pictures: project.photos, index: index %>
         <div class="stacey-card-header">
-          <span class="name"><%= project.name %></span>
-          <div class="price">
-            <span class="small">from</span>
-            <span><%= project.rooms.find_by(name: 'Mighty').price[0].to_i %> €</span>
+          <div class="name">
+            <span>STACEY</span>
+            <span><%= project.name %></span>
           </div>
+          <span class="price">from<strong>€<%= project.rooms.find_by(name: 'Mighty').price[0].to_i  %></strong></span>
         </div>
         <%= render 'shared/amenities', amenities: project.amenities %>
         <!-- <div class="amenities">
@@ -26,7 +26,7 @@
           <span class="amenity">Kitchen</span>
           <span class="amenity">Tabletennis</span>
         </div> -->
-        <%= link_to "explore #{project.name}", booking_project_rooms_path(@booking.booking_auth_token, @booking, project), class: 'stacey-card-button stacey-button' %>
+        <%= link_to "Explore", booking_project_rooms_path(@booking.booking_auth_token, @booking, project), class: 'stacey-card-button stacey-button reverse-hover' %>
       </div>
     <% end %>
     <%# end %>

@@ -4,7 +4,10 @@
   <div class="contract-page-container">
     <div class="contract-user-form">
       <i class="fas fa-arrow-left back-arrow change-form d-none"></i>
-      <span class="info-text">There are just a few more information we need to generate the Contract.</span>
+      <span class="info-text">
+        Hi <%= @user.first_name %>, <br>
+        Please complete the following information to generate the rental agreement.
+      </span>
       <div class="line"></div>
       <%= simple_form_for @contract, method: :post, url: booking_contracts_path(@booking) do |m| %>
         <%= m.simple_fields_for :user do |f| %>
@@ -14,10 +17,10 @@
           <%= f.input :country, label: 'Country', collection: @countries, selected: 'Germany', wrapper_html:{ class: 'contract-user-inputs'} %>
         <% end %>
         <div class="signature-fields d-none">
-          <%= m.input :signature, as: :text, class: 'signature-pad' %>
+          <%= m.input :signature, label: 'Please type in your full name', as: :text, class: 'signature-pad' %>
           <%= m.input :signed_date, as: :hidden, input_html: {value: Date.today} %>
         </div>
-        <div class="stacey-button change-form" id="sign-next-button">Next</div>
+        <div class="stacey-button reverse-hover change-form" id="sign-next-button">Next</div>
         <%= m.submit 'Sign Contract', class: 'stacey-button reverse-hover sign-button d-none' %>
       <% end %>
     </div>

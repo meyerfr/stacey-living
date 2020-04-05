@@ -1,6 +1,14 @@
 .project-choose{
   text-align: center;
-  padding: 10px 24px;
+  padding: 20px 10px;
   border-bottom: 1px solid #DADADA;
-  h2{margin: 0;}
+  border-radius: 5px;
+  background: #fd8fb8;
+  color: white;
+  h2{
+    margin: 0;
+    font-size: 45px;
+    text-align: start;
+    font-weight: bolder;
+  }
 }

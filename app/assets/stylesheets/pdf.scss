@@ -134,7 +134,7 @@
     width: 55%;
     margin-left: 22.5%;
     .col{
-      padding: 10px 10px 10px 10px;
+      padding: 10px 0px 10px 10px;
     }
     .border-bottom{
       border-bottom: 1px solid black;
@@ -153,9 +153,6 @@
     }
     .header{
       width: 150px;
-    }
-    .stacey-signature{
-      width: 125px;
     }
   }
   h2{
@@ -185,5 +182,9 @@
   }
   .text-closer{
     margin: 0;
+  }
+  a{
+    color: blue;
+    cursor: default;
   }
 }

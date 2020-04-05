@@ -3,6 +3,7 @@
   <%= link_to "http://www.stacey.de", class: "three-steps-navbar-logo", target: :_blank do %>
     <%= image_tag "stacey_logo_pink.png" %>
   <% end %>
+  <div class="rings-container">
     <% if step == 1 %>
       <span class="ring active"><%= 1 %></span>
       <div class="line"></div>
@@ -11,16 +12,17 @@
       <span class="ring"><%= 3 %></span>
     <% elsif step == 2 %>
       <span class="ring active"><%= 1 %></span>
-      <div class="line active"></div>
+      <div class="line"></div>
       <span class="ring active"><%= 2 %></span>
       <div class="line"></div>
       <span class="ring"><%= 3 %></span>
     <% else %>
       <span class="ring active"><%= 1 %></span>
-      <div class="line active"></div>
+      <div class="line"></div>
       <span class="ring active"><%= 2 %></span>
-      <div class="line active"></div>
+      <div class="line"></div>
       <span class="ring active"><%= 3 %></span>
     <% end %>
+  </div>
   <!-- </div> -->
 </div>

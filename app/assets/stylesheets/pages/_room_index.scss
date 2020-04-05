@@ -6,12 +6,45 @@
   }
 }
 .project-short-description{
-  height: 140px;
   display: flex;
   align-items: center;
-  text-align: center;
-  padding: 0 24%;
-  border-bottom: 1px solid #DADADA;
+  padding: 30px;
+  margin: 0 50px;
+  justify-content: space-between;
+  .location-name{
+    border-right: 1px solid;
+    display: flex;
+    flex-direction: column;
+    font-weight: 500;
+    padding-right: 50px;
+  }
+  .description{
+    width: 85%;
+  }
+}
+.common-space-info{
+  margin: 15px 50px;
+  display: flex;
+  flex-direction: column;
+  .info-header{
+    font-weight: 500;
+    font-size: 24px;
+  }
+  .description{
+    margin-bottom: 10px;
+  }
+  .common-space-amenities{
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 15px;
+    width: 60%;
+    padding: 0;
+    li{
+      width: 50%;
+      text-align: start;
+      list-style: none;
+    }
+  }
 }
 #room-card{
   min-width: 400px;
