@@ -56,7 +56,8 @@ class BookingsController < ApplicationController
   def update
     @booking = Booking.find(params[:id])
     @booking.room_attribute_id = params[:room]
-    # move_in = Booking.select{ |b| b.room.name == @booking.room.name && b.state == nil && b.move_out >= Date.today }.last.move_out + 1.day
+    # update bookings stripe payment plan. Which is room.stripe_product.find_pricing_plan
+    # retrieve all plans of room.stripe_product = Stripe::Plan.list(product: room.stripe_product)
     if @booking.update(bookings_params)
       flash[:alert] = "Booking successfully updated."
       redirect_to new_booking_contract_path(@booking.booking_auth_token, @booking)

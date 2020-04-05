@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_12_152042) do
+ActiveRecord::Schema.define(version: 2020_04_04_103049) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -60,6 +60,7 @@ ActiveRecord::Schema.define(version: 2020_03_12_152042) do
     t.string "booking_auth_token"
     t.date "booking_auth_token_exp"
     t.bigint "room_attribute_id"
+    t.string "stripe_billing_plan"
     t.index ["room_attribute_id"], name: "index_bookings_on_room_attribute_id"
     t.index ["user_id"], name: "index_bookings_on_user_id"
   end
@@ -132,6 +133,7 @@ ActiveRecord::Schema.define(version: 2020_03_12_152042) do
     t.json "pictures"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "stripe_product"
     t.index ["project_id"], name: "index_rooms_on_project_id"
   end
 

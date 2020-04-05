@@ -22,12 +22,6 @@ class ProjectsController < ApplicationController
     @project.street = @project.street.titleize
     @project.city = @project.city.titleize
     if @project.save!
-      # @amenities = projects_params[:amenities_ids].reject(&:empty?).each{|id| @project.project_amenities.create(amenity_id: id)}
-      # @project.rooms.each_with_index do |room, index|
-      #   projects_params[:rooms_attributes].each_with_index do |(key, value), idx|
-      #     room.room_amenities.create()
-      #   end
-      # end
       redirect_to booking_projects_path('sd', Booking.first.id)
     else
       render :new
