@@ -2,8 +2,17 @@
 .contract-page-wrapper{
   .contract-page-header{
     text-align: center;
-    padding: 10px 24px;
+    padding: 20px 10px;
     border-bottom: 1px solid #DADADA;
+    border-radius: 5px;
+    background: #fd8fb8;
+    color: white;
+    h2{
+      margin: 0;
+      font-size: 45px;
+      text-align: start;
+      font-weight: bolder;
+    }
   }
   .contract-page-container{
     display: flex;

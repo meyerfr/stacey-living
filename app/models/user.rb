@@ -4,8 +4,8 @@ class User < ApplicationRecord
   validate :validate_array, on: :create
   validate :move_in_future, on: :create
   validate :stay_duration, on: :create
-  validate :validate_prefered_suite
-  validate :validate_gender
+  validate :validate_prefered_suite, on: :create
+  validate :validate_gender, on: :create
   validates :first_name, :last_name, :email, :dob, :phone_number, :job, :amount_of_people, presence: true
 
   has_many :rooms, through: :bookings

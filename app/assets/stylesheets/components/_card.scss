@@ -12,13 +12,14 @@
     .stacey-card{
       display: flex;
       flex-direction: column;
-      max-width: 400px;
-      width: 25%;
+      width: 400px;
+      // width: 100%;
       position: relative;
       border: 1px solid #c2c2c2;
       background: white;
       margin: 10px 24px 10px 0;
       min-width: 335px;
+      border-radius: 50px;
       .availability{
         position: absolute;
         right: 5px;
@@ -64,6 +65,10 @@
       }
       .photo{
         height: 200px;
+        border-radius: 5px;
+        img{
+          border-radius: 5px;
+        }
       }
       .stacey-card-button{
         align-self: center;
