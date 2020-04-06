@@ -1,0 +1,10 @@
+<%= simple_form_for(@project) do |f| %>
+  <%= f.input :name %>
+  <%= f.input :street %>
+  <%= f.input :house_number %>
+  <%= f.input :description %>
+  <div class="form-group img_prev">
+    <%= f.input :photos, as: :file, label: false, input_html: { multiple: true, class: 'picture-upload'} %>
+  </div>
+  <%= f.submit class: 'stacey-button reverse-hover' %>
+<% end %>
