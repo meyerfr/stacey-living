@@ -10,7 +10,7 @@
     color: white;
     h2{
       margin: 0;
-      font-size: 45px;
+      font-size: 35px;
       text-align: start;
       font-weight: bolder;
     }
@@ -26,9 +26,11 @@
       border-radius: 5px;
       padding: 30px;
       width: 30%;
+      min-height: 280px;
       height: fit-content;
       display: flex;
       flex-direction: column;
+      justify-content: space-between;
       position: relative;
       .back-arrow{
         position: absolute;
