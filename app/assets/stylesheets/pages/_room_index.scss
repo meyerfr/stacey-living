@@ -1,11 +1,13 @@
 .header-carousel{
   margin: 0 50px;
+  position: relative;
   .photo{
     display: flex;
     align-items: center;
     height: 500px;
   }
   .carousel-inner{
+    position: relative;
     border-radius: 5px;
   }
 }

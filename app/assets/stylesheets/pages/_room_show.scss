@@ -30,6 +30,19 @@
       }
     }
   }
+  .room-show-photo{
+    position: relative;
+    a:first-child img{
+      width: 100%;
+      object-fit: fill;
+      height: 420px;
+      margin-bottom: 15px;
+    }
+    a img{
+      height: 100px;
+      border-radius: 5px;
+    }
+  }
 }
 .wrap-room-show-and-booking-form{
   display: flex;

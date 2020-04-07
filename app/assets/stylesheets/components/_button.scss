@@ -33,3 +33,19 @@
   background: transparent;
   color: black;
 }
+
+.lightbox-button{
+  position: absolute;
+  top: 5px;
+  width: 100px;
+  right: 5px;
+  text-align: center;
+  background: #fd8eb8;
+  border-radius: 5px;
+  padding: 5px 0;
+  cursor: pointer;
+  img{
+    width: 50px;
+    height: unset !important;
+  }
+}
