@@ -13,7 +13,7 @@
   <span class="description">A beautiful neighborhood in central Hamburg; everything is here. Find local shops, restaurants and bars nearby. Our community in Eppendorf is just as energetic as the neighborhood.</span>
 </div>
 <div class="common-space-info">
-  <p class="info-header">The Common Spaces</p>
+  <p class="info-header">The Community Space</p>
   <span class="description">At STACEY we believe that beautifully designed spaces bring people together. Whether you’re looking to mingle with new people, get creative in the kitchen or open yourself up to new experiences, our Mühlenkamp location can give you all this and more.</span>
   <span>Our 100m2 of community space at ground level comes with:</span>
   <ul class="common-space-amenities">
@@ -38,7 +38,7 @@
         <%= render 'shared/carousel', pictures: room.photos, carousel_id: "Room#{room.id}" %>
         <div class="stacey-card-header">
           <span class="name"><%= room.name.titleize %></span>
-          <span class="price">from<strong>€<%= room.price[0] % 1 == 0 ? room.price[0].to_i : room.price[0] %></strong></span>
+          <span class="price">from €<%= room.price[0] % 1 == 0 ? room.price[0].to_i : room.price[0] %></span>
         </div>
         <%= render 'shared/amenities', amenities: room.amenities %>
         <%= link_to "Explore", booking_project_room_path(@booking.booking_auth_token, @booking, room.project, room.name), class: 'stacey-card-button stacey-button reverse-hover' %>

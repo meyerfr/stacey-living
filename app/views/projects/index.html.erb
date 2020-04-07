@@ -13,7 +13,7 @@
             <span>STACEY</span>
             <span><%= project.name %></span>
           </div>
-          <span class="price">from<strong>€<%= project.rooms.find_by(name: 'Mighty').price[0].to_i  %></strong></span>
+          <span class="price">from €<%= project.rooms.find_by(name: 'Mighty').price[0].to_i  %></span>
         </div>
         <%= render 'shared/amenities', amenities: project.amenities %>
         <!-- <div class="amenities">

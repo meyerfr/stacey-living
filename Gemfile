@@ -15,6 +15,8 @@ gem 'sidekiq'
 gem 'sidekiq-failures', '~> 1.0'
 gem 'sinatra', github: 'sinatra'
 
+gem 'sprockets-rails', '2.3.3'
+
 gem 'cloudinary', '~> 1.12.0'
 gem 'carrierwave', '~> 2.0'
 
