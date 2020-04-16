@@ -17,6 +17,7 @@ class PaymentsController < ApplicationController
     #   trial_period until move_in
     #   cancels on move_out
     #   item: [{ plan: booking.stripe_billing_plan}]
+    raise
 
     customer = find_or_create_stripe_customer(@user)
 
