@@ -1,6 +1,6 @@
 <div class="personal-information-wrapper">
   <div class="payment-section-header">
-    <h3 class="bigger-font-weight">Secure A Room</h3>
+    <h3 class="bigger-font-weight">Book Your Suite</h3>
   </div>
   <div class="personal-information-container payment-section">
     <h3 class="personal-information-header">Personal information</h3>
@@ -20,7 +20,7 @@
       <%= f.label :gender, 'WHAT IS YOUR GENDER?' %>
       <div class="gender">
         <div class="check-boxes only-one-box">
-          <%= f.collection_check_boxes :gender, [['Male'], ['Female'], ['Other']], :first, :first, multiple: false %>
+          <%= f.collection_check_boxes :gender, [['Male'], ['Female']], :first, :first, multiple: false %>
         </div>
       </div>
 

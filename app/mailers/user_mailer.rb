@@ -33,6 +33,11 @@ class UserMailer < ApplicationMailer
     mail(to: email_with_name, subject: 'Stacey - coliving - welcome call')
   end
 
+  def invite_for_booking_process(booking)
+    @booking = booking
+    @user = booking.user
+  end
+
   private
 
   def set_logo_attachment

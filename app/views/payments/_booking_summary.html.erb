@@ -36,18 +36,19 @@
         <span class="category">All-inclusive Monthly Rent</span>
         <span><%= @price % 1 == 0 ? "#{@price.to_i} €" : "#{@price.to_i} €" %></span>
       </div>
+    </div>
+    <div class="summary-section">
+      <p class="section-header">Total Today</p>
+      <div class="summary-item">
+        <span class="category">Booking Fee</span>
+        <span><%= @booking_fee %> €</span>
+      </div>
       <div class="summary-item">
         <span class="category">Deposit</span>
         <span><%= @price * 2 % 1 == 0 ? "#{@price.to_i * 2} €" : "#{@price * 2} €" %></span>
       </div>
       <div class="summary-item">
-        <span class="category">Booking Fee</span>
-        <span><%= @booking_fee %> €</span>
-      </div>
-    </div>
-    <div class="summary-section price-summary">
-      <div class="summary-item">
-        <span class="total-price">TOTAL TODAY</span>
+        <span class="category"><strong>Total</strong></span>
         <span><%= @total_today * 2 % 1 == 0 ? "#{@total_today.to_i} €" : "#{@total_today} €" %></span>
       </div>
     </div>
