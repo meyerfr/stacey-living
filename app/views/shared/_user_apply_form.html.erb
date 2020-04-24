@@ -27,7 +27,7 @@
 
   <div class="apply-field">
     <%= f.label :gender, label: 'WHAT IS YOUR GENDER?' %>
-    <div class="check-boxes only-one-box"><%= f.collection_check_boxes :gender, [['Male'], ['Female'], ['Other']], :first, :first, multiple: false %></div>
+    <div class="check-boxes only-one-box"><%= f.collection_check_boxes :gender, [['Male'], ['Female']], :first, :first, multiple: false %></div>
     <% if user.errors[:gender].any? %>
       <div class="invalid-feedback d-block"><%= user.errors[:gender].first %></div>
     <% end %>
