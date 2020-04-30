@@ -1,50 +1,35 @@
 class User < ApplicationRecord
   attr_accessor :skip_password_validation # virtual attribute to skip password validation while saving
+  before_save :clean_up_data
 
-  validate :validate_array, on: :create
-  validate :move_in_future, on: :create
-  validate :stay_duration, on: :create
-  validate :validate_prefered_suite, on: :create
-  validate :validate_gender, on: :create
-  validates :first_name, :last_name, :email, :dob, :phone_number, :job, :amount_of_people, presence: true
+  validate :validate_arrays
+  validates :first_name, :last_name, :email, :dob, :phone_number, :job, presence: true
 
   has_many :rooms, through: :bookings
   has_many :welcome_calls
   has_many :bookings, dependent: :destroy
   has_many :contracts, through: :bookings
   accepts_nested_attributes_for :bookings, allow_destroy: true
+  validates_associated :bookings
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable,
          :recoverable, :rememberable, :validatable
 
-  def move_in_future
-    # move_in_helper_array = bookings_attributes['0'].values.first(3).map! { |e| e.to_i }.reverse
-    move_in = bookings.first.move_in
-    if move_in >= Date.today
-      true
-    else
-      errors.add(:bookings_attributes, 'Can´t choose a date in the past.')
-    end
+  def clean_up_data
+    self.first_name = self.first_name.downcase.titleize
+    self.last_name = self.last_name.downcase.titleize
+    self.email = self.email.downcase
+    self.gender = self.gender.pop(1) if self.gender[0] == ''
+    self.prefered_suite = self.prefered_suite.pop(1) if self.prefered_suite[0] == ''
   end
 
-  def stay_duration
-    # move_in_helper_array = bookings_attributes['0'].values.first(3).map! { |e| e.to_i }.reverse
-    move_in = bookings.first.move_in
-    # move_out_helper_array = bookings_attributes['0'].values.last(3).map! { |e| e.to_i }.reverse
-    move_out = bookings.first.move_out
-    duration = (move_out.year - move_in.year) * 12 + move_out.month - move_in.month - (move_out.day >= move_in.day ? 0 : 1)
-    if duration >= 3
-      true
-    else
-      errors.add(:bookings_attributes, '3 Month minimum')
+  def validate_arrays
+    unless role == 'admin'
+      errors.add(:prefered_suite, 'Please choose at least one') if prefered_suite.length == 1
+      errors.add(:gender, 'Please choose') if gender.length == 1
     end
-  end
-
-  def validate_array
-    errors.add(:prefered_suite, 'Please choose at least one') if prefered_suite[0] == ""
-    errors.add(:gender, 'Please choose') if gender[0] == ""
   end
 
   def full_name
@@ -73,13 +58,5 @@ class User < ApplicationRecord
     return false if skip_password_validation
 
     super
-  end
-
-  def validate_prefered_suite
-    errors.add(:prefered_suite) if prefered_suite[0] == ""
-  end
-
-  def validate_gender
-    errors.add(:gender) if gender[0] == ""
   end
 end
