@@ -3,6 +3,7 @@ class UsersController < ApplicationController
 
   def all_users
     @users = User.all.where(role: 'applicant')
+    raise
   end
 
   def new
@@ -21,6 +22,8 @@ class UsersController < ApplicationController
     # @user.last_name = @user.last_name.downcase.titleize
     # @user.email = @user.email.downcase
     # @user.role = 'applicant'
+    # if User.exists? @user.email => @user.update
+    # need a new welcome mail, if User already exists.
     if @user.save
       @booking = @user.bookings.last
       UserMailer.welcome(@booking).deliver_later(wait_until: 20.minutes.from_now)

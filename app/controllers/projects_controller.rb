@@ -18,9 +18,6 @@ class ProjectsController < ApplicationController
 
   def create
     @project = Project.new(projects_params)
-    @project.name = @project.name.titleize
-    @project.street = @project.street.titleize
-    @project.city = @project.city.titleize
     if @project.save!
       redirect_to booking_projects_path('sd', Booking.first.id)
     else
