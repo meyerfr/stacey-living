@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_09_072649) do
+ActiveRecord::Schema.define(version: 2020_05_03_115842) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,6 +34,19 @@ ActiveRecord::Schema.define(version: 2020_04_09_072649) do
     t.string "checksum", null: false
     t.datetime "created_at", null: false
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
+  end
+
+  create_table "addresses", force: :cascade do |t|
+    t.string "street"
+    t.string "number"
+    t.string "city"
+    t.string "zip"
+    t.string "country"
+    t.string "addressable_type"
+    t.bigint "addressable_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["addressable_type", "addressable_id"], name: "index_addresses_on_addressable_type_and_addressable_id"
   end
 
   create_table "amenities", force: :cascade do |t|
@@ -139,6 +152,15 @@ ActiveRecord::Schema.define(version: 2020_04_09_072649) do
     t.index ["project_id"], name: "index_rooms_on_project_id"
   end
 
+  create_table "social_links", force: :cascade do |t|
+    t.string "name"
+    t.string "url"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_social_links_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -161,7 +183,7 @@ ActiveRecord::Schema.define(version: 2020_04_09_072649) do
     t.string "linkedin"
     t.string "job"
     t.integer "amount_of_people", default: 1
-    t.string "gender", array: true
+    t.string "gender"
     t.string "prefered_suite", array: true
     t.string "phone_number"
     t.string "phone_code"
@@ -189,5 +211,6 @@ ActiveRecord::Schema.define(version: 2020_04_09_072649) do
   add_foreign_key "room_amenities", "rooms"
   add_foreign_key "room_attributes", "rooms"
   add_foreign_key "rooms", "projects"
+  add_foreign_key "social_links", "users"
   add_foreign_key "welcome_calls", "bookings"
 end

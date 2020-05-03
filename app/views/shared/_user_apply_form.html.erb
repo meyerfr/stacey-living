@@ -26,11 +26,17 @@
   <% end %>
 
   <div class="apply-field">
-    <%= f.label :gender, label: 'WHAT IS YOUR GENDER?' %>
-    <div class="check-boxes only-one-box"><%= f.collection_check_boxes :gender, [['Male'], ['Female']], :first, :first, multiple: false %></div>
-    <% if user.errors[:gender].any? %>
-      <div class="invalid-feedback d-block"><%= user.errors[:gender].first %></div>
-    <% end %>
+    <%= f.label :gender, 'What is your gender?' %>
+    <div class="check-boxes gender">
+      <div class="gender-option">
+        <%= f.radio_button :gender, "female" %>
+        <%= f.label :gender, "Female", :for => "user_gender_female" %>
+      </div>
+      <div class="gender-option">
+        <%= f.radio_button :gender, "male" %>
+        <%= f.label :gender, "Male", :for => "user_gender_male" %>
+      </div>
+    </div>
   </div>
 
   <div class="apply-field">
@@ -53,7 +59,6 @@
     </div>
     <%= f.input :amount_of_people, as: :select, collection: [['NO', 1]], selected: 1, include_blank: false, label: false %>
   </div>
-
   <div class="social-media apply-field">
     <%= f.label :social_media, 'SHARE MORE ABOUT YOU' %>
     <div class="check-boxes">
@@ -62,11 +67,28 @@
       <i class="fab fa-instagram social-media-icon instagram" aria-hidden="true"></i>
       <i class="fab fa-facebook social-media-icon facebook" aria-hidden="true"></i>
     </div>
-    <%= f.input :linkedin, label: false, placeholder: 'ARE YOU ON LINKEDIN?', wrapper_html: { class: 'd-none social-media-input' } %>
-    <%= f.input :twitter, label: false, placeholder: 'ARE YOU ON TWITTER?', wrapper_html: { class: 'd-none social-media-input' } %>
-    <%= f.input :instagram, label: false, placeholder: 'ARE YOU ON INSTAGRAM?', wrapper_html: { class: 'd-none social-media-input' } %>
-    <%= f.input :facebook, label: false, placeholder: 'ARE YOU ON FACEBOOK?', wrapper_html: { class: 'd-none social-media-input' } %>
+    <%= f.simple_fields_for :social_links do |link| %>
+      <%= link.input :name, wrapper_html: { class: 'd-none' } %>
+      <%= link.input :url, placeholder: "ARE YOU ON #{link.object.name}", label: false, wrapper_html:{ class: "social-media-input d-none user_#{link.object.name.downcase}"} %>
+      <%# if user.errors[:bookings_attributes].any? %>
+        <!-- <div class="invalid-feedback d-block duration"><%#= user.errors[:bookings_attributes].first %></div> -->
+      <%# end %>
+    <% end %>
   </div>
+
+  <!-- <div class="social-media apply-field">
+    <%#= f.label :social_media, 'SHARE MORE ABOUT YOU' %>
+    <div class="check-boxes">
+      <i class="fab fa-linkedin social-media-icon linkedin" aria-hidden="true"></i>
+      <i class="fab fa-twitter social-media-icon twitter" aria-hidden="true"></i>
+      <i class="fab fa-instagram social-media-icon instagram" aria-hidden="true"></i>
+      <i class="fab fa-facebook social-media-icon facebook" aria-hidden="true"></i>
+    </div>
+    <%#= f.input :linkedin, label: false, placeholder: 'ARE YOU ON LINKEDIN?', wrapper_html: { class: 'd-none social-media-input' } %>
+    <%#= f.input :twitter, label: false, placeholder: 'ARE YOU ON TWITTER?', wrapper_html: { class: 'd-none social-media-input' } %>
+    <%#= f.input :instagram, label: false, placeholder: 'ARE YOU ON INSTAGRAM?', wrapper_html: { class: 'd-none social-media-input' } %>
+    <%#= f.input :facebook, label: false, placeholder: 'ARE YOU ON FACEBOOK?', wrapper_html: { class: 'd-none social-media-input' } %>
+  </div> -->
 
   <div class="form-action">
     <%= f.submit 'APPLY', class: 'stacey-button apply-button' %>

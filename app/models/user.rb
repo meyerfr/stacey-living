@@ -7,6 +7,10 @@ class User < ApplicationRecord
 
   has_many :rooms, through: :bookings
   has_many :welcome_calls
+  has_one :address, as: :addressable, required: false
+  has_many :social_links, dependent: :destroy
+  accepts_nested_attributes_for :social_links
+  validates_associated :social_links
   has_many :bookings, dependent: :destroy
   has_many :contracts, through: :bookings
   accepts_nested_attributes_for :bookings, allow_destroy: true
@@ -21,7 +25,7 @@ class User < ApplicationRecord
     self.first_name = self.first_name.downcase.titleize
     self.last_name = self.last_name.downcase.titleize
     self.email = self.email.downcase
-    self.gender = self.gender.pop(1) if self.gender[0] == ''
+    # self.gender = self.gender.pop(1) if self.gender[0] == '' => only necessary if gender would still be array
     self.prefered_suite = self.prefered_suite.pop(1) if self.prefered_suite[0] == ''
   end
 
@@ -36,8 +40,8 @@ class User < ApplicationRecord
     "#{first_name} #{last_name}"
   end
 
-  def user?
-    role == 'user'
+  def has_role?(role)
+    self.role == role
   end
 
   def admin?

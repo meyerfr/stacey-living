@@ -66,8 +66,14 @@
         margin-bottom: 25px;
         .check-boxes{
           display: flex;
-          justify-content: space-between;
           padding: 6px 12px;
+          justify-content: space-between;
+        }
+        .check-boxes.gender{
+          justify-content: unset;
+          .gender-option:last-child{
+            margin-left: 30px;
+          }
           span{
             height: fit-content;
             label{

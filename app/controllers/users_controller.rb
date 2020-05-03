@@ -10,9 +10,13 @@ class UsersController < ApplicationController
     @phone_code = %w(+61 +43 +32 +55 +1 +86 +45 +358 +33 +49 +852 +353 +39 +81 +352 +52 +31 +64 +47 +351 +65 +34 +46 +41 +44)
     @user = User.new
     @user.bookings.build(booking_auth_token: Devise.friendly_token, booking_auth_token_exp: Date.today+2.weeks)
+    ['Facebook', 'LinkedIn', 'Instagram', 'Twitter'].each do |social_link_name|
+      @user.social_links.build(name: social_link_name)
+    end
   end
 
   def create
+    raise
     @user = User.new(users_params)
     @user.skip_password_validation = true
     # Must delete first element of array, to keep database clean, because its an empty string
