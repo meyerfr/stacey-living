@@ -5,7 +5,7 @@ class User < ApplicationRecord
   # validate :validate_arrays
   validates :first_name, :last_name, :email, :dob, :phone_number, :gender, :job, presence: true
 
-  has_many :rooms, through: :bookings
+  has_many :roomtyes, through: :bookings
   has_many :welcome_calls
   has_one :address, as: :addressable, required: false
 

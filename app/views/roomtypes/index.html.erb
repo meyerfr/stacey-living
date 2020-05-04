@@ -41,7 +41,7 @@
           <span class="price">from €<%= roomtype.price[0] % 1 == 0 ? roomtype.price[0].to_i : roomtype.price[0] %></span>
         </div>
         <%= render 'shared/amenities', amenities: roomtype.amenities %>
-        <%= link_to "Explore", booking_project_room_path(@booking.booking_auth_token, @booking, roomtype.project, roomtype.name), class: 'stacey-card-button stacey-button reverse-hover' %>
+        <%= link_to "Explore", booking_project_roomtype_path(@booking.booking_auth_token, @booking, roomtype.project, roomtype.name), class: 'stacey-card-button stacey-button reverse-hover' %>
       </div>
     <% end %>
     <%# end %>

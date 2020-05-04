@@ -22,7 +22,7 @@ class RoomtypesController < ApplicationController
     if @roomtype.save
       # create_stripe_product_and_plan(@roomtype, @project)
       # create Strpe Product if not yet present
-      redirect_to booking_project_room_path(Booking.first, @roomtype.project, @roomtype)
+      redirect_to booking_project_roomtype_path(Booking.first, @roomtype.project, @roomtype)
     else
       render :new
     end
@@ -73,7 +73,7 @@ class RoomtypesController < ApplicationController
   private
 
   def roomtypes_params
-    params.require(:rooms).permit(
+    params.require(:roomtypes).permit(
       :project_id,
       :number,
       :name,

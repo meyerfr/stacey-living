@@ -28,10 +28,10 @@
     </div>
   <% end %>
   <%#= f.collection_check_boxes(:project, amenities, :title, {}) %>
-  <%= f.simple_fields_for :rooms do |builder| %>
-    <%= render 'room_fields', f: builder, amenities: amenities %>
+  <%= f.simple_fields_for :roomtypes do |builder| %>
+    <%= render 'roomtype_fields', f: builder, amenities: amenities %>
   <% end %>
   <div class="form-actions">
-    <%= link_to_add_row('Add Roomtype', f, :rooms, amenities: amenities, class: 'btn stacey-button add-room-type') %>
+    <%= link_to_add_row('Add Roomtype', f, :roomtypes, amenities: amenities, class: 'btn stacey-button add-room-type') %>
     <%= f.submit class: 'create-project-button stacey-button reverse-hover' %>
   </div>

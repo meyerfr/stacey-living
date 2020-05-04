@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   resources :users
   resources :partners
   resources :projects, except: [:index] do
-    resources :rooms, except: [:index]
+    resources :roomtypes, except: [:index]
   end
   get 'fritz_all_users', to: 'users#all_users', as: 'all_users'
   resources :welcome_calls, only: [:index]
@@ -14,7 +14,7 @@ Rails.application.routes.draw do
     patch 'welcome_calls', to: 'welcome_calls#create', as: 'create_welcome_calls'
     resources :projects, only: [:index] do
       resources :roomtypes, only: [:index]
-      get 'rooms/:name', to: 'rooms#show', as: 'room'
+      get 'roomtypes/:name', to: 'roomtypes#show', as: 'roomtype'
     end
     resources :contracts, only: [:new, :create, :show]
     resources :payments, only: [:new, :create]

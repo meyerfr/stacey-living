@@ -16,7 +16,7 @@
       <p><%= simple_format(strip_tags(@roomtype.description)) %></p>
       <div class="room-show-photo">
         <% @roomtype.photos.each do |photo| %>
-          <a href="<%= url_for(photo) %>" data-lightbox="lightbox_room_show_<%= @room.id %>" data-title="<%= @room.name %>">
+          <a href="<%= url_for(photo) %>" data-lightbox="lightbox_room_show_<%= @roomtype.id %>" data-title="<%= @roomtype.name %>">
             <%= cl_image_tag photo.key %>
           </a>
         <% end %>

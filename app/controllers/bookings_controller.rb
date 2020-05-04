@@ -63,7 +63,7 @@ class BookingsController < ApplicationController
       redirect_to new_booking_contract_path(@booking.booking_auth_token, @booking)
     else
       flash[:alert] = "Oops something went wrong. Please try again."
-      redirect_to booking_project_room_path(@booking.booking_auth_token, @booking, @booking.project, @booking.room_attribute.roomtype.name)
+      redirect_to booking_project_roomtype_path(@booking.booking_auth_token, @booking, @booking.project, @booking.room_attribute.roomtype.name)
     end
   end
 
