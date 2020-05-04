@@ -13,10 +13,12 @@ class UsersController < ApplicationController
     ['Facebook', 'LinkedIn', 'Instagram', 'Twitter'].each do |social_link_name|
       @user.social_links.build(name: social_link_name)
     end
+    Roomtype.order(:size).each do |room|
+      @user.prefered_suites.build(roomtype_id: room.id)
+    end
   end
 
   def create
-    raise
     @user = User.new(users_params)
     @user.skip_password_validation = true
     # Must delete first element of array, to keep database clean, because its an empty string
@@ -30,7 +32,7 @@ class UsersController < ApplicationController
     # need a new welcome mail, if User already exists.
     if @user.save
       @booking = @user.bookings.last
-      UserMailer.welcome(@booking).deliver_later(wait_until: 20.minutes.from_now)
+      # UserMailer.welcome(@booking).deliver_later(wait_until: 20.minutes.from_now)
       # redirection to calendar page. Schedule welcome call
       redirect_to new_booking_welcome_call_path(@booking.booking_auth_token, @booking, date: Date.today)
     else
@@ -110,8 +112,16 @@ class UsersController < ApplicationController
       :twitter,
       :instagram,
       :photo,
-      gender: [],
-      prefered_suite: [],
+      :gender,
+      social_links_attributes: [
+        :name,
+        :url,
+        :_destroy
+      ],
+      prefered_suites_attributes: [
+        :roomtype_id,
+        :_destroy
+      ],
       bookings_attributes: [
         :user_id,
         :move_in,

@@ -1,4 +1,4 @@
-class Room < ApplicationRecord
+class Roomtype < ApplicationRecord
   # mount_uploaders :pictures, PictureUploader
   before_save :create_stripe_product_and_plan
   has_many_attached :photos

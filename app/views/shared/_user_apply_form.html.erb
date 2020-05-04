@@ -40,11 +40,23 @@
   </div>
 
   <div class="apply-field">
-    <%= f.label :prefered_suite, 'WHAT SUITE DO YOU PREFER?' %>
-    <div class="check-boxes"><%= f.collection_check_boxes :prefered_suite, [['Mighty'], ['Premium'], ['Jumbo']], :first, :last %></div>
-    <% if user.errors[:prefered_suite].any? %>
-      <div class="invalid-feedback d-block"><%= user.errors[:prefered_suite].first %></div>
-    <% end %>
+    <%= f.label :prefered_suites, 'WHAT SUITE DO YOU PREFER?' %>
+    <div class="check-boxes gender">
+      <%= f.simple_fields_for :prefered_suites do |suite| %>
+        <div class="gender-option">
+          <%= suite.input_field :id, as: :hidden %>
+          <!-- <div class="suite-option"> -->
+          <%= suite.check_box :_destroy, {id: "user_prefered_suites_attribute_#{suite.object_id}_destroy"}, 0, 1 %>
+          <%= suite.label :suite, Roomtype.find(suite.object.roomtype_id).name, for: "user_prefered_suites_attribute_#{suite.object_id}_destroy" %>
+          <!-- </div> -->
+          <%= suite.input :roomtype_id, wrapper_html: { class: 'd-none' } %>
+          <%= suite.input :user_id, wrapper_html:{ class: "d-none"} %>
+          <%# if user.errors[:bookings_attributes].any? %>
+            <!-- <div class="invalid-feedback d-block duration"><%#= user.errors[:bookings_attributes].first %></div> -->
+          <%# end %>
+        </div>
+      <% end %>
+    </div>
   </div>
 
   <div class="apply-field info-position">
@@ -69,6 +81,7 @@
     </div>
     <%= f.simple_fields_for :social_links do |link| %>
       <%= link.input :name, wrapper_html: { class: 'd-none' } %>
+      <%= link.input_field :_destroy, as: :hidden, value: 1 %>
       <%= link.input :url, placeholder: "ARE YOU ON #{link.object.name}", label: false, wrapper_html:{ class: "social-media-input d-none user_#{link.object.name.downcase}"} %>
       <%# if user.errors[:bookings_attributes].any? %>
         <!-- <div class="invalid-feedback d-block duration"><%#= user.errors[:bookings_attributes].first %></div> -->

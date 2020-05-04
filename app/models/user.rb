@@ -2,19 +2,25 @@ class User < ApplicationRecord
   attr_accessor :skip_password_validation # virtual attribute to skip password validation while saving
   before_save :clean_up_data
 
-  validate :validate_arrays
+  # validate :validate_arrays
   validates :first_name, :last_name, :email, :dob, :phone_number, :gender, :job, presence: true
 
   has_many :rooms, through: :bookings
   has_many :welcome_calls
   has_one :address, as: :addressable, required: false
+
   has_many :social_links, dependent: :destroy
-  accepts_nested_attributes_for :social_links
-  validates_associated :social_links
+  # accepts_nested_attributes_for :social_links
+  # validates_associated :social_links
+
+  has_many :prefered_suites, dependent: :destroy
+  # accepts_nested_attributes_for :prefered_suites, allow_destroy: true
+  # validates_associated :prefered_suites
+
   has_many :bookings, dependent: :destroy
   has_many :contracts, through: :bookings
-  accepts_nested_attributes_for :bookings, allow_destroy: true
-  validates_associated :bookings
+  accepts_nested_attributes_for :bookings, :social_links, :prefered_suites, allow_destroy: true
+  validates_associated :bookings, :social_links, :prefered_suites
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
@@ -26,15 +32,15 @@ class User < ApplicationRecord
     self.last_name = self.last_name.downcase.titleize
     self.email = self.email.downcase
     # self.gender = self.gender.pop(1) if self.gender[0] == '' => only necessary if gender would still be array
-    self.prefered_suite = self.prefered_suite.pop(1) if self.prefered_suite[0] == ''
+    # self.prefered_suite = self.prefered_suite.pop(1) if self.prefered_suite[0] == ''
   end
 
-  def validate_arrays
-    unless role == 'admin'
-      errors.add(:prefered_suite, 'Please choose at least one') if prefered_suite.length == 1
-      errors.add(:gender, 'Please choose') if gender.length == 1
-    end
-  end
+  # def validate_arrays
+  #   unless role == 'admin'
+  #     errors.add(:prefered_suite, 'Please choose at least one') if prefered_suite.length == 1
+  #     errors.add(:gender, 'Please choose') if gender.length == 1
+  #   end
+  # end
 
   def full_name
     "#{first_name} #{last_name}"

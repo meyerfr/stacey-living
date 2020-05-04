@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_03_115842) do
+ActiveRecord::Schema.define(version: 2020_05_04_062435) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -100,6 +100,15 @@ ActiveRecord::Schema.define(version: 2020_05_03_115842) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "prefered_suites", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "roomtype_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["roomtype_id"], name: "index_prefered_suites_on_roomtype_id"
+    t.index ["user_id"], name: "index_prefered_suites_on_user_id"
+  end
+
   create_table "project_amenities", force: :cascade do |t|
     t.bigint "amenity_id"
     t.bigint "project_id"
@@ -139,7 +148,7 @@ ActiveRecord::Schema.define(version: 2020_05_03_115842) do
     t.index ["room_id"], name: "index_room_attributes_on_room_id"
   end
 
-  create_table "rooms", force: :cascade do |t|
+  create_table "roomtypes", force: :cascade do |t|
     t.bigint "project_id"
     t.float "price", array: true
     t.string "name"
@@ -149,7 +158,7 @@ ActiveRecord::Schema.define(version: 2020_05_03_115842) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "stripe_product"
-    t.index ["project_id"], name: "index_rooms_on_project_id"
+    t.index ["project_id"], name: "index_roomtypes_on_project_id"
   end
 
   create_table "social_links", force: :cascade do |t|
@@ -205,12 +214,14 @@ ActiveRecord::Schema.define(version: 2020_05_03_115842) do
   add_foreign_key "bookings", "room_attributes"
   add_foreign_key "bookings", "users"
   add_foreign_key "contracts", "bookings"
+  add_foreign_key "prefered_suites", "roomtypes"
+  add_foreign_key "prefered_suites", "users"
   add_foreign_key "project_amenities", "amenities"
   add_foreign_key "project_amenities", "projects"
   add_foreign_key "room_amenities", "amenities"
-  add_foreign_key "room_amenities", "rooms"
-  add_foreign_key "room_attributes", "rooms"
-  add_foreign_key "rooms", "projects"
+  add_foreign_key "room_amenities", "roomtypes", column: "room_id"
+  add_foreign_key "room_attributes", "roomtypes", column: "room_id"
+  add_foreign_key "roomtypes", "projects"
   add_foreign_key "social_links", "users"
   add_foreign_key "welcome_calls", "bookings"
 end
