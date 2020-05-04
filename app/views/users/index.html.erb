@@ -71,7 +71,7 @@
           </div>
           <div class="list-detail d-none">
             <ul>
-              <% if user.role == 'tenant' %>
+              <% if user.has_role?('tenant') %>
                 <li>move in: <%= user.bookings.last.move_in.strftime("%d.%B %Y") %></li>
                 <li>move out: <%= user.bookings.last.move_out.strftime("%d.%B %Y") %></li>
               <% end %>
@@ -80,7 +80,7 @@
               <li>Prefered Suites: <%= user.prefered_suite.join(', ') %></li>
               <li>Job: <%= user.job %></li>
               <% if user.gender.present? %>
-                <li>Gender: <%= user.gender.first %></li>
+                <li>Gender: <%= user.gender %></li>
               <% end %>
               <% if user.street.present? %>
                 <li>Address: <%= user.street %>, <%= user.zipcode %> <%= user.city %>, <%= user.country %></li>
@@ -88,17 +88,10 @@
               <% if user.dob %>
                 <li>Date of Birth: <%= user.dob %></li>
               <% end %>
-              <% if user.linkedin.present? %>
-                <li>LinkedIn: <%= user.linkedin %></li>
-              <% end %>
-              <% if user.facebook.present? %>
-                <li>Facebook: <%= user.facebook %></li>
-              <% end %>
-              <% if user.instagram.present? %>
-                <li>Instagram: <%= user.instagram %></li>
-              <% end %>
-              <% if user.twitter.present? %>
-                <li>Twitter: <%= user.twitter %></li>
+              <% if user.social_links.present? %>
+                <% user.social_links.each do |link| %>
+                  <li><%= link.name.capitalize %>: <%= link_to link.url, link.url, target: :_blank %></li>
+                <% end %>
               <% end %>
               <% if Booking.find_by(user_id: user.id) %>
                 <li>Booking Id: <%= Booking.find_by(user_id: user.id).id %></li>

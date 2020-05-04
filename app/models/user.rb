@@ -3,7 +3,7 @@ class User < ApplicationRecord
   before_save :clean_up_data
 
   validate :validate_arrays
-  validates :first_name, :last_name, :email, :dob, :phone_number, :job, presence: true
+  validates :first_name, :last_name, :email, :dob, :phone_number, :gender, :job, presence: true
 
   has_many :rooms, through: :bookings
   has_many :welcome_calls

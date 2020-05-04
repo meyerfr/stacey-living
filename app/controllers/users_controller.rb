@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   skip_before_action :authenticate_user!, only: %I[new create]
 
   def all_users
-    @users = User.all.where(role: 'applicant')
+    @users = helpers.all_applicants
     raise
   end
 
@@ -49,7 +49,7 @@ class UsersController < ApplicationController
     search_param = params[:search] if params[:search].present?
     # if search and period
     @users = User.all.order(created_at: :desc)
-    @users = @users.where(role: @user_group_param) unless @user_group_param == 'all'
+    @users = @users.select{ |u| u.has_role?(@user_group_param) } unless @user_group_param == 'all'
     if @time_param == 'future'
       @users = @users.select{ |user| user.bookings.last.move_in.future? || user.bookings.last.move_in.today? if user.bookings.length.positive? }
     elsif @time_param == 'past'
