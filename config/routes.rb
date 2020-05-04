@@ -13,7 +13,7 @@ Rails.application.routes.draw do
     resources :welcome_calls, only: [:new, :edit, :update, :destroy]
     patch 'welcome_calls', to: 'welcome_calls#create', as: 'create_welcome_calls'
     resources :projects, only: [:index] do
-      resources :rooms, only: [:index]
+      resources :roomtypes, only: [:index]
       get 'rooms/:name', to: 'rooms#show', as: 'room'
     end
     resources :contracts, only: [:new, :create, :show]

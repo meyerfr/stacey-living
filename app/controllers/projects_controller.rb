@@ -11,7 +11,7 @@ class ProjectsController < ApplicationController
 
   def new
     @project = Project.new
-    @project.rooms.build
+    @project.roomtypes.build
     @last_project = Project.last
     @amenities = Amenity.all
   end

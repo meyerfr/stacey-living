@@ -84,7 +84,14 @@
               <% end %>
               <li>Phone: <%= user.phone_code %> <%= user.phone_number %></li>
               <li>moves in <%= user.amount_of_people == 1 ? 'alone' : 'as a couple' %></li>
-              <li>Prefered Suites: <%= user.prefered_suite.join(', ') %></li>
+              <% if user.prefered_suites.present? %>
+                <li>
+                  <% user.prefered_suites.each do |suite| %>
+                    <%= suite.roomtype.name %>
+                  <% end %>
+                </li>
+              <% end %>
+              <!-- <li>Prefered Suites: <%= user.prefered_suite.join(', ') %></li> -->
               <li>Job: <%= user.job %></li>
               <% if user.gender.present? %>
                 <li>Gender: <%= user.gender %></li>

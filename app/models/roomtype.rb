@@ -30,7 +30,7 @@ class Roomtype < ApplicationRecord
         product: product.id,
         amount: price * 100,
         interval: 'month',
-        nickname: "#{room.name} Rent for #{text} Months",
+        nickname: "#{name} Rent for #{text} Months",
         currency: "eur"
       )
     end

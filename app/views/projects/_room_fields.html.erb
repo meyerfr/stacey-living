@@ -5,7 +5,7 @@
     <%= link_to '<i class="far fa-trash-alt"></i>'.html_safe, '#', class: 'remove_record' %>
     <%= f.input :name, label: 'Art of Room', collection: ['Mighty', 'Premium', 'Premium +', 'Jumbo'], selected: 'Mighty', include_blank: false %>
     <%= f.input :size, input_html: {value: 12} %>
-    <%= f.input :description, label: 'Please describe this Project', input_html: {value: Room.last.description || 'Test Description Room'} %>
+    <%= f.input :description, label: 'Please describe this Project', input_html: {value: Roomtype.last.description || 'Test Description Room'} %>
     <div class="prices form-group">
       <div class="price">
         <%= f.label :price, 'Price for 3-5 Months' %>

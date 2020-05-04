@@ -16,13 +16,13 @@ class BookingsController < ApplicationController
       @bookings = Booking.order(created_at: :desc).where(state: 'booked')
       # @bookings = Booking.select{ |booking| booking.move_in >= Date.today && state == nil }
     else
-      @room_name = Room.select{ |room| room.name.downcase == @room_name_param.downcase }.first.name
+      @room_name = Roomtype.find_by(name: @room_name_param).name
       if @room_name && @bookings.length.positive?
-        @bookings = @bookings.select{ |booking| booking.room_attribute.room.name.downcase == @room_name.downcase if booking.room_attribute.present? }
+        @bookings = @bookings.select{ |booking| booking.room_attribute.roomtype.name.downcase == @room_name.downcase if booking.room_attribute.present? }
       end
 
-      @total_current_room_bookings = @bookings.select{|b| b.room_attribute.room.name.downcase == @room_name.downcase if b.room_attribute.present? }.count
-      @total_room_number = Room.where(name: @room_name).first.room_attributes.count
+      @total_current_room_bookings = @bookings.select{|b| b.room_attribute.roomtype.name.downcase == @room_name.downcase if b.room_attribute.present? }.count
+      @total_room_number = Roomtype.find_by(name: @room_name).room_attributes.count
     end
 
     if @time_param == 'upcoming'
@@ -55,7 +55,7 @@ class BookingsController < ApplicationController
 
   def update
     @booking = Booking.find(params[:id])
-    @booking.room_attribute_id = params[:room]
+    @booking.room_attribute_id = params[:roomtype]
     # update bookings stripe payment plan. Which is room.stripe_product.find_pricing_plan
     # retrieve all plans of room.stripe_product = Stripe::Plan.list(product: room.stripe_product)
     if @booking.update(bookings_params)
@@ -63,7 +63,7 @@ class BookingsController < ApplicationController
       redirect_to new_booking_contract_path(@booking.booking_auth_token, @booking)
     else
       flash[:alert] = "Oops something went wrong. Please try again."
-      redirect_to booking_project_room_path(@booking.booking_auth_token, @booking, @booking.project, @booking.room_attribute.room.name)
+      redirect_to booking_project_room_path(@booking.booking_auth_token, @booking, @booking.project, @booking.room_attribute.roomtype.name)
     end
   end
 
@@ -106,7 +106,7 @@ class BookingsController < ApplicationController
   def find_all_room_names
     room_names = []
     # order Rooms per size.
-    Room.order(:size).select{ |room| room_names << room.name unless room_names.include?(room.name)}
+    Roomtype.order(:size).select{ |type| room_names << type.name unless room_names.include?(type.name)}
     room_names.unshift('all')
   end
 end

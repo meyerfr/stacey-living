@@ -77,19 +77,25 @@
               <% end %>
               <li>Phone: <%= user.phone_code %> <%= user.phone_number %></li>
               <li>moves in <%= user.amount_of_people == 1 ? 'alone' : 'as a couple' %></li>
-              <li>Prefered Suites: <%= user.prefered_suite.join(', ') %></li>
+              <% if (prefered_suites = user.prefered_suites).present? %>
+                <li>
+                  <% prefered_suites.each_with_index do |suite, idx| %>
+                    <%= suite.roomtype.name %><%= ',' if idx != prefered_suites.length - 1 %>
+                  <% end %>
+                </li>
+              <% end %>
               <li>Job: <%= user.job %></li>
               <% if user.gender.present? %>
                 <li>Gender: <%= user.gender %></li>
               <% end %>
-              <% if user.street.present? %>
-                <li>Address: <%= user.street %>, <%= user.zipcode %> <%= user.city %>, <%= user.country %></li>
+              <% unless (address = user.address).nil? %>
+                <li>Address: <%= address.street %>, <%= address.zipcode %> <%= address.city %>, <%= address.country %></li>
               <% end %>
               <% if user.dob %>
                 <li>Date of Birth: <%= user.dob %></li>
               <% end %>
-              <% if user.social_links.present? %>
-                <% user.social_links.each do |link| %>
+              <% if (social_links = user.social_links).present? %>
+                <% social_links.each do |link| %>
                   <li><%= link.name.capitalize %>: <%= link_to link.url, link.url, target: :_blank %></li>
                 <% end %>
               <% end %>

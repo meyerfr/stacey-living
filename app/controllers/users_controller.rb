@@ -13,8 +13,8 @@ class UsersController < ApplicationController
     ['Facebook', 'LinkedIn', 'Instagram', 'Twitter'].each do |social_link_name|
       @user.social_links.build(name: social_link_name)
     end
-    Roomtype.order(:size).each do |room|
-      @user.prefered_suites.build(roomtype_id: room.id)
+    Roomtype.order(:size).each do |roomtype|
+      @user.prefered_suites.build(roomtype_id: roomtype.id)
     end
   end
 
