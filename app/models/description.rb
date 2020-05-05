@@ -5,11 +5,11 @@ class Description < ApplicationRecord
 
   def field_input
     field_options = [
-      'project_info_index',
-      'project_info_show',
-      'address_info',
-      'community_space_info',
-      'roomtype_info'
+      'project info index',
+      'project info show',
+      'address info',
+      'community space info',
+      'roomtype info'
     ]
     if self.field.present? && field_options.exclude?(self.field)
       errors.add(:field, "is not part of field options")

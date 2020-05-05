@@ -23,10 +23,14 @@ class ProjectsController < ApplicationController
     @project.roomtypes.build
     @last_project = Project.last
     @amenities = Amenity.all
+    @address = @project.build_address
+    @address_description = @address.build_description(field: 'address info')
+    # ['project info index', 'project info show']
   end
 
   def create
     @project = Project.new(projects_params)
+    raise
     if @project.save!
       redirect_to booking_projects_path('sd', Booking.first.id)
     else
@@ -74,6 +78,13 @@ class ProjectsController < ApplicationController
       {photos: []},
       {amenities_ids: []},
       project_amenities_attributes: [:amenity_id],
+      address_attributes: [
+        :street,
+        :number,
+        :zip,
+        :city,
+        :country
+      ],
       rooms_attributes: [
         :id,
         :project_id,
