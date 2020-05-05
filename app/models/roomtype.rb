@@ -3,6 +3,7 @@ class Roomtype < ApplicationRecord
   before_save :create_stripe_product_and_plan
   has_many_attached :photos
   belongs_to :project
+  has_many :descriptions, as: :descriptionable, dependent: :destroy
   has_many :users, through: :bookings
   has_many :room_attributes, dependent: :destroy
   has_many :room_amenities, dependent: :destroy

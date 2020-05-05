@@ -2,6 +2,9 @@ class Project < ApplicationRecord
   # mount_uploaders :pictures, PictureUploader
   before_save :clean_up_data
   has_many_attached :photos
+
+  has_one :address, as: :addressable, required: true
+  has_many :descriptions, as: :descriptionable, dependent: :destroy
   has_many :roomtypes, dependent: :destroy
   has_many :project_amenities, dependent: :destroy
   has_many :amenities, through: :project_amenities

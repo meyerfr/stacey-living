@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_04_062435) do
+ActiveRecord::Schema.define(version: 2020_05_04_101129) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -87,6 +87,16 @@ ActiveRecord::Schema.define(version: 2020_05_04_062435) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["booking_id"], name: "index_contracts_on_booking_id"
+  end
+
+  create_table "descriptions", force: :cascade do |t|
+    t.string "descriptionable_type"
+    t.bigint "descriptionable_id"
+    t.string "field"
+    t.text "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["descriptionable_type", "descriptionable_id"], name: "index_descs_on_descable_type_and_descable_id"
   end
 
   create_table "partners", force: :cascade do |t|
