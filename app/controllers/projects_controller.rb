@@ -6,7 +6,16 @@ class ProjectsController < ApplicationController
   def index
     # layout booking
     @booking = Booking.find(params[:booking_id])
-    @projects = Project.all
+    @projects = Project.select{|p| p.address.geocoded? }
+
+    @markers = @projects.map do |project|
+      {
+        lat: project.address.latitude,
+        lng: project.address.longitude,
+        # infoWindow: render_to_string(partial: 'info_window', locals: { user: user }),
+        image_url: helpers.asset_url('maps_marker.png')
+      }
+    end
   end
 
   def new

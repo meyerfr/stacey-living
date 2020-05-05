@@ -13,6 +13,8 @@ import { signing } from '../signingProcess'
 import { previewImages } from '../imagePreview'
 import { fieldHandler } from '../fieldHandler'
 import { checkPricesNames } from '../roomFieldPriceElementsNames'
+import { initMapbox } from '../plugins/init_mapbox';
+import { initAutocomplete } from '../plugins/init_autocomplete';
 
 stripeProcess();
 onlyOneBox();
@@ -28,3 +30,9 @@ signing();
 previewImages();
 fieldHandler();
 checkPricesNames();
+
+
+document.addEventListener('turbolinks:load', () => {
+  initMapbox();
+  initAutocomplete();
+})

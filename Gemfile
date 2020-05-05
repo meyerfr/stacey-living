@@ -15,6 +15,9 @@ gem 'sidekiq'
 gem 'sidekiq-failures', '~> 1.0'
 gem 'sinatra', github: 'sinatra'
 
+gem 'geocoder'
+gem 'turbolinks', '~> 5'
+
 # gem 'sprockets-rails', '2.3.3', group: :development
 
 gem 'cloudinary', '~> 1.12.0'
