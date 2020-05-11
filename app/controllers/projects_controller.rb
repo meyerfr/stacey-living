@@ -1,6 +1,7 @@
 class ProjectsController < ApplicationController
   before_action :authenticate_user!, except: [:index]
   before_action :check_booking_auth_token!, only: [:index]
+  before_action :set_project, only: [:show, :edit, :update, :destroy]
   layout "bookingprocess", only: [:index]
 
   def index
@@ -23,31 +24,29 @@ class ProjectsController < ApplicationController
     @project.roomtypes.build
     @last_project = Project.last
     @amenities = Amenity.all
-    @address = @project.build_address
-    @address_description = @address.build_description(field: 'address info')
     # ['project info index', 'project info show']
   end
 
   def create
-    @project = Project.new(projects_params)
-    raise
-    if @project.save!
-      redirect_to booking_projects_path('sd', Booking.first.id)
-    else
-      render :new
-    end
+    @project = Project.new
+    @project.save(validate: false)
+    redirect_to project_step_path(@project, Project.form_steps.first)
+    # @project = Project.new(projects_params)
+    # raise
+    # if @project.save!
+    #   redirect_to booking_projects_path('sd', Booking.first.id)
+    # else
+    #   render :new
+    # end
   end
 
   def show
-    @project = Project.find(params[:id])
   end
 
   def edit
-    @project = Project.find(params[:id])
   end
 
   def update
-    @project = Project.find(params[:id])
     if @project.update(projects_params)
       redirect_to @project
     else
@@ -56,7 +55,6 @@ class ProjectsController < ApplicationController
   end
 
   def destroy
-    @project = Project.find(params[:id])
     if @project.delete
       redirect_to projects_path
     else
@@ -65,6 +63,10 @@ class ProjectsController < ApplicationController
   end
 
   private
+
+  def set_project
+    @project = Project.find(params[:id])
+  end
 
   def projects_params
     params.require(:project).permit(

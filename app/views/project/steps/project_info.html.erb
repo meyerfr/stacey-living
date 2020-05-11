@@ -1,0 +1,22 @@
+<%= simple_form_for @project, method: :put, url: wizard_path do |f| %>
+  <% if f.object.errors.any? %>
+    <div class="error_messages">
+      <% f.object.errors.full_messages.each do |error| %>
+        <p><%= error %></p>
+      <% end %>
+    </div>
+  <% end %>
+
+  <fieldset>
+    <legend>Project Info</legend>
+
+    <%= f.input :name %>
+    <%= f.simple_fields_for :descriptions do |desc| %>
+      <%= desc.input :field %>
+      <%= desc.input :content %>
+    <% end %>
+    <div>
+      <%= f.submit 'Next Step' %>
+    </div>
+  </fieldset>
+<% end %>

@@ -15,6 +15,7 @@ import { fieldHandler } from '../fieldHandler'
 import { checkPricesNames } from '../roomFieldPriceElementsNames'
 import { initMapbox } from '../plugins/init_mapbox';
 import { initAutocomplete } from '../plugins/init_autocomplete';
+import { addAmenity } from '../createAmenity';
 
 stripeProcess();
 onlyOneBox();
@@ -35,4 +36,5 @@ checkPricesNames();
 document.addEventListener('turbolinks:load', () => {
   initMapbox();
   initAutocomplete();
+  addAmenity()
 })

@@ -4,7 +4,10 @@ Rails.application.routes.draw do
   root to: 'users#new'
   resources :users
   resources :partners
+  resources :amenities
+
   resources :projects, except: [:index] do
+    resources :steps, only: [:show, :update], controller: 'project/steps'
     resources :roomtypes, except: [:index]
   end
   get 'fritz_all_users', to: 'users#all_users', as: 'all_users'
