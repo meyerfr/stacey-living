@@ -1,19 +1,24 @@
 class Roomtype < ApplicationRecord
   # mount_uploaders :pictures, PictureUploader
-  before_save :create_stripe_product_and_plan
+  # before_save :create_stripe_product_and_plan
   has_many_attached :photos
   belongs_to :project
-  has_many :descriptions, as: :descriptionable, dependent: :destroy
+
+  with_options dependent: :destroy do |assoc|
+    assoc.has_many :descriptions, as: :descriptionable
+    assoc.has_many :bookings
+    assoc.has_many :room_amenities
+    assoc.has_many :rooms
+    assoc.has_many :prices
+  end
+
   has_many :users, through: :bookings
-  has_many :room_attributes, dependent: :destroy
-  has_many :room_amenities, dependent: :destroy
-  has_many :amenities, through: :room_amenities
   accepts_nested_attributes_for :room_amenities, allow_destroy: true, reject_if: proc{ |att| att['amenity_id'].nil? }
-  accepts_nested_attributes_for :room_attributes, allow_destroy: true
-  validates_associated :room_attributes
+  accepts_nested_attributes_for :rooms, :prices, :descriptions, allow_destroy: true
+  validates_associated :rooms, :prices
 
   def create_stripe_product_and_plan
-    raise
+    # raise
     product = Stripe::Product.create(
       name: "#{name.capitalize} #{project.name}",
       statement_descriptor: "STACEY Rent",

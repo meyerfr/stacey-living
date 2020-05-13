@@ -2,8 +2,11 @@ class Booking < ApplicationRecord
   validate :move_in_future, :minimum_duration
   belongs_to :user
   belongs_to :room_attribute, optional: true
-  has_many :contracts, dependent: :destroy
-  has_many :welcome_calls, dependent: :destroy
+
+  with_options dependent: :destroy do |assoc|
+    assoc.has_many :contracts
+    assoc.has_many :welcome_calls
+  end
 
   # Validate whether the start time is in the future
   def move_in_future

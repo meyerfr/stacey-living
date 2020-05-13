@@ -15,8 +15,60 @@
       <%= desc.input :field %>
       <%= desc.input :content %>
     <% end %>
+    <div class="project-amenities-wrapper">
+      <%= f.simple_fields_for :project_amenities do |pa| %>
+        <% if pa.object.id.nil? %>
+          <div class="project-amenity-select">
+          <%= pa.input_field :_destroy, as: :hidden, value: '1' %>
+        <% else %>
+          <div class="project-amenity-select selected">
+          <%= pa.input_field :_destroy, as: :hidden, value: '0' %>
+        <% end %>
+        <%= pa.input_field :id, as: :hidden %>
+        <%= pa.input_field :amenity_id, as: :hidden %>
+        <%= Amenity.find(pa.object.amenity_id).title %>
+        </div>
+      <% end %>
+    </div>
+    <!-- <div class="project-amenity-select selected">
+      <input value="0" class="hidden" type="hidden" name="project[project_amenities_attributes][${amenities_index}][_destroy]" id="project_project_amenities_attributes_${amenities_index}__destroy">
+      <input class=" is-valid hidden" type="hidden" value="${amenities_id}" name="project[project_amenities_attributes][${project_amenities_index}][id]" id="project_project_amenities_attributes_${amenities_index}_id">
+      <input class=" is-valid hidden" type="hidden" value="${amenities_id}" name="project[project_amenities_attributes][${amenities_index}][amenity_id]" id="project_project_amenities_attributes_${amenities_index}_amenity_id">
+      One Person
+    </div> -->
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createAmenitiesModal">
+      Add Amenitiy
+    </button>
     <div>
       <%= f.submit 'Next Step' %>
     </div>
   </fieldset>
 <% end %>
+
+<!-- Modal -->
+<div class="modal fade amenities-modal" id="createAmenitiesModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="amenitiesModalTitle">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <%= simple_form_for Amenity.new do |f| %>
+          <div class="form-group">
+            <%= f.input :title %>
+          </div>
+          <div class="form-group">
+            <%= f.input :name %>
+          </div>
+          <div class="form-group">
+            <%= f.submit class: "btn btn-primary" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

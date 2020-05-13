@@ -2,6 +2,7 @@ class Address < ApplicationRecord
   geocoded_by :address
   after_validation :geocode
   belongs_to :addressable, polymorphic: true
+
   has_one :description, as: :descriptionable, dependent: :destroy
   accepts_nested_attributes_for :description
   validates_associated :description

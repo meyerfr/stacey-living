@@ -1,0 +1,24 @@
+<div>
+  <%= f.input_field :_destroy, as: :hidden %>
+  <%= link_to '<i class="far fa-trash-alt"></i>'.html_safe, '#', class: 'remove_room' %>
+  <%= f.input :name %>
+  <%= f.input :size %>
+  <%= f.simple_fields_for :prices do |prices| %>
+    <%= prices.input :duration %>
+    <%= prices.input :amount %>
+  <% end %>
+  <%= f.simple_fields_for :descriptions do |room_description| %>
+    <%= room_description.input :field %>
+    <%= room_description.input :content %>
+  <% end %>
+  <div class="room-attributes-wrapper">
+    <%= f.simple_fields_for :rooms do |room| %>
+      <%= render 'room_fields', f: room %>
+      <%#= roomtype_attributes.input_field :_destroy, as: :hidden %>
+      <%#= link_to '<i class="far fa-trash-alt"></i>'.html_safe, '#', class: 'remove_record' %>
+      <%#= roomtype_attributes.input :number %>
+      <%#= roomtype_attributes.input :house_number %>
+    <% end %>
+  </div>
+  <%= link_to_add_room('Add Rooms', f, :rooms, class: 'stacey-button') %>
+</div>

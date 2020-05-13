@@ -17,34 +17,37 @@ if (createAmenitiesModal) {
 
 function addAmenity() {
   var amenityForm  = document.getElementById('new_amenity')
-  amenityForm.addEventListener('submit', function(e) {
-    e.preventDefault();
-    $.ajax({
-      method: "POST",
-      url: $(this).attr("action"),
-      data: $(this).serialize(),
-      success: function(response) {
-        console.log(response);
-        insertNewAmenity(response);
-        // selectizeCallback({value: response.id, text: response.name});
-        // selectizeCallback = null;
+  if (amenityForm) {
+    amenityForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      $.ajax({
+        method: "POST",
+        url: $(this).attr("action"),
+        data: $(this).serialize(),
+        success: function(response) {
+          console.log(response);
+          insertNewAmenity(response);
+          // selectizeCallback({value: response.id, text: response.name});
+          // selectizeCallback = null;
 
-        $("#createAmenitiesModal").modal('toggle');
-      }
-    });
-  })
+          $("#createAmenitiesModal").modal('toggle');
+        }
+      });
+    })
+  }
 };
 
 function insertNewAmenity(input, callback) {
-  var amenities_list_wrapper = document.querySelector('.project-amenities');
+  var amenities_list_wrapper = document.querySelector('.project-amenities-wrapper');
   var amenities_index = amenities_list_wrapper.children.length;
   var amenities_name = `project[project_amenities_attributes][${amenities_index}][amenity_id]`;
   var amenities_id = `project_amenities_attributes_${amenities_index}_amenity_id`;
-  var amenity = `<label>
-                  <input name=${amenities_name} id=${amenities_id} type="checkbox" value=${input.id}>
-                  ${input.title}
-                </label>`
-  // const amenity = `<label><%= pa.check_box("amenity_id", { name: ${amenities_name}, id: ${amenities_id} }, amenity.id, nil) %><%= amenity.title %></label>`;
+  var amenity = `<div class="project-amenity-select selected">
+    <input value="0" class="hidden" type="hidden" name="project[project_amenities_attributes][${amenities_index}][_destroy]" id="project_project_amenities_attributes_${amenities_index}__destroy">
+    <input class=" is-valid hidden" type="hidden" value="" name="project[project_amenities_attributes][${amenities_index}][id]" id="project_project_amenities_attributes_${amenities_index}_id">
+    <input class=" is-valid hidden" type="hidden" value="${input.id}" name="project[project_amenities_attributes][${amenities_index}][amenity_id]" id="project_project_amenities_attributes_${amenities_index}_amenity_id">
+    ${input.title}
+  </div>`
   amenities_list_wrapper.insertAdjacentHTML("beforeend", amenity);
 }
 

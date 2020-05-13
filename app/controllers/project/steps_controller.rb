@@ -9,8 +9,16 @@ class Project::StepsController < ApplicationController
   end
 
   def update
+    raise
     if @project.update(project_params(step))
-      redirect_to(next_wizard_path)
+      # if step == 'rooms'
+        # if params[:add_rooms] == 'false'
+          # @project.status == 'active'
+        # end
+        # render_wizard
+      # else
+        redirect_to(next_wizard_path)
+      # end
     else
       set_nested_attributes
       render_wizard @project
@@ -32,16 +40,30 @@ class Project::StepsController < ApplicationController
           @project.descriptions.build(field: field)
         end
       end
+      Amenity.all.each do |amenity|
+        unless @project.project_amenities.pluck(:amenity_id).include?(amenity.id)
+          @project.project_amenities.build(amenity_id: amenity.id)
+        end
+      end
     when 'address'
       @project.build_address unless @project.address.present?
       unless @project.address.id.present?
         @project.address.build_description(field: 'address info')
       end
-    when 'project_amenities'
-      Amenity.all.each do |amenity|
-        unless @project.project_amenities.pluck(:amenity_id).include?(amenity.id)
-          @project.project_amenities.build(amenity_id: amenity.id)
+    # when 'project_amenities'
+    #   Amenity.all.each do |amenity|
+    #     unless @project.project_amenities.pluck(:amenity_id).include?(amenity.id)
+    #       @project.project_amenities.build(amenity_id: amenity.id)
+    #     end
+    #   end
+    when 'rooms'
+      @project.roomtypes.build
+      @project.roomtypes.each do |roomtype|
+        ['3-5', '6-8', '9+'].each do |duration|
+          roomtype.prices.build(duration: duration) unless roomtype.prices.collect(&:duration).include?(duration)
         end
+        # roomtype.room_attributes.build
+        roomtype.descriptions.build(field: 'roomtype info')
       end
     end
   end
@@ -49,13 +71,13 @@ class Project::StepsController < ApplicationController
   def project_params(step)
     permitted_attributes = case step
                            when "project_info"
-                             [:name, descriptions_attributes: [:id, :field, :content]]
+                             [:name, descriptions_attributes: [:id, :field, :content], project_amenities_attributes: [:id, :amenity_id, :_destroy]]
                            when "address"
                              [address_attributes: [:id, :addressable_id, :street, :number, :zip, :city, :country, description_attributes: [:id, :descriptionable_id,:field, :content]]]
-                           when "project_amenities"
-                             [project_amenities_attributes: [:id, :amenity_id, :_destroy]]
+                           # when "project_amenities"
+                           #   [project_amenities_attributes: [:id, :amenity_id, :_destroy]]
                            when "rooms"
-                             [roomtypes_attributes: [:name, :size, rooms_attributes: [:intern_number, :number]]]
+                             [roomtypes_attributes: [:_destroy, :name, :size, rooms: [:_destroy, :intern_number, :number], descriptions_attributes: [:field, :content]]]
                            end
 
     params.require(:project).permit(permitted_attributes).merge(form_step: step)

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_10_125123) do
+ActiveRecord::Schema.define(version: 2020_05_13_084216) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -122,6 +122,15 @@ ActiveRecord::Schema.define(version: 2020_05_10_125123) do
     t.index ["user_id"], name: "index_prefered_suites_on_user_id"
   end
 
+  create_table "prices", force: :cascade do |t|
+    t.string "duration"
+    t.float "amount"
+    t.bigint "roomtype_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["roomtype_id"], name: "index_prices_on_roomtype_id"
+  end
+
   create_table "project_amenities", force: :cascade do |t|
     t.bigint "amenity_id"
     t.bigint "project_id"
@@ -146,20 +155,20 @@ ActiveRecord::Schema.define(version: 2020_05_10_125123) do
 
   create_table "room_amenities", force: :cascade do |t|
     t.bigint "amenity_id"
-    t.bigint "room_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "roomtype_id"
     t.index ["amenity_id"], name: "index_room_amenities_on_amenity_id"
-    t.index ["room_id"], name: "index_room_amenities_on_room_id"
+    t.index ["roomtype_id"], name: "index_room_amenities_on_roomtype_id"
   end
 
-  create_table "room_attributes", force: :cascade do |t|
-    t.string "number"
+  create_table "rooms", force: :cascade do |t|
+    t.string "intern_number"
     t.string "house_number"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "room_id"
-    t.index ["room_id"], name: "index_room_attributes_on_room_id"
+    t.bigint "roomtype_id"
+    t.index ["roomtype_id"], name: "index_rooms_on_roomtype_id"
   end
 
   create_table "roomtypes", force: :cascade do |t|
@@ -225,16 +234,15 @@ ActiveRecord::Schema.define(version: 2020_05_10_125123) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "bookings", "room_attributes"
+  add_foreign_key "bookings", "rooms", column: "room_attribute_id"
   add_foreign_key "bookings", "users"
   add_foreign_key "contracts", "bookings"
   add_foreign_key "prefered_suites", "roomtypes"
   add_foreign_key "prefered_suites", "users"
+  add_foreign_key "prices", "roomtypes"
   add_foreign_key "project_amenities", "amenities"
   add_foreign_key "project_amenities", "projects"
   add_foreign_key "room_amenities", "amenities"
-  add_foreign_key "room_amenities", "roomtypes", column: "room_id"
-  add_foreign_key "room_attributes", "roomtypes", column: "room_id"
   add_foreign_key "roomtypes", "projects"
   add_foreign_key "social_links", "users"
   add_foreign_key "welcome_calls", "bookings"

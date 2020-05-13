@@ -3,7 +3,7 @@ import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
 
 const initMapbox = () => {
   const mapElement = document.getElementById('map');
-  console.log(mapElement);
+  // console.log(mapElement);
   if (mapElement) { // only build a map if there's a div#map to inject into
     mapboxgl.accessToken = process.env.MAPBOX_API_KEY;
     console.log(mapboxgl.accessToken);

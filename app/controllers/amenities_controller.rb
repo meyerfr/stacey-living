@@ -53,6 +53,6 @@ class AmenitiesController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def amenity_params
-      params.require(:amenity).permit(:title, :type, photos: [])
+      params.require(:amenity).permit(:title, :name, photos: [])
     end
 end

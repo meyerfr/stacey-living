@@ -1,37 +1,38 @@
 class Project < ApplicationRecord
   # mount_uploaders :pictures, PictureUploader
   cattr_accessor :form_steps do
-    %w(project_info address project_amenities rooms)
+    %w(project_info address rooms)
   end
 
   attr_accessor :form_step
 
-  # before_save :clean_up_data
-  has_one :address, as: :addressable, required: false
-  accepts_nested_attributes_for :address, allow_destroy: true
-  has_many_attached :photos
-  has_many :descriptions, as: :descriptionable, dependent: :destroy
-  accepts_nested_attributes_for :descriptions, allow_destroy: true
-  has_many :roomtypes, dependent: :destroy
-  has_many :project_amenities, dependent: :destroy
+  with_options dependent: :destroy do |assoc|
+    assoc.has_one :address, as: :addressable, required: false
+    assoc.has_many :descriptions, as: :descriptionable
+    assoc.has_many :project_amenities
+    assoc.has_many :roomtypes
+  end
+
   has_many :amenities, through: :project_amenities
-  accepts_nested_attributes_for :project_amenities, allow_destroy: true
-  accepts_nested_attributes_for :roomtypes, allow_destroy: true
-  validates_associated :roomtypes
+  accepts_nested_attributes_for :address, :descriptions, :project_amenities, :roomtypes, allow_destroy: true
+
+  # before_save :clean_up_data
+  has_many_attached :photos
 
   with_options if: -> { required_for_step?(:project_info) } do |step|
     step.validates :name, presence: true
     step.validates_associated :descriptions
     step.validate :minimum_descriptions
+    step.validates_associated :project_amenities
   end
 
   with_options if: -> { required_for_step?(:address) } do |step|
     step.validates_associated :address
   end
 
-  with_options if: -> { required_for_step?(:project_amenities) } do |step|
-    step.validates_associated :project_amenities
-  end
+  # with_options if: -> { required_for_step?(:project_amenities) } do |step|
+  #   step.validates_associated :project_amenities
+  # end
 
   with_options if: -> { required_for_step?(:rooms) } do |step|
     step.validates_associated :roomtypes

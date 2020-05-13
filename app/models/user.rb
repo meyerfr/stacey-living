@@ -5,20 +5,19 @@ class User < ApplicationRecord
   # validate :validate_arrays
   validates :first_name, :last_name, :email, :dob, :phone_number, :gender, :job, presence: true
 
-  has_many :roomtyes, through: :bookings
-  has_many :welcome_calls
-  has_one :address, as: :addressable, required: false
+  with_options dependent: :destroy do |assoc|
+    assoc.has_many :welcome_calls
+    assoc.has_many :social_links
+    assoc.has_many :prefered_suites
+    assoc.has_many :bookings
+    assoc.has_one :address, as: :addressable, required: false
+  end
 
-  has_many :social_links, dependent: :destroy
-  # accepts_nested_attributes_for :social_links
-  # validates_associated :social_links
+  with_options through: :bookings do |assoc|
+    assoc.has_many :contracts
+    assoc.has_many :roomtyes
+  end
 
-  has_many :prefered_suites, dependent: :destroy
-  # accepts_nested_attributes_for :prefered_suites, allow_destroy: true
-  # validates_associated :prefered_suites
-
-  has_many :bookings, dependent: :destroy
-  has_many :contracts, through: :bookings
   accepts_nested_attributes_for :bookings, :social_links, :prefered_suites, allow_destroy: true
   validates_associated :bookings, :social_links, :prefered_suites
 
