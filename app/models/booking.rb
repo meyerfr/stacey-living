@@ -1,7 +1,7 @@
 class Booking < ApplicationRecord
   validate :move_in_future, :minimum_duration
   belongs_to :user
-  belongs_to :room_attribute, optional: true
+  belongs_to :room, optional: true
 
   with_options dependent: :destroy do |assoc|
     assoc.has_many :contracts

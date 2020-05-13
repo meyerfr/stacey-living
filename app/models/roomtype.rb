@@ -6,13 +6,12 @@ class Roomtype < ApplicationRecord
 
   with_options dependent: :destroy do |assoc|
     assoc.has_many :descriptions, as: :descriptionable
-    assoc.has_many :bookings
     assoc.has_many :room_amenities
     assoc.has_many :rooms
     assoc.has_many :prices
   end
 
-  has_many :users, through: :bookings
+  # has_many :users, through: :bookings
   accepts_nested_attributes_for :room_amenities, allow_destroy: true, reject_if: proc{ |att| att['amenity_id'].nil? }
   accepts_nested_attributes_for :rooms, :prices, :descriptions, allow_destroy: true
   validates_associated :rooms, :prices

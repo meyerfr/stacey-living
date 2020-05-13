@@ -1,5 +1,5 @@
 class Room < ApplicationRecord
   belongs_to :roomtype
-  belongs_to :booking, optional: true
+  has_many :bookings
   # has_one :booking, required: false
 end

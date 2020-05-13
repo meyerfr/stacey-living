@@ -13,11 +13,13 @@ class Project < ApplicationRecord
     assoc.has_many :roomtypes
   end
 
+  has_many :rooms, through: :roomtypes
   has_many :amenities, through: :project_amenities
+  has_many_attached :photos
+
   accepts_nested_attributes_for :address, :descriptions, :project_amenities, :roomtypes, allow_destroy: true
 
   # before_save :clean_up_data
-  has_many_attached :photos
 
   with_options if: -> { required_for_step?(:project_info) } do |step|
     step.validates :name, presence: true

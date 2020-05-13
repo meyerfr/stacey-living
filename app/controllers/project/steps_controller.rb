@@ -9,7 +9,6 @@ class Project::StepsController < ApplicationController
   end
 
   def update
-    raise
     if @project.update(project_params(step))
       # if step == 'rooms'
         # if params[:add_rooms] == 'false'
@@ -57,13 +56,15 @@ class Project::StepsController < ApplicationController
     #     end
     #   end
     when 'rooms'
-      @project.roomtypes.build
+      @project.roomtypes.build unless @project.roomtypes.count > 1
       @project.roomtypes.each do |roomtype|
         ['3-5', '6-8', '9+'].each do |duration|
           roomtype.prices.build(duration: duration) unless roomtype.prices.collect(&:duration).include?(duration)
         end
         # roomtype.room_attributes.build
-        roomtype.descriptions.build(field: 'roomtype info')
+        ['roomtype info'].each do |field|
+          roomtype.descriptions.build(field: field) unless roomtype.descriptions.collect(&:field).include?(field)
+        end
       end
     end
   end
@@ -71,13 +72,13 @@ class Project::StepsController < ApplicationController
   def project_params(step)
     permitted_attributes = case step
                            when "project_info"
-                             [:name, descriptions_attributes: [:id, :field, :content], project_amenities_attributes: [:id, :amenity_id, :_destroy]]
+                             [:name, {photos: []}, descriptions_attributes: [:id, :field, :content], project_amenities_attributes: [:id, :amenity_id, :_destroy]]
                            when "address"
                              [address_attributes: [:id, :addressable_id, :street, :number, :zip, :city, :country, description_attributes: [:id, :descriptionable_id,:field, :content]]]
                            # when "project_amenities"
                            #   [project_amenities_attributes: [:id, :amenity_id, :_destroy]]
                            when "rooms"
-                             [roomtypes_attributes: [:_destroy, :name, :size, rooms: [:_destroy, :intern_number, :number], descriptions_attributes: [:field, :content]]]
+                             [roomtypes_attributes: [:_destroy, :id, :name, :size, {photos: []}, rooms_attributes: [:id, :_destroy, :intern_number, :house_number], descriptions_attributes: [:id, :field, :content], prices_attributes: [:id, :duration, :amount]]]
                            end
 
     params.require(:project).permit(permitted_attributes).merge(form_step: step)
