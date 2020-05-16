@@ -18,8 +18,8 @@ class User < ApplicationRecord
     assoc.has_many :roomtyes
   end
 
-  accepts_nested_attributes_for :bookings, :social_links, :prefered_suites, allow_destroy: true
-  validates_associated :bookings, :social_links, :prefered_suites
+  accepts_nested_attributes_for :bookings, :social_links, :prefered_suites, :address, allow_destroy: true
+  validates_associated :bookings, :social_links, :address, :prefered_suites
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable

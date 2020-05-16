@@ -40,9 +40,8 @@ class Project::StepsController < ApplicationController
         end
       end
       Amenity.all.each do |amenity|
-        unless @project.project_amenities.pluck(:amenity_id).include?(amenity.id)
-          @project.project_amenities.build(amenity_id: amenity.id)
-        end
+        @project.join_amenities.build(name: 'project index', amenity_id: amenity.id) unless @project.join_amenities.select{|ja| ja.name == 'project index' && ja.amenity_id == amenity.id }.present?
+        @project.join_amenities.build(name: 'project show', amenity_id: amenity.id) unless @project.join_amenities.select{|ja| ja.name == 'project show' && ja.amenity_id == amenity.id }.present?
       end
     when 'address'
       @project.build_address unless @project.address.present?

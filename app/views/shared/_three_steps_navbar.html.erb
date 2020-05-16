@@ -4,19 +4,19 @@
     <%= image_tag "stacey_logo_pink.png" %>
   <% end %>
   <div class="rings-container">
-    <% if step == 1 %>
+    <% if step == 'projects' || step == 'rooms'|| step == 'room' %>
       <span class="ring active"><%= 1 %></span>
       <div class="line"></div>
       <span class="ring"><%= 2 %></span>
       <div class="line"></div>
       <span class="ring"><%= 3 %></span>
-    <% elsif step == 2 %>
+    <% elsif step == 'contract' %>
       <span class="ring active"><%= 1 %></span>
       <div class="line"></div>
       <span class="ring active"><%= 2 %></span>
       <div class="line"></div>
       <span class="ring"><%= 3 %></span>
-    <% else %>
+    <% elsif step == 'payment' %>
       <span class="ring active"><%= 1 %></span>
       <div class="line"></div>
       <span class="ring active"><%= 2 %></span>

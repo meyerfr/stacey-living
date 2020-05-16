@@ -8,7 +8,7 @@ class Address < ApplicationRecord
   validates_associated :description
 
   validate :description_requirement
-  validates :street, :number, :city, :zip, :country, presence: true
+  validates :street, :city, :zip, :country, presence: true
 
 
   def address

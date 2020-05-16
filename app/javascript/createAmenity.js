@@ -16,7 +16,7 @@ if (createAmenitiesModal) {
 }
 
 function addAmenity() {
-  var amenityForm  = document.getElementById('new_amenity')
+  var amenityForm  = document.getElementById('new_amenity');
   if (amenityForm) {
     amenityForm.addEventListener('submit', function(e) {
       e.preventDefault();

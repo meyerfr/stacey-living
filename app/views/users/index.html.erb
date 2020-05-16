@@ -60,7 +60,7 @@
             <span class="set-width"><%= user.email %></span>
             <div class="duration-dates set-width">
               <% if user.bookings.length.positive? %>
-                <%= user.bookings.last.move_in.strftime("%d.%m %Y") %> – <%= user.bookings.last.move_out.strftime("%d.%m %Y") %>
+                <%#= user.bookings.last.move_in.strftime("%d.%m %Y") %> – <%= user.bookings.last.move_out.strftime("%d.%m %Y") %>
               <% end %>
             </div>
             <div class="details d-flex set-width">
@@ -72,8 +72,8 @@
           <div class="list-detail d-none">
             <ul>
               <% if user.has_role?('tenant') %>
-                <li>move in: <%= user.bookings.last.move_in.strftime("%d.%B %Y") %></li>
-                <li>move out: <%= user.bookings.last.move_out.strftime("%d.%B %Y") %></li>
+                <li>move in: <%#= user.bookings.last.move_in.strftime("%d.%B %Y") %></li>
+                <li>move out: <%#= user.bookings.last.move_out.strftime("%d.%B %Y") %></li>
               <% end %>
               <li>Phone: <%= user.phone_code %> <%= user.phone_number %></li>
               <li>moves in <%= user.amount_of_people == 1 ? 'alone' : 'as a couple' %></li>

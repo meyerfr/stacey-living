@@ -6,8 +6,8 @@
     <%= image_tag "https://res.cloudinary.com/dvuqwvjay/image/upload/v1587030959/community-photo.jpg", class: "apply-formpage-picture" %>
   </div>
   <div class="apply-form-wrapper user">
-    <%= render 'shared/user_apply_form', user: @user %>
+    <%= render 'apply_form', booking: @booking %>
   </div>
 </div>
-<%= link_to 'create Booking', booking_process_path(@booking.id, Booking.form_steps.first) %>
+<%#= link_to 'create Booking', booking_process_path(@booking.id, Booking.form_steps.first) %>
 <%= render 'shared/footer' %>

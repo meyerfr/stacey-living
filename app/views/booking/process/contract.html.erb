@@ -1,4 +1,4 @@
-<%= render 'shared/three_steps_navbar', step: step %>
+<%= render 'shared/three_steps_navbar', step: 2 %>
 <div class="contract-page-wrapper">
   <div class="contract-page-header">
     <h2>Rental Contract</h2>
@@ -11,11 +11,11 @@
       <strong>
         Please proceed by clicking the button below.
       </strong>
-      <%= link_to 'Next Step', new_booking_payment_path(@booking.booking_auth_token, @booking.id), class: 'stacey-button contract-to-payment-button' %>
+      <%= link_to 'Next Step', next_wizard_path, class: 'stacey-button contract-to-payment-button' %>
     </div>
     <div id="pdf">
       <!-- this is loading the contract as PDF -->
-      <embed src="/bookings/<%= @booking.booking_auth_token %>/<%= @booking.id %>/contracts/<%= @contract.id %>.pdf" type="application/pdf">
+      <embed src="/bookings/<%= @booking.booking_auth_token %>/<%= @booking.id %>/contracts/<%= @booking.contract.id %>.pdf" type="application/pdf">
     </div>
   </div>
 </div>

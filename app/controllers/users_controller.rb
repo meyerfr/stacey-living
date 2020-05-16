@@ -16,6 +16,7 @@ class UsersController < ApplicationController
     Roomtype.order(:size).each do |roomtype|
       @user.prefered_suites.build(roomtype_id: roomtype.id)
     end
+    @booking = Booking.create(user_id: User.first.id)
   end
 
   def create

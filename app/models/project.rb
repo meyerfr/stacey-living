@@ -9,15 +9,15 @@ class Project < ApplicationRecord
   with_options dependent: :destroy do |assoc|
     assoc.has_one :address, as: :addressable, required: false
     assoc.has_many :descriptions, as: :descriptionable
-    assoc.has_many :project_amenities
+    assoc.has_many :join_amenities, as: :amenitiable
     assoc.has_many :roomtypes
   end
 
   has_many :rooms, through: :roomtypes
-  has_many :amenities, through: :project_amenities
+  has_many :amenities, through: :join_amenities
   has_many_attached :photos
 
-  accepts_nested_attributes_for :address, :descriptions, :project_amenities, :roomtypes, allow_destroy: true
+  accepts_nested_attributes_for :address, :descriptions, :join_amenities, :roomtypes, allow_destroy: true
 
   # before_save :clean_up_data
 

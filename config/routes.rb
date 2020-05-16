@@ -10,6 +10,11 @@ Rails.application.routes.draw do
     resources :steps, only: [:show, :update], controller: 'project/steps'
     resources :roomtypes, except: [:index]
   end
+
+  resources :bookings, only: [:index] do
+    resources :process, only: [:show, :update], controller: 'booking/process'
+  end
+
   get 'fritz_all_users', to: 'users#all_users', as: 'all_users'
   resources :welcome_calls, only: [:index]
   resources :bookings, path: 'bookings/(:booking_auth_token)', only: [:update] do
@@ -23,7 +28,9 @@ Rails.application.routes.draw do
     resources :payments, only: [:new, :create]
   end
   get 'bookings/(:booking_auth_token)/:id/payment', to: 'bookings#payment', as: 'booking_payment'
-  resources :bookings, only: [:index]
+
+  get 'apply', to: 'booking/process#apply', as: 'apply'
+  post 'apply', to: 'booking/process#create'
   # get 'bookings/calendar/(:room_name)', to: 'bookings#calendar', as: 'booking_calendar'
 
   get 'home', to: 'pages#home', as: 'home'

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_13_133425) do
+ActiveRecord::Schema.define(version: 2020_05_14_095348) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -100,6 +100,17 @@ ActiveRecord::Schema.define(version: 2020_05_13_133425) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["descriptionable_type", "descriptionable_id"], name: "index_descs_on_descable_type_and_descable_id"
+  end
+
+  create_table "join_amenities", force: :cascade do |t|
+    t.string "amenitiable_type"
+    t.bigint "amenitiable_id"
+    t.string "name"
+    t.bigint "amenity_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["amenitiable_type", "amenitiable_id"], name: "index_join_amenities_on_amenitiable_type_and_amenitiable_id"
+    t.index ["amenity_id"], name: "index_join_amenities_on_amenity_id"
   end
 
   create_table "partners", force: :cascade do |t|
@@ -236,6 +247,7 @@ ActiveRecord::Schema.define(version: 2020_05_13_133425) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "bookings", "users"
   add_foreign_key "contracts", "bookings"
+  add_foreign_key "join_amenities", "amenities"
   add_foreign_key "prefered_suites", "roomtypes"
   add_foreign_key "prefered_suites", "users"
   add_foreign_key "prices", "roomtypes"

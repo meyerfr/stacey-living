@@ -1,0 +1,46 @@
+<%= render 'shared/three_steps_navbar', step: step %>
+<div class="cards-wrapper">
+  <div class="project-choose">
+    <h2>Where do you want to live next?</h2>
+  </div>
+  <div class="cards-container">
+    <%# 8.times do %>
+    <% @projects.each_with_index do |project, index| %>
+      <div class="stacey-card flat-card">
+        <%= render 'shared/carousel', pictures: project.photos, carousel_id: "project#{project.id}", no_lightbox_button: false, no_buttons: true %>
+        <div class="stacey-card-header">
+          <div class="name">
+            <span>STACEY</span>
+            <span><%= project.name %></span>
+          </div>
+          <span class="price">from €<%= project.roomtypes.find_by(name: 'Mighty').prices.first.amount.to_i  %></span>
+        </div>
+        <%= render 'shared/amenities', amenities: @project_index_amenities %>
+        <!-- <div class="amenities">
+          <span class="amenity">Furnished</span>
+          <span class="amenity">Wifi</span>
+          <span class="amenity">Speakers</span>
+          <span class="amenity">Work Spaces</span>
+          <span class="amenity">Cleaning</span>
+          <span class="amenity">Netflix</span>
+          <span class="amenity">Kitchen</span>
+          <span class="amenity">Tabletennis</span>
+        </div> -->
+
+        <%= link_to "Explore", booking_process_path(@booking, 'rooms', project_id: project.id), class: 'stacey-card-button stacey-button reverse-hover' %>
+      </div>
+    <% end %>
+    <%# end %>
+  </div>
+</div>
+
+<div id="map"
+     style="width: 100%; height: 600px;"
+     data-markers="<%= @markers.to_json %>"
+     data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>"></div>
+
+<% if current_user.present? && current_user.admin? %>
+  <%= link_to 'Create new Project', projects_path, method: :post, class: "stacey-button" %>
+<% end %>
+
+<%= render 'shared/footer' %>

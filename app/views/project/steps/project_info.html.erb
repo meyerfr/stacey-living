@@ -21,18 +21,40 @@
       <%= desc.input :content %>
     <% end %>
     <div class="project-amenities-wrapper">
-      <%= f.simple_fields_for :project_amenities do |pa| %>
-        <% if pa.object.id.nil? %>
-          <div class="project-amenity-select">
-          <%= pa.input_field :_destroy, as: :hidden, value: '1' %>
-        <% else %>
-          <div class="project-amenity-select selected">
-          <%= pa.input_field :_destroy, as: :hidden, value: '0' %>
+      <%= f.simple_fields_for :join_amenities do |ja| %>
+        <% if ja.object.name == 'project index' %>
+          <% if ja.object.id.nil? %>
+            <div class="project-amenity-select">
+            <%= ja.input_field :_destroy, as: :hidden, value: '1' %>
+          <% else %>
+            <div class="project-amenity-select selected">
+            <%= ja.input_field :_destroy, as: :hidden, value: '0' %>
+          <% end %>
+          <%= ja.input_field :id, as: :hidden %>
+          <%= ja.input_field :amenity_id, as: :hidden %>
+          <%= Amenity.find(ja.object.amenity_id).title %>
+          </div>
         <% end %>
-        <%= pa.input_field :id, as: :hidden %>
-        <%= pa.input_field :amenity_id, as: :hidden %>
-        <%= Amenity.find(pa.object.amenity_id).title %>
-        </div>
+      <% end %>
+    </div>
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createAmenitiesModal">
+      Add Amenitiy
+    </button>
+    <div class="project-amenities-wrapper">
+      <%= f.simple_fields_for :join_amenities do |ja| %>
+        <% if ja.object.name == 'project show' %>
+          <% if ja.object.id.nil? %>
+            <div class="project-amenity-select">
+            <%= ja.input_field :_destroy, as: :hidden, value: '1' %>
+          <% else %>
+            <div class="project-amenity-select selected">
+            <%= ja.input_field :_destroy, as: :hidden, value: '0' %>
+          <% end %>
+          <%= ja.input_field :id, as: :hidden %>
+          <%= ja.input_field :amenity_id, as: :hidden %>
+          <%= Amenity.find(ja.object.amenity_id).title %>
+          </div>
+        <% end %>
       <% end %>
     </div>
     <!-- <div class="project-amenity-select selected">

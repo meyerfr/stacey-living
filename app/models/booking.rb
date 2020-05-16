@@ -1,10 +1,22 @@
 class Booking < ApplicationRecord
-  validate :move_in_future, :minimum_duration
+  cattr_accessor :form_steps do
+    %w(projects rooms room contract_new contract payment success)
+  end
+
+  attr_accessor :form_step
+
+  # validate :move_in_future, :minimum_duration
   belongs_to :user
   belongs_to :room, optional: true
+  has_one :contract
+
+  accepts_nested_attributes_for :user, :contract
+  validates_associated :contract
+
+  # accepts_nested_attributes_for :user
+  # validates_associated :user
 
   with_options dependent: :destroy do |assoc|
-    assoc.has_many :contracts
     assoc.has_many :welcome_calls
   end
 
