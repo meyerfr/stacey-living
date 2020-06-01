@@ -33,6 +33,9 @@
     .active{
       border-bottom: 2px solid $stacey-pink;
       color: white;
+      a{
+        color: inherit;
+      }
     }
     .ring.active{
       background: $stacey-pink;

@@ -60,7 +60,7 @@
             <span class="set-width"><%= user.email %></span>
             <div class="duration-dates set-width">
               <% if user.bookings.length.positive? %>
-                <%#= user.bookings.last.move_in.strftime("%d.%m %Y") %> – <%= user.bookings.last.move_out.strftime("%d.%m %Y") %>
+                <%= user.bookings.last.move_in.strftime("%d.%m %Y") %> – <%= user.bookings.last.move_out.strftime("%d.%m %Y") %>
               <% end %>
             </div>
             <div class="details d-flex set-width">
@@ -72,8 +72,10 @@
           <div class="list-detail d-none">
             <ul>
               <% if user.has_role?('tenant') %>
-                <li>move in: <%#= user.bookings.last.move_in.strftime("%d.%B %Y") %></li>
-                <li>move out: <%#= user.bookings.last.move_out.strftime("%d.%B %Y") %></li>
+                <% if (users_last_booking = user.bookings.last).present? %>
+                  <li>move in: <%= users_last_booking.move_in.strftime("%d.%B %Y") %></li>
+                  <li>move out: <%= users_last_booking.move_out.strftime("%d.%B %Y") %></li>
+                <% end %>
               <% end %>
               <li>Phone: <%= user.phone_code %> <%= user.phone_number %></li>
               <li>moves in <%= user.amount_of_people == 1 ? 'alone' : 'as a couple' %></li>
@@ -85,22 +87,22 @@
                 </li>
               <% end %>
               <li>Job: <%= user.job %></li>
-              <% if user.gender.present? %>
-                <li>Gender: <%= user.gender %></li>
+              <% if (gender = user.gender).present? %>
+                <li>Gender: <%= gender %></li>
               <% end %>
-              <% unless (address = user.address).nil? %>
-                <li>Address: <%= address.street %>, <%= address.zipcode %> <%= address.city %>, <%= address.country %></li>
+              <% if (address = user.address).present? %>
+                <li>Address: <%= address.street %>, <%= address.zip %> <%= address.city %>, <%= address.country %></li>
               <% end %>
-              <% if user.dob %>
-                <li>Date of Birth: <%= user.dob %></li>
+              <% if (dob = user.dob).present? %>
+                <li>Date of Birth: <%= dob %></li>
               <% end %>
               <% if (social_links = user.social_links).present? %>
                 <% social_links.each do |link| %>
                   <li><%= link.name.capitalize %>: <%= link_to link.url, link.url, target: :_blank %></li>
                 <% end %>
               <% end %>
-              <% if Booking.find_by(user_id: user.id) %>
-                <li>Booking Id: <%= Booking.find_by(user_id: user.id).id %></li>
+              <% if (users_last_booking = user.bookings.last).present? %>
+                <li>Booking Id: <%= users_last_booking.id %></li>
               <% end %>
               <li>Applied on the <%= user.created_at.strftime("%d.%B %Y") %></li>
               <%= link_to "Edit #{user.first_name}", edit_user_path(user), class: 'edit-user-button stacey-button' %>

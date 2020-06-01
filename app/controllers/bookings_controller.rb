@@ -9,7 +9,7 @@ class BookingsController < ApplicationController
     search_param = params[:search] if params[:search].present?
     @bookings = Booking.order(created_at: :desc).select{ |b| b.move_in <= Date.today && b.move_out >= Date.today && b.state == 'booked' }
     if @room_name_param == 'all'
-      @total_room_number = RoomAttribute.count
+      @total_room_number = Room.count
       @total_current_room_bookings = @bookings.count
 
       @room_name = @room_name_param

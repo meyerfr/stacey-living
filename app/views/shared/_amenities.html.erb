@@ -3,6 +3,7 @@
   <% amenities.each do |amenity| %>
     <span class="amenity">
       <%#= amenity.title %>
+      <%= cl_image_tag amenity.photo.key, style: 'width: 20px' %>
       <span><%= amenity.title %></span>
     </span>
   <% end %>

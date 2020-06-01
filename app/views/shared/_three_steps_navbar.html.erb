@@ -11,15 +11,15 @@
       <div class="line"></div>
       <span class="ring"><%= 3 %></span>
     <% elsif step == 'contract' %>
-      <span class="ring active"><%= 1 %></span>
+      <span class="ring active"><%= link_to 1, booking_process_path(@booking, Booking.form_steps.first) %></span>
       <div class="line"></div>
       <span class="ring active"><%= 2 %></span>
       <div class="line"></div>
       <span class="ring"><%= 3 %></span>
     <% elsif step == 'payment' %>
-      <span class="ring active"><%= 1 %></span>
+      <span class="ring active"><%= link_to 1, booking_process_path(@booking, Booking.form_steps.first) %></span>
       <div class="line"></div>
-      <span class="ring active"><%= 2 %></span>
+      <span class="ring active"><%= link_to 2, booking_process_path(@booking, Booking.form_steps.first) %></span>
       <div class="line"></div>
       <span class="ring active"><%= 3 %></span>
     <% end %>

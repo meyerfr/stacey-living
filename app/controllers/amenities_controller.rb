@@ -13,7 +13,7 @@ class AmenitiesController < ApplicationController
 
   # GET /amenities/new
   def new
-    @amenity = amenity.new
+    @amenity = Amenity.new
   end
 
   # GET /amenities/1/edit
@@ -22,7 +22,7 @@ class AmenitiesController < ApplicationController
 
   # POST /amenities
   def create
-    @amenity = Amenity.new(amenity_params)
+    @amenity = Amenity.new(name: params[:name], title: params[:title], photo: params[:photo])
     if @amenity.save
       render json: @amenity
     else
@@ -53,6 +53,6 @@ class AmenitiesController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def amenity_params
-      params.require(:amenity).permit(:title, :name, photos: [])
+      params(:title, :name, :photo)
     end
 end

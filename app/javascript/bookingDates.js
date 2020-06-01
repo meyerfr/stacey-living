@@ -1,5 +1,5 @@
-const moveIn = document.querySelector('.user_bookings_move_in');
-const moveOut = document.querySelector('.user_bookings_move_out');
+const moveIn = document.querySelector('.booking_move_in');
+const moveOut = document.querySelector('.booking_move_out');
 
 function monthDiff(d1, d2) {
   // var months;

@@ -17,6 +17,8 @@ import { initMapbox } from '../plugins/init_mapbox';
 import { initAutocomplete } from '../plugins/init_autocomplete';
 import { addAmenity } from '../createAmenity';
 import { newRoomFieldHandler } from '../createRoomAttribute';
+import { selectAmenity } from '../selectAmenity';
+import { selectMoveInDate } from '../selectMoveInBookingForm';
 
 stripeProcess();
 onlyOneBox();
@@ -27,11 +29,13 @@ noNavbar();
 checkDates();
 addCoupleOption();
 infoOnHovering();
-checkBookingFormDuration();
+// checkBookingFormDuration();
 signing();
 previewImages();
 fieldHandler();
 checkPricesNames();
+selectAmenity();
+selectMoveInDate();
 
 document.addEventListener('turbolinks:load', () => {
   initMapbox();

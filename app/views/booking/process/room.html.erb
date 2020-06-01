@@ -31,6 +31,12 @@
       <p><%= @roomtype.project.descriptions.last.content %></p>
       <!-- image of project -->
     </div>
+
+    <div id="map"
+     style="height: 500px;"
+     data-markers="<%= @markers.to_json %>"
+     data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>"></div>
+
     <div class="section">
       <h3>What Is The Coliving Buzz All About?</h3>
       <div class="text">

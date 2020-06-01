@@ -8,7 +8,7 @@
     padding: 0 3% 0 9%;
     @media (max-width: 768px){
       padding: 0;
-
+      justify-content: center;
     }
     .apply-formpage-header{
       text-align: center;
@@ -22,7 +22,7 @@
       width: 50%;
       margin-bottom: -70px;
       @media (max-width: 768px) {
-        visibility: hidden;
+        display: none;
       }
     }
   }
@@ -31,6 +31,9 @@
     justify-content: center;
     margin-top: 150px;
     padding-bottom: 50px;
+    @media (max-width: 768px) {
+      margin-top: 30px;
+    }
     .apply-form{
       display: flex;
       flex-wrap: wrap;
@@ -69,8 +72,17 @@
           padding: 6px 12px;
           justify-content: space-between;
         }
+        .check-boxes.prefered_suites{
+          flex-wrap: wrap;
+        }
         .check-boxes.gender{
           justify-content: unset;
+          .gender-option{
+            cursor: pointer;
+            input, label{
+              cursor: inherit;
+            }
+          }
           .gender-option:last-child{
             margin-left: 30px;
           }
@@ -121,6 +133,9 @@
         }
         .check-boxes{
           justify-content: space-around;
+          i{
+            cursor: pointer;
+          }
         }
       }
       .message{

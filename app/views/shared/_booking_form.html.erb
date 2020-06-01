@@ -1,11 +1,12 @@
 <div class="booking-form-wrapper">
   <div class="booking-form-section">
     <%= simple_form_for booking, method: :put, url: wizard_path do |f| %>
+      <%= f.hidden_field :move_in %>
       <div class="form-group">
         <%= f.label :move_in, label: 'WHEN DO YOU WANT TO MOVE IN?' %>
         <%#= f.collection_select(:room, :room_id, room_availability, :id, :name) %>
+        <%= f.select(:room_id, room_availability.map { |id, time| [time, id] }, {}, {class: 'form-control'}) %>
       </div>
-      <%= f.select(:room_id, room_availability.map { |id, time| [time, id] }) %>
       <%#= f.label 'WHEN DO YOU WANT TO MOVE IN?' %>
       <%# room_availability.each do |room_id, availability| %>
         <!-- <p><%#= room_id %> is available on the <%#= availability %></p> -->

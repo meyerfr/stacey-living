@@ -20,40 +20,22 @@
       <%= desc.input :field %>
       <%= desc.input :content %>
     <% end %>
-    <div class="project-amenities-wrapper">
+    <div class="project-amenities-wrapper amenity-wrapper">
+      <%= f.label :join_amenities, 'Project Index Amenities' %>
       <%= f.simple_fields_for :join_amenities do |ja| %>
         <% if ja.object.name == 'project index' %>
-          <% if ja.object.id.nil? %>
-            <div class="project-amenity-select">
-            <%= ja.input_field :_destroy, as: :hidden, value: '1' %>
-          <% else %>
-            <div class="project-amenity-select selected">
-            <%= ja.input_field :_destroy, as: :hidden, value: '0' %>
-          <% end %>
-          <%= ja.input_field :id, as: :hidden %>
-          <%= ja.input_field :amenity_id, as: :hidden %>
-          <%= Amenity.find(ja.object.amenity_id).title %>
-          </div>
+          <%= render 'amenity_fields', f: ja %>
         <% end %>
       <% end %>
     </div>
     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createAmenitiesModal">
       Add Amenitiy
     </button>
-    <div class="project-amenities-wrapper">
+    <div class="project-amenities-wrapper amenity-wrapper">
+      <%= f.label :join_amenities, 'Project Show Amenities' %>
       <%= f.simple_fields_for :join_amenities do |ja| %>
         <% if ja.object.name == 'project show' %>
-          <% if ja.object.id.nil? %>
-            <div class="project-amenity-select">
-            <%= ja.input_field :_destroy, as: :hidden, value: '1' %>
-          <% else %>
-            <div class="project-amenity-select selected">
-            <%= ja.input_field :_destroy, as: :hidden, value: '0' %>
-          <% end %>
-          <%= ja.input_field :id, as: :hidden %>
-          <%= ja.input_field :amenity_id, as: :hidden %>
-          <%= Amenity.find(ja.object.amenity_id).title %>
-          </div>
+          <%= render 'amenity_fields', f: ja %>
         <% end %>
       <% end %>
     </div>
@@ -90,6 +72,11 @@
           </div>
           <div class="form-group">
             <%= f.input :name %>
+          </div>
+          <div class="form-group img_prev">
+            <%= f.label :photo, 'Upload project images' %>
+            <div class="pictures d-flex"></div>
+            <%= f.input :photo, as: :file, label: false, input_html: { multiple: false, class: 'picture-upload' } %>
           </div>
           <div class="form-group">
             <%= f.submit class: "btn btn-primary" %>

@@ -19,6 +19,30 @@
     <%= room_description.input :field %>
     <%= room_description.input :content %>
   <% end %>
+  <div class="project-amenities-wrapper amenity-wrapper">
+    <%= f.label :join_amenities, 'Roomtype Index Inventory' %>
+    <%= f.simple_fields_for :join_amenities do |ja| %>
+      <% if ja.object.name == 'roomtype index inventory' %>
+        <%= render 'amenity_fields', f: ja %>
+      <% end %>
+    <% end %>
+  </div>
+  <div class="project-amenities-wrapper amenity-wrapper">
+    <%= f.label :join_amenities, 'Roomtype Index Inclusion' %>
+    <%= f.simple_fields_for :join_amenities do |ja| %>
+      <% if ja.object.name == 'roomtype index inclusion' %>
+        <%= render 'amenity_fields', f: ja %>
+      <% end %>
+    <% end %>
+  </div>
+  <div class="project-amenities-wrapper amenity-wrapper">
+    <%= f.label :join_amenities, 'PRoomtype Show' %>
+    <%= f.simple_fields_for :join_amenities do |ja| %>
+      <% if ja.object.name == 'roomtype show' %>
+        <%= render 'amenity_fields', f: ja %>
+      <% end %>
+    <% end %>
+  </div>
   <div class="room-attributes-wrapper">
     <%= f.simple_fields_for :rooms do |room| %>
       <%= render 'room_fields', f: room %>

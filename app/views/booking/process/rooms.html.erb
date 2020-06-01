@@ -18,6 +18,7 @@
   <span>Our 100m2 of community space at ground level comes with:</span>
   <ul class="common-space-amenities">
     <% @project_show_amenities.each do |amenity| %>
+      <%= cl_image_tag amenity.photo.key, style: 'width: 20px' %>
       <li><%= amenity.title %></li>
     <% end %>
   </ul>
@@ -38,7 +39,8 @@
           <span class="price">from €<%= roomtype.prices.first.amount % 1 == 0 ? roomtype.prices.first.amount.to_i : roomtype.prices.first %></span>
         </div>
         <% roomtype_index_amenities = [] %>
-        <% roomtype.join_amenities.each{|ja| roomtype_index_amenities << ja.amenity if ja.name == 'roomtype index' } %>
+        <% roomtype.join_amenities.each{|ja| roomtype_index_amenities << ja.amenity if ja.name == 'roomtype index inventory' } %>
+        <% roomtype.join_amenities.each{|ja| roomtype_index_amenities << ja.amenity if ja.name == 'roomtype index inclusion' } %>
         <%= render 'shared/amenities', amenities: roomtype_index_amenities %>
         <%= link_to "Explore", booking_process_path(@booking, 'room', roomtype_id: roomtype.id), class: 'stacey-card-button stacey-button reverse-hover' %>
       </div>
@@ -49,5 +51,15 @@
 <% if current_user.present? && current_user.admin? %>
   <%= link_to 'Create new Roomtype', new_project_roomtype_path(@project), class: "stacey-button" %>
 <% end %>
+
+<div class="common-space-info">
+  <p class="info-header">The Location</p>
+  <span class="description"><%= @project.address.description.content %></span>
+</div>
+
+<div id="map"
+     style="margin: 0 50px; height: 600px;"
+     data-markers="<%= @markers.to_json %>"
+     data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>"></div>
 
 <%= render 'shared/footer' %>

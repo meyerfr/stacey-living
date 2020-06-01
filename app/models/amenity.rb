@@ -1,4 +1,6 @@
 class Amenity < ApplicationRecord
+  has_one_attached :photo
+
   with_options dependent: :destroy do |assoc|
     assoc.has_many :join_amenities, as: :amenitiable
   end

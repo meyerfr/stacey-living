@@ -1,0 +1,14 @@
+<% if f.object.id.nil? %>
+  <div class="project-amenity-select amenity-field">
+  <%= f.input_field :_destroy, as: :hidden, value: '1' %>
+<% else %>
+  <div class="project-amenity-select amenity-field selected">
+  <%= f.input_field :_destroy, as: :hidden, value: '0' %>
+<% end %>
+  <%= f.input_field :id, as: :hidden %>
+  <%= f.input_field :amenity_id, as: :hidden %>
+  <% amenity = Amenity.find(f.object.amenity_id) %>
+  <%= cl_image_tag amenity.photo.key, width: 20 %>
+  <%= f.hidden_field :name %>
+  <%= amenity.title %>
+</div>

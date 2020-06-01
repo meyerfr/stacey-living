@@ -20,9 +20,9 @@ class Booking::ProcessController < ApplicationController
     @booking = Booking.new(booking_params(nil))
     @booking.user.skip_password_validation = true
     if @booking.save
-      redirect_to booking_process_path(@booking, Booking.form_steps.first)
+      redirect_to new_booking_welcome_call_path(@booking.booking_auth_token, @booking)
     else
-      render :new
+      render :apply
     end
   end
 
@@ -32,6 +32,7 @@ class Booking::ProcessController < ApplicationController
   end
 
   def update
+    raise
     if step == 'room'
       @room = Room.find(params[:booking][:room_id])
       @booking.move_in = @room.bookings.present? ? @room.bookings.last.move_out : Date.tomorrow
@@ -57,12 +58,13 @@ class Booking::ProcessController < ApplicationController
   private
 
   def set_objects
-    @booking = Booking.find(params[:booking_id])
+    @booking = Booking.find(params[:booking_id]) unless step == 'apply'
     case step
     when 'rooms'
       @project = Project.find(params[:project_id])
-    when 'room'
-      @roomtype = Roomtype.find(params[:roomtype_id])
+    # when 'room'
+    #   @roomtype = Roomtype.find(params[:roomtype_id])
+    #   @project = @roomtype.project
     end
   end
 
@@ -70,7 +72,7 @@ class Booking::ProcessController < ApplicationController
     case step
     when 'projects'
       @projects = Project.last(1)
-        @markers = @projects.map do |project|
+      @markers = @projects.map do |project|
         {
           lat: project.address.latitude,
           lng: project.address.longitude,
@@ -85,7 +87,17 @@ class Booking::ProcessController < ApplicationController
       @project_show_amenities = []
       @project.join_amenities.each{|ja| @project_show_amenities << ja.amenity if ja.name == 'project show' }
       @room_availability_hash = find_available_booking_dates_for_each_room_art(@roomtypes)
+      @markers = [
+        {
+          lat: @project.address.latitude,
+          lng: @project.address.longitude,
+          # infoWindow: render_to_string(partial: 'info_window', locals: { user: user }),
+          image_url: helpers.asset_url('maps_marker.png')
+        }
+      ]
     when 'room'
+      @roomtype = Roomtype.find(params[:roomtype_id])
+      @project = @roomtype.project
       @roomtype_show_amenities = []
       @roomtype.join_amenities.each{|ja| @roomtype_show_amenities << ja.amenity if ja.name == 'roomtype show' }
 
@@ -93,12 +105,20 @@ class Booking::ProcessController < ApplicationController
       @roomtype.rooms.each do |room|
         rooms_last_booking = Booking.order(:move_out).select{ |b| b.room == room && b.state == 'booked' }.last
         if rooms_last_booking.present? && rooms_last_booking.move_out.future?
-          @room_availability.store(room.id, (rooms_last_booking.move_out + 1.day).strftime('%d.%B %Y')) if !@room_availability.values.include?((rooms_last_booking.move_out + 1.day).strftime('%d.%B %Y'))
+          @room_availability.store(room.id, (rooms_last_booking.move_out + 1.day).strftime('%d. %B %Y')) if !@room_availability.values.include?((rooms_last_booking.move_out + 1.day).strftime('%d. %B %Y'))
         else
-          @room_availability.store(room.id, Date.tomorrow.strftime('%d.%B %Y')) if !@room_availability.values.include?(Date.tomorrow.strftime('%d.%B %Y'))
+          @room_availability.store(room.id, Date.tomorrow.strftime('%d. %B %Y')) if !@room_availability.values.include?(Date.tomorrow.strftime('%d. %B %Y'))
         end
       end
       @room_availability = @room_availability.sort_by { |key, value| value.to_date }.to_h
+      @markers = [
+        {
+          lat: @project.address.latitude,
+          lng: @project.address.longitude,
+          # infoWindow: render_to_string(partial: 'info_window', locals: { user: user }),
+          image_url: helpers.asset_url('maps_marker.png')
+        }
+      ]
     when 'contract_new'
       @booking.build_contract unless @booking.contract.present?
       @booking.user.build_address unless @booking.user.address.present?

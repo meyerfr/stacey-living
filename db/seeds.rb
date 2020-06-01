@@ -1,34 +1,84 @@
+# new Seed File for project step logic
+
+muehlenkamp = Project.create(name: 'Mühlenkamp')
+
+muehlenkamp_address = muehlenkamp.address.create(street: 'Dorotheenstraße', number: '3', city: 'Hamburg', zip: '22301' country: 'Germany')
+muehlenkamp_address.description.create(field: 'address info', content: )
+
+muehlenkamp.descriptions.create(field: 'project info index', content: )
+muehlenkamp.descriptions.create(field: 'project info show', content: )
+
+mighty = muehlenkamp.roomtypes.create(name: 'Mighty', size: 8)
+mighty_prices_info = [[745, '3-5 Months'], [695, '6-8 Months'], [645, '9+ Months']]
+mighty_rooms_info = [['D05', 'D3b 1.OG rechts'], ['D07', 'D3b 2.OG rechts'], ['D09', 'D3b 2.OG links'], ['D10', 'D3 EG links'], ['D11', 'D3 EG links'], ['D13', 'D3 EG rechts'], ['D14', 'D3 EG rechts'], ['D16', 'D5 1.OG rechts'], ['D19', 'D5 2.OG links'], ['D22', 'D3 2.OG links'], ['D25', 'D5 EG links'], ['D27', 'D5 EG links'], ['D28', 'D5 EG links'], ['D29', 'D5a 1.OG rechts'], ['D30', 'D5a 1.OG rechts'], ['D32', 'D5a 2.OG rechts'], ['D33', 'D5a 2.OG rechts'], ['D35', 'D5a 2.OG links'], ['D38', 'D3a 1.OG rechts'], ['D39', 'D3a EG links'], ['D40', 'D3a EG links'], ['D42', 'D3a 1.OG links'], ['D43', 'D3a 1.OG links'], ['D46', 'D3c 1.OG links'], ['D48', 'D3b 1.OG links'], ['D50', 'D3c EG rechts'], ['D52', 'D5a EG rechts'], ['D53', 'D5a EG rechts']]
+create_prices(mighty, mighty_prices_info)
+create_rooms(mighty, mighty_rooms_info)
+
+premium = muehlenkamp.roomtypes.create(name: 'Premium', size: 13)
+premium_prices_info = [[845, '3-5 Months'], [795, '6-8 Months'], [745, '9+ Months']]
+premium_rooms_info = [['D01', 'D3d 2.OG'], ['D02', 'D3d 2.OG'], ['D03', 'D3d 2.OG'], ['D17', 'D5 1.OG rechts'], ['D20', 'D5 2.OG links'], ['D23', 'D3 2.OG links'], ['D51', 'D5a EG rechts']]
+create_prices(premium, premium_prices_info)
+create_rooms(premium, premium_rooms_info)
+
+premium_plus = muehlenkamp.roomtypes.create(name: 'Premium+', size: 15)
+premium_plus_prices_info = [[895, '3-5 Months'], [845, '6-8 Months'], [795, '9+ Months']]
+premium_plus_rooms_info = [['D12', 'D3 EG links'], ['D15', 'D3 EG rechts'], ['D18', 'D5 1.OG rechts'], ['D21', 'D5 2.OG links'], ['D24', 'D3 2.OG links'], ['D26', 'D5 EG links'], ['D31', 'D5a 1.OG rechts'], ['D34', 'D5a 2.OG rechts'], ['D41', 'D3a EG links'], ['D44', 'D3a 1.OG links']]
+create_prices(premium_plus, premium_plus_prices_info)
+create_rooms(premium_plus, premium_plus_rooms_info)
+
+jumbo = muehlenkamp.roomtypes.create(name: 'Jumbo', size: 25)
+jumbo_prices_info = [[1045, '3-5 Months'], [995, '6-8 Months'], [945, '9+ Months']]
+jumbo_rooms_info = [['D04', 'D3b 1.OG rechts'], ['D06', 'D3b 2.OG rechts'], ['D08', 'D3b 2.OG links'], ['D36', 'D5a 2.OG links'], ['D37', 'D3a 1.OG rechts'], ['D45', 'D3c 1.OG links'], ['D47', 'D3b 1.OG links'], ['D49', 'D3c EG rechts']]
+create_prices(jumbo, jumbo_prices_info)
+create_rooms(jumbo, jumbo_rooms_info)
+
+
+def create_prices(roomtype, roomtype_prices_info)
+  roomtype_prices_info.each do |amount_duration|
+    roomtype.prices.createe(amount: amount_duration[0], duration: amount_duration[1])
+  end
+end
+
+def create_rooms(roomtype, roomtype_room_info)
+  roomtype_room_info.each do |intern_house_number|
+    roomtype.rooms.create(intern: intern_house_number[0], house_number: intern_house_number[1])
+  end
+end
+
+# create Amenities neew Photos to do so.
+
+
 
 # print('update Amenities')
 
-Amenity.destroy_all
+# Amenity.destroy_all
 
-Amenity.create(icon_text: "<i class=\"fas fa-wifi\"></i>", title: "internet", type: 'includes')
-Amenity.create(icon_text: "<i class=\"fas fa-couch\"></i>", title: "fully furnished")
-Amenity.create(icon_text: "<i class=\"fas fa-tv\"></i>", title: "Netflix")
-Amenity.create(icon_text: "<i class=\"fas fa-briefcase\"></i>", title: "work spaces")
-Amenity.create(icon_text: "<i class=\"fas fa-table-tennis\"></i>", title: "table tennis")
-Amenity.create(icon_text: "<i class=\"fas fa-utensils\"></i>", title: "fully equiped kitchen")
-Amenity.create(icon_text: "<i class=\"fas fa-utensils\"></i>", title: "2x fully equiped kitchen")
-Amenity.create(icon_text: "<i class=\"fas fa-lock-open\"></i>", title: "smart locks")
-Amenity.create(icon_text: "<i class=\"fas fa-broom\"></i>", title: "weekly cleaning", type: 'includes')
-Amenity.create(icon_text: "<i class=\"fas fa-bed\"></i>", title: "queen size bed", type: 'inventory')
-Amenity.create(icon_text: "<i class=\"fas fa-user\"></i>", title: "For 1 member")
-Amenity.create(icon_text: "<i class=\"fas fa-user-friends\"></i>", title: "For up to 2 members")
-Amenity.create(title: "Double Bed", type: 'inventory')
-Amenity.create(title: "wardrobe with hangers & drawers", type: 'inventory')
-Amenity.create(title: "armchair", type: 'inventory')
-Amenity.create(title: "desk with chair", type: 'inventory')
-Amenity.create(title: "side table", type: 'inventory')
-Amenity.create(title: "bedding", type: 'inventory')
-Amenity.create(title: "artwork", type: 'inventory')
-Amenity.create(title: "welcome present", type: 'inventory')
-Amenity.create(title: "Your private suite", type: 'includes')
-Amenity.create(title: "access to the community spaces", type: 'includes')
-Amenity.create(title: "utilities", type: 'includes')
-Amenity.create(icon_text: '<i class="fas fa-mug-hot"></i>', title: "coffee- & water flat rate", type: 'includes')
-Amenity.create(title: "basic supplies", type: 'includes')
-Amenity.create(title: "monthly member events", type: 'includes')
+# Amenity.create(icon_text: "<i class=\"fas fa-wifi\"></i>", title: "internet", type: 'includes')
+# Amenity.create(icon_text: "<i class=\"fas fa-couch\"></i>", title: "fully furnished")
+# Amenity.create(icon_text: "<i class=\"fas fa-tv\"></i>", title: "Netflix")
+# Amenity.create(icon_text: "<i class=\"fas fa-briefcase\"></i>", title: "work spaces")
+# Amenity.create(icon_text: "<i class=\"fas fa-table-tennis\"></i>", title: "table tennis")
+# Amenity.create(icon_text: "<i class=\"fas fa-utensils\"></i>", title: "fully equiped kitchen")
+# Amenity.create(icon_text: "<i class=\"fas fa-utensils\"></i>", title: "2x fully equiped kitchen")
+# Amenity.create(icon_text: "<i class=\"fas fa-lock-open\"></i>", title: "smart locks")
+# Amenity.create(icon_text: "<i class=\"fas fa-broom\"></i>", title: "weekly cleaning", type: 'includes')
+# Amenity.create(icon_text: "<i class=\"fas fa-bed\"></i>", title: "queen size bed", type: 'inventory')
+# Amenity.create(icon_text: "<i class=\"fas fa-user\"></i>", title: "For 1 member")
+# Amenity.create(icon_text: "<i class=\"fas fa-user-friends\"></i>", title: "For up to 2 members")
+# Amenity.create(title: "Double Bed", type: 'inventory')
+# Amenity.create(title: "wardrobe with hangers & drawers", type: 'inventory')
+# Amenity.create(title: "armchair", type: 'inventory')
+# Amenity.create(title: "desk with chair", type: 'inventory')
+# Amenity.create(title: "side table", type: 'inventory')
+# Amenity.create(title: "bedding", type: 'inventory')
+# Amenity.create(title: "artwork", type: 'inventory')
+# Amenity.create(title: "welcome present", type: 'inventory')
+# Amenity.create(title: "Your private suite", type: 'includes')
+# Amenity.create(title: "access to the community spaces", type: 'includes')
+# Amenity.create(title: "utilities", type: 'includes')
+# Amenity.create(icon_text: '<i class="fas fa-mug-hot"></i>', title: "coffee- & water flat rate", type: 'includes')
+# Amenity.create(title: "basic supplies", type: 'includes')
+# Amenity.create(title: "monthly member events", type: 'includes')
 
 # print('update Database to current situation');
 # print('create first Project')

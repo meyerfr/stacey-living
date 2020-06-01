@@ -25,7 +25,7 @@ class Project < ApplicationRecord
     step.validates :name, presence: true
     step.validates_associated :descriptions
     step.validate :minimum_descriptions
-    step.validates_associated :project_amenities
+    # step.validates_associated :project_amenities
   end
 
   with_options if: -> { required_for_step?(:address) } do |step|
