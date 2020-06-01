@@ -8,7 +8,7 @@
     padding: 0 3% 0 9%;
     @media (max-width: 768px){
       padding: 0;
-
+      justify-content: center;
     }
     .apply-formpage-header{
       text-align: center;
@@ -22,7 +22,7 @@
       width: 50%;
       margin-bottom: -70px;
       @media (max-width: 768px) {
-        visibility: hidden;
+        display: none;
       }
     }
   }
