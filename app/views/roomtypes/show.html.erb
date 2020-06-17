@@ -9,7 +9,9 @@
   <div class="room-show-wrapper">
     <div class="section room-basic-infos">
       <h3><%= @roomtype.name %> Suite</h3>
-      <%= render 'shared/amenities', amenities: @roomtype.amenities %> <!-- , ameneties: @room.ameneties -->
+      <div class="amenities">
+        <%= render 'shared/amenities', amenities: @roomtype.amenities %> <!-- , ameneties: @room.ameneties -->
+      </div>
     </div>
     <div class="section">
       <h3>The Suite</h3>

@@ -8,7 +8,7 @@
   <%= f.input_field :id, as: :hidden %>
   <%= f.input_field :amenity_id, as: :hidden %>
   <% amenity = Amenity.find(f.object.amenity_id) %>
-  <%= cl_image_tag amenity.photo.key, width: 20 %>
+  <%= cl_image_tag amenity.photo.key, width: 20 if amenity.photo.attached? %>
   <%= f.hidden_field :name %>
   <%= amenity.title %>
 </div>

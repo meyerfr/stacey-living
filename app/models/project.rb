@@ -11,20 +11,20 @@ class Project < ApplicationRecord
     assoc.has_many :descriptions, as: :descriptionable
     assoc.has_many :join_amenities, as: :amenitiable
     assoc.has_many :roomtypes
+    assoc.has_many :community_areas
   end
 
   has_many :rooms, through: :roomtypes
   has_many :amenities, through: :join_amenities
   has_many_attached :photos
 
-  accepts_nested_attributes_for :address, :descriptions, :join_amenities, :roomtypes, allow_destroy: true
+  accepts_nested_attributes_for :address, :descriptions, :join_amenities, :roomtypes, :community_areas, allow_destroy: true
 
   # before_save :clean_up_data
 
   with_options if: -> { required_for_step?(:project_info) } do |step|
     step.validates :name, presence: true
-    step.validates_associated :descriptions
-    step.validate :minimum_descriptions
+    step.validates_associated :descriptions, :community_areas
     # step.validates_associated :project_amenities
   end
 
@@ -42,12 +42,6 @@ class Project < ApplicationRecord
 
   def active?
     status == 'active'
-  end
-
-  def minimum_descriptions
-    unless self.descriptions.collect(&:field).any? { |i| ['project info index', 'project info show'].include? i }
-      errors.add(:project, 'needs more descriptions')
-    end
   end
 
   # def clean_up_data

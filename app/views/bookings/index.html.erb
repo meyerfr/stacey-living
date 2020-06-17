@@ -77,36 +77,68 @@
             </div>
           </div>
           <div class="list-detail d-none">
-            <ul>
+            <table class="user-info">
               <% if user.has_role?('tenant') %>
-                <li>move in: <%= booking.move_in.strftime("%d.%B %Y") %></li>
-                <li>move out: <%= booking.move_out.strftime("%d.%B %Y") %></li>
+                <tr>
+                  <td>move in:</td>
+                  <td><%= booking.move_in.strftime("%d. %B %Y") %></td>
+                </tr>
+                <tr>
+                  <td>move out:</td>
+                  <td><%= booking.move_out.strftime("%d. %B %Y") %></td>
+                </tr>
               <% end %>
-              <li>Phone: <%= user.phone_code %> <%= user.phone_number %></li>
-              <li>moves in <%= user.amount_of_people == 1 ? 'alone' : 'as a couple' %></li>
-              <% if (prefered_suites = user.prefered_suites).present? %>
-                <li>
-                  <% prefered_suites.each do |suite| %>
-                    <%= suite.roomtype.name %>
-                  <% end %>
-                </li>
-              <% end %>
-              <!-- <li>Prefered Suites: <%#= user.prefered_suite.join(', ') %></li> -->
-              <li>Job: <%= user.job %></li>
+              <tr>
+                <td>Email:</td>
+                <td><%= user.email %></td>
+              </tr>
+              <tr>
+                <td>Phone:</td>
+                <td><%= user.phone_code %> <%= user.phone_number %></td>
+              </tr>
+              <tr>
+                <td>Amount of People:</td>
+                <td><%= user.amount_of_people %></td>
+              </tr>
+              <tr>
+                <td>Job:</td>
+                <td><%= user.job %></td>
+              </tr>
               <% if (gender = user.gender).present? %>
-                <li>Gender: <%= gender %></li>
+                <tr>
+                  <td>Gender:</td>
+                  <td><%= gender %></td>
+                </tr>
               <% end %>
               <% if (address = user.address).present? %>
-                <li>Address: <%= address.street %>, <%= address.zip %> <%= address.city %>, <%= address.country %></li>
+                <tr>
+                  <td>Address:</td>
+                  <td><%= address.address %></td>
+                </tr>
               <% end %>
+              <tr>
+                <td>Date of birth:</td>
+                <td><%= user.dob.strftime('%d. %B %Y') %></td>
+              </tr>
               <% if (social_links = user.social_links).present? %>
-                <% social_links.each do |link| %>
-                  <li><%= link.name.capitalize %>: <%= link_to link.url, link.url, target: :_blank %></li>
-                <% end %>
+                <tr>
+                  <td>Social Media:</td>
+                  <td>
+                    <% user.social_links[0...-1].each do |link| %>
+                      <%= link.name.capitalize %>: <%= link_to "#{link.name}", link.url, target: :_blank %>,
+                    <% end %>
+                    <% last_social_link = user.social_links.last %>
+                    <%= last_social_link.name.capitalize %>: <%= link_to "#{last_social_link.name}", last_social_link.url, target: :_blank %>
+                  </td>
+                </tr>
               <% end %>
-              <li>Booking Id: <%= booking.id %></li>
-              <li>Applied on the <%= user.created_at.strftime("%d.%B %Y") %></li>
-            </ul>
+              <tr>
+                <td>Applied of the:</td>
+                <td><%= user.created_at.strftime('%d. %B %Y') %></td>
+              </tr>
+              <td>Booking Id:</td>
+              <td><%= booking.id %></td>
+            </table>
           </div>
         </div>
       <% end %>

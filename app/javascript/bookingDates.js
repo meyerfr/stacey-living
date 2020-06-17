@@ -17,9 +17,15 @@ function monthDiff(d1, d2) {
 const checkMoveInDate = (event) => {
   var moveInDateSelections = moveIn.children[1].children;
   const moveInDate = new Date(parseInt(moveInDateSelections[2].value), parseInt(moveInDateSelections[1].value)-1, parseInt(moveInDateSelections[0].value)+1);
-  if (moveInDate <= new Date() && moveIn.childElementCount < 3) {
-    moveIn.children[1].insertAdjacentHTML('afterend', '<div class="invalid-feedback d-block js-inserted">Can´t choose a Date in the past.</div>');
-  } else if (moveInDate > new Date() && moveIn.childElementCount === 3) {
+  const dateToday = new Date()
+  if (moveInDate <= dateToday) {
+    if (moveIn.childElementCount < 3) {
+      moveIn.children[1].insertAdjacentHTML('afterend', '<div class="invalid-feedback d-block js-inserted">Can´t choose a Date in the past.</div>');
+    }
+    moveInDateSelections[0].value = dateToday.getDate();
+    moveInDateSelections[1].value = dateToday.getMonth() + 1;
+    moveInDateSelections[2].value = dateToday.getFullYear();
+  } else if(moveIn.childElementCount === 3){
     moveIn.children[2].remove();
   }
     // adjusting moveOut date
@@ -47,7 +53,6 @@ const checkMoveOutDate = (event) => {
 
   const earliestMoveOutDate = moveInDate;
   earliestMoveOutDate.setMonth(earliestMoveOutDate.getMonth() + 3);
-  console.log(moveOutDate)
   if (duration < 3) {
     if (moveOut.childElementCount < 3) {
       moveOut.children[1].insertAdjacentHTML('afterend', `<div class="invalid-feedback d-block js-inserted">Can´t move in on the ${moveOutDate.toLocaleDateString()}. 3 Month minimum.</div>`);

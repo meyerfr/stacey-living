@@ -39,16 +39,31 @@
         <% end %>
       <% end %>
     </div>
-    <!-- <div class="project-amenity-select selected">
-      <input value="0" class="hidden" type="hidden" name="project[project_amenities_attributes][${amenities_index}][_destroy]" id="project_project_amenities_attributes_${amenities_index}__destroy">
-      <input class=" is-valid hidden" type="hidden" value="${amenities_id}" name="project[project_amenities_attributes][${project_amenities_index}][id]" id="project_project_amenities_attributes_${amenities_index}_id">
-      <input class=" is-valid hidden" type="hidden" value="${amenities_id}" name="project[project_amenities_attributes][${amenities_index}][amenity_id]" id="project_project_amenities_attributes_${amenities_index}_amenity_id">
-      One Person
-    </div> -->
-    <!-- Button trigger modal -->
     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createAmenitiesModal">
       Add Amenitiy
     </button>
+    <%= f.simple_fields_for :community_areas do |com| %>
+      <%= com.input :name %>
+      <%= com.input :size %>
+      <div class="form-group img_prev">
+        <%= com.label :photos, 'Upload project images' %>
+        <div class="pictures d-flex"></div>
+        <%= com.input :photos, as: :file, label: false, input_html: { multiple: true, class: 'picture-upload' } %>
+      </div>
+      <%= com.simple_fields_for :descriptions do |desc| %>
+        <%= desc.input :field %>
+        <%= desc.input :content %>
+      <% end %>
+      <div class="project-amenities-wrapper amenity-wrapper">
+        <%= com.label :join_amenities, 'Community Areas Amenities' %>
+        <%= com.simple_fields_for :join_amenities do |ja| %>
+          <%= render 'amenity_fields', f: ja %>
+        <% end %>
+      </div>
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createAmenitiesModal">
+        Add Amenitiy
+      </button>
+    <% end %>
     <div>
       <%= f.submit 'Next Step' %>
     </div>

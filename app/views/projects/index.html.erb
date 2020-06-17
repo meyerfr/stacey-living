@@ -15,7 +15,9 @@
           </div>
           <span class="price">from €<%= project.roomtypes.find_by(name: 'Mighty').price[0].to_i  %></span>
         </div>
-        <%= render 'shared/amenities', amenities: project.amenities %>
+        <div class="amenities">
+          <%= render 'shared/amenities', amenities: project.amenities %>
+        </div>
         <!-- <div class="amenities">
           <span class="amenity">Furnished</span>
           <span class="amenity">Wifi</span>

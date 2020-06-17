@@ -10,16 +10,16 @@
       <span class="ring"><%= 2 %></span>
       <div class="line"></div>
       <span class="ring"><%= 3 %></span>
-    <% elsif step == 'contract' %>
-      <span class="ring active"><%= link_to 1, booking_process_path(@booking, Booking.form_steps.first) %></span>
+    <% elsif step == 'contract' || step == 'contract_new' %>
+      <span class="ring active"><%= link_to 1, booking_process_path(@booking, @booking.booking_auth_token, Booking.form_steps.second) %></span>
       <div class="line"></div>
       <span class="ring active"><%= 2 %></span>
       <div class="line"></div>
       <span class="ring"><%= 3 %></span>
     <% elsif step == 'payment' %>
-      <span class="ring active"><%= link_to 1, booking_process_path(@booking, Booking.form_steps.first) %></span>
+      <span class="ring active"><%= link_to 1, booking_process_path(@booking, @booking.booking_auth_token, Booking.form_steps.second) %></span>
       <div class="line"></div>
-      <span class="ring active"><%= link_to 2, booking_process_path(@booking, Booking.form_steps.first) %></span>
+      <span class="ring active"><%= link_to 2, booking_process_path(@booking, @booking.booking_auth_token, Booking.form_steps.second) %></span>
       <div class="line"></div>
       <span class="ring active"><%= 3 %></span>
     <% end %>

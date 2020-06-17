@@ -17,34 +17,23 @@
     <%= b.input :move_in, as: :date, order: [:day, :month, :year], start_year: Date.today.year, end_year: Date.today.year + 1, label: 'WHEN DO YOU WANT TO MOVE IN?', wrapper_html:{ class: 'apply-field'} %>
     <%= b.input :move_out, as: :date, order: [:day, :month, :year], start_year: (Date.today + 3.months).year, end_year: (Date.today + 3.months).year + 1, selected: (Date.today + 3.months), label: 'UNTIL WHEN ARE YOU PLANING TO STAY?', wrapper_html:{ class: 'apply-field'} %>
     <div class="apply-field">
-      <%= u.label :gender, 'What is your gender?' %>
-      <div class="check-boxes gender">
-        <div class="gender-option">
-          <%= u.radio_button :gender, "female" %>
-          <%= u.label :gender, "Female", :for => "booking_user_attributes_gender_female" %>
-        </div>
-        <div class="gender-option">
-          <%= u.radio_button :gender, "male" %>
-          <%= u.label :gender, "Male", :for => "booking_user_attributes_gender_male" %>
-        </div>
-      </div>
+
+      <%= u.input :gender, label: 'What is your gender?', collection: [['Male', 'Male'], ['Female', 'Female']], as: :radio_buttons, item_wrapper_class: 'btn inline' %>
     </div>
     <div class="apply-field">
       <%= u.label :prefered_suites, 'WHAT SUITE DO YOU PREFER?' %>
       <div class="check-boxes prefered_suites">
         <%= u.simple_fields_for :prefered_suites do |suite| %>
           <div class="gender-option">
-            <%= suite.input_field :id, as: :hidden %>
             <!-- <div class="suite-option"> -->
-            <%= suite.check_box :_destroy, {id: "user_prefered_suites_attribute_#{suite.object_id}_destroy"}, 0, 1 %>
+            <%= suite.check_box :_destroy, {id: "user_prefered_suites_attribute_#{suite.object_id}_destroy", class: "prefered-suites-#{Roomtype.find(suite.object.roomtype_id).name.downcase}"}, 0, 1 %>
             <%= suite.label :suite, Roomtype.find(suite.object.roomtype_id).name, for: "user_prefered_suites_attribute_#{suite.object_id}_destroy" %>
             <!-- </div> -->
-            <%= suite.input :roomtype_id, wrapper_html: { class: 'd-none' } %>
-            <%= suite.input :user_id, wrapper_html:{ class: "d-none"} %>
-            <%# if user.errors[:bookings_attributes].any? %>
-              <!-- <div class="invalid-feedback d-block duration"><%#= user.errors[:bookings_attributes].first %></div> -->
-            <%# end %>
+            <%= suite.input :roomtype_id, wrapper_html: { class: "d-none" } %>
           </div>
+        <% end %>
+        <% if (prerfered_suites_error = booking.user.errors[:prefered_suites]).any? %>
+          <div class="invalid-feedback d-block duration"><%= prerfered_suites_error.first %></div>
         <% end %>
       </div>
     </div>

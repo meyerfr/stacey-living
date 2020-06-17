@@ -3,12 +3,7 @@ class WelcomeCallsController < ApplicationController
   before_action :check_booking_auth_token!, only: %I[new create edit update destroy]
   before_action :calendar_data, only: %I[new edit]
 
-    # destroy(for user and admin, if admin cancels user gets appologize_mail, if user cancels send slack message)
-    # think about: when admin cancels, send new timeslot suggestion or just link to select a new one
-
-  # index view is the view where the user can choose a slot for his/her welcome call
   def index
-    # @welcome_calls = WelcomeCall.all.where(available: false)
     @time_param_options = ['past', 'upcoming', 'all']
 
     @time_param = params[:time].present? ? params[:time] : 'upcoming'
@@ -18,9 +13,6 @@ class WelcomeCallsController < ApplicationController
     end
     # if search and time
     @welcome_calls = WelcomeCall.order(:start_time).where("start_time >= ? AND available = ?", Time.now, false)
-
-    # if time_param == 'upcoming'
-    #   @welcome_calls = WelcomeCall.all.where("start_time >= ? AND available = ?", Time.now, false)
 
     if @time_param == 'all'
       @welcome_calls = WelcomeCall.order(:start_time).where(available: false)
@@ -33,16 +25,6 @@ class WelcomeCallsController < ApplicationController
       @welcome_calls = WelcomeCall.order(:start_time).where("name ILIKE ?", "%#{params[:search]}%")
     end
 
-    # if search_param && time_param
-    #   if time_param == 'upcoming' # all upcoming calls
-    #     @welcome_calls = WelcomeCall.all.where("start_time >= ? AND available = ? AND lower(name) = ?", Time.now, false, search_param.downcase) if search_param
-    #   else # all past calls
-    #     @welcome_calls = WelcomeCall.all.where("start_time < ? AND available = ? AND lower(name) = ?", Time.now, false, search_param.downcase) if search_param
-    #   end
-    # elsif search_param
-    #   @welcome_calls = WelcomeCall.all.where("lower(name) = ?", search_param.downcase)
-    # end
-
     @dates = []
     if @time_param == 'past'
       @welcome_calls.order(start_time: :desc).each { |call| @dates << call.start_time.to_date unless @dates.include?(call.start_time.to_date) }
@@ -50,10 +32,6 @@ class WelcomeCallsController < ApplicationController
     else
       @welcome_calls.order(start_time: :desc).each { |call| @dates << call.start_time.to_date unless @dates.include?(call.start_time.to_date) }
     end
-    # @dates.reverse!
-    # @date = params[:date].to_date if present?
-    # @month_param = params[:month] ? "#{params[:month]}-01".to_date : Date.today
-    # @date_range = (@month_param.beginning_of_month.beginning_of_week..@month_param.end_of_month.end_of_week).to_a
   end
 
   def new
@@ -100,17 +78,12 @@ class WelcomeCallsController < ApplicationController
     @welcome_call.available = false
     @welcome_call.booking_id = @booking.id
     @welcome_call.name = @user.full_name
-    if @welcome_call.save #&& !current_user.admin?
-      # if !current_user.admin?
-        # send apologize email and ask if the new date is okay? and link to reschedule call
-      # else
-        # send email with info to the new call
-        @old_welcome_call.update(name: nil, booking_id: nil, available: true)
-        @booking.update(booking_auth_token_exp: @welcome_call.start_time.to_date + 1.day) if @booking.booking_auth_token_exp < @welcome_call.start_time.to_date
-        UserMailer.welcome_call_rescheduled(@welcome_call).deliver_now
-        flash[:alert] = 'Our call has been reschedueled. Please check your mails'
-        redirect_to root_path
-      # end
+    if @welcome_call.save
+      @old_welcome_call.update(name: nil, booking_id: nil, available: true)
+      @booking.update(booking_auth_token_exp: @welcome_call.start_time.to_date + 1.day) if @booking.booking_auth_token_exp < @welcome_call.start_time.to_date
+      UserMailer.welcome_call_rescheduled(@welcome_call).deliver_now
+      flash[:alert] = 'Our call has been reschedueled. Please check your mails'
+      redirect_to root_path
     else
       flash[:alert] = "Oops, something wrent wrong. Please try it again."
       redirect_to booking_useredit_welcome_call(@booking.booking_auth_token, @booking, @old_welcome_call)
@@ -200,40 +173,12 @@ class WelcomeCallsController < ApplicationController
         @date = next_helper.any? ? next_helper.first.start_time.to_date : Date.today
       end
     else
-      @date = @welcome_calls.select{ |call| call.start_time.to_date > Date.today }.first.start_time.to_date
+      (first_welcome_call = @welcome_calls.select{ |call| call.start_time.to_date > Date.today }.first).present?
+      @date = first_welcome_call.present? ? first_welcome_call.start_time.to_date : Date.tomorrow
     end
     @date_available_times = @welcome_calls.select { |call| call.start_time.to_date == @date }
     @month_helper = params[:month].to_date if params[:month]
     @month_param = params[:month] && Date.today <= @month_helper && @month_helper <= Date.today + 9.days ? @month_helper : Date.today
     @date_range = (@month_param.beginning_of_month.beginning_of_week..@month_param.end_of_month.end_of_week).to_a
-    # booked_welcome_call_times = []
-    # WelcomeCall.select{|call| booked_welcome_call_times << call.start_time if call.start_time > Date.today && call.available == false }
-    # @available_times = array_of_dates(booked_welcome_call_times)
-    # date_params = params[:date].to_date if params[:date]
-    # if date_params && date_params < Date.today + 9.days
-    #   if @available_times.select { |available_time| available_time.to_date == date_params }.length.positive?
-    #     @date = date_params
-    #   else
-    #     next_helper = @available_times.select { |available_time| available_time.to_date > date_params }
-    #     @date = next_helper.any? ? next_helper.first.to_date : Date.today
-    #   end
-    # else
-    #   @date = @available_times.select { |available_time| available_time.to_date > Date.today }.first.to_date
-    # end
-    # @date_available_times = @available_times.select { |available_time| available_time.to_date == @date }
-    # @month_helper = params[:month].to_date if params[:month]
-    # @month_param = params[:month] && Date.today <= @month_helper && @month_helper <= Date.today + 9.days ? @month_helper : Date.today
-    # @date_range = (@month_param.beginning_of_month.beginning_of_week..@month_param.end_of_month.end_of_week).to_a
   end
-
-  # def array_of_dates
-  #   available_times = []
-  #   ['Saturday', 'Tuesday', 'Wednesday'].each do |date|
-  #     available_times << Time.parse("#{date_of_next(date)} 10am")
-  #     while available_times.last + 30.minutes < Time.parse("#{date_of_next(date)} 18:30pm")
-  #       available_times << available_times.last + 30.minutes
-  #     end
-  #   end
-  #   return available_times
-  # end
 end

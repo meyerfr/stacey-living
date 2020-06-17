@@ -11,7 +11,7 @@
         Please complete the following information to generate the rental agreement.
       </span>
       <div class="line"></div>
-      <%= simple_form_for @booking, method: :put, url: wizard_path do |b| %>
+      <%= simple_form_for @booking, method: :put, url: wizard_path, html: {class: 'new_contract' } do |b| %>
         <%= b.simple_fields_for :user do |u| %>
           <%= u.input_field :id, as: :hidden %>
           <%= u.simple_fields_for :address do |a| %>

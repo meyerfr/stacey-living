@@ -1,7 +1,7 @@
 class Description < ApplicationRecord
   belongs_to :descriptionable, polymorphic: true
   validates :field, :content, presence: true
-  validate :field_input
+  # validate :field_input
 
   def field_input
     field_options = [

@@ -6,7 +6,6 @@ const initMapbox = () => {
   // console.log(mapElement);
   if (mapElement) { // only build a map if there's a div#map to inject into
     mapboxgl.accessToken = process.env.MAPBOX_API_KEY;
-    console.log(mapboxgl.accessToken);
     const map = new mapboxgl.Map({
       container: 'map',
       style: 'mapbox://styles/mapbox/streets-v10'

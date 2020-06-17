@@ -73,11 +73,7 @@ class RoomtypesController < ApplicationController
   private
 
   def roomtypes_params
-<<<<<<< HEAD:app/controllers/roomtypes_controller.rb
     params.require(:roomtypes).permit(
-=======
-    params.require(:rooms).permit(
->>>>>>> 370d8f0... changed every room variable to roomtype:app/controllers/rooms_controller.rb
       :project_id,
       :number,
       :name,

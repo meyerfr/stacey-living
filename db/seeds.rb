@@ -1,53 +1,241 @@
+require "open-uri"
+
+def create_prices(project_roomtypes_prices_hash)
+  project_roomtypes_prices_hash.each do |roomtype, prices|
+    prices.each do |duration, amount|
+      roomtype.prices.create!(duration: duration, amount: amount)
+    end
+  end
+end
+
+def create_rooms(project_roomtypes_rooms_info)
+  project_roomtypes_rooms_info.each do |roomtype, room|
+    room.each do |intern_number, house_number|
+      roomtype.rooms.create!(intern_number: intern_number, house_number: house_number)
+    end
+  end
+end
+
+def attach_photos(photos_hash)
+  photos_hash.each do |object, file_list|
+    file_list.each_with_index do |file, idx|
+      object.photos.attach(io: file, filename: 'asdgasdg', content_type: 'image/jpg')
+      object.save
+    end
+  end
+end
+
+def create_descriptions(description_hash)
+  description_hash.each do |object, description_content|
+    object.descriptions.create!(field: "#{object.name} description", content: description_content)
+  end
+end
+
+
 # new Seed File for project step logic
+puts('create Mühlenkamp Project')
+muehlenkamp = Project.create!(name: 'Mühlenkamp')
 
-muehlenkamp = Project.create(name: 'Mühlenkamp')
+puts('create Mühlenkamp description')
+muehlenkamp.descriptions.create!(field: 'project info index', content: 'A beautiful neighborhood in central Hamburg; everything is here. Find local shops, restaurants and bars nearby. Our community in Mühlenkamp is just as energetic as the neighborhood.')
+muehlenkamp.descriptions.create!(field: 'project info show', content: "At STACEY we believe that beautifully designed spaces bring people together. Whether you’re looking to mingle with new people, get creative in the kitchen or open yourself up to new experiences, our Mühlenkamp location can give you all this and more.\nFrom the great living room and the shared kitchen to our beautiful inner yard with a barbecue, your passion points will be catered for. Not to mention the included monthly member events!")
 
-muehlenkamp_address = muehlenkamp.address.create(street: 'Dorotheenstraße', number: '3', city: 'Hamburg', zip: '22301' country: 'Germany')
-muehlenkamp_address.description.create(field: 'address info', content: )
+puts('create Mühlenkamp Address')
+muehlenkamp_address = muehlenkamp.create_address!(street: 'Dorotheenstraße', number: '3', city: 'Hamburg', zip: '22301', country: 'Germany')
+puts('create Mühlenkamp Address description')
+muehlenkamp_address.create_description!(field: 'address info', content: 'Our first location is located in one of the most liveable districts in Hamburg. What can you expect? Restaurants, bars and  cafes in front of your doorstep. It is your decision whether to spend a warm summer day at the Alster or meet with your roommates in our community spaces for a cold beer after work.')
 
-muehlenkamp.descriptions.create(field: 'project info index', content: )
-muehlenkamp.descriptions.create(field: 'project info show', content: )
+puts('create Mühlenkamp Community Area')
+muehlenkamp_community_area = muehlenkamp.community_areas.create!(name: "common space #{muehlenkamp.name}", size: 100)
+puts('create Mühlenkamp Community Area description')
+muehlenkamp_community_area.descriptions.create!(field: 'common space description', content: "At STACEY we believe that beautifully designed spaces bring people together. Whether you’re looking to mingle with new people, get creative in the kitchen or open yourself up to new experiences, our Mühlenkamp location can give you all this and more.\nOur 100m2 of community space at ground level comes with:")
 
-mighty = muehlenkamp.roomtypes.create(name: 'Mighty', size: 8)
-mighty_prices_info = [[745, '3-5 Months'], [695, '6-8 Months'], [645, '9+ Months']]
-mighty_rooms_info = [['D05', 'D3b 1.OG rechts'], ['D07', 'D3b 2.OG rechts'], ['D09', 'D3b 2.OG links'], ['D10', 'D3 EG links'], ['D11', 'D3 EG links'], ['D13', 'D3 EG rechts'], ['D14', 'D3 EG rechts'], ['D16', 'D5 1.OG rechts'], ['D19', 'D5 2.OG links'], ['D22', 'D3 2.OG links'], ['D25', 'D5 EG links'], ['D27', 'D5 EG links'], ['D28', 'D5 EG links'], ['D29', 'D5a 1.OG rechts'], ['D30', 'D5a 1.OG rechts'], ['D32', 'D5a 2.OG rechts'], ['D33', 'D5a 2.OG rechts'], ['D35', 'D5a 2.OG links'], ['D38', 'D3a 1.OG rechts'], ['D39', 'D3a EG links'], ['D40', 'D3a EG links'], ['D42', 'D3a 1.OG links'], ['D43', 'D3a 1.OG links'], ['D46', 'D3c 1.OG links'], ['D48', 'D3b 1.OG links'], ['D50', 'D3c EG rechts'], ['D52', 'D5a EG rechts'], ['D53', 'D5a EG rechts']]
-create_prices(mighty, mighty_prices_info)
-create_rooms(mighty, mighty_rooms_info)
+puts('create Mühlenkamp Roomtypes')
+mighty = muehlenkamp.roomtypes.create!(name: 'Mighty', size: 8)
 
-premium = muehlenkamp.roomtypes.create(name: 'Premium', size: 13)
-premium_prices_info = [[845, '3-5 Months'], [795, '6-8 Months'], [745, '9+ Months']]
-premium_rooms_info = [['D01', 'D3d 2.OG'], ['D02', 'D3d 2.OG'], ['D03', 'D3d 2.OG'], ['D17', 'D5 1.OG rechts'], ['D20', 'D5 2.OG links'], ['D23', 'D3 2.OG links'], ['D51', 'D5a EG rechts']]
-create_prices(premium, premium_prices_info)
-create_rooms(premium, premium_rooms_info)
+premium = muehlenkamp.roomtypes.create!(name: 'Premium', size: 13)
 
-premium_plus = muehlenkamp.roomtypes.create(name: 'Premium+', size: 15)
-premium_plus_prices_info = [[895, '3-5 Months'], [845, '6-8 Months'], [795, '9+ Months']]
-premium_plus_rooms_info = [['D12', 'D3 EG links'], ['D15', 'D3 EG rechts'], ['D18', 'D5 1.OG rechts'], ['D21', 'D5 2.OG links'], ['D24', 'D3 2.OG links'], ['D26', 'D5 EG links'], ['D31', 'D5a 1.OG rechts'], ['D34', 'D5a 2.OG rechts'], ['D41', 'D3a EG links'], ['D44', 'D3a 1.OG links']]
-create_prices(premium_plus, premium_plus_prices_info)
-create_rooms(premium_plus, premium_plus_rooms_info)
+premium_plus = muehlenkamp.roomtypes.create!(name: 'Premium+', size: 15)
 
-jumbo = muehlenkamp.roomtypes.create(name: 'Jumbo', size: 25)
-jumbo_prices_info = [[1045, '3-5 Months'], [995, '6-8 Months'], [945, '9+ Months']]
-jumbo_rooms_info = [['D04', 'D3b 1.OG rechts'], ['D06', 'D3b 2.OG rechts'], ['D08', 'D3b 2.OG links'], ['D36', 'D5a 2.OG links'], ['D37', 'D3a 1.OG rechts'], ['D45', 'D3c 1.OG links'], ['D47', 'D3b 1.OG links'], ['D49', 'D3c EG rechts']]
-create_prices(jumbo, jumbo_prices_info)
-create_rooms(jumbo, jumbo_rooms_info)
+jumbo = muehlenkamp.roomtypes.create!(name: 'Jumbo', size: 25)
 
+muehlenkamp_photos = {
+  muehlenkamp_community_area => [
+    URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591776599/Muehlenkamp/muehlenkamp_com_area_1.jpg'),
+    URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591776593/Muehlenkamp/muehlenkamp_com_area_2.jpg'),
+    URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591776588/Muehlenkamp/muehlenkamp_com_area_3.jpg'),
+    URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591776584/Muehlenkamp/muehlenkamp_com_area_4.jpg'),
+    URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591776587/Muehlenkamp/muehlenkamp_com_area_5.jpg'),
+    URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591776617/Muehlenkamp/muehlenkamp_com_area_6.jpg'),
+    URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591776604/Muehlenkamp/muehlenkamp_com_area_7.jpg')
+  ],
+  mighty => [
+    URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591776615/Muehlenkamp/muehlenkamp_mighty_1.jpg'),
+    URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591776586/Muehlenkamp/muehlenkamp_mighty_2.jpg'),
+    URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591776593/Muehlenkamp/muehlenkamp_mighty_3.jpg'),
+    URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591776597/Muehlenkamp/muehlenkamp_mighty_4.jpg'),
+    URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591776588/Muehlenkamp/muehlenkamp_bath.jpg')
+  ],
+  premium => [
+    URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591776586/Muehlenkamp/muehlenkamp_premium_1.jpg'),
+    URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591776624/Muehlenkamp/muehlenkamp_premium_2.jpg'),
+    URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591776588/Muehlenkamp/muehlenkamp_bath.jpg')
+  ],
+  premium_plus => [
+    URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591776585/Muehlenkamp/muehlenkamp_premium_plus_1.jpg'),
+    URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591776609/Muehlenkamp/muehlenkamp_premium_plus_2.jpg'),
+    URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591776606/Muehlenkamp/muehlenkamp_premium_plus_3.jpg'),
+    URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591776601/Muehlenkamp/muehlenkamp_premium_plus_4.jpg'),
+    URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591776588/Muehlenkamp/muehlenkamp_bath.jpg')
+  ],
+  jumbo => [
+    URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591776592/Muehlenkamp/muehlenkamp_jumbo_1.jpg'),
+    URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591776599/Muehlenkamp/muehlenkamp_jumbo_2.jpg'),
+    URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591776595/Muehlenkamp/muehlenkamp_jumbo_3.jpg'),
+    URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591776602/Muehlenkamp/muehlenkamp_jumbo_4.jpg'),
+    URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591776618/Muehlenkamp/muehlenkamp_jumbo_5.jpg'),
+    URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591776584/Muehlenkamp/muehlenkamp_jumbo_6.jpg'),
+    URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591776595/Muehlenkamp/muehlenkamp_jumbo_7.jpg'),
+    URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591776613/Muehlenkamp/muehlenkamp_jumbo_8.jpg'),
+    URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591776610/Muehlenkamp/muehlenkamp_jumbo_9.jpg'),
+    URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591776592/Muehlenkamp/muehlenkamp_jumbo_10.jpg'),
+    URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591776590/Muehlenkamp/muehlenkamp_jumbo_11.jpg'),
+    URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591776588/Muehlenkamp/muehlenkamp_bath.jpg')
+  ]
+}
 
-def create_prices(roomtype, roomtype_prices_info)
-  roomtype_prices_info.each do |amount_duration|
-    roomtype.prices.createe(amount: amount_duration[0], duration: amount_duration[1])
-  end
+puts('attach photos to muehlenkamp roomtypes and community area')
+attach_photos(muehlenkamp_photos)
+
+room_descriptions = {
+  mighty => "Scandinavian minimalism in the heart of Hamburg. Our Mighty Suites are our flagship with regard to modern living. A comfy double bed, side table, armchair, floor lamp, closet, hangers, artwork & even bedding are included.",
+  premium => "Live like a Queen! Our Premium Suites fulfill all essential needs and even provides you with private space to work within a location that is focused on community. This category features a comfy double bed, side table, desk & chair, armchair, floor lamp, closet, hangers, artwork & even bedding.",
+  premium_plus => "Live like a King! The Premium+ Suite is the bigger brother of our Premium Suites. With additional sqm for you and and all your thoughts. This category features a comfy double bed, side table, desk & chair, armchair, floor lamp, closet, hangers, artwork & even bedding.",
+  jumbo => "Screw the minimalism. Your dream of your own walk-in closet becomes reality. Our Jumbo suites feature 25m2 designed for your needs with a queen-size bed, walk-in closet, desk, armchair, floor lamp, hangers, artwork and even bedding."
+}
+
+puts('create muehlenkamp roomtypes descriptions')
+create_descriptions(room_descriptions)
+
+muehlenkamp_roomtypes_prices = {
+  mighty => {'3-5 Months': 745, '6-8 Months': 695, '9+ Months': 645},
+  premium => {'3-5 Months': 845, '6-8 Months': 795, '9+ Months': 745},
+  premium_plus => {'3-5 Months': 895, '6-8 Months': 845, '9+ Months': 795},
+  jumbo => {'3-5 Months': 1045, '6-8 Months': 995, '9+ Months': 945}
+}
+
+create_prices(muehlenkamp_roomtypes_prices)
+
+muehlenkamp_roomtypes_rooms_info = {
+  mighty => {
+    "D05" => "D3b 1.OG rechts",
+    "D07" => "D3b 2.OG rechts",
+    "D09" => "D3b 2.OG links",
+    "D10" => "D3 EG links",
+    "D11" => "D3 EG links",
+    "D13" => "D3 EG rechts",
+    "D14" => "D3 EG rechts",
+    "D16" => "D5 1.OG rechts",
+    "D19" => "D5 2.OG links",
+    "D22" => "D3 2.OG links",
+    "D25" => "D5 EG links",
+    "D27" => "D5 EG links",
+    "D28" => "D5 EG links",
+    "D29" => "D5a 1.OG rechts",
+    "D30" => "D5a 1.OG rechts",
+    "D32" => "D5a 2.OG rechts",
+    "D33" => "D5a 2.OG rechts",
+    "D35" => "D5a 2.OG links",
+    "D38" => "D3a 1.OG rechts",
+    "D39" => "D3a EG links",
+    "D40" => "D3a EG links",
+    "D42" => "D3a 1.OG links",
+    "D43" => "D3a 1.OG links",
+    "D46" => "D3c 1.OG links",
+    "D48" => "D3b 1.OG links",
+    "D50" => "D3c EG rechts",
+    "D52" => "D5a EG rechts",
+    "D53" => "D5a EG rechts"
+  },
+  premium => {
+    "D01" => "D3d 2.OG",
+    "D02" => "D3d 2.OG",
+    "D03" => "D3d 2.OG",
+    "D17" => "D5 1.OG rechts",
+    "D20" => "D5 2.OG links",
+    "D23" => "D3 2.OG links",
+    "D51" => "D5a EG rechts"
+  },
+  premium_plus => {
+    "D12" => "D3 EG links",
+    "D15" => "D3 EG rechts",
+    "D18" => "D5 1.OG rechts",
+    "D21" => "D5 2.OG links",
+    "D24" => "D3 2.OG links",
+    "D26" => "D5 EG links",
+    "D31" => "D5a 1.OG rechts",
+    "D34" => "D5a 2.OG rechts",
+    "D41" => "D3a EG links",
+    "D44" => "D3a 1.OG links"
+  },
+  jumbo => {
+    "D04" => "D3b 1.OG rechts",
+    "D06" => "D3b 2.OG rechts",
+    "D08" => "D3b 2.OG links",
+    "D36" => "D5a 2.OG links",
+    "D37" => "D3a 1.OG rechts",
+    "D45" => "D3c 1.OG links",
+    "D47" => "D3b 1.OG links",
+    "D49" => "D3c EG rechts"
+  }
+}
+
+create_rooms(muehlenkamp_roomtypes_rooms_info)
+
+# create Amenities new Photos to do so.
+amenities = {
+  "wifi" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591606737/wifi.png'),
+  "smart locks" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591606737/padlock.png'),
+  "coffee flatrate" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591606737/coffee-cup.png'),
+  "fully furnished" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591606737/couch.png'),
+  "work spaces" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591606737/work-space.png'),
+  "table tennis" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591606737/ping-pong.png'),
+  "common space" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591606737/meeting.png'),
+  "weekly cleaning" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591606737/liquid-soap.png'),
+  "fully equipped kitchen" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591606737/chefs-hat.png'),
+  "2x fully equipped kitchens" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591606737/chefs-hat.png'),
+  "lounge space" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591606737/lounge-chair.png'),
+  "inner yard" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591606737/tree.png'),
+  "2 people" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591606736/users.png'),
+  "dining space" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591606736/service.png'),
+  "laundry room" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591606736/washing-machine.png'),
+  "1 person" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591606736/user.png'),
+  "monthly member events" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591608023/calendar.png'),
+  "welcome gift" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591608023/gift.png'),
+  "side table" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591608023/side-table.png'),
+  "wardrobe with hangers and drawers" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591608023/closet.png'),
+  "artwork" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591608023/artist.png'),
+  "armchair" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591608024/armchair.png'),
+  "desk with chair" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591608023/desk.png'),
+  "bedding" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591608023/pillow.png'),
+  "double bed" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591608024/bed.png'),
+  "king size bed" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591608608/king_size_bed.png')
+}
+
+def handle_string_io_as_file(io)
+  return io unless io.class == StringIO
+
+  file = Tempfile.new(["temp",".png"], encoding: 'ascii-8bit')
+  file.binmode
+  file.write io.read
+  file.open
 end
 
-def create_rooms(roomtype, roomtype_room_info)
-  roomtype_room_info.each do |intern_house_number|
-    roomtype.rooms.create(intern: intern_house_number[0], house_number: intern_house_number[1])
-  end
+amenities.each do |title, file|
+  a = Amenity.new(title: title)
+  a.photo.attach(io: handle_string_io_as_file(file), filename: "#{title.gsub(' ', '_')}.png", content_type: 'image/png')
+  a.save
 end
-
-# create Amenities neew Photos to do so.
-
-
 
 # print('update Amenities')
 

@@ -30,7 +30,6 @@ checkDates();
 addCoupleOption();
 infoOnHovering();
 // checkBookingFormDuration();
-signing();
 previewImages();
 fieldHandler();
 checkPricesNames();
@@ -42,4 +41,5 @@ document.addEventListener('turbolinks:load', () => {
   initAutocomplete();
   addAmenity()
   newRoomFieldHandler();
+  signing();
 })

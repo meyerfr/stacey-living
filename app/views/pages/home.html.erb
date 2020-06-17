@@ -1,6 +1,11 @@
 <h1>Pages#home</h1>
 <p>Find me in app/views/pages/home.html.erb</p>
 
-<%= week_calendar number_of_weeks: 2 do |date| %>
-  <%= date %>
-<% end %>
+<div class="calendar-section">
+  <%= month_calendar events: @welcome_calls do |date, calls| %>
+    <%= date %>
+    <%# calls.each do |call| %>
+      <%#= call.start_time.to_date %>
+    <%# end %>
+  <% end %>
+</div>

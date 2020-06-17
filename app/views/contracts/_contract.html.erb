@@ -35,8 +35,8 @@
     <tr class="row table-content">
       <td class="col">STACEY Rent</td>
       <td class="col address"><%= @project.address.address %></td>
-      <td class="col"><%= @roomtype.name %> Suite <%= @roomtype.id %></td>
-      <td class="col"><%= @roomtype.prices.first.amount %> €</td>
+      <td class="col"><%= @roomtype.name %> Suite <%= @room.intern_number %></td>
+      <td class="col"><%= @roomtype.prices.first.amount % 1 == 0 ? @roomtype.prices.first.amount.to_i : @roomtype.prices.first.amount %> €</td>
       <td class="col"><%= @booking.move_in.strftime("%d/%m/%Y") %></td>
       <td class="col"><%= @booking.move_out.strftime("%d/%m/%Y") %></td>
     </tr>

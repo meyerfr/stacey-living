@@ -10,6 +10,7 @@ class Roomtype < ApplicationRecord
     assoc.has_many :join_amenities, as: :amenitiable
     assoc.has_many :rooms
     assoc.has_many :prices
+    assoc.has_many :prefered_suites
   end
 
   has_many :amenities, through: :join_amenities

@@ -1,12 +1,10 @@
-
 function signing() {
   const nextButton = document.getElementById('sign-next-button');
   if (nextButton) {
-    const allChangeFormButtons = document.querySelectorAll('.change-form')
+    const allChangeFormButtons = document.querySelectorAll('.change-form');
     allChangeFormButtons.forEach((button) => {
       button.addEventListener('click', function(){
         // This function changes the Form
-        console.log('asdg');
         document.querySelectorAll('.contract-user-inputs').forEach((input) => {
           input.classList.toggle('d-none');
         });

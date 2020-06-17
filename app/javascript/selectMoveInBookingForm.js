@@ -28,7 +28,9 @@ const updateDates = (event) => {
 
 function selectMoveInDate() {
   const moveInSelectField = document.getElementById('booking_room_id');
-  moveInSelectField.addEventListener('change', updateDates)
+  if (moveInSelectField) {
+    moveInSelectField.addEventListener('change', updateDates)
+  }
 }
 
 export { selectMoveInDate }

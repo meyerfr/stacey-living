@@ -2,8 +2,11 @@ class Booking::ProcessController < ApplicationController
   include Wicked::Wizard
   steps *Booking.form_steps
 
-  before_action :set_objects, except: [:apply]
-  layout "bookingprocess", except: [:apply]
+  skip_before_action :authenticate_user!, only: %I[apply create]
+  before_action :check_booking_auth_token!, except: %I[apply create]
+  before_action :set_objects, except: [:apply, :create]
+  layout "bookingprocess", except: [:apply, :create]
+
   def apply
     @phone_code = %w(+61 +43 +32 +55 +1 +86 +45 +358 +33 +49 +852 +353 +39 +81 +352 +52 +31 +64 +47 +351 +65 +34 +46 +41 +44)
     @booking = Booking.new(booking_auth_token: Devise.friendly_token, booking_auth_token_exp: Date.today+2.weeks)
@@ -20,8 +23,12 @@ class Booking::ProcessController < ApplicationController
     @booking = Booking.new(booking_params(nil))
     @booking.user.skip_password_validation = true
     if @booking.save
+      UserMailer.welcome(@booking).deliver_later(wait_until: 1.minutes.from_now)
       redirect_to new_booking_welcome_call_path(@booking.booking_auth_token, @booking)
     else
+      Roomtype.order(:size).uniq{|roomtype| roomtype.name}.each do |roomtype|
+        @booking.user.prefered_suites.build(roomtype_id: roomtype.id)
+      end
       render :apply
     end
   end
@@ -32,7 +39,6 @@ class Booking::ProcessController < ApplicationController
   end
 
   def update
-    raise
     if step == 'room'
       @room = Room.find(params[:booking][:room_id])
       @booking.move_in = @room.bookings.present? ? @room.bookings.last.move_out : Date.tomorrow
@@ -55,6 +61,13 @@ class Booking::ProcessController < ApplicationController
     # raise
   end
 
+  def send_booking_process_invite
+    @booking.update(booking_auth_token_exp: Date.today+2.weeks)
+    UserMailer.invite_for_booking_process(@booking)
+    @booking.update(booking_process_invite_send: true)
+    redirect_to welcome_calls_path
+  end
+
   private
 
   def set_objects
@@ -70,6 +83,10 @@ class Booking::ProcessController < ApplicationController
 
   def set_nested_attributes
     case step
+    when 'apply'
+      Roomtype.order(:size).each do |roomtype|
+        @booking.user.prefered_suites.build(roomtype_id: roomtype.id)
+      end
     when 'projects'
       @projects = Project.last(1)
       @markers = @projects.map do |project|
@@ -83,7 +100,7 @@ class Booking::ProcessController < ApplicationController
       @project_index_amenities = []
       Project.last.join_amenities.each{|ja| @project_index_amenities << ja.amenity if ja.name == 'project index' }
     when 'rooms'
-      @roomtypes = @project.roomtypes
+      @roomtypes = @project.roomtypes.order(:size)
       @project_show_amenities = []
       @project.join_amenities.each{|ja| @project_show_amenities << ja.amenity if ja.name == 'project show' }
       @room_availability_hash = find_available_booking_dates_for_each_room_art(@roomtypes)
@@ -105,9 +122,9 @@ class Booking::ProcessController < ApplicationController
       @roomtype.rooms.each do |room|
         rooms_last_booking = Booking.order(:move_out).select{ |b| b.room == room && b.state == 'booked' }.last
         if rooms_last_booking.present? && rooms_last_booking.move_out.future?
-          @room_availability.store(room.id, (rooms_last_booking.move_out + 1.day).strftime('%d. %B %Y')) if !@room_availability.values.include?((rooms_last_booking.move_out + 1.day).strftime('%d. %B %Y'))
+          @room_availability.store(room.id, (rooms_last_booking.move_out + 1.day).strftime('%d %B %Y')) if !@room_availability.values.include?((rooms_last_booking.move_out + 1.day).strftime('%d %B %Y'))
         else
-          @room_availability.store(room.id, Date.tomorrow.strftime('%d. %B %Y')) if !@room_availability.values.include?(Date.tomorrow.strftime('%d. %B %Y'))
+          @room_availability.store(room.id, Date.tomorrow.strftime('%d %B %Y')) if !@room_availability.values.include?(Date.tomorrow.strftime('%d %B %Y'))
         end
       end
       @room_availability = @room_availability.sort_by { |key, value| value.to_date }.to_h
@@ -132,39 +149,6 @@ class Booking::ProcessController < ApplicationController
   def booking_params(step)
     permitted_attributes = if request.path_parameters[:action] != 'create'
                              case step
-                             when "apply"
-                               [
-                                :name,
-                                {photos: []},
-                                descriptions_attributes: [
-                                                          :id,
-                                                          :field,
-                                                          :content
-                                                         ],
-                                project_amenities_attributes: [
-                                                               :id,
-                                                               :amenity_id,
-                                                               :_destroy
-                                                              ]
-                               ]
-                             when "address"
-                               [
-                                address_attributes: [
-                                                     :id,
-                                                     :addressable_id,
-                                                     :street,
-                                                     :number,
-                                                     :zip,
-                                                     :city,
-                                                     :country,
-                                                     description_attributes: [
-                                                                              :id,
-                                                                              :descriptionable_id,
-                                                                              :field,
-                                                                              :content
-                                                                             ]
-                                                    ]
-                               ]
                              when "rooms"
                                [
                                 roomtypes_attributes: [
@@ -220,6 +204,8 @@ class Booking::ProcessController < ApplicationController
                              [
                                :move_in,
                                :move_out,
+                               :booking_auth_token,
+                               :booking_auth_token_exp,
                                user_attributes: [
                                  :first_name,
                                  :last_name,

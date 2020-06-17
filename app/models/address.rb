@@ -7,7 +7,7 @@ class Address < ApplicationRecord
   accepts_nested_attributes_for :description
   validates_associated :description
 
-  validate :description_requirement
+  # validate :description_requirement
   validates :street, :city, :zip, :country, presence: true
 
 

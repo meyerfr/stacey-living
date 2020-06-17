@@ -71,22 +71,49 @@
                   </div> -->
                   <div class="list-detail d-none">
                     <% user = call.booking.user %>
-                    <ul>
-                      <li>email: <%= user.email %></li>
-                      <li>moves in: <%= call.booking.move_in.strftime("%d.%B %Y") %></li>
-                      <li>moves out: <%= call.booking.move_out.strftime("%d.%B %Y") %></li>
-                      <li>Phone: <%= user.phone_code %> <%= user.phone_number %></li>
-                      <li>Prefered Suites: <%= user.prefered_suite.join(', ') %></li>
-                      <li>moves in <%= user.amount_of_people == 1 ? 'alone' : 'as a couple' %></li>
-                      <li>Job: <%= user.job %></li>
-                      <li>DOB: <%= user.dob %></li>
-                      <% if user.social_links.present? %>
-                        <% user.social_links.each do |link| %>
-                          <li><%= link.name.capitalize %>: <%= link_to link.url, link.url, target: :_blank %></li>
-                        <% end %>
-                      <% end %>
-                      <li>Applied on the <%= user.created_at.strftime('%d.%B %Y') %></li>
-                    </ul>
+                    <p class="invite-link"><%= link_to 'send booking process invite', booking_send_booking_process_invite_path(call.booking) %></p>
+                    <table class="user-info">
+                      <tr>
+                        <td>Email:</td>
+                        <td><%= user.email %></td>
+                      </tr>
+                      <tr>
+                        <td>Move in:</td>
+                        <td><%= call.booking.move_in.strftime('%d. %B %Y') %></td>
+                      </tr>
+                      <tr>
+                        <td>Move out:</td>
+                        <td><%= call.booking.move_out.strftime('%d. %B %Y') %></td>
+                      </tr>
+                      <tr>
+                        <td>Phone:</td>
+                        <td><%= user.phone_code %> <%= user.phone_number %></td>
+                      </tr>
+                      <tr>
+                        <td>Amount of People:</td>
+                        <td><%= user.amount_of_people %></td>
+                      </tr>
+                      <tr>
+                        <td>Job:</td>
+                        <td><%= user.job %></td>
+                      </tr>
+                      <tr>
+                        <td>Date of birth:</td>
+                        <td><%= user.dob.strftime('%d. %B %Y') %></td>
+                      </tr>
+                      <tr>
+                        <td>Social Media:</td>
+                        <td>
+                          <% user.social_links.each do |link| %>
+                            <%= link.name.capitalize %>: <%= link_to "#{link.name}", link.url, target: :_blank %>
+                          <% end %>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Applied of the:</td>
+                        <td><%= user.created_at.strftime('%d. %B %Y') %></td>
+                      </tr>
+                    </table>
                   </div>
                 </div>
               <!-- </div> -->

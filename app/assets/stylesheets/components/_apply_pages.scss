@@ -49,8 +49,7 @@
         padding-left: 12px;
       }
       .invalid-feedback.duration{
-        margin-top: -20px;
-        margin-bottom: 10px;
+        margin-top: 0px;
       }
       .invalid-feedback.js-inserted{
         margin-bottom: -23px;
@@ -74,6 +73,12 @@
         }
         .check-boxes.prefered_suites{
           flex-wrap: wrap;
+        }
+        .booking_user_gender .btn{
+          margin: 0 12px;
+          .form-check-input.is-invalid ~ .form-check-label {
+            color: inherit;
+          }
         }
         .check-boxes.gender{
           justify-content: unset;

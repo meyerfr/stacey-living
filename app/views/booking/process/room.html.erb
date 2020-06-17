@@ -9,7 +9,13 @@
   <div class="room-show-wrapper">
     <div class="section room-basic-infos">
       <h3><%= @roomtype.name %> Suite</h3>
-      <%= render 'shared/amenities', amenities: @roomtype_show_amenities %> <!-- , ameneties: @room.ameneties -->
+      <div class="amenities">
+        <span class="amenity">
+          <%= cl_image_tag 'https://res.cloudinary.com/dvuqwvjay/image/upload/v1591348529/square-meter-icon.png', style: 'width: 20px' %>
+          <span><%= @roomtype.size %> m<sup>2</sup></span>
+        </span>
+        <%= render 'shared/amenities', amenities: @roomtype_show_amenities %> <!-- , ameneties: @room.ameneties -->
+      </div>
     </div>
     <div class="section">
       <h3>The Suite</h3>
@@ -28,14 +34,11 @@
     </div>
     <div class="section">
       <h3>The location</h3>
-      <p><%= @roomtype.project.descriptions.last.content %></p>
+      <p><%= @roomtype.project.descriptions.where(field: 'project info show').first.content %></p>
       <!-- image of project -->
     </div>
 
-    <div id="map"
-     style="height: 500px;"
-     data-markers="<%= @markers.to_json %>"
-     data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>"></div>
+    <%= render 'shared/map', markers: @markers, myclass: 'room-map' %>
 
     <div class="section">
       <h3>What Is The Coliving Buzz All About?</h3>
