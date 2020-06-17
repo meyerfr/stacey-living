@@ -18,17 +18,6 @@
         <div class="amenities">
           <%= render 'shared/amenities', amenities: @project_index_amenities %>
         </div>
-        <!-- <div class="amenities">
-          <span class="amenity">Furnished</span>
-          <span class="amenity">Wifi</span>
-          <span class="amenity">Speakers</span>
-          <span class="amenity">Work Spaces</span>
-          <span class="amenity">Cleaning</span>
-          <span class="amenity">Netflix</span>
-          <span class="amenity">Kitchen</span>
-          <span class="amenity">Tabletennis</span>
-        </div> -->
-
         <%= link_to "Explore", booking_process_path(@booking, @booking.booking_auth_token, 'rooms', project_id: project.id), class: 'stacey-card-button stacey-button reverse-hover' %>
       </div>
     <% end %>

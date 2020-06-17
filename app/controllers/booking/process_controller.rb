@@ -64,7 +64,7 @@ class Booking::ProcessController < ApplicationController
   def send_booking_process_invite
     @booking.update(booking_auth_token_exp: Date.today+2.weeks)
     UserMailer.invite_for_booking_process(@booking)
-    @booking.update(booking_process_invite_send: true)
+    @booking.update(booking_process_invite_send: Date.today)
     redirect_to welcome_calls_path
   end
 
@@ -156,6 +156,7 @@ class Booking::ProcessController < ApplicationController
                                                        :id,
                                                        :name,
                                                        :size,
+                                                       :amount_of_people,
                                                        {photos: []},
                                                        rooms_attributes: [
                                                                           :id,

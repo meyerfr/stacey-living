@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_17_063259) do
+ActiveRecord::Schema.define(version: 2020_06_17_115332) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -53,11 +53,9 @@ ActiveRecord::Schema.define(version: 2020_06_17_063259) do
   end
 
   create_table "amenities", force: :cascade do |t|
-    t.string "icon_text"
     t.string "title"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "name"
   end
 
   create_table "bookings", force: :cascade do |t|
@@ -70,8 +68,8 @@ ActiveRecord::Schema.define(version: 2020_06_17_063259) do
     t.string "booking_auth_token"
     t.date "booking_auth_token_exp"
     t.string "stripe_billing_plan"
-    t.boolean "booking_process_invite_send", default: false
     t.bigint "room_id"
+    t.date "booking_process_invite_send"
     t.index ["room_id"], name: "index_bookings_on_room_id"
     t.index ["user_id"], name: "index_bookings_on_user_id"
   end
@@ -144,35 +142,11 @@ ActiveRecord::Schema.define(version: 2020_06_17_063259) do
     t.index ["roomtype_id"], name: "index_prices_on_roomtype_id"
   end
 
-  create_table "project_amenities", force: :cascade do |t|
-    t.bigint "amenity_id"
-    t.bigint "project_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["amenity_id"], name: "index_project_amenities_on_amenity_id"
-    t.index ["project_id"], name: "index_project_amenities_on_project_id"
-  end
-
   create_table "projects", force: :cascade do |t|
-    t.string "street"
-    t.string "house_number"
-    t.string "city"
-    t.integer "zipcode"
     t.string "name"
-    t.text "description"
-    t.json "pictures"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "status"
-  end
-
-  create_table "room_amenities", force: :cascade do |t|
-    t.bigint "amenity_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.bigint "roomtype_id"
-    t.index ["amenity_id"], name: "index_room_amenities_on_amenity_id"
-    t.index ["roomtype_id"], name: "index_room_amenities_on_roomtype_id"
+    t.string "status", default: "inactive"
   end
 
   create_table "rooms", force: :cascade do |t|
@@ -186,14 +160,12 @@ ActiveRecord::Schema.define(version: 2020_06_17_063259) do
 
   create_table "roomtypes", force: :cascade do |t|
     t.bigint "project_id"
-    t.float "price", array: true
     t.string "name"
     t.float "size"
-    t.text "description"
-    t.json "pictures"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "stripe_product"
+    t.integer "amount_of_people", default: 1
     t.index ["project_id"], name: "index_roomtypes_on_project_id"
   end
 
@@ -218,21 +190,11 @@ ActiveRecord::Schema.define(version: 2020_06_17_063259) do
     t.string "first_name"
     t.string "last_name"
     t.date "dob"
-    t.string "street"
-    t.string "city"
-    t.integer "zipcode"
-    t.string "country"
-    t.string "instagram"
-    t.string "facebook"
-    t.string "twitter"
-    t.string "linkedin"
     t.string "job"
     t.integer "amount_of_people", default: 1
     t.string "gender"
-    t.string "prefered_suite", array: true
     t.string "phone_number"
     t.string "phone_code"
-    t.string "photo"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
@@ -254,9 +216,6 @@ ActiveRecord::Schema.define(version: 2020_06_17_063259) do
   add_foreign_key "prefered_suites", "roomtypes"
   add_foreign_key "prefered_suites", "users"
   add_foreign_key "prices", "roomtypes"
-  add_foreign_key "project_amenities", "amenities"
-  add_foreign_key "project_amenities", "projects"
-  add_foreign_key "room_amenities", "amenities"
   add_foreign_key "roomtypes", "projects"
   add_foreign_key "social_links", "users"
   add_foreign_key "welcome_calls", "bookings"

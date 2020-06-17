@@ -67,13 +67,9 @@
             </div>
           <% end %>
           <div class="amenity-section">
-            Person: For <%= roomtype.name == 'Jumbo' ? '2' : '1' %> member
+            Person: For <%= roomtype.amount_of_people %> member
           </div>
         </div>
-     <!--    <div class="amenities">
-          <%#= render 'shared/amenities', amenities: roomtype_index_inventory_amenities %>
-          <%#= render 'shared/amenities', amenities: roomtype_index_inclusion_amenities %>
-        </div> -->
         <%= link_to "Explore", booking_process_path(@booking, @booking.booking_auth_token, 'room', roomtype_id: roomtype.id), class: 'stacey-card-button stacey-button reverse-hover' %>
       </div>
     <% end %>

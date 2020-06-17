@@ -10,14 +10,12 @@ class Project::StepsController < ApplicationController
 
   def update
     if @project.update(project_params(step))
-      # if step == 'rooms'
-        # if params[:add_rooms] == 'false'
-          # @project.status == 'active'
-        # end
-        # render_wizard
-      # else
+      if step == 'rooms'
+        @project.status == 'active'
+        render_wizard
+      else
         redirect_to(next_wizard_path)
-      # end
+      end
     else
       set_nested_attributes
       render_wizard @project
