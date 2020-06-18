@@ -88,7 +88,7 @@ class Booking::ProcessController < ApplicationController
         @booking.user.prefered_suites.build(roomtype_id: roomtype.id)
       end
     when 'projects'
-      @projects = Project.last(1)
+      @projects = Project.select{|p| p.status == 'active'}
       @markers = @projects.map do |project|
         {
           lat: project.address.latitude,
@@ -100,7 +100,7 @@ class Booking::ProcessController < ApplicationController
       @project_index_amenities = []
       Project.last.join_amenities.each{|ja| @project_index_amenities << ja.amenity if ja.name == 'project index' }
     when 'rooms'
-      @roomtypes = @project.roomtypes.order(:size)
+      @roomtypes = @project.roomtypes.order(:size).select{|rt| ['Mighty', 'Premium', 'Premium+', 'Jumbo'].include?(rt.name)}
       @project_show_amenities = []
       @project.join_amenities.each{|ja| @project_show_amenities << ja.amenity if ja.name == 'project show' }
       @room_availability_hash = find_available_booking_dates_for_each_room_art(@roomtypes)
@@ -116,7 +116,7 @@ class Booking::ProcessController < ApplicationController
       @roomtype = Roomtype.find(params[:roomtype_id])
       @with_balcony = @roomtype.name.include?('balcony') ? true : false
       @project = @roomtype.project
-      @roomtype_without_balcony = @project.roomtypes.find_by(name: roomtype.name.slice(' (balcony)')) if @with_balcony
+      @roomtype_without_balcony = @project.roomtypes.find_by(name: @roomtype.name.delete_suffix(' (balcony)')) if @with_balcony
       @roomtype_photos = @with_balcony ? @roomtype_without_balcony.photos : @roomtype.photos
       @roomtype_show_amenities = []
       @roomtype.join_amenities.each{|ja| @roomtype_show_amenities << ja.amenity if ja.name == 'roomtype show' }

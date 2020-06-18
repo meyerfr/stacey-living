@@ -6,7 +6,7 @@
         <div class="info-field-wrapper">
           <div class="info-on-hover"><i class="fas fa-info"></i></div>
           <div class="info-field-container info d-none">
-            <span>Prices start at <%= room_with_balcony.prices.last %>€</span>
+            <span>Prices start at <%= room_with_balcony.prices.last.amount.to_i %>€</span>
           </div>
         </div>
         <%= link_to 'This room with balcony', booking_process_path(@booking, @booking.booking_auth_token, 'room', roomtype_id: room_with_balcony.id) %>
@@ -16,10 +16,10 @@
         <div class="info-field-wrapper">
           <div class="info-on-hover"><i class="fas fa-info"></i></div>
           <div class="info-field-container info d-none">
-            <span>Prices start at <%= @roomtype_without_balcony.prices.last %>€</span>
+            <span>Prices start at <%= @roomtype_without_balcony.prices.last.amount.to_i %>€</span>
           </div>
         </div>
-        <%= link_to 'This room with balcony', booking_process_path(@booking, @booking.booking_auth_token, 'room', roomtype_id: @roomtype_without_balcony.id) %>
+        <%= link_to 'This room without balcony', booking_process_path(@booking, @booking.booking_auth_token, 'room', roomtype_id: @roomtype_without_balcony.id) %>
       </div>
     <% end %>
     <%= simple_form_for booking, method: :put, url: wizard_path do |f| %>
