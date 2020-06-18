@@ -11,15 +11,16 @@ class Booking < ApplicationRecord
   has_one :contract
 
   accepts_nested_attributes_for :user, :contract
-  validates_associated :contract
 
 
   with_options if: -> { required_for_step?(:apply) } do |step|
     step.validates_associated :user
-    # step.validates_associated :project_amenities
   end
-  # accepts_nested_attributes_for :user
-  # validates_associated :user
+
+  with_options if: -> { required_for_step?(:contract_new) } do |step|
+    step.validates_associated :contract
+  end
+
 
   with_options dependent: :destroy do |assoc|
     assoc.has_many :welcome_calls

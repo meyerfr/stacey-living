@@ -77,8 +77,6 @@ function checkDates() {
     Array.from(moveInDateSelections).forEach((select) => {
       select.addEventListener('change', checkMoveInDate);
     })
-  }
-  if (moveOut) {
     var moveOutDateSelections = moveOut.children[1].children;
     Array.from(moveOutDateSelections).forEach((select) => {
       select.addEventListener('change', checkMoveOutDate);

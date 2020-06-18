@@ -114,7 +114,10 @@ class Booking::ProcessController < ApplicationController
       ]
     when 'room'
       @roomtype = Roomtype.find(params[:roomtype_id])
+      @with_balcony = @roomtype.name.include?('balcony') ? true : false
       @project = @roomtype.project
+      @roomtype_without_balcony = @project.roomtypes.find_by(name: roomtype.name.slice(' (balcony)')) if @with_balcony
+      @roomtype_photos = @with_balcony ? @roomtype_without_balcony.photos : @roomtype.photos
       @roomtype_show_amenities = []
       @roomtype.join_amenities.each{|ja| @roomtype_show_amenities << ja.amenity if ja.name == 'roomtype show' }
 
@@ -147,97 +150,69 @@ class Booking::ProcessController < ApplicationController
   end
 
   def booking_params(step)
-    permitted_attributes = if request.path_parameters[:action] != 'create'
-                             case step
-                             when "rooms"
-                               [
-                                roomtypes_attributes: [
-                                                       :_destroy,
-                                                       :id,
-                                                       :name,
-                                                       :size,
-                                                       :amount_of_people,
-                                                       {photos: []},
-                                                       rooms_attributes: [
-                                                                          :id,
-                                                                          :_destroy,
-                                                                          :intern_number,
-                                                                          :house_number
-                                                                         ],
-                                                       descriptions_attributes: [
-                                                                                 :id,
-                                                                                 :field,
-                                                                                 :content
-                                                                                ],
-                                                       prices_attributes: [
-                                                                           :id,
-                                                                           :duration,
-                                                                           :amount
-                                                                          ]
-                                                       ]
-                               ]
-                             when 'room'
-                               [
+    permitted_attributes =  case step
+                            when 'apply'
+                              [
+                                :move_in,
+                                :move_out,
+                                :booking_auth_token,
+                                :booking_auth_token_exp,
+                                user_attributes: [
+                                  :first_name,
+                                  :last_name,
+                                  :email,
+                                  :phone_code,
+                                  :phone_number,
+                                  :dob,
+                                  :job,
+                                  :street,
+                                  :city,
+                                  :zipcode,
+                                  :country,
+                                  :amount_of_people,
+                                  :linkedin,
+                                  :facebook,
+                                  :twitter,
+                                  :instagram,
+                                  :photo,
+                                  :gender,
+                                  social_links_attributes: [
+                                    :name,
+                                    :url,
+                                    :_destroy
+                                  ],
+                                  prefered_suites_attributes: [
+                                    :roomtype_id,
+                                    :_destroy
+                                  ]
+                                ]
+                              ]
+                            when 'room'
+                              [
+                                :move_in,
                                 :room_id,
                                 :move_out
-                               ]
-                             when 'contract_new'
-                               [
+                              ]
+                            when 'contract_new'
+                              [
                                 user_attributes: [
-                                                  :id,
-                                                  address_attributes: [
-                                                                       :id,
-                                                                       :street,
-                                                                       :number,
-                                                                       :city,
-                                                                       :zip,
-                                                                       :country
-                                                                      ]
-                                                 ],
+                                :id,
+                                address_attributes: [
+                                  :id,
+                                  :street,
+                                  :number,
+                                  :city,
+                                  :zip,
+                                  :country
+                                ]
+                              ],
                                 contract_attributes: [
-                                                      :id,
-                                                      :signature,
-                                                      :signed_date
-                                                     ]
-                               ]
-                             end
-                           else
-                             [
-                               :move_in,
-                               :move_out,
-                               :booking_auth_token,
-                               :booking_auth_token_exp,
-                               user_attributes: [
-                                 :first_name,
-                                 :last_name,
-                                 :email,
-                                 :phone_code,
-                                 :phone_number,
-                                 :dob,
-                                 :job,
-                                 :street,
-                                 :city,
-                                 :zipcode,
-                                 :country,
-                                 :amount_of_people,
-                                 :linkedin,
-                                 :facebook,
-                                 :twitter,
-                                 :instagram,
-                                 :photo,
-                                 :gender,
-                                 social_links_attributes: [
-                                   :name,
-                                   :url,
-                                   :_destroy
-                                 ],
-                                 prefered_suites_attributes: [
-                                   :roomtype_id,
-                                   :_destroy
-                                 ]
-                               ]
-                             ]
-                           end
+                                  :id,
+                                  :signature,
+                                  :signed_date
+                                ]
+                              ]
+                            end
 
     params.require(:booking).permit(permitted_attributes).merge(form_step: step)
   end

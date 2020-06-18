@@ -1,20 +1,35 @@
 <div class="booking-form-wrapper">
   <div class="booking-form-section">
+    <% if project.name == 'Eppendorf' && ['Premium', 'Premium+'].include?(roomtype.name) %>
+      <% room_with_balcony = project.roomtypes.find_by(name: "#{roomtype.name} (balcony)") %>
+      <div class="info-position">
+        <div class="info-field-wrapper">
+          <div class="info-on-hover"><i class="fas fa-info"></i></div>
+          <div class="info-field-container info d-none">
+            <span>Prices start at <%= room_with_balcony.prices.last %>€</span>
+          </div>
+        </div>
+        <%= link_to 'This room with balcony', booking_process_path(@booking, @booking.booking_auth_token, 'room', roomtype_id: room_with_balcony.id) %>
+      </div>
+    <% elsif with_balcony %>
+      <div class="info-position">
+        <div class="info-field-wrapper">
+          <div class="info-on-hover"><i class="fas fa-info"></i></div>
+          <div class="info-field-container info d-none">
+            <span>Prices start at <%= @roomtype_without_balcony.prices.last %>€</span>
+          </div>
+        </div>
+        <%= link_to 'This room with balcony', booking_process_path(@booking, @booking.booking_auth_token, 'room', roomtype_id: @roomtype_without_balcony.id) %>
+      </div>
+    <% end %>
     <%= simple_form_for booking, method: :put, url: wizard_path do |f| %>
-      <%= f.hidden_field :move_in %>
+      <%= f.hidden_field :move_in, value: room_availability.first[1].to_date %>
       <div class="form-group">
         <%= f.label :move_in, label: 'WHEN DO YOU WANT TO MOVE IN?' %>
-        <%#= f.collection_select(:room, :room_id, room_availability, :id, :name) %>
-        <%= f.select(:room_id, room_availability.map { |id, time| [time, id] }, {}, {class: 'form-control'}) %>
+        <%= f.select(:room_id, room_availability.map { |id, time| [time, id] }, {selected: room_availability.first}, {class: 'form-control'}) %>
       </div>
-      <%#= f.label 'WHEN DO YOU WANT TO MOVE IN?' %>
-      <%# room_availability.each do |room_id, availability| %>
-        <!-- <p><%#= room_id %> is available on the <%#= availability %></p> -->
-      <%# end %>
       <%= f.input :move_out, as: :date, order: [:day, :month, :year], start_year: (Date.today + 3.months).year, end_year: (Date.today + 3.months).year + 1, selected: room_availability.values.first.to_date + 3.months, label: 'UNTIL WHEN ARE YOU PLANING TO STAY?' %>
-      <%#= f.hidden_field :move_in, class: 'hidden-move-in', value: room_availability.values.first %>
-      <%= f.submit 'BOOK', name: 'room', class: 'stacey-button reverse-hover book-button' %>
-      <%#= f.submit 'BOOK', value: room, class: 'stacey-button reverse-hover book-button' %>
+      <%= f.submit 'BOOK', class: 'stacey-button reverse-hover book-button' %>
     <% end %>
   </div>
   <div class="booking-form-section pricing">

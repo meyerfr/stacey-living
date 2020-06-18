@@ -2,7 +2,7 @@
 <%#= render 'shared/carousel', pictures: @room.pictures %>
 
 <div class="header-carousel">
-  <%= render 'shared/carousel', pictures: @roomtype.photos, carousel_id: "room_banner#{@roomtype.id}", no_buttons: true, no_lightbox_button: false %>
+  <%= render 'shared/carousel', pictures: @roomtype_photos, carousel_id: "room_banner#{@roomtype.id}", no_buttons: true, no_lightbox_button: false %>
 </div>
 
 <div class="wrap-room-show-and-booking-form">
@@ -21,7 +21,7 @@
       <h3>The Suite</h3>
       <p><%= @roomtype.descriptions.first.content %></p>
       <div class="room-show-photo">
-        <% @roomtype.photos.each do |photo| %>
+        <% @roomtype_photos.each do |photo| %>
           <a href="<%= url_for(photo) %>" data-lightbox="lightbox_room_show_<%= @roomtype.id %>" data-title="<%= @roomtype.name %>">
             <%= cl_image_tag photo.key %>
           </a>
@@ -49,7 +49,7 @@
       </div>
     </div>
   </div>
-  <%= render 'shared/booking_form', booking: @booking, roomtype: @roomtype, room_availability: @room_availability %>
+  <%= render 'shared/booking_form', booking: @booking, roomtype: @roomtype, room_availability: @room_availability, project: @project, with_balcony: @with_balcony %>
 </div>
 
 

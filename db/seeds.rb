@@ -359,7 +359,7 @@ st_pauli_premium = st_pauli.roomtypes.create!(name: 'Premium', size: 12)
 
 st_pauli_premium_plus = st_pauli.roomtypes.create!(name: 'Premium+', size: 14)
 
-st_pauli_jumbo = st_pauli.roomtypes.create!(name: 'Jumbo', size: 21)
+st_pauli_jumbo = st_pauli.roomtypes.create!(name: 'Jumbo', size: 21, amount_of_people: 2)
 
 st_pauli_photos = {
   st_pauli_community_area => [

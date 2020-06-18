@@ -1,19 +1,17 @@
 import { monthDiff } from 'bookingDates';
 
 const updateDates = (event) => {
-  console.log(event.currentTarget)
   const moveInField = document.getElementById('booking_move_in');
   const moveInDate = new Date(document.querySelector('#booking_room_id').selectedOptions[0].text);
   moveInField.value = moveInDate;
 
-  const earliestMoveOutDate = moveInDate;
-  earliestMoveOutDate.setMonth(earliestMoveOutDate.getMonth() + 3);
-  console.log(earliestMoveOutDate);
   const moveOutField = document.querySelector('.booking_move_out');
   const moveOutDateSelections = moveOutField.children[1].children;
   const previousMoveOutDate = new Date(parseInt(moveOutDateSelections[2].value), parseInt(moveOutDateSelections[1].value)-1, parseInt(moveOutDateSelections[0].value));
-  const duration = monthDiff(moveInDate, earliestMoveOutDate);
+  const duration = monthDiff(moveInDate, previousMoveOutDate);
   if (duration < 3) {
+    const earliestMoveOutDate = moveInDate;
+    earliestMoveOutDate.setMonth(earliestMoveOutDate.getMonth() + 3);
     if (moveOutField.childElementCount >= 3) {
       moveOutField.children[2].remove();
     }
@@ -28,8 +26,13 @@ const updateDates = (event) => {
 
 function selectMoveInDate() {
   const moveInSelectField = document.getElementById('booking_room_id');
+  const moveOut = document.querySelector('.booking_move_out');
   if (moveInSelectField) {
     moveInSelectField.addEventListener('change', updateDates)
+    var moveOutDateSelections = moveOut.children[1].children;
+    Array.from(moveOutDateSelections).forEach((select) => {
+      select.addEventListener('change', updateDates);
+    })
   }
 }
 
