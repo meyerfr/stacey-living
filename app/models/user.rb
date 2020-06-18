@@ -6,6 +6,7 @@ class User < ApplicationRecord
 
   # validate :validate_arrays
   validates :first_name, :last_name, :email, :dob, :phone_number, :gender, :job, presence: true
+  validate :minimum_prefered_suites
 
   with_options dependent: :destroy do |assoc|
     assoc.has_many :social_links
@@ -21,7 +22,6 @@ class User < ApplicationRecord
 
   accepts_nested_attributes_for :bookings, :social_links, :prefered_suites, :address, allow_destroy: true
   validates_associated :bookings, :social_links, :address, :prefered_suites
-  validate :minimum_prefered_suites
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
@@ -32,8 +32,6 @@ class User < ApplicationRecord
     self.first_name = self.first_name.downcase.titleize
     self.last_name = self.last_name.downcase.titleize
     self.email = self.email.downcase
-    # self.gender = self.gender.pop(1) if self.gender[0] == '' => only necessary if gender would still be array
-    # self.prefered_suite = self.prefered_suite.pop(1) if self.prefered_suite[0] == ''
   end
 
   def minimum_prefered_suites
@@ -41,13 +39,6 @@ class User < ApplicationRecord
       errors.add(:prefered_suites, 'Please choose at least one')
     end
   end
-
-  # def validate_arrays
-  #   unless role == 'admin'
-  #     errors.add(:prefered_suite, 'Please choose at least one') if prefered_suite.length == 1
-  #     errors.add(:gender, 'Please choose') if gender.length == 1
-  #   end
-  # end
 
   def full_name
     "#{first_name} #{last_name}"

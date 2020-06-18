@@ -151,17 +151,17 @@ muehlenkamp_roomtypes_rooms_info = {
     "D30" => "5a 1.OG rechts",
     "D32" => "5a 2.OG rechts",
     "D33" => "5a 2.OG rechts",
-    "D35" => "5a 2.OG links",
-    "D38" => "3a 1.OG rechts",
-    "D39" => "3a EG links",
-    "D40" => "3a EG links",
-    "D42" => "3a 1.OG links",
-    "D43" => "3a 1.OG links",
-    "D46" => "3c 1.OG links",
-    "D48" => "3b 1.OG links",
-    "D50" => "3c EG rechts",
-    "D52" => "5a EG rechts",
-    "D53" => "5a EG rechts"
+    "D35" => "5a 2.OG links"
+    # "D38" => "3a 1.OG rechts",
+    # "D39" => "3a EG links",
+    # "D40" => "3a EG links",
+    # "D42" => "3a 1.OG links",
+    # "D43" => "3a 1.OG links",
+    # "D46" => "3c 1.OG links",
+    # "D48" => "3b 1.OG links",
+    # "D50" => "3c EG rechts",
+    # "D52" => "5a EG rechts",
+    # "D53" => "5a EG rechts"
   },
   muehlenkamp_premium => {
     "D01" => "3d 2.OG",
@@ -169,8 +169,7 @@ muehlenkamp_roomtypes_rooms_info = {
     "D03" => "3d 2.OG",
     "D17" => "5 1.OG rechts",
     "D20" => "5 2.OG links",
-    "D23" => "3 2.OG links",
-    "D51" => "5a EG rechts"
+    "D23" => "3 2.OG links"
   },
   muehlenkamp_premium_plus => {
     "D12" => "3 EG links",
@@ -180,19 +179,20 @@ muehlenkamp_roomtypes_rooms_info = {
     "D24" => "3 2.OG links",
     "D26" => "5 EG links",
     "D31" => "5a 1.OG rechts",
-    "D34" => "5a 2.OG rechts",
-    "D41" => "3a EG links",
-    "D44" => "3a 1.OG links"
+    "D34" => "5a 2.OG rechts"
+    # "D41" => "3a EG links",
+    # "D44" => "3a 1.OG links",
+    # "D51" => "5a EG rechts"
   },
   muehlenkamp_jumbo => {
     "D04" => "3b 1.OG rechts",
     "D06" => "3b 2.OG rechts",
     "D08" => "3b 2.OG links",
-    "D36" => "5a 2.OG links",
-    "D37" => "3a 1.OG rechts",
-    "D45" => "3c 1.OG links",
-    "D47" => "3b 1.OG links",
-    "D49" => "3c EG rechts"
+    "D36" => "5a 2.OG links"
+    # "D37" => "3a 1.OG rechts",
+    # "D45" => "3c 1.OG links",
+    # "D47" => "3b 1.OG links",
+    # "D49" => "3c EG rechts"
   }
 }
 
@@ -301,9 +301,9 @@ create_prices(eppendorf_roomtypes_prices)
 eppendorf_roomtypes_rooms_info = {
   eppendorf_mighty => {
     "EW04" => "270 2.OG",
-    "EW06" => "270a 1.OG",
-    "EW09" => "270a 2.OG",
-    "EW12" => "270a 3.OG"
+    "EW06" => "270a 1.OG"
+    # "EW09" => "270a 2.OG",
+    # "EW12" => "270a 3.OG"
   },
   eppendorf_mighty_plus => {
     "EW05" => "270"
@@ -314,8 +314,9 @@ eppendorf_roomtypes_rooms_info = {
     "EW14" => "270a 3.OG"
   },
   eppendorf_premium_balcony => {
-    "EW07" => "270a 1.OG",
-    "EW10" => "270a 2.OG"
+    "EW07" => "270a 1.OG"
+    # "EW10" => "270a 2.OG",
+    # "EW13" => "270a 3.OG"
   }
   eppendorf_premium_plus => {
     "EW01" => "270 2.OG"
