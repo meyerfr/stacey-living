@@ -12,7 +12,7 @@ class Project::StepsController < ApplicationController
     if @project.update(project_params(step))
       if step == 'rooms'
         @project.status == 'active'
-        render_wizard
+        redirect_to bookings_path
       else
         redirect_to(next_wizard_path)
       end
@@ -31,9 +31,9 @@ class Project::StepsController < ApplicationController
   def set_nested_attributes
     case step
     when 'project_info'
-      unless @project.descriptions.present?
-        @project.descriptions.build(field: 'project info')
-      end
+      # unless @project.descriptions.present?
+      #   @project.descriptions.build(field: 'project info')
+      # end
       unless @project.community_areas.present?
         @project.community_areas.build(name: "common space #{@project.name}")
         @project.community_areas.each{ |com| com.descriptions.build }
@@ -72,92 +72,92 @@ class Project::StepsController < ApplicationController
   end
 
   def project_params(step)
-    permitted_attributes = case step
-                           when "project_info"
-                             [
-                              :name,
-                              {photos: []},
-                              community_areas_attributes: [
-                                                            :id,
-                                                            :name,
-                                                            :size,
-                                                            {photos: []},
-                                                            descriptions_attributes:
-                                                            [
-                                                              :id,
-                                                              :field,
-                                                              :content
-                                                            ],
-                                                            join_amenities_attributes: [
-                                                              :id,
-                                                              :amenity_id,
-                                                              :name,
-                                                              :_destroy
-                                                            ]
-                                                          ],
-                              descriptions_attributes: [
-                                                         :id,
-                                                         :field,
-                                                         :content
-                                                       ],
-                              join_amenities_attributes: [
-                                                           :id,
-                                                           :amenity_id,
-                                                           :name,
-                                                           :_destroy
-                                                         ]
-                             ]
-                           when "address"
-                             [
-                               address_attributes: [
-                                                     :id,
-                                                     :addressable_id,
-                                                     :street,
-                                                     :number,
-                                                     :zip,
-                                                     :city,
-                                                     :country,
-                                                     description_attributes: [
-                                                                               :id,
-                                                                               :descriptionable_id,
-                                                                               :field,
-                                                                               :content
-                                                                             ]
-                                                   ]
-                             ]
-                           when "rooms"
-                             [
-                               roomtypes_attributes: [
-                                                       :_destroy,
-                                                       :id,
-                                                       :name,
-                                                       :size,
-                                                       {photos: []},
-                                                       rooms_attributes: [
-                                                                           :id,
-                                                                           :_destroy,
-                                                                           :intern_number,
-                                                                           :house_number
-                                                                         ],
-                                                       descriptions_attributes: [
-                                                                                  :id,
-                                                                                  :field,
-                                                                                  :content
-                                                                                ],
-                                                       prices_attributes: [
-                                                                            :id,
-                                                                            :duration,
-                                                                            :amount
-                                                                          ],
-                                                       join_amenities_attributes: [
-                                                                                    :id,
-                                                                                    :amenity_id,
-                                                                                    :name,
-                                                                                    :_destroy
-                                                                                  ]
-                                                     ]
-                             ]
-                           end
+    permitted_attributes =  case step
+                            when "project_info"
+                              [
+                                :name,
+                                {photos: []},
+                                community_areas_attributes: [
+                                  :id,
+                                  :name,
+                                  :size,
+                                  {photos: []},
+                                  descriptions_attributes:
+                                  [
+                                    :id,
+                                    :field,
+                                    :content
+                                  ],
+                                  join_amenities_attributes: [
+                                    :id,
+                                    :amenity_id,
+                                    :name,
+                                    :_destroy
+                                  ]
+                                ],
+                                descriptions_attributes: [
+                                  :id,
+                                  :field,
+                                  :content
+                                ],
+                                join_amenities_attributes: [
+                                  :id,
+                                  :amenity_id,
+                                  :name,
+                                  :_destroy
+                                ]
+                              ]
+                            when "address"
+                              [
+                                address_attributes: [
+                                  :id,
+                                  :addressable_id,
+                                  :street,
+                                  :number,
+                                  :zip,
+                                  :city,
+                                  :country,
+                                  description_attributes: [
+                                    :id,
+                                    :descriptionable_id,
+                                    :field,
+                                    :content
+                                  ]
+                                ]
+                              ]
+                            when "rooms"
+                              [
+                                roomtypes_attributes: [
+                                  :_destroy,
+                                  :id,
+                                  :name,
+                                  :size,
+                                  {photos: []},
+                                  rooms_attributes: [
+                                    :id,
+                                    :_destroy,
+                                    :intern_number,
+                                    :house_number
+                                  ],
+                                  descriptions_attributes: [
+                                    :id,
+                                    :field,
+                                    :content
+                                  ],
+                                  prices_attributes: [
+                                    :id,
+                                    :duration,
+                                    :amount
+                                  ],
+                                  join_amenities_attributes: [
+                                    :id,
+                                    :amenity_id,
+                                    :name,
+                                    :_destroy
+                                  ]
+                                ]
+                              ]
+                            end
 
     params.require(:project).permit(permitted_attributes).merge(form_step: step)
   end

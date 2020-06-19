@@ -6,7 +6,11 @@
   <%= f.input :size %>
   <div class="form-group img_prev">
     <%= f.label :photos, 'Upload project images' %>
-    <div class="pictures d-flex"></div>
+    <div class="pictures d-flex">
+      <% f.object.photos.each do |photo| %>
+        <%= cl_image_tag photo.key, class: 'img-thumbnail', width: 300, height: 300 %>
+      <% end %>
+    </div>
     <%= f.input :photos, as: :file, label: false, input_html: { multiple: true, class: 'picture-upload' } %>
   </div>
   <%= f.simple_fields_for :prices do |prices| %>

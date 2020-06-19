@@ -20,13 +20,6 @@
   textarea{
     height: 200px;
   }
-  .img_prev{
-    display: flex;
-    flex-direction: column;
-    .pictures{
-      overflow-y: auto;
-    }
-  }
   label{
     abbr[title="required"]{
       display: none;
@@ -60,5 +53,13 @@
       position: absolute;
       right: 26px;
     }
+  }
+}
+
+.img_prev{
+  display: flex;
+  flex-direction: column;
+  .pictures{
+    overflow: auto;
   }
 }
