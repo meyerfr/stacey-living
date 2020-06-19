@@ -36,7 +36,7 @@ end
 
 def create_descriptions(description_hash)
   description_hash.each do |roomtype_names_array, description_content|
-    all_roomtypes_with_names_included_in_array = Roomtypes.select{|rt| roomtype_names_array.include?(rt.name)}
+    all_roomtypes_with_names_included_in_array = Roomtype.select{|rt| roomtype_names_array.include?(rt.name)}
     all_roomtypes_with_names_included_in_array.each{|rt| rt.descriptions.create!(field: "#{rt.name} description", content: description_content)}
   end
 end
@@ -44,7 +44,7 @@ end
 
 # Muehlenkamp
 puts('create Mühlenkamp Project')
-muehlenkamp = Project.create!(name: 'Mühlenkamp')
+muehlenkamp = Project.create!(name: 'Mühlenkamp', status: 'active')
 
 puts('create Mühlenkamp description')
 muehlenkamp.descriptions.create!(field: 'project info index', content: 'A beautiful neighborhood in central Hamburg; everything is here. Find local shops, restaurants and bars nearby. Our community in Mühlenkamp is just as energetic as the neighborhood.')
@@ -199,7 +199,7 @@ create_rooms(muehlenkamp_roomtypes_rooms_info)
 
 # Eppendorf
 puts('create Eppendorf Project')
-eppendorf = Project.create!(name: 'Eppendorf')
+eppendorf = Project.create!(name: 'Eppendorf', status: 'active')
 
 puts('create Eppendorf description')
 eppendorf.descriptions.create!(field: 'project info index', content: 'A beautiful neighborhood in central Hamburg; everything is here. Find local shops, restaurants and bars nearby. Our community in Eppendorf is just as energetic as the neighborhood.')
@@ -328,7 +328,7 @@ create_rooms(eppendorf_roomtypes_rooms_info)
 # St. Pauli
 
 puts('create St. Pauli Project')
-st_pauli = Project.create!(name: 'St. Pauli')
+st_pauli = Project.create!(name: 'St. Pauli', status: 'active')
 
 puts('create St. Pauli description')
 st_pauli.descriptions.create!(field: 'project info index', content: 'A beautiful neighborhood in central Hamburg; everything is here. Find local shops, restaurants and bars nearby. Our community in St. Pauli is just as energetic as the neighborhood.')
@@ -432,7 +432,7 @@ roomtype_descriptions = {
   ['Jumbo']=> "When has the word “jumbo” ever indicated anything average? Wake up in a world all your own and fill it with all that matters to you. Screw the minimalism and let your maximalist self out of its cage."
 }
 puts('Create descriptions for all roomtypes')
-create_description(roomtype_descriptions)
+create_descriptions(roomtype_descriptions)
 
 
 # create Amenities new Photos to do so.

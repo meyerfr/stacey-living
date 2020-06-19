@@ -31,17 +31,6 @@
     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createAmenitiesModal">
       Add Amenitiy
     </button>
-    <div class="project-amenities-wrapper amenity-wrapper">
-      <%= f.label :join_amenities, 'Project Show Amenities' %>
-      <%= f.simple_fields_for :join_amenities do |ja| %>
-        <% if ja.object.name == 'project show' %>
-          <%= render 'amenity_fields', f: ja %>
-        <% end %>
-      <% end %>
-    </div>
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createAmenitiesModal">
-      Add Amenitiy
-    </button>
     <%= f.simple_fields_for :community_areas do |com| %>
       <%= com.input :name %>
       <%= com.input :size %>
@@ -84,9 +73,6 @@
         <%= simple_form_for Amenity.new do |f| %>
           <div class="form-group">
             <%= f.input :title %>
-          </div>
-          <div class="form-group">
-            <%= f.input :name %>
           </div>
           <div class="form-group img_prev">
             <%= f.label :photo, 'Upload project images' %>

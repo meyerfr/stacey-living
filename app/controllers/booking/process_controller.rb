@@ -14,7 +14,7 @@ class Booking::ProcessController < ApplicationController
     ['Facebook', 'LinkedIn', 'Instagram', 'Twitter'].each do |social_link_name|
       @booking.user.social_links.build(name: social_link_name)
     end
-    Roomtype.order(:size).uniq{|roomtype| roomtype.name}.each do |roomtype|
+    Roomtype.order(:size).select{|roomtype| ['Mighty', 'Premium', 'Premium+', 'Jumbo'].include?(roomtype.name)}.uniq{|roomtype| roomtype.name}.each do |roomtype|
       @booking.user.prefered_suites.build(roomtype_id: roomtype.id)
     end
   end

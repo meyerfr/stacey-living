@@ -45,7 +45,6 @@ class Project::StepsController < ApplicationController
       end
       Amenity.all.each do |amenity|
         @project.join_amenities.build(name: 'project index', amenity_id: amenity.id) unless @project.join_amenities.select{|ja| ja.name == 'project index' && ja.amenity_id == amenity.id }.present?
-        @project.join_amenities.build(name: 'project show', amenity_id: amenity.id) unless @project.join_amenities.select{|ja| ja.name == 'project show' && ja.amenity_id == amenity.id }.present?
         @project.community_areas.each do |com|
           com.join_amenities.build(name: 'community area', amenity_id: amenity.id) unless com.join_amenities.select{|ja| ja.name == 'community area' && ja.amenity_id == amenity.id }.present?
         end
@@ -62,9 +61,7 @@ class Project::StepsController < ApplicationController
           roomtype.prices.build(duration: duration) unless roomtype.prices.collect(&:duration).include?(duration)
         end
         # roomtype.room_attributes.build
-        ['roomtype info'].each do |field|
-          roomtype.descriptions.build(field: field) unless roomtype.descriptions.collect(&:field).include?(field)
-        end
+        roomtype.descriptions.build(field: field) unless roomtype.descriptions.collect(&:field).include?("#{roomtype.name} description")
         Amenity.all.each do |amenity|
           roomtype.join_amenities.build(name: 'roomtype index inventory', amenity_id: amenity.id) unless roomtype.join_amenities.select{|ja| ja.name == 'roomtype index inventory' && ja.amenity_id == amenity.id }.present?
           roomtype.join_amenities.build(name: 'roomtype index inclusion', amenity_id: amenity.id) unless roomtype.join_amenities.select{|ja| ja.name == 'roomtype index inclusion' && ja.amenity_id == amenity.id }.present?
