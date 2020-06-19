@@ -35,8 +35,9 @@ def attach_photos(photos_hash)
 end
 
 def create_descriptions(description_hash)
-  description_hash.each do |object, description_content|
-    object.descriptions.create!(field: "#{object.name} description", content: description_content)
+  description_hash.each do |roomtype_names_array, description_content|
+    all_roomtypes_with_names_included_in_array = Roomtypes.select{|rt| roomtype_names_array.include?(rt.name)}
+    all_roomtypes_with_names_included_in_array.each{|rt| rt.descriptions.create!(field: "#{rt.name} description", content: description_content)}
   end
 end
 
@@ -52,12 +53,18 @@ muehlenkamp.descriptions.create!(field: 'project info show', content: "At STACEY
 puts('create Mühlenkamp Address')
 muehlenkamp_address = muehlenkamp.create_address!(street: 'Dorotheenstraße', number: '3', city: 'Hamburg', zip: '22301', country: 'Germany')
 puts('create Mühlenkamp Address description')
-muehlenkamp_address.create_description!(field: 'address info', content: 'Our first location is located in one of the most liveable districts in Hamburg. What can you expect? Restaurants, bars and  cafes in front of your doorstep. It is your decision whether to spend a warm summer day at the Alster or meet with your roommates in our community spaces for a cold beer after work.')
+muehlenkamp_address.create_description!(
+  field: 'address info',
+  content: 'Hello, we are STACEY and this is our Co-Living Location in Winterhude. Those who are at home in the trendy Winterhude can enjoy the closeness to the city and the Alster at the same time. Hamburgs central lake is less than a minute away and cafes, restaurants & bars can be found in the neighboring street. Our Mühlenkamp location is the perfect mix for meeting new people outside the location and having the comfort of a quieter neighborhood at the same time.'
+)
 
 puts('create Mühlenkamp Community Area')
-muehlenkamp_community_area = muehlenkamp.community_areas.create!(name: "common space #{muehlenkamp.name}", size: 100)
+muehlenkamp_community_area = muehlenkamp.community_areas.create!(name: "common space #{muehlenkamp.name}", size: 180)
 puts('create Mühlenkamp Community Area description')
-muehlenkamp_community_area.descriptions.create!(field: 'common space description', content: "At STACEY we believe that beautifully designed spaces bring people together. Whether you’re looking to mingle with new people, get creative in the kitchen or open yourself up to new experiences, our Mühlenkamp location can give you all this and more.\nOur 100m2 of community space at ground level comes with:")
+muehlenkamp_community_area.descriptions.create!(
+  field: 'common space description',
+  content: "At STACEY we believe in sharing living spaces to achieve a higher member satisfaction. This is why our Mühlenkamp location offers the biggest common area of all STACEY locations. Enjoy a dinner with your friends in our spacious dining areas or cook in one of the multiple community kitchens. Most importantly, in all our common spaces Netflix is pre-installed. Moreover, next to the dining area and lounge area, the Mühlenkamp location delights through a separated Co-Working space and an outdoor gym. Yes, you read it right - an outdoor gym!"
+)
 
 puts('create Mühlenkamp Roomtypes')
 muehlenkamp_mighty = muehlenkamp.roomtypes.create!(name: 'Mighty', size: 8)
@@ -111,16 +118,6 @@ muehlenkamp_photos = {
 
 puts('attach photos to muehlenkamp roomtypes and community area')
 attach_photos(muehlenkamp_photos)
-
-muehlenkamp_room_descriptions = {
-  muehlenkamp_mighty => "Scandinavian minimalism in the heart of Hamburg. Our Mighty Suites are our flagship with regard to modern living. A comfy double bed, side table, armchair, floor lamp, closet, hangers, artwork & even bedding are included.",
-  muehlenkamp_premium => "Live like a Queen! Our Premium Suites fulfill all essential needs and even provides you with private space to work within a location that is focused on community. This category features a comfy double bed, side table, desk & chair, armchair, floor lamp, closet, hangers, artwork & even bedding.",
-  muehlenkamp_premium_plus => "Live like a King! The Premium+ Suite is the bigger brother of our Premium Suites. With additional sqm for you and and all your thoughts. This category features a comfy double bed, side table, desk & chair, armchair, floor lamp, closet, hangers, artwork & even bedding.",
-  muehlenkamp_jumbo => "Screw the minimalism. Your dream of your own walk-in closet becomes reality. Our Jumbo suites feature 25m2 designed for your needs with a queen-size bed, walk-in closet, desk, armchair, floor lamp, hangers, artwork and even bedding."
-}
-
-puts('create muehlenkamp roomtypes descriptions')
-create_descriptions(muehlenkamp_room_descriptions)
 
 muehlenkamp_roomtypes_prices = {
   muehlenkamp_mighty => {'3-5 Months': 745, '6-8 Months': 695, '9+ Months': 645},
@@ -211,12 +208,18 @@ eppendorf.descriptions.create!(field: 'project info show', content: "At STACEY w
 puts('create Eppendorf Address')
 eppendorf_address = eppendorf.create_address!(street: 'Eppendorfer Weg', number: '270', city: 'Hamburg', zip: '20251', country: 'Germany')
 puts('create Eppendorf Address description')
-eppendorf_address.create_description!(field: 'address info', content: 'Our first location is located in one of the most liveable districts in Hamburg. What can you expect? Restaurants, bars and  cafes in front of your doorstep. It is your decision whether to spend a warm summer day at the Alster or meet with your roommates in our community spaces for a cold beer after work.')
+eppendorf_address.create_description!(
+  field: 'address info',
+  content: 'Hello, we are STACEY and this is our Co-Living Location in St. Pauli. Those who are at home in the vibrant St. Pauli will enjoy the heart of Hamburg: An adventurous nightlife, Hamburg´s 2nd best football team and an international living experience. STACEY St. Pauli is located between the city and the Hamburg harbour providing access to the real Hamburg experience. Move-in and experience it for yourself!'
+)
 
 puts('create Eppendorf Community Area')
-eppendorf_community_area = eppendorf.community_areas.create!(name: "common space #{eppendorf.name}", size: 100)
+eppendorf_community_area = eppendorf.community_areas.create!(name: "common space #{eppendorf.name}", size: 120)
 puts('create Eppendorf Community Area description')
-eppendorf_community_area.descriptions.create!(field: 'common space description', content: "At STACEY we believe that beautifully designed spaces bring people together. Whether you’re looking to mingle with new people, get creative in the kitchen or open yourself up to new experiences, our Eppendorf location can give you all this and more.\nOur 100m2 of community space at ground level comes with:")
+eppendorf_community_area.descriptions.create!(
+  field: 'common space description',
+  content: "The Eppendorf community spaces is our newest edition to the STACEY network. Experience 100m2 of common space in the heart of Eppendorf. The former, completely renovated restaurant, now provides living space for all STACEY members within the location. Our Eppendorf location is our most private Co-Living experience, as it offers the most m2 per member in terms of common spaces. Take a look at the pictures - They speak for themself!"
+)
 
 puts('create Eppendorf Roomtypes')
 eppendorf_mighty = eppendorf.roomtypes.create!(name: 'Mighty', size: 10)
@@ -274,17 +277,6 @@ eppendorf_photos = {
 
 puts('attach photos to Eppendorf roomtypes and community area')
 attach_photos(eppendorf_photos)
-
-
-eppendorf_room_descriptions = {
-  eppendorf_mighty => "Scandinavian minimalism in the heart of Hamburg. Our Mighty Suites are our flagship with regard to modern living. A comfy double bed, side table, armchair, floor lamp, closet, hangers, artwork & even bedding are included.",
-  eppendorf_premium => "Live like a Queen! Our Premium Suites fulfill all essential needs and even provides you with private space to work within a location that is focused on community. This category features a comfy double bed, side table, desk & chair, armchair, floor lamp, closet, hangers, artwork & even bedding.",
-  eppendorf_premium_plus => "Live like a King! The Premium+ Suite is the bigger brother of our Premium Suites. With additional sqm for you and and all your thoughts. This category features a comfy double bed, side table, desk & chair, armchair, floor lamp, closet, hangers, artwork & even bedding.",
-  eppendorf_jumbo => "Screw the minimalism. Your dream of your own walk-in closet becomes reality. Our Jumbo suites feature 25m2 designed for your needs with a queen-size bed, walk-in closet, desk, armchair, floor lamp, hangers, artwork and even bedding."
-}
-
-puts('create Eppendorf roomtypes descriptions')
-create_descriptions(eppendorf_room_descriptions)
 
 eppendorf_roomtypes_prices = {
   eppendorf_mighty => {'3-5 Months': 795, '6-8 Months': 745, '9+ Months': 695},
@@ -345,12 +337,18 @@ st_pauli.descriptions.create!(field: 'project info show', content: "At STACEY we
 puts('create St. Pauli Address')
 st_pauli_address = st_pauli.create_address!(street: 'Detlev-Bremer-Straße', number: '2', city: 'Hamburg', zip: '20359', country: 'Germany')
 puts('create St. Pauli Address description')
-st_pauli_address.create_description!(field: 'address info', content: 'Our first location is located in one of the most liveable districts in Hamburg. What can you expect? Restaurants, bars and  cafes in front of your doorstep. It is your decision whether to spend a warm summer day at the Alster or meet with your roommates in our community spaces for a cold beer after work.')
+st_pauli_address.create_description!(
+  field: 'address info',
+  content: 'Hello, we are STACEY and this is our Co-Living Location in Eppendorf. Those who are at home in the pretty Eppendorf can count themselves lucky: Lots of water, green, representative architecture and urban quality of life. Chic boutiques, but also small grocery stores supply the residents with luxury goods or everyday needs.'
+)
 
 puts('create St. Pauli Community Area')
-st_pauli_community_area = st_pauli.community_areas.create!(name: "common space #{st_pauli.name}", size: 100)
+st_pauli_community_area = st_pauli.community_areas.create!(name: "common space #{st_pauli.name}", size: 50)
 puts('create St. Pauli Community Area description')
-st_pauli_community_area.descriptions.create!(field: 'common space description', content: "At STACEY we believe that beautifully designed spaces bring people together. Whether you’re looking to mingle with new people, get creative in the kitchen or open yourself up to new experiences, our St. Pauli location can give you all this and more.\nOur 100m2 of community space at ground level comes with:")
+st_pauli_community_area.descriptions.create!(
+  field: 'common space description',
+  content: "It might not be the home of the best football team in the world, but it definitely locates an amazing STACEY common area. The St. Pauli common space is  located directly within the apartment, just outside of your own private suite. Besides a fully equipped kitchen, we have a basement to hang out and meet with your cohabitants and friends."
+)
 
 puts('create St. Pauli Roomtypes')
 st_pauli_mighty = st_pauli.roomtypes.create!(name: 'Mighty', size: 9)
@@ -398,16 +396,6 @@ st_pauli_photos = {
 puts('attach photos to St. Pauli roomtypes and community area')
 attach_photos(st_pauli_photos)
 
-st_pauli_room_descriptions = {
-  st_pauli_mighty => "Scandinavian minimalism in the heart of Hamburg. Our Mighty Suites are our flagship with regard to modern living. A comfy double bed, side table, armchair, floor lamp, closet, hangers, artwork & even bedding are included.",
-  st_pauli_premium => "Live like a Queen! Our Premium Suites fulfill all essential needs and even provides you with private space to work within a location that is focused on community. This category features a comfy double bed, side table, desk & chair, armchair, floor lamp, closet, hangers, artwork & even bedding.",
-  st_pauli_premium_plus => "Live like a King! The Premium+ Suite is the bigger brother of our Premium Suites. With additional sqm for you and and all your thoughts. This category features a comfy double bed, side table, desk & chair, armchair, floor lamp, closet, hangers, artwork & even bedding.",
-  st_pauli_jumbo => "Screw the minimalism. Your dream of your own walk-in closet becomes reality. Our Jumbo suites feature 25m2 designed for your needs with a queen-size bed, walk-in closet, desk, armchair, floor lamp, hangers, artwork and even bedding."
-}
-
-puts('create St. Pauli roomtypes descriptions')
-create_descriptions(st_pauli_room_descriptions)
-
 st_pauli_roomtypes_prices = {
   st_pauli_mighty => {'3-5 Months': 745, '6-8 Months': 695, '9+ Months': 645},
   st_pauli_premium => {'3-5 Months': 895, '6-8 Months': 845, '9+ Months': 795},
@@ -436,6 +424,15 @@ st_pauli_roomtypes_rooms_info = {
 }
 puts('crete St. Pauli rooms')
 create_rooms(st_pauli_roomtypes_rooms_info)
+
+roomtype_descriptions = {
+  ['Mighty', 'Mighty+'] => "Mighty people need a mighty room with extra space for thoughts, creativity and for the dust to settle… Don't worry, we will take care of the cleaning.",
+  ['Premium', 'Premium (balcony)'] => "If you love Marie Kondo’s minimalist style and would like to give it a try in a space slightly larger than our Mighty room, then this room is all you need to free yourself from the things that do not spark joy.",
+  ['Premium+', 'Premium+ (balcony)'] => "Our Premium rooms fit everything you need. However if you do need extra space for your spirit & mind the slightly bigger Premium+ suites will be the best choice!",
+  ['Jumbo']=> "When has the word “jumbo” ever indicated anything average? Wake up in a world all your own and fill it with all that matters to you. Screw the minimalism and let your maximalist self out of its cage."
+}
+puts('Create descriptions for all roomtypes')
+create_description(roomtype_descriptions)
 
 
 # create Amenities new Photos to do so.
