@@ -14,7 +14,7 @@ class Booking < ApplicationRecord
 
 
   with_options if: -> { required_for_step?(:apply) } do |step|
-    step.validates_associated :user
+    step.validates_associated :user, on: :create
   end
 
   with_options if: -> { required_for_step?(:contract_new) } do |step|
