@@ -36,6 +36,8 @@ class UserMailer < ApplicationMailer
   def invite_for_booking_process(booking)
     @booking = booking
     @user = booking.user
+    email_with_name = %("#{@user.full_name}" <#{@user.email}>)
+    mail(to: email_with_name, subject: 'Stacey - coliving - booking process')
   end
 
   private

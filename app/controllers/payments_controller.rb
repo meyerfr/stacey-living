@@ -21,9 +21,9 @@ class PaymentsController < ApplicationController
 
     customer = find_or_create_stripe_customer(@user)
 
-    stripe_product = Stripe::Product.retrieve(@room.stripe_product)
+    stripe_product = Stripe::Product.retrieve(@roomtype.stripe_product)
     # assumed stripe_plan exists, need function if it doesn´t
-    plan = find_stripe_plan(@booking, @room, stripe_product)
+    plan = find_stripe_plan(@booking, @roomtype, stripe_product)
 
     # Charge Booking Fee
     chargeBookingFee = Stripe::Charge.create({
@@ -71,18 +71,18 @@ class PaymentsController < ApplicationController
   end
 
   def set_price_and_deposit
-    @room = @booking.room_attribute.room
+    @roomtype = @booking.room_attribute.roomtype
     move_in = @booking.move_in
     move_out = @booking.move_out
     duration = (move_out.year - move_in.year) * 12 + move_out.month - move_in.month - (move_out.day >= move_in.day ? 0 : 1)
     if duration <= 5
-      @price = @room.price[0]
+      @price = @roomtype.price[0]
     # this eleif only comes in place if we make deposit = @price * 3 when duration > 8
     # elsif duration <= 8
-    #   @price = @room.price[1]
+    #   @price = @roomtype.price[1]
     #   @deposit = @price * 2
     else
-      @price = @room.price[2]
+      @price = @roomtype.price[2]
     end
     @booking_fee = 80
     @total_today = @booking_fee + (@price * 2)

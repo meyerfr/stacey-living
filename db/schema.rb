@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_09_072649) do
+ActiveRecord::Schema.define(version: 2020_06_17_115332) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,17 +36,24 @@ ActiveRecord::Schema.define(version: 2020_04_09_072649) do
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
-  create_table "amenities", force: :cascade do |t|
-    t.string "icon_text"
-    t.string "title"
+  create_table "addresses", force: :cascade do |t|
+    t.string "street"
+    t.string "number"
+    t.string "city"
+    t.string "zip"
+    t.string "country"
+    t.string "addressable_type"
+    t.bigint "addressable_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "type"
+    t.float "longitude"
+    t.float "latitude"
+    t.index ["addressable_type", "addressable_id"], name: "index_addresses_on_addressable_type_and_addressable_id"
+    t.index ["latitude", "longitude"], name: "index_addresses_on_latitude_and_longitude"
   end
 
-  create_table "articles", force: :cascade do |t|
+  create_table "amenities", force: :cascade do |t|
     t.string "title"
-    t.text "body"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -60,11 +67,20 @@ ActiveRecord::Schema.define(version: 2020_04_09_072649) do
     t.datetime "updated_at", null: false
     t.string "booking_auth_token"
     t.date "booking_auth_token_exp"
-    t.bigint "room_attribute_id"
     t.string "stripe_billing_plan"
-    t.boolean "booking_process_invite_send", default: false
-    t.index ["room_attribute_id"], name: "index_bookings_on_room_attribute_id"
+    t.bigint "room_id"
+    t.date "booking_process_invite_send"
+    t.index ["room_id"], name: "index_bookings_on_room_id"
     t.index ["user_id"], name: "index_bookings_on_user_id"
+  end
+
+  create_table "community_areas", force: :cascade do |t|
+    t.bigint "project_id"
+    t.string "name"
+    t.float "size"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["project_id"], name: "index_community_areas_on_project_id"
   end
 
   create_table "contracts", force: :cascade do |t|
@@ -74,6 +90,27 @@ ActiveRecord::Schema.define(version: 2020_04_09_072649) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["booking_id"], name: "index_contracts_on_booking_id"
+  end
+
+  create_table "descriptions", force: :cascade do |t|
+    t.string "descriptionable_type"
+    t.bigint "descriptionable_id"
+    t.string "field"
+    t.text "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["descriptionable_type", "descriptionable_id"], name: "index_descs_on_descable_type_and_descable_id"
+  end
+
+  create_table "join_amenities", force: :cascade do |t|
+    t.string "amenitiable_type"
+    t.bigint "amenitiable_id"
+    t.string "name"
+    t.bigint "amenity_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["amenitiable_type", "amenitiable_id"], name: "index_join_amenities_on_amenitiable_type_and_amenitiable_id"
+    t.index ["amenity_id"], name: "index_join_amenities_on_amenity_id"
   end
 
   create_table "partners", force: :cascade do |t|
@@ -87,56 +124,58 @@ ActiveRecord::Schema.define(version: 2020_04_09_072649) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "project_amenities", force: :cascade do |t|
-    t.bigint "amenity_id"
-    t.bigint "project_id"
+  create_table "prefered_suites", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "roomtype_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["amenity_id"], name: "index_project_amenities_on_amenity_id"
-    t.index ["project_id"], name: "index_project_amenities_on_project_id"
+    t.index ["roomtype_id"], name: "index_prefered_suites_on_roomtype_id"
+    t.index ["user_id"], name: "index_prefered_suites_on_user_id"
+  end
+
+  create_table "prices", force: :cascade do |t|
+    t.string "duration"
+    t.float "amount"
+    t.bigint "roomtype_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["roomtype_id"], name: "index_prices_on_roomtype_id"
   end
 
   create_table "projects", force: :cascade do |t|
-    t.string "street"
-    t.string "house_number"
-    t.string "city"
-    t.integer "zipcode"
     t.string "name"
-    t.text "description"
-    t.json "pictures"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "room_amenities", force: :cascade do |t|
-    t.bigint "amenity_id"
-    t.bigint "room_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["amenity_id"], name: "index_room_amenities_on_amenity_id"
-    t.index ["room_id"], name: "index_room_amenities_on_room_id"
-  end
-
-  create_table "room_attributes", force: :cascade do |t|
-    t.string "number"
-    t.string "house_number"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.bigint "room_id"
-    t.index ["room_id"], name: "index_room_attributes_on_room_id"
+    t.string "status", default: "inactive"
   end
 
   create_table "rooms", force: :cascade do |t|
+    t.string "intern_number"
+    t.string "house_number"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "roomtype_id"
+    t.index ["roomtype_id"], name: "index_rooms_on_roomtype_id"
+  end
+
+  create_table "roomtypes", force: :cascade do |t|
     t.bigint "project_id"
-    t.float "price", array: true
     t.string "name"
     t.float "size"
-    t.text "description"
-    t.json "pictures"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "stripe_product"
-    t.index ["project_id"], name: "index_rooms_on_project_id"
+    t.integer "amount_of_people", default: 1
+    t.index ["project_id"], name: "index_roomtypes_on_project_id"
+  end
+
+  create_table "social_links", force: :cascade do |t|
+    t.string "name"
+    t.string "url"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_social_links_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -151,21 +190,11 @@ ActiveRecord::Schema.define(version: 2020_04_09_072649) do
     t.string "first_name"
     t.string "last_name"
     t.date "dob"
-    t.string "street"
-    t.string "city"
-    t.integer "zipcode"
-    t.string "country"
-    t.string "instagram"
-    t.string "facebook"
-    t.string "twitter"
-    t.string "linkedin"
     t.string "job"
     t.integer "amount_of_people", default: 1
-    t.string "gender", array: true
-    t.string "prefered_suite", array: true
+    t.string "gender"
     t.string "phone_number"
     t.string "phone_code"
-    t.string "photo"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
@@ -180,14 +209,14 @@ ActiveRecord::Schema.define(version: 2020_04_09_072649) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "bookings", "room_attributes"
   add_foreign_key "bookings", "users"
+  add_foreign_key "community_areas", "projects"
   add_foreign_key "contracts", "bookings"
-  add_foreign_key "project_amenities", "amenities"
-  add_foreign_key "project_amenities", "projects"
-  add_foreign_key "room_amenities", "amenities"
-  add_foreign_key "room_amenities", "rooms"
-  add_foreign_key "room_attributes", "rooms"
-  add_foreign_key "rooms", "projects"
+  add_foreign_key "join_amenities", "amenities"
+  add_foreign_key "prefered_suites", "roomtypes"
+  add_foreign_key "prefered_suites", "users"
+  add_foreign_key "prices", "roomtypes"
+  add_foreign_key "roomtypes", "projects"
+  add_foreign_key "social_links", "users"
   add_foreign_key "welcome_calls", "bookings"
 end

@@ -1,0 +1,63 @@
+<%= simple_form_for @project, method: :put, url: wizard_path do |f| %>
+  <% if f.object.errors.any? %>
+    <div class="error_messages">
+      <% f.object.errors.full_messages.each do |error| %>
+        <p><%= error %></p>
+      <% end %>
+    </div>
+  <% end %>
+
+  <fieldset>
+    <legend>Projects Amenities</legend>
+    <div class="project-amenities-wrapper">
+      <%= f.simple_fields_for :project_amenities do |pa| %>
+        <% if pa.object.id.nil? %>
+          <div class="project-amenity-select">
+          <%= pa.input_field :_destroy, as: :hidden, value: '1' %>
+        <% else %>
+          <div class="project-amenity-select selected">
+          <%= pa.input_field :_destroy, as: :hidden, value: '0' %>
+        <% end %>
+        <%= pa.input_field :id, as: :hidden %>
+        <%= pa.input_field :amenity_id, as: :hidden %>
+        <%= Amenity.find(pa.object.amenity_id).title %>
+        </div>
+      <% end %>
+    </div>
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createAmenitiesModal">
+      Add Amenitiy
+    </button>
+    <div>
+      <%= f.submit 'Next Step' %>
+    </div>
+  </fieldset>
+<% end %>
+
+
+<!-- Modal -->
+<div class="modal fade amenities-modal" id="createAmenitiesModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="amenitiesModalTitle">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <%= simple_form_for Amenity.new do |f| %>
+          <div class="form-group">
+            <%= f.input :title %>
+          </div>
+          <div class="form-group">
+            <%= f.input :name %>
+          </div>
+          <div class="form-group">
+            <%= f.submit class: "btn btn-primary" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,4 +1,8 @@
 class Amenity < ApplicationRecord
-  has_many :room_amenities
-  has_many :project_amenities
+  has_one_attached :photo
+
+  has_many :join_amenities, as: :amenitiable, dependent: :destroy
+
+  has_many :projects, through: :join_amenities
+  has_many :roomtypes, through: :join_amenities
 end

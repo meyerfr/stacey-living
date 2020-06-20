@@ -1,0 +1,56 @@
+<%= render 'shared/three_steps_navbar', step: 1 %> <!-- must be step 1 because choosing Project doesn´t count -->
+<!-- this must be the banner of projects pictures -->
+<div class="header-carousel">
+  <%= render 'shared/carousel', pictures: @project.photos, carousel_id: "Project#{@project.id}", no_buttons: true, no_lightbox_button: false %>
+</div>
+<!-- the quote -->
+
+<div class="project-short-description">
+  <div class="location-name">
+    <span>STACEY</span>
+    <span><%= @project.name %></span>
+  </div>
+  <span class="description">A beautiful neighborhood in central Hamburg; everything is here. Find local shops, restaurants and bars nearby. Our community in Eppendorf is just as energetic as the neighborhood.</span>
+</div>
+<div class="common-space-info">
+  <p class="info-header">The Community Space</p>
+  <span class="description">At STACEY we believe that beautifully designed spaces bring people together. Whether you’re looking to mingle with new people, get creative in the kitchen or open yourself up to new experiences, our Mühlenkamp location can give you all this and more.</span>
+  <span>Our 100m2 of community space at ground level comes with:</span>
+  <ul class="common-space-amenities">
+    <li>2x fully equiped kitchens</li>
+    <li>Lounge Space</li>
+    <li>Inner Yard</li>
+    <li>Dining Space</li>
+    <li>Work Spaces</li>
+    <li>Laundry Room</li>
+  </ul>
+</div>
+<div class="cards-wrapper">
+  <p class="suites-header">The Suites</p>
+  <div class="cards-container">
+    <%# 6.times do %>
+    <% @roomtypes.each_with_index do |roomtype, index| %>
+      <div class="stacey-card" id='room-card'>
+        <div class="availability">
+          <span>Available</span>
+          <span><%= @room_availability_hash[roomtype.name] %></span>
+        </div>
+        <%= render 'shared/carousel', pictures: roomtype.photos, carousel_id: "Room#{roomtype.id}", no_lightbox_button: true, no_buttons: false %>
+        <div class="stacey-card-header">
+          <span class="name"><%= roomtype.name.titleize %></span>
+          <span class="price">from €<%= roomtype.price[0] % 1 == 0 ? roomtype.price[0].to_i : roomtype.price[0] %></span>
+        </div>
+        <div class="amenities">
+          <%= render 'shared/amenities', amenities: roomtype.amenities %>
+        </div>
+        <%= link_to "Explore", booking_project_roomtype_path(@booking.booking_auth_token, @booking, roomtype.project, roomtype.name), class: 'stacey-card-button stacey-button reverse-hover' %>
+      </div>
+    <% end %>
+    <%# end %>
+  </div>
+</div>
+<% if current_user.present? && current_user.admin? %>
+  <%= link_to 'Create new Roomtype', new_project_room_path(@project), class: "stacey-button" %>
+<% end %>
+
+<%= render 'shared/footer' %>

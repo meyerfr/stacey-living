@@ -7,9 +7,10 @@ class ContractsController < ApplicationController
     # layout booking
     @booking = Booking.find(params[:booking_id])
     @user = @booking.user
-    @room = @booking.room_attribute.room
-    @project = @room.project
-    @contract = @booking.contracts.new
+    @room = @booking.room
+    @roomtype = @room.roomtype
+    @project = @roomtype.project
+    @contract = @booking.contract.present? ? @booking.contract : @booking.build_contract
     @countries = ['Australia', 'Austria', 'Belgium', 'Brazil', 'United States', 'China', 'Denmark', 'Finland', 'France', 'Germany', 'Hong Kong', 'Ireland', 'Italy', 'Japan', 'Luxembourg', 'Mexico', 'Netherlands', 'New Zealand', 'Norway', 'Portugal', 'Singapore', 'Spain', 'Sweden', 'Switzerland', 'United Kingdom']
     respond_to do |format|
       format.html
@@ -39,10 +40,11 @@ class ContractsController < ApplicationController
 
   def show
     @booking = Booking.find(params[:booking_id])
-    @contract = @booking.contracts.last
+    @contract = @booking.contract
     @user = @booking.user
-    @room = @booking.room_attribute.room
-    @project = @room.project
+    @room = @booking.room
+    @roomtype = @room.roomtype
+    @project = @roomtype.project
     respond_to do |format|
       format.html
       format.pdf do

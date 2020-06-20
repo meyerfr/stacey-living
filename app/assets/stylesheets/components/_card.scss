@@ -65,14 +65,19 @@
       }
       .amenities{
         margin-bottom: 50px;
-        padding: 15px 0;
+        padding: 15px 25px;
         font-size: 14px;
+        display: flex;
       }
       .photo{
-        height: 200px;
+        height: 210px;
         border-radius: 5px;
         img{
           border-radius: 5px;
+          background: #1d1d1d;
+          width: 100%;
+          height: 100%;
+          object-fit: contain;
         }
       }
       .stacey-card-button{

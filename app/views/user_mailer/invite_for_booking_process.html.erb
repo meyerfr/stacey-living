@@ -1,0 +1,19 @@
+<p>Hello <%= @user.first_name %>,</p>
+<p>We are excited to hear about you becoming a part of the STACEY family!</p>
+<p>The link belows leads you to our booking process.</p>
+<p>It's super easy and selfexplainatory.</p>
+<p>The steps:</p>
+<ul>
+  <li>1. Choose the location</li>
+  <li>2. Choose your room</li>
+  <li>3. Sign the contract</li>
+  <li>4. Payment information</li>
+</ul>
+<p>Therefore, please click the link below and you are ready to move in:</p>
+<p><%= link_to 'booking process', booking_process_url(@booking, @booking.booking_auth_token_exp, Booking.form_steps.second), style: 'color: blue;' %></p>
+<p>This link expires on the <%= @booking.booking_auth_token_exp.strftime('%d.%B %Y') %>.</p>
+<p>If problems occur, reply to this email or call me at +49 (0)152 34514111‬.</p>
+<p>Looking forward to our call!</p>
+<p>Cheers</p>
+<p>Matteo</p>
+<%= image_tag attachments['logo.png'].url, style: 'width: 150px' %>

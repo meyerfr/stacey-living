@@ -39,8 +39,10 @@ const checkBookingForm = (event) => {
 }
 
 function addEventListeners() {
-  bookButtonOverlay.addEventListener('click', checkBookingForm)
-  allOneAvaialabilityDivs.forEach((oneAvailability) => {oneAvailability.querySelector("input[type='checkBox']").addEventListener('click', checkBookingForm)})
+  if (bookButtonOverlay) {
+    bookButtonOverlay.addEventListener('click', checkBookingForm)
+    allOneAvaialabilityDivs.forEach((oneAvailability) => {oneAvailability.querySelector("input[type='checkBox']").addEventListener('click', checkBookingForm)})
+  }
 }
 
 function checkBookingFormDuration() {

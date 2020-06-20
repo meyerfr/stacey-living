@@ -1,0 +1,90 @@
+<%= render 'shared/three_steps_navbar', step: step %> <!-- must be step 1 because choosing Project doesn´t count -->
+<!-- this must be the banner of projects pictures -->
+<div class="header-carousel">
+  <%= render 'shared/carousel', pictures: (@project.photos + @project.community_areas.first.photos), carousel_id: "Project#{@project.id}", no_buttons: true, no_lightbox_button: false %>
+</div>
+<!-- the quote -->
+
+<div class="project-short-description">
+  <div class="location-name">
+    <span>STACEY</span>
+    <span><%= @project.name %></span>
+  </div>
+  <span class="description"><%= @project.descriptions.where(field: 'project info index').first.content %></span>
+</div>
+<div class="common-space-info">
+  <p class="info-header">The Community Space</p>
+  <span class="description"><%= simple_format(strip_tags(@project.community_areas.first.descriptions.first.content)) %></span>
+  <ul class="common-space-amenities amenities">
+    <% @project_show_amenities.each do |amenity| %>
+      <div class="amenity">
+        <%= cl_image_tag amenity.photo.key, style: 'width: 20px' %>
+        <li><%= amenity.title %></li>
+      </div>
+    <% end %>
+  </ul>
+</div>
+<div class="cards-wrapper">
+  <p class="suites-header">The Suites</p>
+  <div class="cards-container">
+    <%# 6.times do %>
+    <% @roomtypes.each_with_index do |roomtype, index| %>
+      <div class="stacey-card" id='room-card'>
+        <div class="availability">
+          <span>Available</span>
+          <span><%= @room_availability_hash[roomtype.name] %></span>
+        </div>
+        <%= render 'shared/carousel', pictures: roomtype.photos, carousel_id: "Room#{roomtype.id}", no_lightbox_button: true, no_buttons: false %>
+        <div class="stacey-card-header">
+          <span class="name"><%= roomtype.name.titleize %></span>
+          <span class="price">from €<%= roomtype.prices.first.amount % 1 == 0 ? roomtype.prices.first.amount.to_i : roomtype.prices.first %></span>
+        </div>
+        <% roomtype_index_inventory_amenities = [] %>
+        <% roomtype_index_inclusion_amenities = [] %>
+        <% roomtype.join_amenities.each{|ja| roomtype_index_inventory_amenities << ja.amenity if ja.name == 'roomtype index inventory' } %>
+        <% roomtype.join_amenities.each{|ja| roomtype_index_inclusion_amenities << ja.amenity if ja.name == 'roomtype index inclusion' } %>
+        <div class="roomtype-show-amenities">
+          <div class="amenity-section size">
+            Size (<%= cl_image_tag 'https://res.cloudinary.com/dvuqwvjay/image/upload/v1591348529/square-meter-icon.png', style: 'width: 20px' %>):
+            <%= roomtype.size % 1 == 0 ? roomtype.size.to_i : roomtype.size %> m<sup>2</sup>
+          </div>
+          <% if roomtype_index_inventory_amenities.length > 0 %>
+            <div class="amenity-section amenity-inventory">
+              Inventory:
+              <% roomtype_index_inventory_amenities[0...-1].each do |amenity| %>
+                <%= amenity.title %>,
+              <% end %>
+              <%= roomtype_index_inventory_amenities.last.title %>
+            </div>
+          <% end %>
+          <% if roomtype_index_inclusion_amenities.length > 0 %>
+            <div class="amenity-section amenity-inventory">
+              Includes:
+              <% roomtype_index_inclusion_amenities[0...-1].each do |amenity| %>
+                <%= amenity.title %>,
+              <% end %>
+              <%= roomtype_index_inclusion_amenities.last.title %>
+            </div>
+          <% end %>
+          <div class="amenity-section">
+            Person: For <%= roomtype.amount_of_people %> member
+          </div>
+        </div>
+        <%= link_to "Explore", booking_process_path(@booking, @booking.booking_auth_token, 'room', roomtype_id: roomtype.id), class: 'stacey-card-button stacey-button reverse-hover' %>
+      </div>
+    <% end %>
+    <%# end %>
+  </div>
+</div>
+<% if current_user.present? && current_user.admin? %>
+  <%= link_to 'Create new Roomtype', new_project_roomtype_path(@project), class: "stacey-button" %>
+<% end %>
+
+<div class="common-space-info">
+  <p class="info-header">The Location</p>
+  <span class="description"><%= @project.address.description.content %></span>
+</div>
+
+<%= render 'shared/map', markers: @markers, myclass: 'rooms-map' %>
+
+<%= render 'shared/footer' %>

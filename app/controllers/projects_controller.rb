@@ -1,40 +1,52 @@
 class ProjectsController < ApplicationController
   before_action :authenticate_user!, except: [:index]
   before_action :check_booking_auth_token!, only: [:index]
+  before_action :set_project, only: [:show, :edit, :update, :destroy]
   layout "bookingprocess", only: [:index]
 
   def index
     # layout booking
     @booking = Booking.find(params[:booking_id])
-    @projects = Project.all
+    @projects = Project.select{|p| p.address.geocoded? }
+
+    @markers = @projects.map do |project|
+      {
+        lat: project.address.latitude,
+        lng: project.address.longitude,
+        # infoWindow: render_to_string(partial: 'info_window', locals: { user: user }),
+        image_url: helpers.asset_url('maps_marker.png')
+      }
+    end
   end
 
   def new
     @project = Project.new
-    @project.rooms.build
+    @project.roomtypes.build
     @last_project = Project.last
     @amenities = Amenity.all
+    # ['project info index', 'project info show']
   end
 
   def create
-    @project = Project.new(projects_params)
-    if @project.save!
-      redirect_to booking_projects_path('sd', Booking.first.id)
-    else
-      render :new
-    end
+    @project = Project.new
+    @project.save(validate: false)
+    redirect_to project_step_path(@project, Project.form_steps.first)
+    # @project = Project.new(projects_params)
+    # raise
+    # if @project.save!
+    #   redirect_to booking_projects_path('sd', Booking.first.id)
+    # else
+    #   render :new
+    # end
   end
 
   def show
-    @project = Project.find(params[:id])
   end
 
   def edit
-    @project = Project.find(params[:id])
   end
 
   def update
-    @project = Project.find(params[:id])
     if @project.update(projects_params)
       redirect_to @project
     else
@@ -43,7 +55,6 @@ class ProjectsController < ApplicationController
   end
 
   def destroy
-    @project = Project.find(params[:id])
     if @project.delete
       redirect_to projects_path
     else
@@ -52,6 +63,10 @@ class ProjectsController < ApplicationController
   end
 
   private
+
+  def set_project
+    @project = Project.find(params[:id])
+  end
 
   def projects_params
     params.require(:project).permit(
@@ -65,6 +80,13 @@ class ProjectsController < ApplicationController
       {photos: []},
       {amenities_ids: []},
       project_amenities_attributes: [:amenity_id],
+      address_attributes: [
+        :street,
+        :number,
+        :zip,
+        :city,
+        :country
+      ],
       rooms_attributes: [
         :id,
         :project_id,

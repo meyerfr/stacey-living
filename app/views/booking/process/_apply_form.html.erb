@@ -1,0 +1,73 @@
+<%= simple_form_for @booking, method: :post, url: apply_url, html: { class: 'apply-form' } do |b| %>
+  <%= b.hidden_field :booking_auth_token %>
+  <%= b.hidden_field :booking_auth_token_exp %>
+  <%= b.simple_fields_for :user do |u| %>
+    <%= u.input :first_name, placeholder: 'Max', wrapper_html:{ class: 'apply-field' } %>
+    <%= u.input :last_name, placeholder: 'Mustermann', wrapper_html:{ class: 'apply-field' } %>
+    <%= u.input :email, placeholder: 'max@gmail.de', wrapper_html:{ class: 'apply-field' } %>
+    <div class="apply-field d-flex">
+      <%= u.input :phone_code, label: 'CODE', collection: @phone_code, selected: '+49', wrapper_html:{ class: 'phone code'} %>
+
+      <%= u.input :phone_number, label: 'PHONENUMBER', placeholder: '1682857925', wrapper_html:{ class: 'phone number'} %>
+    </div>
+    <%= u.input :dob, as: :date, order: [:day, :month, :year], start_year: Date.today.year - 70, end_year: Date.today.year - 18, selected: 22.years.ago, label: 'WHEN WERE YOU BORN?', wrapper_html:{ class: 'apply-field'} %>
+
+    <%= u.input :job, label: 'WHAT DO YOU DO FOR LIVING?', placeholder: 'YOUR JOB TITLE', wrapper_html:{ class: 'apply-field'} %>
+
+    <%= b.input :move_in, as: :date, order: [:day, :month, :year], start_year: Date.today.year, end_year: Date.today.year + 1, label: 'WHEN DO YOU WANT TO MOVE IN?', wrapper_html:{ class: 'apply-field'} %>
+    <%= b.input :move_out, as: :date, order: [:day, :month, :year], start_year: (Date.today + 3.months).year, end_year: (Date.today + 3.months).year + 1, selected: (Date.today + 3.months), label: 'UNTIL WHEN ARE YOU PLANING TO STAY?', wrapper_html:{ class: 'apply-field'} %>
+    <div class="apply-field">
+
+      <%= u.input :gender, label: 'What is your gender?', collection: [['Male', 'Male'], ['Female', 'Female']], as: :radio_buttons, item_wrapper_class: 'btn inline' %>
+    </div>
+    <div class="apply-field">
+      <%= u.label :prefered_suites, 'WHAT SUITE DO YOU PREFER?' %>
+      <div class="check-boxes prefered_suites">
+        <%= u.simple_fields_for :prefered_suites do |suite| %>
+          <div class="gender-option">
+            <!-- <div class="suite-option"> -->
+            <%= suite.check_box :_destroy, {id: "user_prefered_suites_attribute_#{suite.object_id}_destroy", class: "prefered-suites-#{Roomtype.find(suite.object.roomtype_id).name.downcase}"}, 0, 1 %>
+            <%= suite.label :suite, Roomtype.find(suite.object.roomtype_id).name, for: "user_prefered_suites_attribute_#{suite.object_id}_destroy" %>
+            <!-- </div> -->
+            <%= suite.input :roomtype_id, wrapper_html: { class: "d-none" } %>
+          </div>
+        <% end %>
+        <% if (prerfered_suites_error = booking.user.errors[:prefered_suites]).any? %>
+          <div class="invalid-feedback d-block duration"><%= prerfered_suites_error.first %></div>
+        <% end %>
+      </div>
+    </div>
+    <div class="apply-field info-position">
+      <div class="d-flex">
+        <%= u.label :amount_of_people, 'AS A COUPLE?' %>
+        <div class="info-field-wrapper">
+          <div class="info-on-hover"><i class="fas fa-info"></i></div>
+          <div class="info-field-container info d-none">
+            <span>Couples can only move in to our jumbo suites.</span>
+          </div>
+        </div>
+      </div>
+      <%= u.input :amount_of_people, as: :select, collection: [['NO', 1]], selected: 1, include_blank: false, label: false %>
+    </div>
+    <div class="social-media apply-field">
+      <%= u.label :social_media, 'SHARE MORE ABOUT YOU' %>
+      <div class="check-boxes">
+        <i class="fab fa-linkedin social-media-icon linkedin" aria-hidden="true"></i>
+        <i class="fab fa-twitter social-media-icon twitter" aria-hidden="true"></i>
+        <i class="fab fa-instagram social-media-icon instagram" aria-hidden="true"></i>
+        <i class="fab fa-facebook social-media-icon facebook" aria-hidden="true"></i>
+      </div>
+      <%= u.simple_fields_for :social_links do |link| %>
+        <%= link.input :name, wrapper_html: { class: 'd-none' } %>
+        <%= link.input_field :_destroy, as: :hidden, value: 1 %>
+        <%= link.input :url, placeholder: "ARE YOU ON #{link.object.name}", label: false, wrapper_html:{ class: "social-media-input d-none user_#{link.object.name.downcase}"} %>
+        <%# if user.errors[:bookings_attributes].any? %>
+          <!-- <div class="invalid-feedback d-block duration"><%#= user.errors[:bookings_attributes].first %></div> -->
+        <%# end %>
+      <% end %>
+    </div>
+  <% end %>
+  <div class="form-action">
+    <%= b.submit 'APPLY', class: 'stacey-button apply-button' %>
+  </div>
+<% end %>

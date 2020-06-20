@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   skip_before_action :authenticate_user!, only: %I[new create]
 
   def all_users
-    @users = User.all.where(role: 'applicant')
+    @users = helpers.all_applicants
     raise
   end
 
@@ -10,6 +10,13 @@ class UsersController < ApplicationController
     @phone_code = %w(+61 +43 +32 +55 +1 +86 +45 +358 +33 +49 +852 +353 +39 +81 +352 +52 +31 +64 +47 +351 +65 +34 +46 +41 +44)
     @user = User.new
     @user.bookings.build(booking_auth_token: Devise.friendly_token, booking_auth_token_exp: Date.today+2.weeks)
+    ['Facebook', 'LinkedIn', 'Instagram', 'Twitter'].each do |social_link_name|
+      @user.social_links.build(name: social_link_name)
+    end
+    Roomtype.order(:size).each do |roomtype|
+      @user.prefered_suites.build(roomtype_id: roomtype.id)
+    end
+    @booking = Booking.create(user_id: User.first.id)
   end
 
   def create
@@ -26,7 +33,7 @@ class UsersController < ApplicationController
     # need a new welcome mail, if User already exists.
     if @user.save
       @booking = @user.bookings.last
-      UserMailer.welcome(@booking).deliver_later(wait_until: 20.minutes.from_now)
+      # UserMailer.welcome(@booking).deliver_later(wait_until: 20.minutes.from_now)
       # redirection to calendar page. Schedule welcome call
       redirect_to new_booking_welcome_call_path(@booking.booking_auth_token, @booking, date: Date.today)
     else
@@ -45,7 +52,7 @@ class UsersController < ApplicationController
     search_param = params[:search] if params[:search].present?
     # if search and period
     @users = User.all.order(created_at: :desc)
-    @users = @users.where(role: @user_group_param) unless @user_group_param == 'all'
+    @users = @users.select{ |u| u.has_role?(@user_group_param) } unless @user_group_param == 'all'
     if @time_param == 'future'
       @users = @users.select{ |user| user.bookings.last.move_in.future? || user.bookings.last.move_in.today? if user.bookings.length.positive? }
     elsif @time_param == 'past'
@@ -106,8 +113,16 @@ class UsersController < ApplicationController
       :twitter,
       :instagram,
       :photo,
-      gender: [],
-      prefered_suite: [],
+      :gender,
+      social_links_attributes: [
+        :name,
+        :url,
+        :_destroy
+      ],
+      prefered_suites_attributes: [
+        :roomtype_id,
+        :_destroy
+      ],
       bookings_attributes: [
         :user_id,
         :move_in,

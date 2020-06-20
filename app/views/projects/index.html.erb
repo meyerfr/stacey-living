@@ -13,9 +13,11 @@
             <span>STACEY</span>
             <span><%= project.name %></span>
           </div>
-          <span class="price">from €<%= project.rooms.find_by(name: 'Mighty').price[0].to_i  %></span>
+          <span class="price">from €<%= project.roomtypes.find_by(name: 'Mighty').price[0].to_i  %></span>
         </div>
-        <%= render 'shared/amenities', amenities: project.amenities %>
+        <div class="amenities">
+          <%= render 'shared/amenities', amenities: project.amenities %>
+        </div>
         <!-- <div class="amenities">
           <span class="amenity">Furnished</span>
           <span class="amenity">Wifi</span>
@@ -26,14 +28,20 @@
           <span class="amenity">Kitchen</span>
           <span class="amenity">Tabletennis</span>
         </div> -->
-        <%= link_to "Explore", booking_project_rooms_path(@booking.booking_auth_token, @booking, project), class: 'stacey-card-button stacey-button reverse-hover' %>
+        <%= link_to "Explore", booking_project_roomtypes_path(@booking.booking_auth_token, @booking, project), class: 'stacey-card-button stacey-button reverse-hover' %>
       </div>
     <% end %>
     <%# end %>
   </div>
 </div>
+
+<div id="map"
+     style="width: 100%; height: 600px;"
+     data-markers="<%= @markers.to_json %>"
+     data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>"></div>
+
 <% if current_user.present? && current_user.admin? %>
-  <%= link_to 'Create new Flat', new_project_path, class: "stacey-button" %>
+  <%= link_to 'Create new Project', projects_path, method: :post, class: "stacey-button" %>
 <% end %>
 
 <%= render 'shared/footer' %>

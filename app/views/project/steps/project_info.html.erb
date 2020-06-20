@@ -1,0 +1,97 @@
+<%= simple_form_for @project, method: :put, url: wizard_path do |f| %>
+  <% if f.object.errors.any? %>
+    <div class="error_messages">
+      <% f.object.errors.full_messages.each do |error| %>
+        <p><%= error %></p>
+      <% end %>
+    </div>
+  <% end %>
+
+  <fieldset>
+    <legend>Project Info</legend>
+
+    <%= f.input :name %>
+    <div class="form-group img_prev">
+      <%= f.label :photos, 'Upload project images' %>
+      <div class="pictures d-flex">
+        <% f.object.photos.each do |photo| %>
+          <%= cl_image_tag photo.key, class: 'img-thumbnail', width: 300, height: 300 %>
+        <% end %>
+      </div>
+      <%= f.input :photos, as: :file, label: false, input_html: { multiple: true, class: 'picture-upload' } %>
+    </div>
+    <%= f.simple_fields_for :descriptions do |desc| %>
+      <%= desc.input :field %>
+      <%= desc.input :content %>
+    <% end %>
+    <div class="project-amenities-wrapper amenity-wrapper">
+      <%= f.label :join_amenities, 'Project Index Amenities' %>
+      <%= f.simple_fields_for :join_amenities do |ja| %>
+        <% if ja.object.name == 'project index' %>
+          <%= render 'amenity_fields', f: ja %>
+        <% end %>
+      <% end %>
+    </div>
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createAmenitiesModal">
+      Add Amenitiy
+    </button>
+    <%= f.simple_fields_for :community_areas do |com| %>
+      <%= com.input :name %>
+      <%= com.input :size %>
+      <div class="form-group img_prev">
+        <%= com.label :photos, 'Upload project images' %>
+        <div class="pictures d-flex">
+          <% com.object.photos.each do |photo| %>
+            <%= cl_image_tag photo.key, class: 'img-thumbnail', width: 300, height: 300 %>
+          <% end %>
+        </div>
+        <%= com.input :photos, as: :file, label: false, input_html: { multiple: true, class: 'picture-upload' } %>
+      </div>
+      <%= com.simple_fields_for :descriptions do |desc| %>
+        <%= desc.input :field %>
+        <%= desc.input :content %>
+      <% end %>
+      <div class="project-amenities-wrapper amenity-wrapper">
+        <%= com.label :join_amenities, 'Community Areas Amenities' %>
+        <%= com.simple_fields_for :join_amenities do |ja| %>
+          <%= render 'amenity_fields', f: ja %>
+        <% end %>
+      </div>
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createAmenitiesModal">
+        Add Amenitiy
+      </button>
+    <% end %>
+    <div>
+      <%= f.submit 'Next Step' %>
+    </div>
+  </fieldset>
+<% end %>
+
+<!-- Modal -->
+<div class="modal fade amenities-modal" id="createAmenitiesModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="amenitiesModalTitle">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <%= simple_form_for Amenity.new do |f| %>
+          <div class="form-group">
+            <%= f.input :title %>
+          </div>
+          <div class="form-group img_prev">
+            <%= f.label :photo, 'Upload project images' %>
+            <div class="pictures d-flex"></div>
+            <%= f.input :photo, as: :file, label: false, input_html: { multiple: false, class: 'picture-upload' } %>
+          </div>
+          <div class="form-group">
+            <%= f.submit class: "btn btn-primary" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

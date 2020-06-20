@@ -1,40 +1,42 @@
 <div class="booking-form-wrapper">
   <div class="booking-form-section">
-    <%= simple_form_for(booking) do |f| %>
+    <% if project.name == 'Eppendorf' && ['Premium', 'Premium+'].include?(roomtype.name) %>
+      <% room_with_balcony = project.roomtypes.find_by(name: "#{roomtype.name} (balcony)") %>
+      <div class="info-position">
+        <div class="info-field-wrapper">
+          <div class="info-on-hover"><i class="fas fa-info"></i></div>
+          <div class="info-field-container info d-none">
+            <span>Prices start at <%= room_with_balcony.prices.last.amount.to_i %>€</span>
+          </div>
+        </div>
+        <%= link_to 'This room with balcony', booking_process_path(@booking, @booking.booking_auth_token, 'room', roomtype_id: room_with_balcony.id) %>
+      </div>
+    <% elsif with_balcony %>
+      <div class="info-position">
+        <div class="info-field-wrapper">
+          <div class="info-on-hover"><i class="fas fa-info"></i></div>
+          <div class="info-field-container info d-none">
+            <span>Prices start at <%= @roomtype_without_balcony.prices.last.amount.to_i %>€</span>
+          </div>
+        </div>
+        <%= link_to 'This room without balcony', booking_process_path(@booking, @booking.booking_auth_token, 'room', roomtype_id: @roomtype_without_balcony.id) %>
+      </div>
+    <% end %>
+    <%= simple_form_for booking, method: :put, url: wizard_path do |f| %>
+      <%= f.hidden_field :move_in, value: room_availability.first[1].to_date %>
       <div class="form-group">
         <%= f.label :move_in, label: 'WHEN DO YOU WANT TO MOVE IN?' %>
-        <div class="rooms_availabilities check-boxes only-one-box">
-          <% room_availability.each_with_index do |(room, availability), index| %>
-            <div class="one-availability">
-              <% if index == 0 %>
-                <span class="d-none" id="correct-room"><%= room %></span>
-                <%= f.check_box :move_in, id: "move-in#{index}", value: room, checked: true %>
-              <% else %>
-                <span class="d-none" id="correct-room"><%= room %></span>
-                <%= f.check_box :move_in, id: "move-in#{index}", value: room, checked: false %>
-              <% end %>
-              <span><%= availability %></span>
-            </div>
-          <% end %>
-        </div>
+        <%= f.select(:room_id, room_availability.map { |id, time| [time, id] }, {selected: room_availability.first}, {class: 'form-control'}) %>
       </div>
-      <%#= f.label 'WHEN DO YOU WANT TO MOVE IN?' %>
-      <%# room_availability.each do |room_id, availability| %>
-        <!-- <p><%#= room_id %> is available on the <%#= availability %></p> -->
-      <%# end %>
-      <%= f.input :move_in, as: :date, order: [:day, :month, :year], start_year: Date.today.year, end_year: Date.today.year + 1, value: room_availability.keys.first, label: 'WHEN DO YOU WANT TO MOVE IN?', wrapper_html: {class: 'd-none'} %>
       <%= f.input :move_out, as: :date, order: [:day, :month, :year], start_year: (Date.today + 3.months).year, end_year: (Date.today + 3.months).year + 1, selected: room_availability.values.first.to_date + 3.months, label: 'UNTIL WHEN ARE YOU PLANING TO STAY?' %>
-      <%#= f.hidden_field :move_in, class: 'hidden-move-in', value: room_availability.values.first %>
-      <%= f.button :button, 'BOOK', type: 'submit', name: 'room', value: room_availability.keys.first, class: 'stacey-button reverse-hover book-button d-none', disabled: true %>
-      <div class="stacey-button reverse-hover book-button" id="book-button-overlay">BOOK</div>
-      <%#= f.submit 'BOOK', value: room, class: 'stacey-button reverse-hover book-button' %>
+      <%= f.submit 'BOOK', class: 'stacey-button reverse-hover book-button' %>
     <% end %>
   </div>
   <div class="booking-form-section pricing">
     <div class="info-field">
       <!-- this must be the rent of the month -->
       <span class="header">rent per month</span>
-      <span class="content"><%= room.price[0] % 1 == 0 ? room.price[0].to_i : room.price[0] %> €</span>
+      <span class="content"><%= roomtype.prices.first.amount % 1 == 0 ? roomtype.prices.first.amount.to_i : roomtype.prices.first.amount %> €</span>
     </div>
     <div class="info-field">
       <span class="header">refundable deposit</span>

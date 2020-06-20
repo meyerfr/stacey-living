@@ -4,7 +4,12 @@
   .photo{
     display: flex;
     align-items: center;
-    height: 500px;
+    img{
+      height: 500px;
+      width: 100%;
+      object-fit: contain;
+      background: #1d1d1d;
+    }
   }
   .carousel-inner{
     position: relative;
@@ -41,6 +46,11 @@
   }
   .description{
     margin-bottom: 10px;
+    br{
+      display: block;
+      margin: 10px 0;
+      content: '';
+    }
   }
   .common-space-amenities{
     display: flex;
@@ -49,7 +59,7 @@
     width: 50%;
     align-self: center;
     li{
-      width: 50%;
+      width: 45%;
       text-align: start;
       list-style: none;
     }

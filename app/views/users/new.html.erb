@@ -9,5 +9,5 @@
     <%= render 'shared/user_apply_form', user: @user %>
   </div>
 </div>
-
+<%= link_to 'create Booking', booking_process_path(@booking.id, Booking.form_steps.second) %>
 <%= render 'shared/footer' %>

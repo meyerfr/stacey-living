@@ -1,0 +1,17 @@
+.mapboxgl-popup {
+  max-width: 200px;
+}
+
+.mapboxgl-popup-content {
+  text-align: center;
+  font-family: 'Open Sans', sans-serif;
+}
+
+#map{
+  margin: 0 50px;
+  height: 600px;
+}
+#map.room-map{
+  height: 500px;
+  margin: unset;
+}

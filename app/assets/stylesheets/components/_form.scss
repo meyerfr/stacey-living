@@ -29,6 +29,12 @@
       color: black;
     }
   }
+  .btn.focus{
+    box-shadow: none;
+  }
+  .form-check-input.is-valid ~ .form-check-label {
+    color: inherit;
+  }
   // label{
   //   color: black;
   // }

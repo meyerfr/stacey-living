@@ -1,37 +1,57 @@
-<%= f.input :name, label: 'Name of Project', input_html: {value: last_project.name || 'Test'} %>
+<%= f.input :name, label: 'Name of Project' %>
+<%= f.simple_fields_for :address do |a| %>
   <div class="inline">
-    <%= f.input :street, input_html: {value: last_project.street || 'Test Street'} %>
-    <%= f.input :house_number, input_html: {value: last_project.house_number || '33'} %>
+    <%= a.input :street %>
+    <%= a.input :number %>
   </div>
   <div class="inline">
-    <%= f.input :city, input_html: {value: last_project.city || 'Test City'} %>
-    <%= f.input :zipcode, input_html: {value: last_project.zipcode || 12345} %>
+    <%= a.input :city %>
+    <%= a.input :zip %>
   </div>
-  <%= f.input :description, label: 'Please describe this Project', input_html: {value: last_project.description || 'Test Description'} %>
-  <div class="form-group img_prev">
-    <!-- <img id="img_prev" width=300 height=300 src="#" alt="your image" class="img-thumbnail d-none"/> <br/> -->
-    <%= f.label :pictures, 'Upload project images' %>
-    <div class="pictures d-flex"></div>
-    <%#= f.file_field :pictures, multiple: true, class: "picture-upload", id: 'project_pictures_button' %>
-    <%#= f.hidden_field :pictures, multiple: true, id: 'project_pictures_hidden' %>
-    <%= f.input :photos, as: :file, label: false, input_html: { multiple: true, class: 'picture-upload' } %>
-  </div>
-  <%= f.simple_fields_for :projectAmenities do |pa| %>
-    <%= pa.label 'Choose Projects Amenities' %>
-    <div class="project-amenities">
-      <% amenities.each_with_index do |amenity, index| %>
-        <label>
-          <%= pa.check_box("amenity_id", { name: "project[project_amenities_attributes][#{index}][amenity_id]", id: "project_amenities_attributes_#{index}_amenity_id" }, amenity.id, nil) %>
-          <%= amenity.title %>
-        </label>
-      <% end %>
-    </div>
+  <%= a.input :country, as: :string, input_html: { value: 'Germany' } %>
+  <%= a.simple_fields_for @address_description do |desc| %>
+    <%= desc.label 'Describe the Address (Location)' %>
+    <%= desc.input :field %>
+    <%= desc.input :content %>
   <% end %>
-  <%#= f.collection_check_boxes(:project, amenities, :title, {}) %>
-  <%= f.simple_fields_for :rooms do |builder| %>
-    <%= render 'room_fields', f: builder, amenities: amenities %>
-  <% end %>
-  <div class="form-actions">
-    <%= link_to_add_row('Add Roomtype', f, :rooms, amenities: amenities, class: 'btn stacey-button add-room-type') %>
-    <%= f.submit class: 'create-project-button stacey-button reverse-hover' %>
+<% end %>
+
+<!-- <div class="inline">
+  <%#= f.input :street, input_html: { id: 'address_autocomplete' } %>
+  <%#= f.input :house_number %>
+</div>
+<div class="inline">
+  <%#= f.input :city %>
+  <%#= f.input :zipcode %>
+</div>
+ -->
+
+
+<%= f.input :description, label: 'Please describe this Project' %>
+<div class="form-group img_prev">
+  <!-- <img id="img_prev" width=300 height=300 src="#" alt="your image" class="img-thumbnail d-none"/> <br/> -->
+  <%= f.label :pictures, 'Upload project images' %>
+  <div class="pictures d-flex"></div>
+  <%#= f.file_field :pictures, multiple: true, class: "picture-upload", id: 'project_pictures_button' %>
+  <%#= f.hidden_field :pictures, multiple: true, id: 'project_pictures_hidden' %>
+  <%= f.input :photos, as: :file, label: false, input_html: { multiple: true, class: 'picture-upload' } %>
+</div>
+<%= f.simple_fields_for :projectAmenities do |pa| %>
+  <%= pa.label 'Choose Projects Amenities' %>
+  <div class="project-amenities">
+    <% amenities.each_with_index do |amenity, index| %>
+      <label>
+        <%= pa.check_box("amenity_id", { name: "project[project_amenities_attributes][#{index}][amenity_id]", id: "project_amenities_attributes_#{index}_amenity_id" }, amenity.id, nil) %>
+        <%= amenity.title %>
+      </label>
+    <% end %>
   </div>
+<% end %>
+<%#= f.collection_check_boxes(:project, amenities, :title, {}) %>
+<%= f.simple_fields_for :roomtypes do |builder| %>
+  <%= render 'roomtype_fields', f: builder, amenities: amenities %>
+<% end %>
+<div class="form-actions">
+  <%= link_to_add_row('Add Roomtype', f, :roomtypes, amenities: amenities, class: 'btn stacey-button add-room-type') %>
+  <%= f.submit class: 'create-project-button stacey-button reverse-hover' %>
+</div>

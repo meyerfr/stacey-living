@@ -63,10 +63,10 @@ function proceedPayment() {
   });
 
   // Handle form submission.
-  var form = document.getElementById('payment-form');
+  var form = document.getElementById('stripe-form');
   function stripeSourceHandler(source) {
     // Insert the Source ID into the form so it gets submitted to the server.
-    var form = document.getElementById('payment-form');
+    var form = document.getElementById('stripe-form');
     var hiddenInput = document.createElement('input');
     hiddenInput.setAttribute('type', 'hidden');
     hiddenInput.setAttribute('name', 'stripeSource');

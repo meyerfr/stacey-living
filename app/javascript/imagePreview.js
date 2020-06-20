@@ -37,8 +37,6 @@ const insertPictures = (event) => {
         var reader = new FileReader();
         var target = event.target;
         reader.onload = function (e) {
-          console.log(e)
-          console.log(target)
           // event.target.files.forEach((file) => {
           target.parentElement.previousElementSibling.insertAdjacentHTML('afterbegin', `<img width=300 height=300 src=${e.target.result} alt="Project Image" class="img-thumbnail"/>`);
           // })

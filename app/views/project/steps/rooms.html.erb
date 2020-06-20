@@ -1,0 +1,22 @@
+<%= simple_form_for @project, method: :put, url: wizard_path do |f| %>
+  <% if f.object.errors.any? %>
+    <div class="error_messages">
+      <% f.object.errors.full_messages.each do |error| %>
+        <p><%= error %></p>
+      <% end %>
+    </div>
+  <% end %>
+
+  <fieldset>
+    <legend>Projects Room</legend>
+    <div class="project-room-wrapper">
+      <%= f.simple_fields_for :roomtypes do |rt| %>
+        <%= render 'roomtype_fields', f: rt %>
+      <% end %>
+      <%= link_to_add_room('Add Roomtype', f, :roomtypes, class: 'stacey-button') %>
+    </div>
+    <div>
+      <%= f.submit 'Next Step' %>
+    </div>
+  </fieldset>
+<% end %>

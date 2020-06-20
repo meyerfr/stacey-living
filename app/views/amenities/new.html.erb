@@ -1,0 +1,10 @@
+<%= simple_form_for(@amenity) do |f| %>
+  <%= f.input :title %>
+  <%= f.input :name %>
+  <div class="form-group img_prev">
+    <%= f.label :photo, 'Upload project images' %>
+    <div class="pictures d-flex"></div>
+    <%= f.input :photo, as: :file, label: false, input_html: { multiple: false, class: 'picture-upload' } %>
+  </div>
+  <%= f.submit %>
+<% end %>
