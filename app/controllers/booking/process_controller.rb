@@ -15,7 +15,7 @@ class Booking::ProcessController < ApplicationController
       @booking.user.social_links.build(name: social_link_name)
     end
     Roomtype.order(:size).select{|roomtype| ['Mighty', 'Premium', 'Premium+', 'Jumbo'].include?(roomtype.name)}.uniq{|roomtype| roomtype.name}.each do |roomtype|
-      @booking.user.prefered_suites.build(roomtype_id: roomtype.id)
+      @booking.user.prefered_suites.build(roomtype_id: roomtype.id) unless @booking.user.prefered_suites.collect(&:roomtype_id).include?(roomtype.id)
     end
   end
 
@@ -30,7 +30,7 @@ class Booking::ProcessController < ApplicationController
         @booking.user.social_links.build(name: social_link_name) unless @booking.user.social_links.collect(&:name).include?(social_link_name)
       end
       Roomtype.order(:size).select{|roomtype| ['Mighty', 'Premium', 'Premium+', 'Jumbo'].include?(roomtype.name)}.uniq{|roomtype| roomtype.name}.each do |roomtype|
-        @booking.user.prefered_suites.build(roomtype_id: roomtype.id)
+        @booking.user.prefered_suites.build(roomtype_id: roomtype.id) unless @booking.user.prefered_suites.collect(&:roomtype_id).include?(roomtype.id)
       end
       render :apply
     end
