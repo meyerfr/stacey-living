@@ -20,13 +20,16 @@ class Booking::ProcessController < ApplicationController
   end
 
   def create
-    @booking = Booking.new(booking_params(nil))
+    @booking = Booking.new(booking_params('apply'))
     @booking.user.skip_password_validation = true
     if @booking.save
       UserMailer.welcome(@booking).deliver_later(wait_until: 1.minutes.from_now)
       redirect_to new_booking_welcome_call_path(@booking.booking_auth_token, @booking)
     else
-      Roomtype.order(:size).uniq{|roomtype| roomtype.name}.each do |roomtype|
+      ['Facebook', 'LinkedIn', 'Instagram', 'Twitter'].each do |social_link_name|
+        @booking.user.social_links.build(name: social_link_name) unless @booking.user.social_links.collect(&:name).include?(social_link_name)
+      end
+      Roomtype.order(:size).select{|roomtype| ['Mighty', 'Premium', 'Premium+', 'Jumbo'].include?(roomtype.name)}.uniq{|roomtype| roomtype.name}.each do |roomtype|
         @booking.user.prefered_suites.build(roomtype_id: roomtype.id)
       end
       render :apply

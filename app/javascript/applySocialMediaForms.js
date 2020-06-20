@@ -11,6 +11,7 @@ const removeFields = (event) => {
 const onlyOneSocialMediaInput = (event) => {
   const socialMediaInputs = document.querySelectorAll('.social-media-input');
   var correctInputClass = event.currentTarget.classList[3]
+  console.log(correctInputClass)
   socialMediaInputs.forEach((input) => {
     input.addEventListener('change', removeFields);
     if (input.classList.contains(`user_${correctInputClass}`)) {
@@ -28,6 +29,7 @@ const onlyOneSocialMediaInput = (event) => {
 
 function socialMediaForms() {
   const socialMediaIcons = document.querySelectorAll('.social-media-icon');
+  console.log(socialMediaIcons)
   if (socialMediaIcons.length > 0) {
     socialMediaIcons.forEach((icon) => {
       icon.addEventListener('click', onlyOneSocialMediaInput);
