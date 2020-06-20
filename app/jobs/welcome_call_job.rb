@@ -9,10 +9,10 @@ class WelcomeCallJob < ApplicationJob
         WelcomeCall.create(start_time: WelcomeCall.last.start_time + 30.minutes, end_time: WelcomeCall.last.end_time + 30.minutes)
       end
     end
-    reschedule_job
+    # reschedule_job
   end
 
-  def reschedule_job
-    self.class.set(wait: 24.hours).perform_later
-  end
+  # def reschedule_job
+  #   self.class.set(wait: 24.hours).perform_later
+  # end
 end
