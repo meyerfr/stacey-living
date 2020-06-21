@@ -10,6 +10,8 @@ class Booking < ApplicationRecord
   belongs_to :room, optional: true
   has_one :contract
 
+  validates :move_in, :move_out, presence: true
+
   accepts_nested_attributes_for :user, :contract
 
 
@@ -25,6 +27,10 @@ class Booking < ApplicationRecord
   with_options dependent: :destroy do |assoc|
     assoc.has_many :welcome_calls
   end
+
+  # def move_in_dates
+  #   errors.add(:move_in, 'Must be in the future') unless self.move_in >= Date.today
+  # end
 
   # Validate whether the start time is in the future
   def move_in_future
