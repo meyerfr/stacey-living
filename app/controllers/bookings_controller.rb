@@ -1,24 +1,24 @@
 class BookingsController < ApplicationController
   before_action :authenticate_user!
 
+  BOOKINGS_PER_PAGE = 5
+
   def index
     @time_param_options = ['current', 'upcoming', 'past', 'all']
 
     @room_name_param = params[:room_name].present? ? params[:room_name] : 'all'
     @time_param = params[:time].present? ? params[:time] : 'all'
     search_param = params[:search] if params[:search].present?
-    @bookings = Booking.order(created_at: :desc).select{ |b| b.move_in <= Date.today && b.move_out >= Date.today && b.state == 'booked' }
+    @bookings = Booking.where(state: 'booked').order(created_at: :desc)
     if @room_name_param == 'all'
       @total_room_number = Room.count
       @total_current_room_bookings = @bookings.count
 
       @room_name = @room_name_param
-      @bookings = Booking.order(created_at: :desc).where(state: 'booked')
-      # @bookings = Booking.select{ |booking| booking.move_in >= Date.today && state == nil }
     else
       @room_name = Roomtype.find_by(name: @room_name_param).name
       if @room_name && @bookings.length.positive?
-        @bookings = @bookings.select{ |booking| booking.room.roomtype.name.downcase == @room_name.downcase if booking.room.present? }
+        @bookings = @bookings.joins(room: :roomtype).where('roomtypes.name = :room_name', room_name: @room_name)
       end
 
       @total_current_room_bookings = @bookings.select{|b| b.room.roomtype.name.downcase == @room_name.downcase if b.room.present? }.count
@@ -27,12 +27,20 @@ class BookingsController < ApplicationController
     end
 
     if @time_param == 'upcoming'
-      @bookings = @bookings.select{ |booking| booking.move_in >= Date.today}
+      # @bookings = @bookings.select{ |booking| booking.move_in >= Date.today}
+      @bookings = @bookings.where('move_in >= ?', Date.today)
     elsif @time_param == 'past'
-      @bookings = @bookings.select{ |booking| booking.move_out <= Date.today}
+      # @bookings = @bookings.select{ |booking| booking.move_out <= Date.today}
+      @bookings = @bookings.where('move_out <= ?', Date.today)
     elsif @time_param == 'current'
-      @bookings = @bookings.select{ |booking| booking.move_in <= Date.today && booking.move_out >= Date.today}
+      # @bookings = @bookings.select{ |booking| booking.move_in <= Date.today && booking.move_out >= Date.today}
+      @bookings = @bookings.where(
+        "move_in <= :todays_date AND move_out => :todays_date AND state = :booked_state",
+        todays_date: Date.today,
+        booked_state: 'booked'
+      ).order(created_at: :desc)
     end
+
 
     if search_param
       sql_query = " \
@@ -44,6 +52,10 @@ class BookingsController < ApplicationController
       users = User.where(sql_query, search: "%#{params[:search]}%")
 
       @bookings = Booking.order(created_at: :desc).select{|b| users.include?(b.user) }
+    else
+      @page = params.fetch(:page, 0).to_i
+      @page_count = @bookings.count / BOOKINGS_PER_PAGE
+      @bookings = @bookings.offset(@page * BOOKINGS_PER_PAGE).limit(BOOKINGS_PER_PAGE)
     end
 
     @all_room_names = find_all_room_names

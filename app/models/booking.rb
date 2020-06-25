@@ -8,6 +8,7 @@ class Booking < ApplicationRecord
   # validate :move_in_future, :minimum_duration
   belongs_to :user
   belongs_to :room, optional: true
+  has_one :roomtype, through: :room, required: false
   has_one :contract
 
   validates :move_in, :move_out, presence: true

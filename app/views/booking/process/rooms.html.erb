@@ -37,7 +37,8 @@
         <%= render 'shared/carousel', pictures: roomtype.photos, carousel_id: "Room#{roomtype.id}", no_lightbox_button: true, no_buttons: false %>
         <div class="stacey-card-header">
           <span class="name"><%= roomtype.name.titleize %></span>
-          <span class="price">from €<%= roomtype.prices.first.amount % 1 == 0 ? roomtype.prices.first.amount.to_i : roomtype.prices.first %></span>
+          <% cheapest_price =  %>
+          <span class="price">from €<%= (cheapest_price = roomtype.prices.order(:amount).first.amount) % 1 == 0 ? cheapest_price.to_i : cheapest_price %></span>
         </div>
         <% roomtype_index_inventory_amenities = [] %>
         <% roomtype_index_inclusion_amenities = [] %>
@@ -46,7 +47,7 @@
         <div class="roomtype-show-amenities">
           <div class="amenity-section size">
             Size (<%= cl_image_tag 'https://res.cloudinary.com/dvuqwvjay/image/upload/v1591348529/square-meter-icon.png', style: 'width: 20px' %>):
-            <%= roomtype.size % 1 == 0 ? roomtype.size.to_i : roomtype.size %> m<sup>2</sup>
+            <%= (size = roomtype.size) % 1 == 0 ? size.to_i : size %> m<sup>2</sup>
           </div>
           <% if roomtype_index_inventory_amenities.length > 0 %>
             <div class="amenity-section amenity-inventory">

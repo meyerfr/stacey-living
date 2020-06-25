@@ -96,7 +96,7 @@ class Booking::ProcessController < ApplicationController
         {
           lat: project.address.latitude,
           lng: project.address.longitude,
-          # infoWindow: render_to_string(partial: 'info_window', locals: { user: user }),
+          infoWindow: render_to_string(partial: 'info_window', locals: { project: project }),
           image_url: helpers.asset_url('maps_marker.png')
         }
       end
@@ -111,7 +111,7 @@ class Booking::ProcessController < ApplicationController
         {
           lat: @project.address.latitude,
           lng: @project.address.longitude,
-          # infoWindow: render_to_string(partial: 'info_window', locals: { user: user }),
+          infoWindow: render_to_string(partial: 'info_window', locals: { project: @project }),
           image_url: helpers.asset_url('maps_marker.png')
         }
       ]
