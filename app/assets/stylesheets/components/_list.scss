@@ -11,7 +11,7 @@
   margin: 40px 0 30px;
   .list-wrapper{
     background-color: #FFF;
-    width: 980px;
+    width: 90%;
     border: 1px solid #DADADA;
     border-radius: 6px;
     box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.1);
@@ -28,6 +28,7 @@
         a.option{
           padding: 0 15px 24px;
           color: black;
+          width: max-content;
         }
         a.option:hover{
           text-decoration: none;
