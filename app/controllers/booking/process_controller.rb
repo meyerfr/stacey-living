@@ -12,7 +12,7 @@ class Booking::ProcessController < ApplicationController
     @booking = Booking.new(booking_auth_token: Devise.friendly_token, booking_auth_token_exp: Date.today+2.weeks)
     @booking.build_user
     ['Facebook', 'LinkedIn', 'Instagram', 'Twitter'].each do |social_link_name|
-      @booking.user.social_links.build(name: social_link_name)
+      @booking.user.social_links.build(name: social_link_name) unless @booking.user.social_links.collect(&:name).include?(social_link_name)
     end
     Roomtype.order(:size).select{|roomtype| ['Mighty', 'Premium', 'Premium+', 'Jumbo'].include?(roomtype.name)}.uniq{|roomtype| roomtype.name}.each do |roomtype|
       @booking.user.prefered_suites.build(roomtype_id: roomtype.id) unless @booking.user.prefered_suites.collect(&:roomtype_id).include?(roomtype.id)
@@ -86,10 +86,6 @@ class Booking::ProcessController < ApplicationController
 
   def set_nested_attributes
     case step
-    when 'apply'
-      Roomtype.order(:size).each do |roomtype|
-        @booking.user.prefered_suites.build(roomtype_id: roomtype.id)
-      end
     when 'projects'
       @projects = Project.where(status: 'active')
       @markers = @projects.map do |project|

@@ -100,7 +100,6 @@
         .list-detail{
           position: relative;
           margin-bottom: 20px;
-          display: flex;
           .invite-link{
             text-align: center;
           }
@@ -125,6 +124,9 @@
             right: 20px;
             bottom: 0;
           }
+        }
+        .list-detail.two-tables{
+          display: flex;
         }
       }
       .list-end{
