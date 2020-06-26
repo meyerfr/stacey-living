@@ -4,29 +4,6 @@ class ProjectsController < ApplicationController
   before_action :set_project, only: [:show, :edit, :update, :destroy]
   layout "bookingprocess", only: [:index]
 
-  def index
-    # layout booking
-    @booking = Booking.find(params[:booking_id])
-    @projects = Project.select{|p| p.address.geocoded? }
-
-    @markers = @projects.map do |project|
-      {
-        lat: project.address.latitude,
-        lng: project.address.longitude,
-        # infoWindow: render_to_string(partial: 'info_window', locals: { user: user }),
-        image_url: helpers.asset_url('maps_marker.png')
-      }
-    end
-  end
-
-  def new
-    @project = Project.new
-    @project.roomtypes.build
-    @last_project = Project.last
-    @amenities = Amenity.all
-    # ['project info index', 'project info show']
-  end
-
   def create
     @project = Project.new
     @project.save(validate: false)
@@ -38,20 +15,6 @@ class ProjectsController < ApplicationController
     # else
     #   render :new
     # end
-  end
-
-  def show
-  end
-
-  def edit
-  end
-
-  def update
-    if @project.update(projects_params)
-      redirect_to @project
-    else
-      render :edit
-    end
   end
 
   def destroy

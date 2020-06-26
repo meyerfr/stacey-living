@@ -1,7 +1,7 @@
 class BookingsController < ApplicationController
   before_action :authenticate_user!
 
-  BOOKINGS_PER_PAGE = 5
+  BOOKINGS_PER_PAGE = 25
 
   def index
     @time_param_options = ['current', 'upcoming', 'past', 'all']
@@ -35,7 +35,7 @@ class BookingsController < ApplicationController
     elsif @time_param == 'current'
       # @bookings = @bookings.select{ |booking| booking.move_in <= Date.today && booking.move_out >= Date.today}
       @bookings = @bookings.where(
-        "move_in <= :todays_date AND move_out => :todays_date AND state = :booked_state",
+        "move_in <= :todays_date AND move_out >= :todays_date AND state = :booked_state",
         todays_date: Date.today,
         booked_state: 'booked'
       ).order(created_at: :desc)

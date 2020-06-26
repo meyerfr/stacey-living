@@ -100,12 +100,25 @@
         .list-detail{
           position: relative;
           margin-bottom: 20px;
+          display: flex;
           .invite-link{
             text-align: center;
           }
           .user-info{
             border-collapse: separate;
             border-spacing: 40px 0;
+            width: 50%;
+            tr{
+              td{
+                word-break: break-word;
+              }
+              td:first-child{
+                width: 42%;
+              }
+              td:last-child{
+                width: 58%;
+              }
+            }
           }
           .edit-user-button{
             position: absolute;

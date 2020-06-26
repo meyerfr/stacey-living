@@ -78,7 +78,7 @@
   </div>
 </div>
 <% if current_user.present? && current_user.admin? %>
-  <%= link_to 'Create new Roomtype', new_project_roomtype_path(@project), class: "stacey-button" %>
+  <%= link_to 'Create new Roomtype', project_step_path(@project, Project.form_steps.last), class: "stacey-button" %>
 <% end %>
 
 <div class="common-space-info">

@@ -91,7 +91,7 @@ class Booking::ProcessController < ApplicationController
         @booking.user.prefered_suites.build(roomtype_id: roomtype.id)
       end
     when 'projects'
-      @projects = Project.select{|p| p.status == 'active'}
+      @projects = Project.where(status: 'active')
       @markers = @projects.map do |project|
         {
           lat: project.address.latitude,
