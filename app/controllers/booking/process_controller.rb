@@ -96,8 +96,6 @@ class Booking::ProcessController < ApplicationController
           image_url: helpers.asset_url('maps_marker.png')
         }
       end
-      @project_index_amenities = []
-      Project.last.join_amenities.each{|ja| @project_index_amenities << ja.amenity if ja.name == 'project index' }
     when 'rooms'
       @roomtypes = @project.roomtypes.order(:size).select{|rt| ['Mighty', 'Premium', 'Premium+', 'Jumbo'].include?(rt.name)}
       @project_show_amenities = []

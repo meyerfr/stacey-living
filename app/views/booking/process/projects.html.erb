@@ -16,7 +16,11 @@
           <span class="price">from €<%= project.roomtypes.find_by(name: 'Mighty').prices.first.amount.to_i  %></span>
         </div>
         <div class="amenities">
-          <%= render 'shared/amenities', amenities: @project_index_amenities %>
+          <% project_index_amenities = [] %>
+          <% project.join_amenities.each do |ja| %>
+            <% project_index_amenities << ja.amenity if ja.name == 'project index'  %>
+          <% end %>
+          <%= render 'shared/amenities', amenities: project_index_amenities %>
         </div>
         <%= link_to "Explore", booking_process_path(@booking, @booking.booking_auth_token, 'rooms', project_id: project.id), class: 'stacey-card-button stacey-button reverse-hover' %>
       </div>
