@@ -17,13 +17,10 @@ class BookingsController < ApplicationController
       @room_name = @room_name_param
     else
       @room_name = Roomtype.find_by(name: @room_name_param).name
-      if @room_name && @bookings.length.positive?
-        @bookings = @bookings.joins(room: :roomtype).where('roomtypes.name = :room_name', room_name: @room_name)
-      end
-
-      @total_current_room_bookings = @bookings.select{|b| b.room.roomtype.name.downcase == @room_name.downcase if b.room.present? }.count
-      @total_room_number = 0
-      Roomtype.select{|rt| rt.name == @room_name}.each{|rt| @total_room_number += rt.rooms.count}
+      @bookings = @bookings.joins(room: :roomtype).where('roomtypes.name = :room_name', room_name: @room_name)
+      @total_current_room_bookings = @bookings.count
+      @total_room_number = Room.joins(:roomtype).where('roomtypes.name = :room_name', room_name: @room_name).count
+      # Roomtype.select{|rt| rt.name == @room_name}.each{|rt| @total_room_number += rt.rooms.count}
     end
 
     if @time_param == 'upcoming'

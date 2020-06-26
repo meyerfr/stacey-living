@@ -96,6 +96,10 @@
               <% if user.has_role?('tenant') && booking.room.present? %>
                 <tr>
                   <td>Location:</td>
+                  <td><%= booking.roomtype.project.name %></td>
+                </tr>
+                <tr>
+                  <td>Roomtype:</td>
                   <td><%= booking.roomtype.name %></td>
                 </tr>
                 <tr>
