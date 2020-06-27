@@ -52,7 +52,7 @@ def update_current_tenants(tenants_array)
     u = find_users_by_email_or_name(booking_attributes[:email_or_name]).first
     booking = u.bookings.last if u
     if booking
-      booking.room_id = Room.find_by(intern_number: booking_attributes[:room])
+      booking.room_id = Room.find_by(intern_number: booking_attributes[:room]).id
       booking.move_in = booking_attributes[:move_in]
       booking.move_out = booking_attributes[:move_out]
       booking.save!(validate: false)
