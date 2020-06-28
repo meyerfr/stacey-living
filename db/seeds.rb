@@ -8,9 +8,9 @@ tenants = [
   {email_or_name: 'renenavrkal@gmail.com', room: 'DB07', move_in: Date.parse('06.05.2020'), move_out: Date.parse('30.06.2020')},
   {email_or_name: 'javier_93_rg@hotmail.com', room: 'D13', move_in: Date.parse('27.01.2020'), move_out: Date.parse('26.07.2020')},
   {email_or_name: 'carolin.stahl@aol.de', room: 'D16', move_in: Date.parse('04.06.2020'), move_out: Date.parse('01.10.2020')},
-  {email_or_name: 'miss.jroeger@web.de', room: 'D18', move_in: Date.parse('04.01.2020'), move_out: Date.parse('04.07.2020')},
+  {email_or_name: 'miss.kroeger@web.de', room: 'D18', move_in: Date.parse('04.01.2020'), move_out: Date.parse('04.07.2020')},
   {email_or_name: 'niclas.lietzow@outlook.com', room: 'EW08', move_in: Date.parse('14.06.2020'), move_out: Date.parse('16.09.2020')},
-  {email_or_name: 'corinnathoelke@gmail.com', room: 'EW07', move_in: Date.parse('13.06.2020'), move_out: Date.parse('20.09.2020')},
+  {email_or_name: 'corinna.thoelke@gmail.com', room: 'EW07', move_in: Date.parse('13.06.2020'), move_out: Date.parse('20.09.2020')},
   {email_or_name: 'melina.badde@whu.edu ', room: 'DB02', move_in: Date.parse('10.06.2020'), move_out: Date.parse('30.09.2020')},
   {email_or_name: 'alexandra.martitz@online.de', room: 'EW05', move_in: Date.parse('15.06.2020'), move_out: Date.parse('03.10.2020')},
   {email_or_name: 'olina.ann@hotmail.com', room: 'EW06', move_in: Date.parse('11.06.2020'), move_out: Date.parse('24.10.2020')},
@@ -21,24 +21,24 @@ tenants = [
   {email_or_name: 'riekje.cordes@gmx.de', room: 'D23', move_in: Date.parse('03.04.2020'), move_out: Date.parse('31.07.2020')},
   {email_or_name: 'vbracamontes.bss@gmail.com', room: 'D24', move_in: Date.parse('04.11.2019'), move_out: Date.parse('03.08.2021')},
   {email_or_name: 'marcel.edmund.franke@gmail.com', room: 'D26', move_in: Date.parse('01.06.2020'), move_out: Date.parse('05.01.2021')},
-  {email_or_name: 'nikolai.siekmann@googlemail.com', room: 'D02', move_in: Date.parse('01.07.2020'), move_out: Date.parse('31.10.2020')},
+  {email_or_name: 'nikolai.siekmann@gmail.com', room: 'D02', move_in: Date.parse('01.07.2020'), move_out: Date.parse('31.10.2020')},
   {email_or_name: 'renenavrkal@gmail.com', room: 'EW04', move_in: Date.parse('01.07.2020'), move_out: Date.parse('30.09.2020')},
-  {email_or_name: 'nikolai.siekmann@googlemail.com', room: 'D21', move_in: Date.parse('01.07.2020'), move_out: Date.parse('31.10.2020')},
+  {email_or_name: 'nikolai.siekmann@gmail.com', room: 'D21', move_in: Date.parse('01.07.2020'), move_out: Date.parse('31.10.2020')},
   {email_or_name: 'f.chemnitzer@gmail.com', room: 'D36', move_in: Date.parse('27.06.2020'), move_out: Date.parse('05.01.2021')},
   {email_or_name: 'schaub.melanie@gmail.com', room: "D04", move_in: Date.parse('28.07.2019'), move_out: Date.parse('27.01.2021')},
   {email_or_name: 'candidodomingocastillo@gmail.com', room: "D08", move_in: Date.parse('04.10.2019'), move_out: Date.parse('03.09.2020')},
   {email_or_name: 'Carolin Helena Klaus', room: "D01", move_in: Date.parse('31.03.2020'), move_out: Date.parse('01.09.2020')},
   {email_or_name: 'Andreas Janz', room: "D02", move_in: Date.parse('24.03.2020'), move_out: Date.parse('31.07.2020')},
-  {email_or_name: 'Anatasia Nefed', room: "D03", move_in: Date.parse('14.03.2020'), move_out: Date.parse('13.07.2020')},
+  {email_or_name: 'anastasianefed@gmail.com', room: "D03", move_in: Date.parse('14.03.2020'), move_out: Date.parse('13.07.2020')},
   {email_or_name: 'Sophia Schembecker', room: "D14", move_in: Date.parse('01.05.2020'), move_out: Date.parse('31.10.2020')},
   {email_or_name: 'Gino Lodola', room: "D15", move_in: Date.parse('30.12.2019'), move_out: Date.parse('29.06.2020')},
-  {email_or_name: 'Diego Fernando Gomez', room: "DB03", move_in: Date.parse('01.05.2020'), move_out: Date.parse('31.07.2020')},
-  {email_or_name: 'Charles Herbert', room: "D17", move_in: Date.parse('03.04.2020'), move_out: Date.parse('22.07.2020')},
+  {email_or_name: 'df.gomezf@gmail.com', room: "DB03", move_in: Date.parse('01.05.2020'), move_out: Date.parse('31.07.2020')},
+  {email_or_name: 'c.herbert04@gmail.com', room: "D17", move_in: Date.parse('03.04.2020'), move_out: Date.parse('22.07.2020')},
   {email_or_name: 'Mehdi Dhifallah', room: "DB06", move_in: Date.parse('23.03.2020'), move_out: Date.parse('30.10.2020')},
   {email_or_name: 'Ivonne Greulich', room: "D19", move_in: Date.parse('01.05.2020'), move_out: Date.parse('31.07.2020')},
   {email_or_name: 'Joseph Cordonnier', room: "DB05", move_in: Date.parse('01.05.2020'), move_out: Date.parse('01.03.2021')},
-  {email_or_name: 'Alvaro Sanz García Sintas', room: "DB04", move_in: Date.parse('23.03.2020'), move_out: Date.parse('31.03.2021')},
-  {email_or_name: 'Ferris Dalle-Grave', room: "D27", move_in: Date.parse('05.06.2020'), move_out: Date.parse('04.09.2020')}
+  {email_or_name: 'alvarosanz_8@hotmail.com', room: "DB04", move_in: Date.parse('23.03.2020'), move_out: Date.parse('31.03.2021')},
+  {email_or_name: 'b.dalle-grave@rieckermann.com', room: "D27", move_in: Date.parse('05.06.2020'), move_out: Date.parse('04.09.2020')}
 ]
 
 NOT_FOUND_USERS = []
@@ -52,9 +52,10 @@ def update_current_tenants(tenants_array)
     u = find_users_by_email_or_name(booking_attributes[:email_or_name]).first
     booking = u.bookings.last if u
     if booking
-      booking.room_id = Room.find_by(intern_number: booking_attributes[:room]).id
+      booking.room_id = Room.find_by(intern_number: booking_attributes[:room]).id unless booking.room_id.present?
       booking.move_in = booking_attributes[:move_in]
       booking.move_out = booking_attributes[:move_out]
+      booking.state = 'booked'
       booking.save!(validate: false)
       u.role = 'tenant'
       u.save!(validate: false)
