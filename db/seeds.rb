@@ -1,3 +1,9 @@
+'Domikik Moskalik' = 'not found'
+'christoph Häberlin' = 'not found'
+'alexandra.martitz@online.de' = 'not found'
+'Ivonne Greulich' = 'not found'
+
+
 tenants = [
   {email_or_name: 'mark_veldkamp@hotmail.nl', room: "D05", move_in: Date.parse('15.05.2020'), move_out: Date.parse('21.08.2020')},
   {email_or_name: 'cristian.obersterescu@gmail.com', room: "D07", move_in: Date.parse('31.07.2019'), move_out: Date.parse('30.01.2021')},
@@ -52,7 +58,7 @@ def update_current_tenants(tenants_array)
     u = find_users_by_email_or_name(booking_attributes[:email_or_name]).first
     booking = u.bookings.last if u
     if booking
-      booking.room_id = Room.find_by(intern_number: booking_attributes[:room]).id unless booking.room_id.present?
+      booking.room_id = Room.find_by(intern_number: booking_attributes[:room]).id
       booking.move_in = booking_attributes[:move_in]
       booking.move_out = booking_attributes[:move_out]
       booking.state = 'booked'

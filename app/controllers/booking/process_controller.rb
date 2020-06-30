@@ -23,7 +23,7 @@ class Booking::ProcessController < ApplicationController
     @booking = Booking.new(booking_params('apply'))
     @booking.user.skip_password_validation = true
     if @booking.save
-      UserMailer.welcome(@booking).deliver_later(wait_until: 1.minutes.from_now)
+      UserMailer.welcome(@booking).deliver_later(wait_until:  20.minutes.from_now)
       redirect_to new_booking_welcome_call_path(@booking.booking_auth_token, @booking)
     else
       ['Facebook', 'LinkedIn', 'Instagram', 'Twitter'].each do |social_link_name|
