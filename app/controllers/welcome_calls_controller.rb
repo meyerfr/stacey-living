@@ -163,9 +163,9 @@ class WelcomeCallsController < ApplicationController
   end
 
   def calendar_data
-    @welcome_calls = WelcomeCall.order(:start_time).select{ |call| call.available == true && call.start_time < Date.today + 9 && call.start_time.to_date > Date.today } # all available WelcomeCalls (@available_times)
+    @welcome_calls = WelcomeCall.order(:start_time).select{ |call| call.available == true && call.start_time < Date.today + 14 && call.start_time.to_date > Date.today } # all available WelcomeCalls (@available_times)
     date_params = params[:date].to_date if params[:date]
-    if date_params && date_params < Date.today + 9.days
+    if date_params && date_params < Date.today + 14.days
       if @welcome_calls.select{ |call| call.start_time.to_date == date_params }.length.positive?
         @date = date_params
       else
@@ -178,7 +178,7 @@ class WelcomeCallsController < ApplicationController
     end
     @date_available_times = @welcome_calls.select { |call| call.start_time.to_date == @date }
     @month_helper = params[:month].to_date if params[:month]
-    @month_param = params[:month] && Date.today <= @month_helper && @month_helper <= Date.today + 9.days ? @month_helper : Date.today
+    @month_param = params[:month] && Date.today <= @month_helper && @month_helper <= Date.today + 14.days ? @month_helper : Date.today
     @date_range = (@month_param.beginning_of_month.beginning_of_week..@month_param.end_of_month.end_of_week).to_a
   end
 end
