@@ -37,7 +37,6 @@
         <%= render 'shared/carousel', pictures: roomtype.photos, carousel_id: "Room#{roomtype.id}", no_lightbox_button: true, no_buttons: false %>
         <div class="stacey-card-header">
           <span class="name"><%= roomtype.name.titleize %></span>
-          <% cheapest_price =  %>
           <span class="price">from €<%= (cheapest_price = roomtype.prices.order(:amount).first.amount) % 1 == 0 ? cheapest_price.to_i : cheapest_price %></span>
         </div>
         <% roomtype_index_inventory_amenities = [] %>
