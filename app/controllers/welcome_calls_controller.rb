@@ -126,7 +126,7 @@ class WelcomeCallsController < ApplicationController
   end
 
   def find_all_dates
-    duration = Date.tomorrow..(Date.today + 9)
+    duration = Date.tomorrow..(Date.today + 14)
     return duration.select{ |day| day.monday? || day.tuesday? || day.wednesday? }
   end
 
@@ -163,9 +163,9 @@ class WelcomeCallsController < ApplicationController
   end
 
   def calendar_data
-    @welcome_calls = WelcomeCall.order(:start_time).select{ |call| call.available == true && call.start_time < Date.today + 14 && call.start_time.to_date > Date.today } # all available WelcomeCalls (@available_times)
+    @welcome_calls = WelcomeCall.order(:start_time).select{ |call| call.available == true && call.start_time.to_date <= Date.today + 14.days && call.start_time.to_date > Date.today } # all available WelcomeCalls (@available_times)
     date_params = params[:date].to_date if params[:date]
-    if date_params && date_params < Date.today + 14.days
+    if date_params && date_params <= Date.today + 14.days
       if @welcome_calls.select{ |call| call.start_time.to_date == date_params }.length.positive?
         @date = date_params
       else

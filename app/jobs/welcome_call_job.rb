@@ -3,7 +3,7 @@ class WelcomeCallJob < ApplicationJob
 
   def perform
     todays_date = Date.today
-    WelcomeCall.where("start_time < ? AND available = ?", todays_date, true)
+    WelcomeCall.where("start_time < ? AND available = ?", todays_date, true).destroy_all
     if todays_date.wday < 6 && todays_date.wday > 0
       WelcomeCall.create(start_time: Time.parse("#{todays_date + 14} 10:00"), end_time: Time.parse("#{todays_date + 14} 10:15"))
       while WelcomeCall.last.start_time < Time.parse("#{todays_date + 14} 17:30")
