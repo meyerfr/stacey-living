@@ -219,7 +219,7 @@ class Booking::ProcessController < ApplicationController
     roomtypes.each do |type|
       lastBookingId = Booking.select{ |b| b.state == 'booked' && b.move_out >= Date.today && b.room.roomtype.name.delete(' ').downcase == type.name.delete(' ').downcase if b.room.present? }.last
       if lastBookingId.present?
-        availability.store(type.name, (lastBookingId.move_out + 1.day).strftime('%d.%B %Y'))
+        availability.store(type.name, (lastBookingId.move_out + 1.day).strftime('%d.%-m.%Y'))
       else
         availability.store(type.name, 'today')
       end

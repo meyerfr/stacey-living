@@ -45,7 +45,6 @@ function addAmenity() {
 
 
 function insertNewAmenity(input, callback) {
-  console.log(input)
   var all_amenities_list_wrapper = document.querySelectorAll('.project-amenities-wrapper');
   all_amenities_list_wrapper.forEach((list_wrapper) => {
     if (input.photo) {

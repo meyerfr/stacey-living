@@ -17,7 +17,7 @@ class Booking < ApplicationRecord
 
 
   with_options if: -> { required_for_step?(:apply) } do |step|
-    step.validates_associated :user, on: :create
+    step.validates_associated :user
   end
 
   with_options if: -> { required_for_step?(:contract_new) } do |step|
@@ -42,7 +42,7 @@ class Booking < ApplicationRecord
 
   # Validate whether the end_time is at least 3 hrs after the start_time
   def minimum_duration
-    if move_in.present? && move_out.present? && move_out < (move_in.advance(:months => 3))
+    if move_in.present? && move_out.present? && move_out < (move_in.advance(:months => 3) - 1.day)
       errors.add(:move_out, "3 Months minimum")
     end
   end

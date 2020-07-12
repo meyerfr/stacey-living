@@ -17,7 +17,7 @@
           <!-- <div class="photo" style="background-ismage: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('<%#= image_path picture.url, crop: :fill %>');">
           </div> -->
           <div class="photo">
-            <a href="<%= url_for(picture) %>" data-lightbox="lightbox<%= carousel_id %>" data-title="My caption" style="width: 100%">
+            <a href="<%= url_for(picture) %>" data-lightbox="lightbox<%= carousel_id %>" data-title="<%= caption %>" style="width: 100%">
               <%= cl_image_tag picture.key, style: 'width: 100%' %>
             </a>
             <%#= cl_image_tag picture.key, style: 'width: 100%' %>
@@ -28,7 +28,7 @@
           <!-- <div class="photo" style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('<%#= image_path picture.url, crop: :fill %>');">
           </div> -->
           <div class="photo">
-            <a href="<%= url_for(picture) %>" data-lightbox="lightbox<%= carousel_id %>" data-title="My caption" style="width: 100%">
+            <a href="<%= url_for(picture) %>" data-lightbox="lightbox<%= carousel_id %>" data-title="<%= caption %>" style="width: 100%">
               <%= cl_image_tag picture.key, style: 'width: 100%' %>
             </a>
             <%#= cl_image_tag picture.key, style: 'width: 100%' %>

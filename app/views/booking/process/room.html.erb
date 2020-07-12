@@ -2,7 +2,7 @@
 <%#= render 'shared/carousel', pictures: @room.pictures %>
 
 <div class="header-carousel">
-  <%= render 'shared/carousel', pictures: @roomtype_photos, carousel_id: "room_banner#{@roomtype.id}", no_buttons: true, no_lightbox_button: false %>
+  <%= render 'shared/carousel', pictures: @roomtype_photos, carousel_id: "room_banner#{@roomtype.id}", no_buttons: true, no_lightbox_button: false, caption: "#{@roomtype.name} Suite Pictures" %>
 </div>
 
 <div class="wrap-room-show-and-booking-form">
@@ -22,7 +22,7 @@
       <p><%= @roomtype.descriptions.first.content %></p>
       <div class="room-show-photo">
         <% @roomtype_photos.each do |photo| %>
-          <a href="<%= url_for(photo) %>" data-lightbox="lightbox_room_show_<%= @roomtype.id %>" data-title="<%= @roomtype.name %>">
+          <a href="<%= url_for(photo) %>" data-lightbox="lightbox_room_show_<%= @roomtype.id %>" data-title="<%= @roomtype.name %> Suite Pictures">
             <%= cl_image_tag photo.key %>
           </a>
         <% end %>
@@ -33,7 +33,7 @@
       <!-- Room Photos, display all -->
     </div>
     <div class="section">
-      <h3>The location</h3>
+      <h3>The Location</h3>
       <p><%= @roomtype.project.descriptions.where(field: 'project info show').first.content %></p>
       <!-- image of project -->
     </div>

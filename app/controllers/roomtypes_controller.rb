@@ -13,6 +13,10 @@ class RoomtypesController < ApplicationController
     redirect_to roomtypes_path
   end
 
+  def roomtpye_prices
+
+  end
+
   private
 
   def roomtypes_params

@@ -16,7 +16,6 @@ const addFields = event => {
   target.parentElement.insertAdjacentHTML('beforebegin', event.currentTarget.dataset.fields.replace(regexp, time)); //insert form-field
   var insertedRemoveButton = target.parentElement.previousElementSibling.querySelector('.remove_record'); //inserted Remove_record Button
   if (insertedRemoveButton) insertedRemoveButton.addEventListener('click', removeRecord);
-  console.log(target);
 
   var insertedAddRoomattributeButton = document.querySelector('.add-room-type').parentElement.previousElementSibling.querySelector('.add_fields');
   if (insertedAddRoomattributeButton) insertedAddRoomattributeButton.addEventListener('click', addFields);

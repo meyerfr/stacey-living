@@ -1,6 +1,5 @@
 const selectOrDisselectAmenity = (event) => {
   var target = event.currentTarget
-  console.log(target)
   if (target.classList.contains('selected')) {
     target.children[0].value = 1
   } else {

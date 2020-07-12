@@ -1,5 +1,6 @@
 import "bootstrap";
-import { stripeProcess } from '../stripePayment'
+import 'plugins/flatpickr';
+import { stripeProcess } from '../stripePayment';
 import { onlyOneBox } from '../onlyOneBox';
 import { socialMediaForms } from '../applySocialMediaForms';
 import { expandConfirm } from '../welcomeCallCalendar';
@@ -19,6 +20,9 @@ import { addAmenity } from '../createAmenity';
 import { newRoomFieldHandler } from '../createRoomAttribute';
 import { selectAmenity } from '../selectAmenity';
 import { selectMoveInDate } from '../selectMoveInBookingForm';
+import { deleteUnnecessaryDays } from '../bookingFormMoveOutDates';
+import { addEventListenersToMoveInField } from '../bookingForm/dateHandler'
+// import { datepicker } from '../datepicker';
 
 stripeProcess();
 onlyOneBox();
@@ -35,6 +39,9 @@ fieldHandler();
 checkPricesNames();
 selectAmenity();
 selectMoveInDate();
+addEventListenersToDateField();
+// datepicker();
+// deleteUnnecessaryDays();
 
 document.addEventListener('turbolinks:load', () => {
   initMapbox();

@@ -28,7 +28,8 @@
         <%= f.label :move_in, label: 'WHEN DO YOU WANT TO MOVE IN?' %>
         <%= f.select(:room_id, room_availability.map { |id, time| [time, id] }, {selected: room_availability.first}, {class: 'form-control'}) %>
       </div>
-      <%= f.input :move_out, as: :date, order: [:day, :month, :year], start_year: (Date.today + 3.months).year, end_year: (Date.today + 3.months).year + 1, selected: room_availability.values.first.to_date + 3.months, label: 'UNTIL WHEN ARE YOU PLANING TO STAY?' %>
+      <%= f.input :move_out, as: :string, placeholder: 'Select Date…', input_html: { class: 'datepicker', id: 'move_out_flatpickr' } %>
+      <%#= f.input :move_out, as: :string, order: [:day, :month, :year], start_year: (Date.today + 3.months).year, end_year: (Date.today + 3.months).year + 1, selected: room_availability.values.first.to_date + 3.months, label: 'UNTIL WHEN ARE YOU PLANING TO STAY?', input_html: {class: 'move_out_booking_form datepicker', id: 'date'} %>
       <%= f.submit 'BOOK', class: 'stacey-button reverse-hover book-button' %>
     <% end %>
   </div>
@@ -36,7 +37,12 @@
     <div class="info-field">
       <!-- this must be the rent of the month -->
       <span class="header">rent per month</span>
-      <span class="content"><%= roomtype.prices.first.amount % 1 == 0 ? roomtype.prices.first.amount.to_i : roomtype.prices.first.amount %> €</span>
+      <div class="d-none" id="all-prices">
+        <% roomtype.prices.each do |price| %>
+          <li><%= price.amount % 1 == 0 ? price.amount.to_i : price.amount %> €</li>
+        <% end %>
+      </div>
+      <span class="content" id="booking-price"><%= roomtype.prices.first.amount % 1 == 0 ? roomtype.prices.first.amount.to_i : roomtype.prices.first.amount %> €</span>
     </div>
     <div class="info-field">
       <span class="header">refundable deposit</span>
@@ -44,3 +50,11 @@
     </div>
   </div>
 </div>
+<!--
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('.datepicker').datepicker();
+  });
+</script>
+ -->
