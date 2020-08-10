@@ -106,6 +106,15 @@ class WelcomeCallsController < ApplicationController
     end
   end
 
+  def change_attendance
+    @welcome_call = WelcomeCall.find(params[:id])
+    if @welcome_call.update!(attendance: params[:attendance])
+      render json: @welcome_call
+    else
+      render json: {errors: @welcome_call.errors.full_messages}
+    end
+  end
+
   private
 
   def welcome_calls_params
@@ -115,6 +124,7 @@ class WelcomeCallsController < ApplicationController
       :start_time,
       :end_time,
       :available,
+      :attendance,
       :booking_id
     )
   end

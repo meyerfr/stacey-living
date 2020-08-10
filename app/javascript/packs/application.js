@@ -27,6 +27,9 @@ import { addEventListenersToDateField } from '../bookingForm/dateHandler'
 import { addEventListenerToTaC } from '../termsAndConditions'
 // import { datepicker } from '../datepicker';
 
+import { addEventListenerToAttendanceButtons } from '../updateWelcomeCallAttendance'
+
+addEventListenerToAttendanceButtons();
 payment();
 // stripeProcess();
 onlyOneBox();

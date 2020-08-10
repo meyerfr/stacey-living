@@ -81,6 +81,23 @@
           color: black;
           padding: 20px 40px;
           align-items: center;
+          .attendance{
+            position: absolute;
+            right: calc(25% + 25px);
+            font-size: 20px;
+            span{
+              cursor: pointer;
+            }
+            .attended{
+              margin-right: 20px;
+            }
+            .green{
+              color: green;
+            }
+            .red{
+              color: red;
+            }
+          }
           .set-width{
             width: 25%;
           }

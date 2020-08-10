@@ -19,6 +19,7 @@ Rails.application.routes.draw do
 
   get 'fritz_all_users', to: 'users#all_users', as: 'all_users'
   resources :welcome_calls, only: [:index]
+  patch 'change_attendance', to: 'welcome_calls#change_attendance', as: 'change_attendance'
   resources :bookings, path: 'bookings/(:booking_auth_token)', only: [:update] do
     resources :welcome_calls, only: [:new, :edit, :update, :destroy]
     patch 'welcome_calls', to: 'welcome_calls#create', as: 'create_welcome_calls'
