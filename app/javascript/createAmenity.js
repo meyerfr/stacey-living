@@ -25,7 +25,7 @@ function addAmenity() {
       formData.append('name', name)
       formData.append('title', title)
 
-      fetch(`http://localhost:3000${$(this).attr('action')}`, {
+      fetch(`${$(this).attr('action')}`, {
         method: 'POST',
         headers: {
           'Accept': 'application/json'

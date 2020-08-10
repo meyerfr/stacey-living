@@ -28,7 +28,7 @@ const changeAttendance = (event) => {
   } else{
     formData.append('attendance', 'false')
   }
-  fetch(`http://localhost:3000/change_attendance`, {
+  fetch(`/change_attendance`, {
     method: 'PATCH',
     headers: {
       'Accept' : 'application/json'
