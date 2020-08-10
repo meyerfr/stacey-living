@@ -32,7 +32,7 @@
           <% end %>
         </div>
       </div>
-      <div class="one-list-navbar next">
+      <div class="one-list-navbar padding-top">
         <div class="options">
           <% @time_param_options.each do |time_option| %>
             <% if @time_param == time_option %>
@@ -70,8 +70,18 @@
             </div>
           </div>
           <div class="list-detail d-none">
+            <% if (users_last_booking = user.bookings.last).present?  %>
+              <span class="invite-link">
+                <% if (booking_process_invite_send = users_last_booking.booking_process_invite_send).present?  %>
+                  <p>Booking process invite has been send on the <%= booking_process_invite_send.strftime('%d. %B %Y') %></p>
+                  <%= link_to 'send again', booking_send_booking_process_invite_path(users_last_booking), style: 'margin-left: 40px' %>
+                <% else %>
+                  <%= link_to 'send booking process invite', booking_send_booking_process_invite_path(users_last_booking) %>
+                <% end %>
+              </span>
+            <% end %>
             <table class="user-info">
-              <% if user.has_role?('tenant') %>
+              <%# if user.has_role?('tenant') %>
                 <% if (users_last_booking = user.bookings.last).present? %>
                   <tr>
                     <td>move in:</td>
@@ -82,7 +92,7 @@
                     <td><%= users_last_booking.move_out.strftime("%d. %B %Y") %></td>
                   </tr>
                 <% end %>
-              <% end %>
+              <%# end %>
               <tr>
                 <td>Email:</td>
                 <td><%= user.email %></td>

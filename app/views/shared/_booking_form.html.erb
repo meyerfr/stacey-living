@@ -23,7 +23,7 @@
       </div>
     <% end %>
     <%= simple_form_for booking, method: :put, url: wizard_path do |f| %>
-      <%= f.hidden_field :move_in, value: room_availability.first[1].to_date %>
+      <%= f.hidden_field :move_in, value: room_availability.first[1] %>
       <div class="form-group">
         <%= f.label :move_in, label: 'WHEN DO YOU WANT TO MOVE IN?' %>
         <%= f.select(:room_id, room_availability.map { |id, time| [time, id] }, {selected: room_availability.first}, {class: 'form-control'}) %>
@@ -34,12 +34,39 @@
     <% end %>
   </div>
   <div class="booking-form-section pricing">
-    <div class="info-field">
+    <div class="info-field position-relative">
       <!-- this must be the rent of the month -->
       <span class="header">rent per month</span>
+      <div class="price-info-position">
+        <div class="price-info">
+          <i class="fas fa-info"></i>
+          <% prices_amount = roomtype.prices.order(amount: :desc).collect(&:amount) %>
+          <table class="price-info-text">
+            <thead>
+              <tr>
+                <th colspan="2">Pricing</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th>3-5 Months</th>
+                <td><%= prices_amount.first % 1 == 0 ? prices_amount.first.to_i : prices_amount.first %> €</td>
+              </tr>
+              <tr>
+                <th>6-8 Months</th>
+                <td><%= prices_amount.second % 1 == 0 ? prices_amount.second.to_i : prices_amount.second %> €</td>
+              </tr>
+              <tr>
+                <th>9+ Months</th>
+                <td><%= prices_amount.last % 1 == 0 ? prices_amount.last.to_i : prices_amount.last %> €</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
       <div class="d-none" id="all-prices">
-        <% roomtype.prices.each do |price| %>
-          <li><%= price.amount % 1 == 0 ? price.amount.to_i : price.amount %> €</li>
+        <% prices_amount.each do |price| %>
+          <li><%= price % 1 == 0 ? price.to_i : price %> €</li>
         <% end %>
       </div>
       <span class="content" id="booking-price"><%= roomtype.prices.first.amount % 1 == 0 ? roomtype.prices.first.amount.to_i : roomtype.prices.first.amount %> €</span>

@@ -5,7 +5,7 @@
 <div class="payment-wrapper">
   <div class="payment-container">
     <div class="payment-forms">
-      <%= simple_form_for @booking, url: wizard_path, html: { method: :put, id: 'stripe-form'} do |b| %>
+      <%= simple_form_for @booking, url: wizard_path, html: { method: :put, id: 'payment-form' } do |b| %>
         <div class="personal-information-wrapper">
           <div class="payment-section-header">
             <h3 class="bigger-font-weight">Book Your Suite</h3>
@@ -39,7 +39,8 @@
             <% end %>
           </div>
         </div>
-          <%# end %>
+        <%= b.hidden_field :id %>
+      <%# end %>
 
         <div class="stripe-section stripe-section-wrapper payment-section">
           <div class="stripe-section-header">
@@ -55,37 +56,30 @@
             </div>
           </div>
           <%#= simple_form_for booking_payments_path(@booking.booking_auth_token, @booking), method: :post, id: 'payment-form' do |f| %>
-          <div class="form-row">
-            <label for="iban-element">
-              IBAN
-            </label>
-            <div id="iban-element">
-              <!-- A Stripe Element will be inserted here. -->
+          <%#= form_tag booking_payments_path(@booking.booking_auth_token, @booking), id: 'payment-form' do |form| %>
+            <div class="field">
+              <label for="card-element" class="label">Enter credit or debit card</label>
             </div>
-          </div>
-          <div id="bank-name"></div>
-
-
-          <!-- Used to display form errors. -->
-          <div id="error-message" role="alert"></div>
-
-          <!-- Display mandate acceptance text. -->
-          <div id="mandate-acceptance">
-            By providing your IBAN and confirming this payment, you are authorizing STACEY Real Estate UG and Stripe, our payment service provider, to send instructions to your bank to debit your account and your bank to debit your account in accordance with those instructions. You are entitled to a refund from your bank under the terms and conditions of your agreement with your bank. A refund must be claimed within 8 weeks starting from the date on which your account was debited.
-          </div>
+            <div id="card-element"><!--Stripe.js injects the Card Element--></div>
+            <div id="card-errors" role="alert"></div>
+            <span class="d-none" id="client_secret"><%= @intent.client_secret %></span>
           <div class="terms-and-conditions">
             <%= check_box "TermsConditions", "terms-and-conditions", id: 'terms-and-conditions' %>
-            <span class="terms-and-conditions-label">I have read and agree to the terms and conditions</span>
+            <span class="terms-and-conditions-label">I have read and agree to the <%= link_to 'terms and conditions', '#', target: :_blank %></span>
           </div>
           <div class="privacy-policy">
             <p>By completing the reservation you agree to our <%= link_to 'privacy policy', 'https://www.stacey.de/data-protection', target: :_blank %></p>
           </div>
-          <div class="buttons">
-            <%= b.submit 'Complete Reservation & Process Payment', class: 'payment-button stacey-button reverse-hover' %>
+          <!-- <div class="buttons"> -->
+            <%#= b.submit 'Complete Reservation & Process Payment', class: 'payment-button stacey-button reverse-hover' %>
             <!-- <button class="payment-button stacey-button reverse-hover">Complete Reservation & Process Payment</button> -->
-          </div>
+          <!-- </div> -->
+          <button class="btn payment-button stacey-button reverse-hover" id="submitFrm">
+            Submit
+          </button>
+        <% end %>
         </div>
-      <% end %>
+      <%# end %>
     </div>
     <div class="booking-summary">
       <div class="booking-summary-wrapper">
@@ -117,7 +111,7 @@
             </div>
             <div class="summary-item">
               <span class="category">Duration of your stay</span>
-              <span>100 Days</span>
+              <span><%= (@booking.move_out - @booking.move_in).to_i %> Days</span>
             </div>
           </div>
           <div class="summary-section">

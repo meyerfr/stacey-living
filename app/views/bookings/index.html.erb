@@ -16,11 +16,11 @@
     <div class="list-navbar">
       <div class="one-list-navbar">
         <div class="options">
-          <% @all_room_names.each do |name| %>
-            <% if @room_name_param == name %>
-              <%= link_to name.capitalize, bookings_path(room_name: name), class: 'option active' %>
+          <% @project_names.each do |project_name| %>
+            <% if @project_param == project_name %>
+              <%= link_to project_name.capitalize, bookings_path(project_name: project_name), class: 'option active' %>
             <% else %>
-              <%= link_to name.capitalize, bookings_path(room_name: name), class: 'option' %>
+              <%= link_to project_name.capitalize, bookings_path(project_name: project_name), class: 'option' %>
             <% end %>
           <% end %>
         </div>
@@ -36,20 +36,32 @@
         </div>
       </div>
       <div class="between-navbar-line"></div>
-      <div class="one-list-navbar next">
+      <div class="one-list-navbar padding-top">
+        <div class="options">
+          <% @all_room_names.each do |name| %>
+            <% if @room_name_param == name %>
+              <%= link_to name.capitalize, bookings_path(project_name: @project_param, room_name: name), class: 'option active' %>
+            <% else %>
+              <%= link_to name.capitalize, bookings_path(project_name: @project_param, room_name: name), class: 'option' %>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+      <div class="between-navbar-line"></div>
+      <div class="one-list-navbar flex-end padding-top">
         <div class="options">
           <% @time_param_options.each do |time_option| %>
             <% if @time_param == time_option %>
-              <%= link_to time_option.capitalize, bookings_path(room_name: @room_name_param, time: time_option), class: 'option active' %>
+              <%= link_to time_option.capitalize, bookings_path(project_name: @project_param, room_name: @room_name_param, time: time_option), class: 'option active' %>
             <% else %>
-              <%= link_to time_option.capitalize, bookings_path(room_name: @room_name_param, time: time_option), class: 'option' %>
+              <%= link_to time_option.capitalize, bookings_path(project_name: @project_param, room_name: @room_name_param, time: time_option), class: 'option' %>
             <% end %>
           <% end %>
         </div>
       </div>
       <div class="between-navbar-line"></div>
       <div class="navbar-infotext">
-        <span>We have <%= @total_room_number %> <%= @room_name unless @room_name == 'all' %> Rooms and we currently have <%= @total_current_room_bookings %> of them booked.</span>
+        <span>We have <%= @total_room_number %> <%= @room_name unless @room_name == 'all' %> Rooms <%= "in #{@project_param}" unless @project_param == 'all' %> and we currently have <%= @total_current_room_bookings %> of them booked.</span>
       </div>
     </div>
     <div class="list-container">

@@ -129,8 +129,9 @@
           }
         }
         // #stripe-form{
-          #error-message{
+          #card-errors{
             font-size: 12px;
+            color: red;
           }
           #mandate-acceptance{
             font-size: 14px;
@@ -143,8 +144,15 @@
             margin-top: 12px;
             display: flex;
             align-items: center;
+            position: relative;
             #terms-and-conditions{
               margin: 0 10px 0 0;
+            }
+            .terms-and-conditions-error{
+              position: absolute;
+              top: 17px;
+              font-size: 12px;
+              color: red;
             }
           }
           .privacy-policy{

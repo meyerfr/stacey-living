@@ -4,24 +4,46 @@ class BookingsController < ApplicationController
   BOOKINGS_PER_PAGE = 25
 
   def index
-    @time_param_options = ['current', 'upcoming', 'past', 'all']
+    @time_param_options = ['all', 'current', 'upcoming', 'past']
+
+    @project_param = params[:project_name].present? ? params[:project_name] : 'all'
+    if @project_param != 'all'
+      @project = Project.find_by(name: @project_param)
+    end
 
     @room_name_param = params[:room_name].present? ? params[:room_name] : 'all'
+
     @time_param = params[:time].present? ? params[:time] : 'all'
+
     search_param = params[:search] if params[:search].present?
+
+    @project_names = Project.all.collect(&:name).unshift('all')
+
     @bookings = Booking.where(state: 'booked').order(created_at: :desc)
-    if @room_name_param == 'all'
+
+    if @project_param == 'all'
       @total_room_number = Room.count
-      @total_current_room_bookings = @bookings.count
+    else
+      @bookings = @project.bookings.where(state: 'booked').order(:move_in)
+      # @bookings = @bookings.includes(:project).where('projects.name = :project_name', project_name: @project_param)
+      @total_room_number = @project.rooms.count
+    end
+
+    if @room_name_param == 'all'
+      @total_room_number = @project_param == 'all' ? Room.count : @project.rooms.count
 
       @room_name = @room_name_param
     else
       @room_name = Roomtype.find_by(name: @room_name_param).name
       @bookings = @bookings.joins(room: :roomtype).where('roomtypes.name = :room_name', room_name: @room_name)
-      @total_current_room_bookings = @bookings.count
-      @total_room_number = Room.joins(:roomtype).where('roomtypes.name = :room_name', room_name: @room_name).count
-      # Roomtype.select{|rt| rt.name == @room_name}.each{|rt| @total_room_number += rt.rooms.count}
+      @total_room_number = if @project.present?
+                             @project.rooms.joins(:roomtype).where('roomtypes.name = :room_name', room_name: @room_name).count
+                           else
+                             Room.joins(:roomtype).where('roomtypes.name = :room_name', room_name: @room_name).count
+                           end
     end
+
+    @total_current_room_bookings = @bookings.count
 
     if @time_param == 'upcoming'
       # @bookings = @bookings.select{ |booking| booking.move_in >= Date.today}
@@ -55,7 +77,7 @@ class BookingsController < ApplicationController
       @bookings = @bookings.offset(@page * BOOKINGS_PER_PAGE).limit(BOOKINGS_PER_PAGE)
     end
 
-    @all_room_names = find_all_room_names
+    @all_room_names = Roomtype.order(:size).collect(&:name).uniq.unshift('all')
     # @available_booking_times = find_available_booking_dates(@bookings)
     respond_to do |format|
       format.html { render 'bookings/index' }
@@ -111,12 +133,5 @@ class BookingsController < ApplicationController
       available_booking_times << "today - open"
     end
     available_booking_times
-  end
-
-  def find_all_room_names
-    room_names = []
-    # order Rooms per size.
-    Roomtype.order(:size).select{ |type| room_names << type.name unless room_names.include?(type.name)}
-    room_names.unshift('all')
   end
 end

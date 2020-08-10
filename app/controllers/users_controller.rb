@@ -9,8 +9,8 @@ class UsersController < ApplicationController
   end
 
   def index
-    @user_group_param_options = ['applicant', 'tenant', 'all']
-    @time_param_options = ['upcoming', 'past', 'all']
+    @user_group_param_options = ['all', 'applicant', 'tenant']
+    @time_param_options = ['all', 'upcoming', 'past']
 
     @user_group_param = params.fetch(:user_group, 'all')
     @time_param = params.fetch(:time, 'all')

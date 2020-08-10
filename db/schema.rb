@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_17_115332) do
+ActiveRecord::Schema.define(version: 2020_07_27_094049) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -70,6 +70,9 @@ ActiveRecord::Schema.define(version: 2020_06_17_115332) do
     t.string "stripe_billing_plan"
     t.bigint "room_id"
     t.date "booking_process_invite_send"
+    t.float "monthly_price"
+    t.bigint "price_id"
+    t.index ["price_id"], name: "index_bookings_on_price_id"
     t.index ["room_id"], name: "index_bookings_on_room_id"
     t.index ["user_id"], name: "index_bookings_on_user_id"
   end
@@ -139,6 +142,7 @@ ActiveRecord::Schema.define(version: 2020_06_17_115332) do
     t.bigint "roomtype_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "stripe_plan_id"
     t.index ["roomtype_id"], name: "index_prices_on_roomtype_id"
   end
 
@@ -166,6 +170,7 @@ ActiveRecord::Schema.define(version: 2020_06_17_115332) do
     t.datetime "updated_at", null: false
     t.string "stripe_product"
     t.integer "amount_of_people", default: 1
+    t.string "stripe_product_id"
     t.index ["project_id"], name: "index_roomtypes_on_project_id"
   end
 
@@ -195,6 +200,13 @@ ActiveRecord::Schema.define(version: 2020_06_17_115332) do
     t.string "gender"
     t.string "phone_number"
     t.string "phone_code"
+    t.string "stripe_id"
+    t.string "stripe_subscription_id"
+    t.boolean "subscribed"
+    t.string "card_last4"
+    t.string "card_exp_month"
+    t.string "card_exp_year"
+    t.string "card_type"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
@@ -209,6 +221,7 @@ ActiveRecord::Schema.define(version: 2020_06_17_115332) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "bookings", "prices"
   add_foreign_key "bookings", "users"
   add_foreign_key "community_areas", "projects"
   add_foreign_key "contracts", "bookings"

@@ -90,6 +90,16 @@
                         <td><%= user.phone_code %> <%= user.phone_number %></td>
                       </tr>
                       <tr>
+                        <td>Prefered Suites:</td>
+                        <td>
+                          <% user.prefered_suites[0...-1].each do |suite| %>
+                            <%= suite.roomtype.name %>,
+                          <% end %>
+                          <% last_prefered_suite = user.prefered_suites.last %>
+                          <%= last_prefered_suite.roomtype.name %>
+                        </td>
+                      </tr>
+                      <tr>
                         <td>Amount of People:</td>
                         <td><%= user.amount_of_people %></td>
                       </tr>
@@ -101,14 +111,18 @@
                         <td>Date of birth:</td>
                         <td><%= user.dob.strftime('%d. %B %Y') %></td>
                       </tr>
-                      <tr>
-                        <td>Social Media:</td>
-                        <td>
-                          <% user.social_links.each do |link| %>
-                            <%= link.name.capitalize %>: <%= link_to "#{link.name}", link.url, target: :_blank %>
-                          <% end %>
-                        </td>
-                      </tr>
+                      <% if (social_links = user.social_links).present? %>
+                        <tr>
+                          <td>Social Media:</td>
+                          <td>
+                            <% user.social_links[0...-1].each do |link| %>
+                              <%= link.name.capitalize %>: <%= link_to "#{link.name}", link.url, target: :_blank %>,
+                            <% end %>
+                            <% last_social_link = user.social_links.last %>
+                            <%= last_social_link.name.capitalize %>: <%= link_to "#{last_social_link.name}", last_social_link.url, target: :_blank %>
+                          </td>
+                        </tr>
+                      <% end %>
                       <tr>
                         <td>Applied of the:</td>
                         <td><%= user.created_at.strftime('%d. %B %Y') %></td>

@@ -42,14 +42,61 @@ class Booking::ProcessController < ApplicationController
   end
 
   def update
-    if step == 'room'
-      @room = Room.find(params[:booking][:room_id])
-      @booking.move_in = @room.bookings.present? ? @room.bookings.last.move_out : Date.tomorrow
+    case step
+    when 'room'
+      @booking.room_id = booking_params(step)[:room_id]
+      @roomtype = @booking.roomtype
+      @booking.move_in = booking_params(step)[:move_in].to_date
+      @booking.move_out = booking_params(step)[:move_out].to_date
+
+      roomtype_prices = @roomtype.prices.order(amount: :desc)
+      @booking.price = case @booking.duration
+                       when 3..5
+                         roomtype_prices.first
+                       when 6..8
+                         roomtype_prices.second
+                       else
+                         roomtype_prices.last
+                       end
+    when 'payment'
+      stripe_customer = Stripe::Customer.retrieve(@booking.user.stripe_id)
+      payment_method = Stripe::PaymentMethod.list({
+                         customer: stripe_customer.id,
+                         type: 'card'
+                       }).to_a.last
+      # set default payment method to customer
+      Stripe::Customer.update(
+        stripe_customer.id,
+        {
+          invoice_settings: {
+            default_payment_method: payment_method.id,
+          }
+        },
+      )
+      stripe_plan = Stripe::Plan.retrieve(@booking.price.stripe_plan_id)
+      subscription_schedule = Stripe::SubscriptionSchedule.create({
+        customer: stripe_customer.id,
+        end_behavior: 'cancel',
+        start_date: @booking.move_in.to_time.to_i,
+        phases: [
+          {
+            plans: [
+              {
+                plan: stripe_plan.id,
+                price: stripe_plan.id,
+                quantity: 1
+              }
+            ],
+            end_date: @booking.move_out.to_time.to_i,
+            proration_behavior: "none"
+          }
+        ]
+      })
+      # subscription = customer.subscriptions.create({plan: plan.id})
+
+      @booking.state = 'completed'
+      @booking.stripe_billing_plan = subscription_schedule.id
     end
-    # if step == 'payment'
-      # @booking.status = 'completed'
-      # @booking.stripe_subscription_plan_id = create_stripe_subscription
-    # end
     if @booking.update!(booking_params(step))
       # if step == 'payment'
         # @booking.status == 'active'
@@ -66,7 +113,7 @@ class Booking::ProcessController < ApplicationController
 
   def send_booking_process_invite
     @booking.update(booking_auth_token_exp: Date.today+2.weeks)
-    UserMailer.invite_for_booking_process(@booking)
+    UserMailer.invite_for_booking_process(@booking).deliver_now
     @booking.update(booking_process_invite_send: Date.today)
     redirect_to welcome_calls_path
   end
@@ -122,10 +169,11 @@ class Booking::ProcessController < ApplicationController
       @roomtype.rooms.each do |room|
         rooms_last_booking = Booking.order(:move_out).select{ |b| b.room == room && b.state == 'booked' }.last
         if rooms_last_booking.present? && rooms_last_booking.move_out.future?
-          @room_availability.store(room.id, (rooms_last_booking.move_out + 1.day).strftime('%d %B %Y')) if !@room_availability.values.include?((rooms_last_booking.move_out + 1.day).strftime('%d %B %Y'))
+          next_available_move_in = rooms_last_booking.move_out.day > 15 ? (rooms_last_booking.move_out+1.month).beginning_of_month : rooms_last_booking.move_out.beginning_of_month+14.days
         else
-          @room_availability.store(room.id, Date.tomorrow.strftime('%d %B %Y')) if !@room_availability.values.include?(Date.tomorrow.strftime('%d %B %Y'))
+          next_available_move_in = Date.tomorrow.day > 15 ? (Date.tomorrow+1.month).beginning_of_month : Date.tomorrow.beginning_of_month+14.days
         end
+        @room_availability.store(room.id, next_available_move_in.strftime('%d.%m.%Y')) if !@room_availability.values.include?(next_available_move_in.strftime('%d.%m.%Y'))
       end
       @room_availability = @room_availability.sort_by { |key, value| value.to_date }.to_h
       @markers = [
@@ -143,6 +191,35 @@ class Booking::ProcessController < ApplicationController
     when 'payment'
       @phone_code = %w(+61 +43 +32 +55 +1 +86 +45 +358 +33 +49 +852 +353 +39 +81 +352 +52 +31 +64 +47 +351 +65 +34 +46 +41 +44)
       set_price_and_deposit
+      @user = @booking.user
+      @stripe_customer = if @user.stripe_id?
+                          Stripe::Customer.retrieve(@user.stripe_id)
+                         else
+                          Stripe::Customer.create({
+                            name: @user.full_name,
+                            email: @user.email
+                          })
+                         end
+      @user.update(stripe_id: @stripe_customer.id) unless @user.stripe_id?
+
+      # roomtype = @booking.roomtype
+      # roomtype_prices = roomtype.prices.order(amount: :desc)
+      # correct_price = case @booking.duration
+      #                 when 3..5
+      #                   roomtype_prices.first
+      #                 when 6..8
+      #                   roomtype_prices.second
+      #                 else
+      #                   roomtype_prices.last
+      #                 end
+
+      deposit = @booking.price.amount.to_i*2
+      @intent = Stripe::PaymentIntent.create({
+                  amount: (deposit + 80)*100,
+                  currency: 'eur',
+                  customer: @stripe_customer.id,
+                  setup_future_usage: 'off_session'
+                })
     end
   end
 

@@ -30,6 +30,8 @@ Rails.application.routes.draw do
     resources :payments, only: [:new, :create]
   end
   get 'bookings/(:booking_auth_token)/:id/payment', to: 'bookings#payment', as: 'booking_payment'
+  post 'create_payment_intent', to: 'payments#create_payment_intent', as: 'create_payment_intent'
+
 
   # get 'bookings/calendar/(:room_name)', to: 'bookings#calendar', as: 'booking_calendar'
 

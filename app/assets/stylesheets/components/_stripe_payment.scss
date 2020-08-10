@@ -20,7 +20,10 @@
       margin: 0 10px 0 0;
     }
   }
-  .terms-and-conditions.error{
+  .terms-and-conditions.terms-and-conditions-error{
+    position: absolute;
+    top: 17px;
+    font-size: 13px;
     color: red;
   }
   .payment-button{

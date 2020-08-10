@@ -16,7 +16,7 @@ class User < ApplicationRecord
   end
 
   with_options through: :bookings do |assoc|
-    assoc.has_many :contracts
+    assoc.has_many :contracts, through: :bookings
     assoc.has_many :roomtyes
   end
 

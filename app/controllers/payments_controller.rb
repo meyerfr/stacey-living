@@ -1,12 +1,25 @@
 class PaymentsController < ApplicationController
   skip_before_action :authenticate_user!
-  before_action :check_booking_auth_token!, :set_booking, :set_price_and_deposit
+  before_action :check_booking_auth_token!
+  before_action :set_booking
+  before_action :set_price_and_deposit, except: [:new, :create, :create_payment_intent]
   layout "bookingprocess", only: [:new]
 
   def new
-    # layout booking
-    @phone_code = %w(+61 +43 +32 +55 +1 +86 +45 +358 +33 +49 +852 +353 +39 +81 +352 +52 +31 +64 +47 +351 +65 +34 +46 +41 +44)
-    # @list = Stripe::Customer.list()
+  end
+
+  def create_payment_intent
+    content_type 'application/json'
+    data = params[:items]
+    # data = JSON.parse(request.body.read)
+    payment_intent = Stripe::PaymentIntent.create(
+      amount: calculate_price(data['items']),
+      currency: 'eur'
+    )
+    {
+      clientSecret: payment_intent['client_secret'],
+    }.to_json
+    return payment_intent
   end
 
   def create
@@ -17,46 +30,114 @@ class PaymentsController < ApplicationController
     #   trial_period until move_in
     #   cancels on move_out
     #   item: [{ plan: booking.stripe_billing_plan}]
+
+    # Stripe.api_key = ENV('STRIPE_SECRET_KEY')
+    # plan_id = 'plan_Fod9NFfUPmzUn5'
     raise
+    roomtype = @booking.roomtype
+    plan = Stripe::Plan.retrieve('plan_G2SvVfE4hiTNAd')
+    # find plan = Stripe::Plan.retrieve(correct_price.stripe_plan_id)
 
-    customer = find_or_create_stripe_customer(@user)
+    # product = Stripe::Product.retrieve(roomtype.stripe_product_id)
 
-    stripe_product = Stripe::Product.retrieve(@roomtype.stripe_product)
-    # assumed stripe_plan exists, need function if it doesn´t
-    plan = find_stripe_plan(@booking, @roomtype, stripe_product)
+    token = params[:stripeToken]
 
-    # Charge Booking Fee
-    chargeBookingFee = Stripe::Charge.create({
-      amount: (@booking_fee * 100),
-      currency: 'eur',
-      customer: customer.id,
-      source: params[:stripeSource],
-      description: "Booking Fee"
-    })
+    customer = if @user.stripe_id?
+                Stripe::Customer.retrieve(@user.stripe_id)
+               else
+                Stripe::Customer.create(name: @user.full_name, email: @user.email)
+               end
 
-    chargeDeposit = Stripe::Charge.create({
-      amount: (@price.to_i * 2 * 100),
-      currency: 'eur',
-      customer: customer.id,
-      source: params[:stripeSource],
-      description: "Deposit"
-    })
+    unless Stripe::PaymentMethod.list({customer: customer.id, type: 'card'}).count.positve?
+      Stripe::PaymentMethod.create({
+        type: 'card',
+        card: {
+          number: params[:user],
+          exp_month: 7,
+          exp_year: 2021,
+          cvc: '314',
+        },
+        customer: customer.id
+      })
+    end
 
-    # Subscription to User for rent
-    subscription = Stripe::Subscription.create({
-      # what´s the billing cycle?
-      customer: customer.id,
-      collection_method: "charge_automatically",
-      cancel_at: @booking.move_out.to_time.to_i,
-      items: [{ plan: plan }],
-      trial_end: (@booking.move_in - 2.days).to_time.to_i
-    })
+    roomtype_prices = roomtype.prices.order(amount: :desc)
+    correct_price = case @booking.duration
+                    when 3..5
+                      roomtype_prices.first
+                    when 6..8
+                      roomtype_prices.second
+                    else
+                      roomtype_prices.last
+                    end
 
-    @booking.update(state: 'booked')
-    redirect_to users_success_path
-    # redirect_to booking_path(@booking)
-    rescue Stripe::CardError => e
-      flash[:alert] = e.message
+    deposit = correct_price.amount.to_i*2
+    # charge customer for bookingFee and the Deposit
+    # charge = Stripe::Charge.create({
+    #   amount: (deposit + 80)*100, # 80€ BookingFee
+    #   currency: 'eur',
+    #   description: 'STACEY - BookingFee and Deposit',
+    #   source: token,
+    # })
+
+    # Create subscription for the roomtype
+    subscription = customer.subscriptions.create(plan: plan.id)
+
+    options = {
+      stripe_id: customer.id,
+      stripe_subscription_id: subscription.id,
+      subscribed: true
+    }
+
+    options.merge!(
+      card_last4: params[:user][:card_last4],
+      card_exp_month: params[:user][:card_exp_month],
+      card_exp_year: params[:user][:card_exp_year],
+      card_type: params[:user][:card_type]
+    ) if params[:user][:card_last4]
+
+    @user.update(options)
+
+    redirect_to root_path, notice: 'Your subscription was setup successfully!'
+
+    # customer = find_or_create_stripe_customer(@user)
+
+    # stripe_product = Stripe::Product.retrieve(@roomtype.stripe_product)
+    # # assumed stripe_plan exists, need function if it doesn´t
+    # plan = find_stripe_plan(@booking, @roomtype, stripe_product)
+
+    # # Charge Booking Fee
+    # chargeBookingFee = Stripe::Charge.create({
+    #   amount: (@booking_fee * 100),
+    #   currency: 'eur',
+    #   customer: customer.id,
+    #   source: params[:stripeSource],
+    #   description: "Booking Fee"
+    # })
+
+    # chargeDeposit = Stripe::Charge.create({
+    #   amount: (@price.to_i * 2 * 100),
+    #   currency: 'eur',
+    #   customer: customer.id,
+    #   source: params[:stripeSource],
+    #   description: "Deposit"
+    # })
+
+    # # Subscription to User for rent
+    # subscription = Stripe::Subscription.create({
+    #   # what´s the billing cycle?
+    #   customer: customer.id,
+    #   collection_method: "charge_automatically",
+    #   cancel_at: @booking.move_out.to_time.to_i,
+    #   items: [{ plan: plan }],
+    #   trial_end: (@booking.move_in - 2.days).to_time.to_i
+    # })
+
+    # @booking.update(state: 'booked')
+    # redirect_to users_success_path
+    # # redirect_to booking_path(@booking)
+    # rescue Stripe::CardError => e
+    #   flash[:alert] = e.message
   end
 
   private
@@ -113,5 +194,9 @@ class PaymentsController < ApplicationController
       )
     end
     return customer
+  end
+
+  def calculate_price(_items)
+    # Booking.find(items[:id])
   end
 end

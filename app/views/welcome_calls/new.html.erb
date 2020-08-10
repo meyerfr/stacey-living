@@ -9,7 +9,7 @@
       </div>
       <div class="location info">
         <i class="fas fa-map-marker-alt"></i>
-        <p>Click on https://appear.in/stacey-living to start the call</p>
+        <p>Click on https://whereby.com/stacey-living to start the call</p>
       </div>
       <p class="text">Perfect! You´re one step closer to the the start of your coliving adventure.</p>
       <p class="text">Now we just want to get to know you a little better & answer every question you might have. Please select your favorite time for a short introduction into the world of STACEY.</p>
@@ -64,7 +64,7 @@
       </table>
       <div class="timezone info">
         <i class="fas fa-globe-europe"></i>
-        <p>Central European Time (<%= Time.now.strftime("%H:%M") %>)</p>
+        <p>Central European Time (<%= Time.now.in_time_zone('Europe/Berlin').strftime("%H:%M") %>)</p>
       </div>
     </div>
     <div class="calendar-section choose-time">

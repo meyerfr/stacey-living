@@ -47,9 +47,11 @@
         width: 100%;
         align-items: baseline;
       }
-      .one-list-navbar.next{
-        padding-top: 20px;
+      .one-list-navbar.flex-end{
         justify-content: flex-end;
+      }
+      .one-list-navbar.padding-top{
+        padding-top: 20px;
       }
       .between-navbar-line{
         border-bottom: 1px solid lightgray;
@@ -102,7 +104,8 @@
           position: relative;
           margin-bottom: 20px;
           .invite-link{
-            text-align: center;
+            display: flex;
+            justify-content: center;
           }
           .user-info{
             border-collapse: separate;

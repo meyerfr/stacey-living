@@ -8,8 +8,10 @@ class Booking < ApplicationRecord
   # validate :move_in_future, :minimum_duration
   belongs_to :user
   belongs_to :room, optional: true
+  belongs_to :price, optional: true
   has_one :roomtype, through: :room, required: false
-  has_one :contract
+  has_one :project, through: :room, required: false
+  has_one :contract, required: false
 
   validates :move_in, :move_out, presence: true
 
@@ -42,7 +44,8 @@ class Booking < ApplicationRecord
 
   # Validate whether the end_time is at least 3 hrs after the start_time
   def minimum_duration
-    if move_in.present? && move_out.present? && move_out < (move_in.advance(:months => 3) - 1.day)
+    # if move_in.present? && move_out.present? && move_out < (move_in.advance(:months => 3) - 1.day)
+    unless duration >= 3
       errors.add(:move_out, "3 Months minimum")
     end
   end
@@ -54,6 +57,12 @@ class Booking < ApplicationRecord
     # All fields from previous steps are required if the
     # step parameter appears before or we are on the current step
     return true if self.form_steps.index(step.to_s) <= self.form_steps.index(form_step)
+  end
+
+  def duration
+    if move_in.present? && move_out.present?
+      ((move_out.year - move_in.year) * 12) + (move_out.month - move_in.month) - (((move_out+1.day).day >= move_in.day ? 0 : 1))
+    end
   end
 
   # Validate whether the availability is not overlapping any already existing availabilities
