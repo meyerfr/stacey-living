@@ -124,6 +124,12 @@
                         <td>Date of birth:</td>
                         <td><%= user.dob.strftime('%d. %B %Y') %></td>
                       </tr>
+                      <% if (gender = user.gender).present? %>
+                        <tr>
+                          <td>Gender:</td>
+                          <td><%= gender %></td>
+                        </tr>
+                      <% end %>
                       <% if (social_links = user.social_links).present? %>
                         <tr>
                           <td>Social Media:</td>
