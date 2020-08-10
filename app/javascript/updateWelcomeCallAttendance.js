@@ -1,25 +1,16 @@
-const attendanceButtons = document.querySelectorAll('.attendance-button');
-
-const updateAttendanceView = (attendance) => {
-  attendanceButtons.forEach((button) => {
-    if (button.classList.contains('attended')) {
-      if (attendance === true) {
-        button.classList.add('green')
-      } else{
-        button.classList.remove('green')
-      }
-    } else{
-      if (attendance === false) {
-        button.classList.add('red')
-      } else{
-        button.classList.remove('red')
-      }
-    }
-  })
+const updateAttendanceView = (target) => { //target is either attended button or not-attended button
+  if (target.classList.contains('attended')) {
+    target.nextElementSibling.classList.remove('red');
+    target.classList.add('green');
+  } else{
+    target.previousElementSibling.classList.remove('green');
+    target.classList.add('red');
+  }
 }
 
 const changeAttendance = (event) => {
   event.preventDefault();
+  const target = event.currentTarget;
   const formData = new FormData()
   const welcome_call_id = document.getElementById('welcome_call_id').innerText
   formData.append('id', welcome_call_id)
@@ -37,11 +28,12 @@ const changeAttendance = (event) => {
   })
   .then(response => response.json())
   .then(data => {
-    updateAttendanceView(data['attendance']);
+    updateAttendanceView(target);
   })
 }
 
 function addEventListenerToAttendanceButtons() {
+  const attendanceButtons = document.querySelectorAll('.attendance-button');
   if (attendanceButtons.length > 0) {
     attendanceButtons.forEach((button) => {
       button.addEventListener('click', changeAttendance)

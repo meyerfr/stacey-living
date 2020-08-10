@@ -12,12 +12,12 @@ class WelcomeCallsController < ApplicationController
       @time_param = 'all'
     end
     # if search and time
-    @welcome_calls = WelcomeCall.order(:start_time).where("start_time >= ? AND available = ?", Time.now, false)
+    @welcome_calls = WelcomeCall.order(:start_time).where("start_time >= ? AND available = ?", Time.now.beginning_of_day, false)
 
     if @time_param == 'all'
       @welcome_calls = WelcomeCall.order(:start_time).where(available: false)
     elsif @time_param == 'past'
-      @welcome_calls = WelcomeCall.order(:start_time).where("start_time < ? AND available = ?", Time.now, false)
+      @welcome_calls = WelcomeCall.order(:start_time).where("start_time < ? AND available = ?", Time.now.beginning_of_day, false)
     end
 
 

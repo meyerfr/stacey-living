@@ -52,18 +52,20 @@
                   <div class="list-info">
                     <span><%= call.start_time.strftime("%H:%M") %> - <%= call.end_time.strftime("%H:%M") %></span>
                     <span><%= call.name %></span>
-                    <div class="attendance">
-                      <% if call.attendance %>
-                        <span class="attended attendance-button green"><i class="fas fa-thumbs-up"></i></span>
-                        <span class="not-attended attendance-button"><i class="fas fa-thumbs-down"></i></span>
-                      <% elsif call.attendance == false %>
-                        <span class="attended attendance-button"><i class="fas fa-thumbs-up"></i></span>
-                        <span class="not-attended attendance-button red"><i class="fas fa-thumbs-down"></i></span>
-                      <% else %>
-                        <span class="attended attendance-button"><i class="fas fa-thumbs-up"></i></span>
-                        <span class="not-attended attendance-button"><i class="fas fa-thumbs-down"></i></span>
-                      <% end %>
-                    </div>
+                    <% if date <= Date.today %>
+                      <div class="attendance">
+                        <% if call.attendance %>
+                          <span class="attended attendance-button green"><i class="fas fa-thumbs-up"></i></span>
+                          <span class="not-attended attendance-button"><i class="fas fa-thumbs-down"></i></span>
+                        <% elsif call.attendance == false %>
+                          <span class="attended attendance-button"><i class="fas fa-thumbs-up"></i></span>
+                          <span class="not-attended attendance-button red"><i class="fas fa-thumbs-down"></i></span>
+                        <% else %>
+                          <span class="attended attendance-button"><i class="fas fa-thumbs-up"></i></span>
+                          <span class="not-attended attendance-button"><i class="fas fa-thumbs-down"></i></span>
+                        <% end %>
+                      </div>
+                    <% end %>
                     <div class="details d-flex">
                       <i class="fas fa-caret-right"></i>
                       <i class="fas fa-caret-down d-none"></i>
