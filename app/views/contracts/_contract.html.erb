@@ -35,17 +35,16 @@
     <tr class="row table-content">
       <td class="col">STACEY Rent</td>
       <td class="col address"><%= @project.address.address %></td>
-      <td class="col"><%= @roomtype.name %> Suite <%= @room.intern_number %></td>
-      <td class="col"><%= @roomtype.prices.first.amount % 1 == 0 ? @roomtype.prices.first.amount.to_i : @roomtype.prices.first.amount %> €</td>
+      <td class="col"><%= @roomtype.name %> Suite</td>
+      <td class="col"><%= (price = @roomtype.prices.first.amount) % 1 == 0 ? price.to_i : price %> €</td>
       <td class="col"><%= @booking.move_in.strftime("%d/%m/%Y") %></td>
       <td class="col"><%= @booking.move_out.strftime("%d/%m/%Y") %></td>
     </tr>
   </table>
   <div class="table-payment-terms">
     <p class="no-margin-top">
-      Payment terms: monthly, due 1 day before 'start date' for the first month, and due the 1st day, at latest by the 3rd business day of each month for the following months. Deposit in form of 1-month rent together with the rent for the first month is due upon signing the agreement.
+      Payment terms: monthly, due 1 day before <%= @booking.move_in.strftime("%d/%m%/%Y") %> for the first month, and due the 1st day, at latest by the 3rd business day of each month for the following months. Deposit in form of 2-months rent is due upon signing the agreement.
     </p>
-    <p>Payment method: direct debit mandate</p>
   </div>
 
   <table class="terms-of-service-table">
@@ -53,7 +52,7 @@
       <th class="col">Terms of Service</th>
     </tr>
     <tr class="row">
-      <td class="col">This is the rental contract for your STACEY room. By signing, you acknowledge that you have read, understood and agree to the (1) Rental Agreement, (2) Terms and Condition of Internet Use, (3) House Rules and (4) STACEY Terms of Service which can be found at <%= link_to 'www.stacey-living.de/terms/', 'www.stacey-living.de/terms/' %> and is incorporated into this document by reference. Any other terms and conditions do not apply to this contract and are null and void.</td>
+      <td class="col">This is the rental contract for your STACEY room. By signing, you acknowledge that you have read, understood and agree to the (1) Rental Agreement, (2) Terms and Condition of Internet Use, (3) House Rules. Any other terms and conditions do not apply to this contract and are null and void.</td>
     </tr>
   </table>
 
@@ -64,7 +63,8 @@
     <div class="content">
       <p>Your monthly rent will be transferred to the following account:</p>
       <p class="bank-info">STACEY Real Estate UG</p>
-      <p class="bank-info">IBAN: DE79 1101 0100 2492 6109 33</p>
+      <p class="bank-info">IBAN: DE61 2005 0550 1500 8679 06</p>
+      <p class="bank-info">BIC: HASPDEHHXXX</p>
     </div>
   </div>
 
@@ -123,9 +123,8 @@
   <p>On its website, STACEY publishes pictures of a variety of generic rooms, common areas, etc., which show the different residential designs on its website. </p>
   <ol>
     <li><p>If the customer is interested in the offer, he the can clicks the button “APPLY”. When a customer applies STACEY gets the personal information of the user. The customer will then receive a YES or NO answer on his application, which is based on the information provided and the availability of rooms at that specific moment.</p></li>
-    <li><p>Upon request, STACEY will provide interested parties with photos of the individual rooms to be rented and further information.</p></li>
-    <li><p>The tenant agrees to a direct debit mandate via the Stripe payment integration, which allows STACEY to collect the X-month deposit as well as the monthly rent.</p></li>
-    <li><p>STACEY will then send the tenancy agreement for the provided room to the prospective tenant. The tenant concludes the official contract with the signing of the rental agreement. The tenant is then given an opposing copy of the lease agreement.</p></li>
+    <li><p>The customer can access the STACEY booking platform where he finds more information and images concerning the available suites.</p></li>
+    <li><p>By selecting an avaiable suite for a specific date range the customer is forward to the tenancy agreement for the desired room of the prospective tenant. The tenant concludes the official contract with the signing of the rental agreement online. The tenant has the opportunity to download a copy of the rental agreement at any time.</p></li>
     <li><p>The STACEY member shall inform the local registration office of his new place of residence or secondary residence within two weeks of moving according to the Meldegesetz (German Registration Act).</p></li>
   </ol>
 
@@ -138,7 +137,7 @@
   <p>STACEY may separately bill any additionally performed services only with prior consent of the user.</p>
   <div class="page-break"></div>
   <h4>4. Deposit</h4>
-  <p>Upon signing the contract the lessee pays a deposit that, depending on the length of the lease period, shall not exceed the sum of three basic rental charges (total rent excl. service charge). The deposit will be transferred through the direct debit mandate via the Stripe Billing integration to STACEY’s bank account.</p>
+  <p>Upon signing the contract the lessee pays a deposit that, depending on the length of the lease period, shall not exceed the sum of three basic rental charges (total rent excl. service charge). The deposit is paid through the online payment provider Stripe.</p>
   <p>The deposit serves as a security for the lessor who is allowed to deduct any claims that arise under this contract from the deposit.</p>
 
   <h4>5. Termination</h4>
@@ -224,7 +223,7 @@
 
   <h4 class="underline">INFROMATION OF THE RIGHT OF WITHDRAWAL</h4>
   <p class="bold">Right of withdrawal</p>
-  <p class="text-closer">You are entitled to withdraw from the membership within 14 days without giving reasons. The time limit for the withdrawal is 14 days from the date of concluding the agreement.</p>
+  <p class="text-closer">You are entitled to withdraw from the membership within 14 days without giving reasons. The time limit for the withdrawal is 14 days from the date of concluding the agreement. However, by moving-in within the period of 14 days after signing the agreement, you accept that you loose your right to exercise the right of withdrawal.</p>
   <p class="text-closer">To exercise the right of withdrawal, please inform us (STACEY Real Estate UG (haftungsbeschränkt), Brandstwiete 36, 20457 Hamburg, phone.: 040 696389600, email: hello@stacey-living.de) of your decision to withdraw from the Agreement as per item 8, by submitting a clearly worded declaration (e.g. by sending a letter by post, or sending a fax or email). You can use the attached withdrawal form template for this purpose, but the use of this form is not mandatory.</p>
   <p class="text-closer">In order to meet the withdrawal deadline it is sufficient to send the information about the exercise of the right of withdrawal before the end of the withdrawal deadline.</p>
   <p class="bold">Consequences of withdrawal</p>
