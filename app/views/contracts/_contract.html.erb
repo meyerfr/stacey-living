@@ -43,7 +43,7 @@
   </table>
   <div class="table-payment-terms">
     <p class="no-margin-top">
-      Payment terms: monthly, due 1 day before <%= @booking.move_in.strftime("%d/%m%/%Y") %> for the first month, and due the 1st day, at latest by the 3rd business day of each month for the following months. Deposit in form of 2-months rent is due upon signing the agreement.
+      Payment terms: monthly, due 1 day before <%= @booking.move_in.strftime("%d/%m/%Y") %> for the first month, and due the 1st day, at latest by the 3rd business day of each month for the following months. Deposit in form of 2-months rent is due upon signing the agreement.
     </p>
   </div>
 
@@ -135,7 +135,6 @@
   <p>In case the STACEY member is in default with paying the monthly rent, the STACEY member shall pay interest at 5% over the basic interest rate on the monthly rent during the late payment period. STACEY may terminate extraordinary per $ 543 subsection (2) No. 3 BGB, if the STACEY member is in default, on two successive times, of payment of the rent or a portion of the rent that is not insignificant, or in a period of time spanning more than two times is in default of payment of the rent in an amount that is as much as the amount of rent for two months.</p>
   <p>The monthly rent does not include costs of any repairs and maintenance required in connection with damage caused through the member's fault.</p>
   <p>STACEY may separately bill any additionally performed services only with prior consent of the user.</p>
-  <div class="page-break"></div>
   <h4>4. Deposit</h4>
   <p>Upon signing the contract the lessee pays a deposit that, depending on the length of the lease period, shall not exceed the sum of three basic rental charges (total rent excl. service charge). The deposit is paid through the online payment provider Stripe.</p>
   <p>The deposit serves as a security for the lessor who is allowed to deduct any claims that arise under this contract from the deposit.</p>
@@ -143,6 +142,7 @@
   <h4>5. Termination</h4>
   <p>The termination is not possible during the rent period as it is a fixed-term tenancy agreement. However, both parties agreed to the special termination right, stating that both parties have the right to annul the contract on the <%= (@booking.move_in + 3.months).strftime('%d/%m/%Y') %>. Therefore, the tenant or the lessor has to inform the other party 1 month prior to this date, otherwise this clause is void.</p>
 
+  <div class="page-break"></div>
   <h4>6. Extraordinary termination of mermbership</h4>
   <p>STACEY may terminate the extraordinarily independently of the existence of the existence of the lease if the member seriously violates this Rental Agreement or any of the terms at <%= link_to 'www.stacey-living.de/terms', 'www.stacey-living.de/terms' %>.</p>
   <p>A serious violation is deemed to be committed, in particular, when the member continously disrupts the peaceful cohabitation within the residential community, or violates the rules of conduct as defined in section 5 or creates multiple member accounts, uses the website in a manner violating applicable law, provides false, out-of-date or incomplete information during the registration process or fails to update same.</p>
@@ -170,8 +170,6 @@
   <p>If the user is a consumer within the meaning of §13 BGB [German Civil Code], he has the right of withdrawal as per § 355 BGB in respect of the membership agreement, provided that the agreement is a distance contract as per § 312 c BGB.</p>
   <p>According to § 312 c BGB, distance contracts are contracts for which the trader, or a person acting in the trader's name or on his behalf, and the consumer exclusively avail themselves of means of distance communication in negotiating and concluding the contract, unless the contract is concluded via a sales or a service system designated for distance sales.</p>
   <p>Means of distance communication in this context are all means of communication which can be used to initiate or to conclude a contract, without requiring the simultaneous physical presence of the parties to the contract, such as letters, catalogues, telephone calls, faxes, emails, text messages sent via the mobile telephone service (SMS) as well as messages broadcast and sent via teleservices.</p>
-
-  <div class="page-break"></div>
 
   <h4>10. Severability</h4>
   <p>If a provision of this agreement is or becomes leagally invalid or if there is any gap that needs to be filled, the valiedity of the remainder of the agreement shall not be affected therby. Invalid provisions shall be replaced by common consent with such provisions which come as close as possible to the intended result of the invalid provision.</p>
@@ -315,6 +313,8 @@
       </td>
     </tr>
   </table>
+
+  <div class="page-break"></div>
 
   <h2>(3) House Rules</h2>
   <h4>A. Mutual Consideration</h4>
