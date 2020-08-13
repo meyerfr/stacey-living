@@ -9,6 +9,9 @@
     <p class="header-pdf-text" id="space">and <strong>the tenant</strong></p>
     <p class="header-pdf-text"><%= @user.first_name %> <%= @user.last_name %></p>
     <p class="header-pdf-text">Born <%= @user.dob.strftime('%d/%m/%Y') %></p>
+    <% if (address = @user.address).present? %>
+      <p class="header-pdf-text"><%= address.address %></p>
+    <% end %>
   </div>
   <table class="date-address-table">
     <tr class="row">

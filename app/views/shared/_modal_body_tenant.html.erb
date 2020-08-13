@@ -1,0 +1,89 @@
+<div class="table-tabs">
+  <span class="booking-info-tab active">Booking Info</span>
+  <span class="user-info-tab">User Info</span>
+</div>
+<table class="user-info" id="booking-info">
+  <% booking = user.bookings.last %>
+  <tr>
+    <td>move in:</td>
+    <td><%= booking.move_in.strftime("%d. %B %Y") %></td>
+  </tr>
+  <tr>
+    <td>move out:</td>
+    <td><%= booking.move_out.strftime("%d. %B %Y") %></td>
+  </tr>
+  <tr>
+    <td>Status</td>
+    <td><%= booking.state %></td>
+  </tr>
+  <% if user.has_role?('tenant') && booking.room.present? %>
+    <tr>
+      <td>Location:</td>
+      <td><%= booking.roomtype.project.name %></td>
+    </tr>
+    <tr>
+      <td>Roomtype:</td>
+      <td><%= booking.roomtype.name %></td>
+    </tr>
+    <tr>
+      <td>Room Intern number:</td>
+      <td><%= booking.room.intern_number %></td>
+    </tr>
+    <tr>
+      <td>Room Housenumber</td>
+      <td><%= booking.room.house_number %></td>
+    </tr>
+  <% end %>
+  <tr>
+    <td>Booking Id:</td>
+    <td><%= booking.id %></td>
+  </tr>
+</table>
+<table class="user-info d-none" id="user-info">
+  <tr>
+    <td>Email:</td>
+    <td><%= mail_to user.email %></td>
+  </tr>
+  <tr>
+    <td>Phone:</td>
+    <td><%= user.phone_code %> <%= user.phone_number %></td>
+  </tr>
+  <tr>
+    <td>Job:</td>
+    <td><%= user.job %></td>
+  </tr>
+  <% if (gender = user.gender).present? %>
+    <tr>
+      <td>Gender:</td>
+      <td><%= gender %></td>
+    </tr>
+  <% end %>
+  <!-- address -->
+  <% if (address = user.address).present? %>
+    <tr>
+      <td>Address:</td>
+      <td><%= address.address %></td>
+    </tr>
+  <% end %>
+  <tr>
+    <td>Date of birth:</td>
+    <td><%= user.dob.strftime('%d. %B %Y') %></td>
+  </tr>
+  <!-- social_links -->
+  <% if (social_links = user.social_links).present? %>
+    <tr>
+      <td>Social Media:</td>
+      <td>
+        <% user.social_links[0...-1].each do |link| %>
+          <%= link.name.capitalize %>: <%= link_to "#{link.name}", link.url, target: :_blank %>,
+        <% end %>
+        <% last_social_link = user.social_links.last %>
+        <%= last_social_link.name.capitalize %>: <%= link_to "#{last_social_link.name}", last_social_link.url, target: :_blank %>
+      </td>
+    </tr>
+  <% end %>
+  <tr>
+    <td>Applied of the:</td>
+    <td><%= user.created_at.strftime('%d. %B %Y') %></td>
+  </tr>
+</table>

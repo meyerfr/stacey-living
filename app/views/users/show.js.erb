@@ -1,0 +1,33 @@
+
+// const switchTab = (event) => {
+//   const tableTabs = document.querySelector('.table-tabs')
+//   console.log('clicl')
+//   document.querySelectorAll('table.user-info').forEach((table) => {
+//     table.classList.toggle('d-none');
+//   })
+//   tableTabs.children.forEach((tab) => {
+//     tab.classList.toggle('active')
+//   })
+// }
+
+function addEventListenerToTableTabs() {
+  const tableTabsContainer = document.querySelector('.table-tabs')
+  if (tableTabsContainer) {
+    const tableTabsButton = Array.from(tableTabsContainer.children)
+    tableTabsButton.forEach((tab) => {
+      tab.addEventListener('click', function(){
+        document.querySelectorAll('table.user-info').forEach((table) => {
+          table.classList.toggle('d-none');
+        })
+        tableTabsButton.forEach((tab) => {
+          tab.classList.toggle('active')
+        })
+      })
+    })
+  }
+}
+
+var userInfoModal = document.getElementById('user-info-modal');
+userInfoModal.innerHTML = '<%= j render "shared/user_info_modal", user: @user %>';
+$('.modal').modal('show');
+addEventListenerToTableTabs();

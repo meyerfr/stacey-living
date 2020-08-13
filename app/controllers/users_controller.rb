@@ -42,6 +42,13 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    # @last_booking = @user.bookings.last
+    # @prefered_suites = @user.prefered_suites
+    # @address = @user.address if @user.address.present?
+    respond_to do |format|
+      format.html { render 'users/show' }
+      format.js # <-- will render `app/views/users/show.js.erb`
+    end
   end
 
   def edit
@@ -61,6 +68,13 @@ class UsersController < ApplicationController
 
   def destroy
   end
+
+  # def open_user_modal
+  #   @user = User.find(params[:id])
+  #   respond_to do |format|
+  #     format.html { render }
+  #   end
+  # end
 
   private
 

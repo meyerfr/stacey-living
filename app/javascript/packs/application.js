@@ -28,8 +28,13 @@ import { addEventListenerToTaC } from '../termsAndConditions'
 // import { datepicker } from '../datepicker';
 
 import { addEventListenerToAttendanceButtons } from '../updateWelcomeCallAttendance'
+import { addEventListenerToListContextContainer } from '../openUserModal'
 
+// import { addEventListenerToTableTabs } from '../modalTabs'
+
+// addEventListenerToListContextContainer();
 addEventListenerToAttendanceButtons();
+// addEventListenerToTableTabs();
 payment();
 // stripeProcess();
 onlyOneBox();
@@ -51,10 +56,10 @@ addEventListenersToDateField();
 // deleteUnnecessaryDays();
 addEventListenerToTaC();
 
-document.addEventListener('turbolinks:load', () => {
+// document.addEventListener('turbolinks:load', () => {
   initMapbox();
   initAutocomplete();
   addAmenity()
   newRoomFieldHandler();
   signing();
-})
+// })
