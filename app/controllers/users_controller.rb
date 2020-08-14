@@ -42,6 +42,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    @page = params.fetch(:page)
     # @last_booking = @user.bookings.last
     # @prefered_suites = @user.prefered_suites
     # @address = @user.address if @user.address.present?

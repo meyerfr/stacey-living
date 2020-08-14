@@ -28,6 +28,6 @@ function addEventListenerToTableTabs() {
 }
 
 var userInfoModal = document.getElementById('user-info-modal');
-userInfoModal.innerHTML = '<%= j render "shared/user_info_modal", user: @user %>';
+userInfoModal.innerHTML = '<%= j render "shared/user_info_modal", user: @user, page: @page %>';
 $('.modal').modal('show');
 addEventListenerToTableTabs();

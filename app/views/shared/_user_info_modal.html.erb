@@ -3,7 +3,11 @@
     <div class="modal-content">
       <div class="modal-header">
         <div class="user-status"><%= user.role %></div>
-        <h5 class="modal-title" id="exampleModalLabel"><%= user.full_name %></h5>
+        <% if page != 'welcome_call' %>
+          <h5 class="modal-title" id="exampleModalLabel"><%= user.full_name %></h5>
+        <% else %>
+          <h5 class="modal-title" id="exampleModalLabel"><%= user.full_name %> -- <%= user.bookings.last.welcome_calls.last.start_time.strftime('%H:%M') %></h5>
+        <% end %>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -19,10 +23,12 @@
             <% end %>
           </span>
         <% end %>
-        <% if user.has_role?('tenant') %>
+        <% if page == 'booking' %>
           <%= render 'shared/modal_body_tenant', user: user %>
-        <% else %>
+        <% elsif page == 'user' %>
           <%= render 'shared/modal_body_applicant', user: user %>
+        <% elsif page == 'welcome_call' %>
+          <%= render 'shared/modal_body_welcome_call', user: user %>
         <% end %>
       </div>
       <div class="modal-footer">

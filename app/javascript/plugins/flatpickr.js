@@ -1,5 +1,5 @@
 import flatpickr from "flatpickr";
-import {get_move_in_date} from '../bookingForm/dateHandler';
+import {get_move_in_date} from '../booking/dateHandler';
 
 var moveInField = document.getElementById('booking_room_id');
 if (moveInField) {

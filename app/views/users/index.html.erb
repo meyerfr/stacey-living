@@ -55,7 +55,7 @@
       </div>
       <% @users.each do |user| %>
         <!-- Large modal -->
-        <%= link_to user_path(user), remote: true, class: 'list-context-container user-info-container' do %>
+        <%= link_to user_path(user, page: 'user'), remote: true, class: 'list-context-container user-info-container' do %>
             <div class="list-info">
               <span class="set-width"><%= user.full_name %></span>
               <span class="set-width"><%= user.email %></span>
