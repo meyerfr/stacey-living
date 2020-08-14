@@ -22,7 +22,7 @@ import { newRoomFieldHandler } from '../createRoomAttribute';
 import { selectAmenity } from '../selectAmenity';
 // import { selectMoveInDate } from '../selectMoveInBookingForm';
 import { deleteUnnecessaryDays } from '../bookingFormMoveOutDates';
-import { addEventListenersToDateField } from '../bookingForm/dateHandler'
+import { addEventListenersToDateField } from '../booking/dateHandler'
 
 import { addEventListenerToTaC } from '../termsAndConditions'
 // import { datepicker } from '../datepicker';
@@ -30,11 +30,8 @@ import { addEventListenerToTaC } from '../termsAndConditions'
 import { addEventListenerToAttendanceButtons } from '../updateWelcomeCallAttendance'
 import { addEventListenerToListContextContainer } from '../openUserModal'
 
-// import { addEventListenerToTableTabs } from '../modalTabs'
-
 // addEventListenerToListContextContainer();
 addEventListenerToAttendanceButtons();
-// addEventListenerToTableTabs();
 payment();
 // stripeProcess();
 onlyOneBox();
