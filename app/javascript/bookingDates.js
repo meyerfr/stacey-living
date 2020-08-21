@@ -41,9 +41,11 @@ const checkMoveInDate = (event) => {
   } else if (moveOut.childElementCount === 3) {
     moveOut.children[2].remove();
   }
+  console.log('checkMoveInDate')
 }
 
 const checkMoveOutDate = (event) => {
+  console.log('checkMoveOutDate')
   var moveInDateSelections = moveIn.children[1].children;
   const moveInDate = new Date(parseInt(moveInDateSelections[2].value), parseInt(moveInDateSelections[1].value)-1, parseInt(moveInDateSelections[0].value));
 

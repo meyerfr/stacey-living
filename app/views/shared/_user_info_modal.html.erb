@@ -1,0 +1,67 @@
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="user-status"><%= user.role %></div>
+        <% if page != 'welcome_call' %>
+          <h5 class="modal-title" id="exampleModalLabel"><%= user.full_name %></h5>
+        <% else %>
+          <h5 class="modal-title" id="exampleModalLabel"><%= user.full_name %> -- <%= user.bookings.last.welcome_calls.last.start_time.strftime('%H:%M') %></h5>
+        <% end %>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <% if (users_last_booking = user.bookings.last).present?  %>
+          <span class="invite-link">
+            <% if (booking_process_invite_send = users_last_booking.booking_process_invite_send).present?  %>
+              <p>Booking process invite has been send on the <%= booking_process_invite_send.strftime('%d. %B %Y') %></p>
+              <%= link_to 'send again', booking_send_booking_process_invite_path(users_last_booking), style: 'margin-left: 40px' %>
+            <% else %>
+              <%= link_to 'send booking process invite', booking_send_booking_process_invite_path(users_last_booking) %>
+            <% end %>
+          </span>
+        <% end %>
+        <% if page == 'booking' %>
+          <%= render 'shared/modal_body_tenant', user: user %>
+        <% elsif page == 'user' %>
+          <%= render 'shared/modal_body_applicant', user: user %>
+        <% elsif page == 'welcome_call' %>
+          <%= render 'shared/modal_body_welcome_call', user: user %>
+        <% end %>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--
+<script>
+  const tableTabs = document.querySelector('.table-tabs')
+
+  const switchTab = (event) => {
+    console.log('clicl')
+    document.querySelectorAll('table.user-info').forEach((table) => {
+      table.classList.toggle('d-none');
+    })
+    tableTabs.children.forEach((tab) => {
+      tab.classList.toggle('active')
+    })
+  }
+
+  function addEventListenerToTableTabs() {
+
+    if (tableTabs) {
+      tableTabs.children.forEach((tab) => {
+        console.log('add addEventListener')
+        tab.addEventListener('click', switchTab)
+      })
+    }
+  }
+
+  addEventListenerToTableTabs()
+</script> -->

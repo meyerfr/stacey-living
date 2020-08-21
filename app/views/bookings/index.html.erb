@@ -75,147 +75,26 @@
       </div>
       <% @bookings.each do |booking| %>
         <% user = booking.user %>
-        <div class="list-context-container">
-          <div class="list-info">
-            <span class="set-width"><%= user.full_name %></span>
-            <span class="set-width"><%= user.email %></span>
-            <div class="duration-dates set-width">
-              <%= booking.move_in.strftime("%d.%m %Y") %> – <%= booking.move_out.strftime("%d.%m %Y") %>
-            </div>
-            <div class="details d-flex set-width">
-              <i class="fas fa-caret-right"></i>
-              <i class="fas fa-caret-down d-none"></i>
-              <span>Details</span>
-            </div>
-          </div>
-          <div class="list-detail d-none two-tables">
-            <table class="user-info">
-              <tr>
-                <th>Booking Info</th>
-              </tr>
-              <tr>
-                <td>Status</td>
-                <td><%= booking.state %></td>
-              </tr>
-              <tr>
-                <td>move in:</td>
-                <td><%= booking.move_in.strftime("%d. %B %Y") %></td>
-              </tr>
-              <tr>
-                <td>move out:</td>
-                <td><%= booking.move_out.strftime("%d. %B %Y") %></td>
-              </tr>
-              <% if user.has_role?('tenant') && booking.room.present? %>
-                <tr>
-                  <td>Location:</td>
-                  <td><%= booking.roomtype.project.name %></td>
-                </tr>
-                <tr>
-                  <td>Roomtype:</td>
-                  <td><%= booking.roomtype.name %></td>
-                </tr>
-                <tr>
-                  <td>Room Intern number:</td>
-                  <td><%= booking.room.intern_number %>,</td>
-                </tr>
-                <tr>
-                  <td>Room Housenumber</td>
-                  <td><%= booking.room.house_number %></td>
-                </tr>
-              <% end %>
-              <tr>
-                <td>Booking Id:</td>
-                <td><%= booking.id %></td>
-              </tr>
-            </table>
-            <table class="user-info">
-              <tr>
-                <th>User Info</th>
-              </tr>
-              <tr>
-                <td>Email:</td>
-                <td><%= user.email %></td>
-              </tr>
-              <tr>
-                <td>Phone:</td>
-                <td><%= user.phone_code %> <%= user.phone_number %></td>
-              </tr>
-              <tr>
-                <td>Amount of People:</td>
-                <td><%= user.amount_of_people %></td>
-              </tr>
-              <tr>
-                <td>Job:</td>
-                <td><%= user.job %></td>
-              </tr>
-              <% if (gender = user.gender).present? %>
-                <tr>
-                  <td>Gender:</td>
-                  <td><%= gender %></td>
-                </tr>
-              <% end %>
-              <% if (address = user.address).present? %>
-                <tr>
-                  <td>Address:</td>
-                  <td><%= address.address %></td>
-                </tr>
-              <% end %>
-              <tr>
-                <td>Date of birth:</td>
-                <td><%= user.dob.strftime('%d. %B %Y') %></td>
-              </tr>
-              <% if (social_links = user.social_links).present? %>
-                <tr>
-                  <td>Social Media:</td>
-                  <td>
-                    <% user.social_links[0...-1].each do |link| %>
-                      <span>
-                        <%= link.name.capitalize %>: <%= link_to "#{link.name}", link.url, target: :_blank %>,
-                      </span>
-                    <% end %>
-                    <% last_social_link = user.social_links.last %>
-                    <span>
-                      <%= last_social_link.name.capitalize %>: <%= link_to "#{last_social_link.name}", last_social_link.url, target: :_blank %>
-                    </span>
-                  </td>
-                </tr>
-              <% end %>
-              <tr>
-                <td>Applied on the:</td>
-                <td><%= user.created_at.strftime('%d. %B %Y') %></td>
-              </tr>
-            </table>
-          </div>
-        </div>
-      <% end %>
-      <div class="pagination row">
-        <% if @page_count > 1 %>
-          <% if @page > 0 && @page == @page_count %>
-            <div class="col-3 offset-4 pagination-link">
-              <%= link_to "Previous Page", users_path(page: @page - 1), class: "btn btn-red btn-fullsize" %>
-            </div>
-            <div class="col-3 pagination-link">
-              <%= link_to "Next Page", users_path(page: @page + 1), class: "btn btn-red btn-fullsize disabled" %>
-            </div>
-          <% elsif @page == 0 && @page < @page_count %>
-            <div class="col-3 offset-4 pagination-link">
-              <%= link_to "Previous Page", users_path(page: @page - 1), class: "btn btn-red btn-fullsize disabled" %>
-            </div>
-            <div class="col-3 pagination-link">
-              <%= link_to "Next Page", users_path(page: @page + 1), class: "btn btn-red btn-fullsize" %>
-            </div>
-          <% else %>
-            <div class="col-3 offset-4 pagination-link">
-              <%= link_to "Previous Page", users_path(page: @page - 1), class: "btn btn-red btn-fullsize" %>
-            </div>
-            <div class="col-3 pagination-link">
-              <%= link_to "Next Page", users_path(page: @page + 1), class: "btn btn-red btn-fullsize" %>
+        <!-- <div class="list-context-container"> -->
+          <%= link_to user_path(user, page: 'booking'), remote: true, class: 'list-context-container user-info-container' do %>
+            <div class="list-info">
+              <span class="set-width"><%= user.full_name %></span>
+              <span class="set-width"><%= user.email %></span>
+              <div class="duration-dates set-width">
+                <%= booking.move_in.strftime("%d.%m %Y") %> – <%= booking.move_out.strftime("%d.%m %Y") %>
+              </div>
+              <div class="details d-flex set-width">
+                <i class="fas fa-caret-right"></i>
+                <i class="fas fa-caret-down d-none"></i>
+                <span>Details</span>
+              </div>
             </div>
           <% end %>
-        <% else %>
-          <p class="list-end">You´ve reached the end of the list</p>
-        <% end %>
-      </div>
+        <!-- </div> -->
+      <% end %>
+      <%= render 'shared/pagination', path: bookings_path %>
     </div>
   </div>
 </div>
+
+<div id="user-info-modal"></div>

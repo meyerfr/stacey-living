@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   devise_for :users
   root to: 'booking/process#apply'
   resources :users
+  get 'open_user_modal', to: 'users#open_user_modal', as: 'open_user_modal'
   resources :partners
   resources :amenities
 

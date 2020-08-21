@@ -22,13 +22,15 @@ import { newRoomFieldHandler } from '../createRoomAttribute';
 import { selectAmenity } from '../selectAmenity';
 // import { selectMoveInDate } from '../selectMoveInBookingForm';
 import { deleteUnnecessaryDays } from '../bookingFormMoveOutDates';
-import { addEventListenersToDateField } from '../bookingForm/dateHandler'
+import { addEventListenersToDateField } from '../booking/dateHandler'
 
 import { addEventListenerToTaC } from '../termsAndConditions'
 // import { datepicker } from '../datepicker';
 
 import { addEventListenerToAttendanceButtons } from '../updateWelcomeCallAttendance'
+import { addEventListenerToListContextContainer } from '../openUserModal'
 
+// addEventListenerToListContextContainer();
 addEventListenerToAttendanceButtons();
 payment();
 // stripeProcess();
@@ -51,10 +53,10 @@ addEventListenersToDateField();
 // deleteUnnecessaryDays();
 addEventListenerToTaC();
 
-document.addEventListener('turbolinks:load', () => {
+// document.addEventListener('turbolinks:load', () => {
   initMapbox();
   initAutocomplete();
   addAmenity()
   newRoomFieldHandler();
   signing();
-})
+// })
