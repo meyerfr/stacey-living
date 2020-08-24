@@ -188,7 +188,11 @@ class WelcomeCallsController < ApplicationController
     end
     @date_available_times = @welcome_calls.select { |call| call.start_time.to_date == @date }
     @month_helper = params[:month].to_date if params[:month]
-    @month_param = params[:month] && Date.today <= @month_helper && @month_helper <= Date.today + 14.days ? @month_helper : Date.today
+    @month_param = if params[:month] && Date.today <= @month_helper  && @month_helper <= Date.today + 14.days
+                     @month_helper
+                   else
+                     Date.today
+                   end
     @date_range = (@month_param.beginning_of_month.beginning_of_week..@month_param.end_of_month.end_of_week).to_a
   end
 end

@@ -12,7 +12,8 @@ const changeAttendance = (event) => {
   event.preventDefault();
   const target = event.currentTarget;
   const formData = new FormData()
-  const welcome_call_id = document.getElementById('welcome_call_id').innerText
+  const welcome_call_id = target.parentElement.children[0].innerText
+  console.log(welcome_call_id);
   formData.append('id', welcome_call_id)
   if (event.currentTarget.classList.contains('attended')) {
     formData.append('attendance', 'true')

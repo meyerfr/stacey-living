@@ -19,11 +19,11 @@
       <div class="calendar-header">
         <div class="title"><%= Date::MONTHNAMES[@month_param.month] %> <%= @month_param.strftime("%Y") %></div>
         <div class="arrows">
-          <% if (@month_param + 9.days).month == Date.today.next_month.month && (@month_param + 9.days).month != @month_param.month %>
+          <% if (@month_param + 14.days).month == Date.today.next_month.month && (@month_param + 14.days).month != @month_param.month %>
             <%= link_to '<', '#', class: 'not-clickable title' %>
             <%= link_to '>', new_booking_welcome_call_path(@booking.booking_auth_token, @booking, date: @date.strftime("%Y-%m-%d"), month: @month_param.next_month.beginning_of_month.strftime('%Y-%m-%d')), class: 'title' %>
           <% elsif (@month_param.month == Date.today.next_month.month) %>
-            <%= link_to '<', new_booking_welcome_call_path(@booking.booking_auth_token, @booking, date: @date.strftime("%Y-%m-%d"), month: @month_param.next_month.strftime('%Y-%m-%d')), class: 'title' %>
+            <%= link_to '<', new_booking_welcome_call_path(@booking.booking_auth_token, @booking, date: @date.strftime("%Y-%m-%d"), month: @month_param.prev_month.strftime('%Y-%m-%d')), class: 'title' %>
             <%= link_to '>', '#', class: 'not-clickable title' %>
           <% end %>
         </div>

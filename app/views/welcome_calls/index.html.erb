@@ -43,37 +43,33 @@
         <div class="date">
           <%= date.today? ? 'Today' : date.strftime("%A, %d %B %Y") %>
         </div>
-        <!-- <div class="list-context-container"> -->
-          <% unless @welcome_calls.empty? %>
-            <% @welcome_calls.where(start_time: date.all_day).each do |call| %>
-              <span class="d-none" id="welcome_call_id"><%= call.id %></span>
-              <!-- <div class="call-list-item-container"> -->
-                <%= link_to user_path(call.booking.user, page: 'welcome_call'), remote: true, class: 'list-context-container user-info-container' do %>
-                <!-- <div class="list-context-container"> -->
-                  <div class="list-info">
-                    <span><%= call.start_time.strftime("%H:%M") %> - <%= call.end_time.strftime("%H:%M") %></span>
-                    <span><%= call.name %></span>
-                    <% if date <= Date.today %>
-                      <div class="attendance">
-                        <% if call.attendance %>
-                          <span class="attended attendance-button green"><i class="fas fa-thumbs-up"></i></span>
-                          <span class="not-attended attendance-button"><i class="fas fa-thumbs-down"></i></span>
-                        <% elsif call.attendance == false %>
-                          <span class="attended attendance-button"><i class="fas fa-thumbs-up"></i></span>
-                          <span class="not-attended attendance-button red"><i class="fas fa-thumbs-down"></i></span>
-                        <% else %>
-                          <span class="attended attendance-button"><i class="fas fa-thumbs-up"></i></span>
-                          <span class="not-attended attendance-button"><i class="fas fa-thumbs-down"></i></span>
-                        <% end %>
-                      </div>
+        <% unless @welcome_calls.empty? %>
+          <% @welcome_calls.where(start_time: date.all_day).each do |call| %>
+            <div class="list-context-container">
+              <div class="list-info">
+                <span><%= call.start_time.strftime("%H:%M") %> - <%= call.end_time.strftime("%H:%M") %></span>
+                <%= link_to call.name, user_path(call.booking.user, page: 'welcome_call'), remote: true, class: 'open-user-modal user-info-container' %>
+                <div class="attendance">
+                  <span class="d-none" id="welcome_call_id"><%= call.id %></span>
+                  <% if date <= Date.today %>
+                    <% if call.attendance %>
+                      <span class="attended attendance-button green"><i class="fas fa-thumbs-up"></i></span>
+                      <span class="not-attended attendance-button"><i class="fas fa-thumbs-down"></i></span>
+                    <% elsif call.attendance == false %>
+                      <span class="attended attendance-button"><i class="fas fa-thumbs-up"></i></span>
+                      <span class="not-attended attendance-button red"><i class="fas fa-thumbs-down"></i></span>
+                    <% else %>
+                      <span class="attended attendance-button"><i class="fas fa-thumbs-up"></i></span>
+                      <span class="not-attended attendance-button"><i class="fas fa-thumbs-down"></i></span>
                     <% end %>
-                  </div>
-                <% end %>
-            <% end %>
-          <% else %>
-            <p>Sorry, but there are no calls with that person scheduled</p>
+                  <% end %>
+                </div>
+              </div>
+            </div>
           <% end %>
-        <!-- </div> -->
+        <% else %>
+          <p>Sorry, but there are no calls with that person scheduled</p>
+        <% end %>
       <% end %>
       <p class="list-end">You´ve reached the end of the list</p>
     </div>

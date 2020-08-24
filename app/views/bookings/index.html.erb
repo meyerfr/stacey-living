@@ -70,7 +70,7 @@
           <span class="list-header set-width">Name</span>
           <span class="list-header set-width">Email</span>
           <span class="list-header set-width">MoveIn - MoveOut</span>
-          <span class="list-header details-header set-width">Detail</span>
+          <!-- <span class="list-header details-header set-width">Detail</span> -->
         </div>
       </div>
       <% @bookings.each do |booking| %>
@@ -83,11 +83,11 @@
               <div class="duration-dates set-width">
                 <%= booking.move_in.strftime("%d.%m %Y") %> – <%= booking.move_out.strftime("%d.%m %Y") %>
               </div>
-              <div class="details d-flex set-width">
+              <!-- <div class="details d-flex set-width">
                 <i class="fas fa-caret-right"></i>
                 <i class="fas fa-caret-down d-none"></i>
                 <span>Details</span>
-              </div>
+              </div> -->
             </div>
           <% end %>
         <!-- </div> -->

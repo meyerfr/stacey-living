@@ -71,6 +71,7 @@ class BookingsController < ApplicationController
       users = User.where(sql_query, search: "%#{params[:search]}%")
 
       @bookings = Booking.order(created_at: :desc).select{|b| users.include?(b.user) }
+      @page_count = 0
     else
       @page = params.fetch(:page, 0).to_i
       @page_count = @bookings.count / BOOKINGS_PER_PAGE
