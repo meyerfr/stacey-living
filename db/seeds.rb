@@ -111,6 +111,9 @@ bookings = [
   {room_number: 'EW16', full_name: 'Nicolas Claudet', email: 'nico.claudet@icloud.com', move_in: '01.10.2020', move_out: '14.07.2021'}
 ]
 
+puts('destroy all Projects')
+Project.destroy_all
+
 NOT_FOUND_USERS = []
 
 def find_users_by_email_or_name(email, full_name)
@@ -790,7 +793,7 @@ if Amenity.count == 0
     "bedding" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591608023/pillow.png'),
     "double bed" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591608024/bed.png'),
     "queensize bed" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591608608/king_size_bed.png'),
-    "shared bathroom" = URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1594203504/toilet-paper.png')
+    "shared bathroom" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1594203504/toilet-paper.png')
   }
 
   puts('create Amenities')
