@@ -16,16 +16,18 @@
     <td>Phone:</td>
     <td><%= user.phone_code %> <%= user.phone_number %></td>
   </tr>
-  <tr>
-    <td>Prefered Suites:</td>
-    <td>
-      <% user.prefered_suites[0...-1].each do |suite| %>
-        <%= suite.roomtype.name %>,
-      <% end %>
-      <% last_prefered_suite = user.prefered_suites.last %>
-      <%= last_prefered_suite.roomtype.name %>
-    </td>
-  </tr>
+  <% if (prefered_suites = user.prefered_suites).present? %>
+    <tr>
+      <td>Prefered Suites:</td>
+      <td>
+        <% user.prefered_suites[0...-1].each do |suite| %>
+          <%= suite.roomtype.name %>,
+        <% end %>
+        <% last_prefered_suite = user.prefered_suites.last %>
+        <%= last_prefered_suite.roomtype.name %>
+      </td>
+    </tr>
+  <% end %>
   <tr>
     <td>Amount of People:</td>
     <td><%= user.amount_of_people %></td>
