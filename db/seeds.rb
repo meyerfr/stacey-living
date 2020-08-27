@@ -37,7 +37,7 @@ bookings = [
   {room_number: 'D15', full_name: 'Gino Lodola', email: 'gino.lodola@hotmail.com', move_in: '30.12.2019', move_out: '31.08.2020'},
   {room_number: 'D15', full_name: 'Simon Hoese', email: 'simonhoese@gmx.de', move_in: '01.09.2020', move_out: '30.11.2020'},
   {room_number: 'D16', full_name: 'Kyley Rosser', email: 'kyleyrosser99@gmail.com', move_in: '07.10.2019', move_out: '06.06.2020'},
-  {room_number: 'D16', full_name: 'Carolin Stahl', email: 'carolin.stahl@aol.de',  move_in: '04.06.2020', move_out: '31.09.2020'},
+  {room_number: 'D16', full_name: 'Carolin Stahl', email: 'carolin.stahl@aol.de',  move_in: '04.06.2020', move_out: '30.09.2020'},
   {room_number: 'D17', full_name: 'Andrea Cianfarani', email: 'andrea.cianfarani@hotmail.com', move_in: '04.10.2019', move_out: '03.04.2020'},
   {room_number: 'D17', full_name: 'Charles Herbert', email: 'c.herbert04@gmail.com', move_in: '03.04.2020', move_out: '21.08.2020'},
   {room_number: 'D17', full_name: 'Philip Pineda', email: 'pipopin@googlemail.com',  move_in: '22.08.2020', move_out: '30.11.2020'},
@@ -110,6 +110,21 @@ bookings = [
   {room_number: 'EW14', full_name: 'Emma Widmer', email: '', move_in: '01.10.2020', move_out: '28.02.2021 '},
   {room_number: 'EW16', full_name: 'Nicolas Claudet', email: 'nico.claudet@icloud.com', move_in: '01.10.2020', move_out: '14.07.2021'}
 ]
+
+# not_found_dates = []
+# bookings.each do |booking_hash|
+#   begin
+#    Date.parse(booking_hash[:move_in])
+#   rescue ArgumentError
+#      # handle invalid date
+#     not_found_dates << booking_hash[:move_in]
+#   end
+#   begin
+#     Date.parse(booking_hash[:move_out])
+#   rescue ArgumentError
+#     not_found_dates << booking_hash[:move_out]
+#   end
+# end
 
 puts('destroy all Projects')
 Project.destroy_all
