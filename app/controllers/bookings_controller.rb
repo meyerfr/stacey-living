@@ -43,7 +43,11 @@ class BookingsController < ApplicationController
                            end
     end
 
-    @total_current_room_bookings = @bookings.count
+    @total_current_room_bookings = @bookings.where(
+      "bookings.move_in <= :todays_date AND bookings.move_out >= :todays_date AND bookings.state = :booked_state",
+      todays_date: Date.today,
+      booked_state: 'booked'
+    ).count
 
     if @time_param == 'upcoming'
       # @bookings = @bookings.select{ |booking| booking.move_in >= Date.today}
