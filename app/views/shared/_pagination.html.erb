@@ -2,24 +2,24 @@
   <% if @page_count > 0 %>
     <% if @page > 0 && @page == @page_count %>
       <div class="pagination-link">
-        <%= link_to "Previous Page", path + "?page=#{@page - 1}", class: "btn btn-red btn-fullsize" %>
+        <%= link_to "Previous Page", path + "&page=#{@page - 1}", class: "btn btn-red btn-fullsize" %>
       </div>
       <div class="pagination-link">
-        <%= link_to "Next Page", path + "?page=#{@page + 1}", class: "btn btn-red btn-fullsize disabled" %>
+        <%= link_to "Next Page", path + "&page=#{@page + 1}", class: "btn btn-red btn-fullsize disabled" %>
       </div>
     <% elsif @page == 0 && @page < @page_count %>
       <div class="pagination-link">
-        <%= link_to "Previous Page", path + "?page=#{@page - 1}", class: "btn btn-red btn-fullsize disabled" %>
+        <%= link_to "Previous Page", path + "&page=#{@page - 1}", class: "btn btn-red btn-fullsize disabled" %>
       </div>
       <div class="pagination-link">
-        <%= link_to "Next Page", path + "?page=#{@page + 1}", class: "btn btn-red btn-fullsize" %>
+        <%= link_to "Next Page", path + "&page=#{@page + 1}", class: "btn btn-red btn-fullsize" %>
       </div>
     <% else %>
       <div class="pagination-link">
-        <%= link_to "Previous Page", path + "?page=#{@page - 1}", class: "btn btn-red btn-fullsize" %>
+        <%= link_to "Previous Page", path + "&page=#{@page - 1}", class: "btn btn-red btn-fullsize" %>
       </div>
       <div class="pagination-link">
-        <%= link_to "Next Page", path + "?page=#{@page + 1}", class: "btn btn-red btn-fullsize" %>
+        <%= link_to "Next Page", path + "&page=#{@page + 1}", class: "btn btn-red btn-fullsize" %>
       </div>
     <% end %>
   <% else %>
