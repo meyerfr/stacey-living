@@ -67,7 +67,7 @@
             </div>
         <% end %>
       <% end %>
-      <%= render 'shared/pagination', path: users_path %>
+      <%= render 'shared/pagination', path: users_path(user_group: @user_group_param, time: @time_param) %>
     </div>
   </div>
 </div>

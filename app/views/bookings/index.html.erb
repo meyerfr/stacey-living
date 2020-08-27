@@ -92,7 +92,7 @@
           <% end %>
         <!-- </div> -->
       <% end %>
-      <%= render 'shared/pagination', path: bookings_path %>
+      <%= render 'shared/pagination', path: bookings_path(project_name: @project_param, room_name: @room_name_param, time: @time_param) %>
     </div>
   </div>
 </div>
