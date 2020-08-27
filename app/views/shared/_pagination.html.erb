@@ -1,5 +1,5 @@
 <div class="pagination row">
-  <% if @page_count > 1 %>
+  <% if @page_count > 0 %>
     <% if @page > 0 && @page == @page_count %>
       <div class="pagination-link">
         <%= link_to "Previous Page", path + "?page=#{@page - 1}", class: "btn btn-red btn-fullsize" %>

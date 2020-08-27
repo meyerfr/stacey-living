@@ -3,8 +3,7 @@ require "open-uri"
 bookings = [
   {room_number: 'D01', full_name: 'Anna Weirauch', email: 'team@stacey-living.de', move_in: '01.10.2019', move_out: '31.03.2020'},
   {room_number: 'D01', full_name: 'Carolin Helena Klaus', email: 'carolin_klaus@outlook.de',  move_in: '31.03.2020', move_out: '01.09.2020'},
-  {room_number: 'D01', full_name: 'Lina Drozd', email: 'linadrozd5@gmail.com',  move_in: '02.09.2020', move_out: '05.01.2021'},
-  {room_number: 'D02', full_name: 'Marvin Wobbe', email: 'marvin.wobbe@gmx.de', move_in: '24.08.2019', move_out: '23.03.2020'},
+  {room_number: 'D01', full_name: 'Lina Drozd', email: 'linadrozd5@gmail.com',  move_in: '02.09.2020', move_out: '05.01.2021'}
   {room_number: 'D02', full_name: 'Andreas Janz', email: 'andreas.janz@gmail.com',  move_in: '24.03.2020', move_out: '30.09.2020'},
   {room_number: 'D02', full_name: 'Chloe Bernard', email: 'chloe.bernard8@gmail.com',  move_in: '01.10.2020', move_out: '05.01.2021'},
   {room_number: 'D03', full_name: 'Clarissa Leu', email: 'clacoleu@aol.com',  move_in: '05.08.2019', move_out: '05.03.2020'},
@@ -15,7 +14,6 @@ bookings = [
   {room_number: 'D05', full_name: 'Mark Veldkamp', email: 'mark_veldkamp@hotmail.nl',  move_in: '15.05.2020', move_out: '23.08.2020'},
   {room_number: 'D05', full_name: 'Francesco Lo Piccolo', email: 'frlpiccolo@gmail.com',  move_in: '26.08.2020', move_out: '31.08.2020'},
   {room_number: 'D05', full_name: 'Amelie Lessmann', email: 'amelielessmann26@gmail.com',  move_in: '01.09.2020', move_out: '30.09.2021'},
-  {room_number: 'D06', full_name: 'Nicolae Puican', email: 'n.a.puican@gmail.com',  move_in: '01.09.2019', move_out: '30.11.2019'},
   {room_number: 'D06', full_name: 'Christian Ritterbach', email: 'ch.ritterbach@t-online.de', move_in: '01.12.2019', move_out: '31.05.2020'},
   {room_number: 'D06', full_name: 'Alyssa Eybächer', email: 'alyssa.eybaecher@gmail.com',  move_in: '02.07.2020', move_out: '30.09.2021'},
   {room_number: 'D07', full_name: 'Cristian Obersterescu', email: 'cristian.obersterescu@gmail.com', move_in: '31.07.2019', move_out: '30.01.2021'},
@@ -25,9 +23,7 @@ bookings = [
   {room_number: 'D09', full_name: 'Candido Castillo', email: 'candidodomingocastillo@gmail.com',  move_in: '04.10.2019', move_out: '03.09.2020'},
   {room_number: 'D10', full_name: 'Antonia Rudolf', email: 'antoniarudolf@aol.com', move_in: '31.08.2019', move_out: '29.02.2020'},
   {room_number: 'D10', full_name: 'Francisco Coutinho', email: 'flgpc@hotmail.com', move_in: '01.03.2020', move_out: '28.02.2021'},
-  {room_number: 'D11', full_name: 'Dominik Moskalik', email: 'dmoskalik@web.de',  move_in: '31.08.2019', move_out: '30.09.2020'},
   {room_number: 'D11', full_name: 'Jonas Simonsen', email: 'simonsenjonas@aol.de',  move_in: '01.10.2020', move_out: '05.01.2021'},
-  {room_number: 'D12', full_name: 'Christoph Häberlin', email: 'christoph.haeberlin@gmail.com', move_in: '27.07.2019', move_out: '26.01.2021'},
   {room_number: 'D13', full_name: 'Gauriesh Bindra', email: 'gaurieshbindra@gmail.com',  move_in: '02.08.2019', move_out: '26.01.2020'},
   {room_number: 'D13', full_name: 'Javier Randez Garbayo', email: 'javier_93_rg@hotmail.com',  move_in: '27.01.2020', move_out: '26.07.2021'},
   {room_number: 'D14', full_name: 'Arkaprabha Ray', email: 'arkadeep97@gmail.com',  move_in: '01.09.2019', move_out: '27.01.2020'},
@@ -40,19 +36,17 @@ bookings = [
   {room_number: 'D16', full_name: 'Carolin Stahl', email: 'carolin.stahl@aol.de',  move_in: '04.06.2020', move_out: '30.09.2020'},
   {room_number: 'D17', full_name: 'Andrea Cianfarani', email: 'andrea.cianfarani@hotmail.com', move_in: '04.10.2019', move_out: '03.04.2020'},
   {room_number: 'D17', full_name: 'Charles Herbert', email: 'c.herbert04@gmail.com', move_in: '03.04.2020', move_out: '21.08.2020'},
-  {room_number: 'D17', full_name: 'Philip Pineda', email: 'pipopin@googlemail.com',  move_in: '22.08.2020', move_out: '30.11.2020'},
   {room_number: 'D18', full_name: 'Johannes Benthaus', email: 'johannes.benthaus@gmail.com', move_in: '04.10.2019', move_out: '03.01.2020'},
   {room_number: 'D18', full_name: 'Vanessa Elana Kröger', email: 'miss.kroeger@web.de', move_in: '04.01.2020', move_out: '04.07.2020'},
   {room_number: 'D18', full_name: 'Melina Badde', email: 'melina.badde@whu.edu', move_in: '10.06.2020', move_out: '30.09.2020'},
   {room_number: 'D18', full_name: 'Anastasia Bain', email: 'afbainey@aol.com', move_in: '01.10.2020', move_out: '04.10.2021'},
   {room_number: 'D19', full_name: 'Tobias Lössl', email: 'tobiloessl@hotmail.de', move_in: '03.10.2019', move_out: '05.01.2020'},
   {room_number: 'D19', full_name: 'Pierre Guillaume', email: 'pierre.g.27@live.fr', move_in: '06.01.2020', move_out: '16.05.2020'},
-  {room_number: 'D19', full_name: 'Ivonne Greulich', email: '', move_in: '01.05.2020', move_out: '31.10.2020'},
   {room_number: 'D20', full_name: 'Matteo Angione', email: 'angionem6@gmail.com', move_in: '03.10.2019', move_out: '02.01.2020'},
   {room_number: 'D20', full_name: 'Joachim Bizot', email: 'joachim.bizot@outlook.fr',  move_in: '07.01.2020', move_out: '06.07.2020'},
   {room_number: 'D20', full_name: 'Nikolai Siekmann', email: 'nikolai.siekmann@gmail.com',  move_in: '01.07.2020', move_out: '31.10.2020'},
   {room_number: 'D21', full_name: 'David Höhl', email: 'david.hoehl@aol.com', move_in: '04.11.2019', move_out: '30.06.2020'},
-  {room_number: 'D21', full_name: 'Shubham Sharma', email: '', move_in: '29.06.2020', move_out: '28.08.2020'},
+  {room_number: 'D21', full_name: 'Shubham Sharma', email: 'sharmashubham10@gmail.com', move_in: '29.06.2020', move_out: '28.08.2020'},
   {room_number: 'D21', full_name: 'Victor Haas', email: 'victor.haas67@gmail.com', move_in: '29.08.2020', move_out: '30.11.2020'},
   {room_number: 'D22', full_name: 'Nil Biosca Jimenez', email: 'nbiosca2q@gmail.com', move_in: '06.11.2019', move_out: '31.03.2020'},
   {room_number: 'D22', full_name: 'Sai Jagtap', email: 'mesaee@gmail.com',  move_in: '18.04.2020', move_out: '17.10.2020'},
@@ -66,7 +60,6 @@ bookings = [
   {room_number: 'D26', full_name: 'Michael Klein', email: 'michael.klein.contact@gmail.com', move_in: '01.10.2020', move_out: '31.03.2021'},
   {room_number: 'D27', full_name: 'Pohl Timotheus', email: 'timotheus.pohlt5@gmail.com', move_in: '27.07.2020', move_out: '31.10.2020'},
   {room_number: 'D28', full_name: 'Malte Schülein', email: 'mcschuelein@gmail.com', move_in: '01.08.2020', move_out: '31.10.2020'},
-  {room_number: 'D29', full_name: 'Jan-Rasmus Kässens', email: '', move_in: '20.07.2020', move_out: '19.10.2020'},
   {room_number: 'D30', full_name: 'Felix Chemnitzer', email: 'f.chemnitzer@gmail.com',  move_in: '27.06.2020', move_out: '05.01.2021'},
   {room_number: 'D31', full_name: 'Cecan Cakar', email: 'cecan1@web.de', move_in: '22.08.2020', move_out: '30.11.2020'},
   {room_number: 'D32', full_name: 'Maximilian Busch', email: 'mpbusch01@gmail.com', move_in: '01.08.2020', move_out: '31.10.2020'},
@@ -78,39 +71,47 @@ bookings = [
   {room_number: 'D39', full_name: 'Simao Bareto', email: 'simaofbarreto@gmail.com', move_in: '15.09.2020', move_out: '14.12.2020'},
   {room_number: 'D43', full_name: 'Deniz Aksoy', email: 'd.aksoy@gmx.net', move_in: '01.10.2020', move_out: '31.01.2021'},
   {room_number: 'DB01', full_name: 'Sara Isla Cainzos', email: 'saraislac@gmail.com', move_in: '29.02.2020', move_out: '29.11.2020'},
-  {room_number: 'DB02', full_name: 'Maria de los Santos Fernandez Romero', email: '', move_in: '09.03.2020', move_out: '08.06.2020'},
   {room_number: 'DB02', full_name: 'Melina Badde', email: 'melina.badde@whu.edu', move_in: '10.06.2020', move_out: '05.07.2020'},
   {room_number: 'DB02', full_name: 'Fernando Hoppen', email: 'fehoppen@hotmail.com',  move_in: '01.08.2020', move_out: '31.07.2021'},
-  {room_number: 'DB03', full_name: 'Diego Fernando Gomez', email: '', move_in: '01.05.2020', move_out: '31.07.2020'},
   {room_number: 'DB03', full_name: 'Friedrich Gottfried Finken', email: 'friedrichfinken@icloud.com', move_in: '01.09.2020', move_out: '30.11.2020'},
-  {room_number: 'DB04', full_name: 'Amelie Hartig', email: '', move_in: '29.02.2020', move_out: '30.05.2020'},
-  {room_number: 'DB04', full_name: 'Alvaro Sanz García Sintas', email: 'alvarosanz_8@hotmail.com', move_in: '23.03.2020', move_out: '31.03.2021'},
-  {room_number: 'DB05', full_name: 'Alvaro Sanz García Sintas', email: '', move_in: '23.03.2020', move_out: '30.04.2020'},
+  {room_number: 'DB04', full_name: 'Amelie Hartig', email: 'amelie.hartig@hotmail.de', move_in: '29.02.2020', move_out: '30.05.2020'},
   {room_number: 'DB05', full_name: 'Joseph Cordonnier', email: 'joseph.cordonnier.mdg@gmail.com', move_in: '01.05.2020', move_out: '01.03.2021'},
   {room_number: 'DB06', full_name: 'Mehdi Dhifallah', email: 'mehdidhifallah2789@gmail.com',  move_in: '23.03.2020', move_out: '30.10.2020'},
-  {room_number: 'DB06', full_name: 'Chirag Ahuja', email: '', move_in: '01.11.2020', move_out: '31.01.2021'},
+  {room_number: 'DB06', full_name: 'Chirag Ahuja', email: 'chiragvit@gmail.com', move_in: '01.11.2020', move_out: '31.01.2021'},
   {room_number: 'DB07', full_name: 'Rene Navrkal', email: 'renenavrkal@gmail.com', move_in: '06.05.2020', move_out: '30.06.2020'},
   {room_number: 'DB07', full_name: 'Philipp Kramberg', email: 'philipp@kramberg.de', move_in: '28.08.2020', move_out: '30.08.2021'},
-  {room_number: 'EW01', full_name: 'Katrin Klütsch', email: '', move_in: '01.07.2020', move_out: '30.09.2020'},
   {room_number: 'EW02', full_name: 'Moritz Stephan', email: 'moritz.stephan@outlook.de', move_in: '12.10.2020', move_out: '31.07.2020'},
-  {room_number: 'EW02', full_name: 'Lara Wellner', email: '', move_in: '11.07.2020', move_out: '11.10.2020'},
-  {room_number: 'EW03', full_name: 'Anna Loren Stuhr', email: '', move_in: '07.07.2020', move_out: '15.07.2021'},
+  {room_number: 'EW02', full_name: 'Lara Wellner', email: 'lara.wellner@gmail.com', move_in: '11.07.2020', move_out: '11.10.2020'},
+  {room_number: 'EW03', full_name: 'Anna Loren Stuhr', email: 'annaloren.stuhr@googlemail.com', move_in: '07.07.2020', move_out: '15.07.2021'},
   {room_number: 'EW04', full_name: 'Rene Navrkal', email: 'renenavrkal@gmail.com', move_in: '01.07.2020', move_out: '31.08.2020'},
   {room_number: 'EW04', full_name: 'Daria Xue', email: 'dariaxue@gmail.com', move_in: '01.09.2020', move_out: '14.07.2021'},
-  {room_number: 'EW05', full_name: 'Alexandra Martitz', email: 'alexandra.martitz@online.de', move_in: '15.06.2020', move_out: '03.10.2020'},
-  {room_number: 'EW05', full_name: 'Kateryna Dib', email: '', move_in: '04.10.2020', move_out: '05.01.2021'},
+  {room_number: 'EW05', full_name: 'Kateryna Dib', email: 'kateryna.dib@gmail.com', move_in: '04.10.2020', move_out: '05.01.2021'},
   {room_number: 'EW06', full_name: 'Olina Karlsdottir', email: 'olina.ann@hotmail.com', move_in: '11.06.2020', move_out: '24.10.2020'},
   {room_number: 'EW07', full_name: 'Corinna Thölke', email: 'corinna.thoelke@gmail.com', move_in: '13.06.2020', move_out: '20.09.2020'},
   {room_number: 'EW07', full_name: 'Francesca Solagna', email: 'f.solagna@uke.de', move_in: '21.09.2020', move_out: '05.01.2021'},
   {room_number: 'EW08', full_name: 'Jan Niclas Lietzow', email: 'niclas.lietzow@outlook.com',  move_in: '14.06.2020', move_out: '16.09.2020'},
   {room_number: 'EW08', full_name: 'Tom Rose', email: 'tomrose1998@hotmail.co.uk', move_in: '17.09.2020', move_out: '14.01.2021'},
-  {room_number: 'EW09', full_name: 'Antonia Zeilinger', email: '', move_in: '01.08.2020', move_out: '31.01.2021'},
+  {room_number: 'EW09', full_name: 'Antonia Zeilinger', email: 'antonia_zeilinger@hotmail.com', move_in: '01.08.2020', move_out: '31.01.2021'},
   {room_number: 'EW10', full_name: 'Robin Wolter', email: 'robinmwolter@gmail.com', move_in: '01.08.2020', move_out: '31.10.2020'},
   {room_number: 'EW11', full_name: 'Leopold Harro Gottfried von Frenckell', email: 'leopoldvf@icloud.com',  move_in: '01.08.2020', move_out: '14.11.2020'},
-  {room_number: 'EW14', full_name: 'Emma Widmer', email: '', move_in: '01.10.2020', move_out: '28.02.2021 '},
+  {room_number: 'EW14', full_name: 'Emma Widmer', email: 'emma.widmer@uzh.ch', move_in: '01.10.2020', move_out: '28.02.2021 '},
   {room_number: 'EW16', full_name: 'Nicolas Claudet', email: 'nico.claudet@icloud.com', move_in: '01.10.2020', move_out: '14.07.2021'}
+  {room_number: 'D11', first_name: 'Dominik', last_name: 'Moskalik', email: 'dmoskalik@web.de', gender: 'Male', phone_code: '+49', phone_number: '017630186268', move_in: '31.08.2019', move_out: '30.09.2020'},
+  {room_number: 'D12', first_name: 'Christoph', last_name: 'Häberlin', email: 'christoph.haeberlin@gmail.com', gender: 'Male', phone_code: '+49', phone_number: '017645977306', move_in: '27.07.2019', move_out: '26.01.2021'},
+  {room_number: 'D19', first_name: 'Ivonne', last_name: 'Greulich', email: 'ivonnegreulich@gmail.com', gender: 'Female', phone_code: '+49', phone_number: '000000000000', move_in: '01.05.2020', move_out: '31.10.2020'},
+  {room_number: 'EW05', first_name: 'Alexandra', last_name: 'Martitz', email: 'alexandra.martitz@online.de', gender: 'Female', phone_code: '+49', phone_number: '000000000000', move_in: '15.06.2020', move_out: '03.10.2020'}
 ]
 
+bookings = [
+  {room_number: 'EW05', full_name: 'Kateryna Dib', email: 'kateryna.dib@gmail.com', move_in: '04.10.2020', move_out: '05.01.2021'},
+  {room_number: 'EW14', full_name: 'Emma Widmer', email: 'emma.widmer@uzh.ch', move_in: '01.10.2020', move_out: '28.02.2021 '},
+  {room_number: 'EW09', full_name: 'Antonia Zeilinger', email: 'antonia_zeilinger@hotmail.com', move_in: '01.08.2020', move_out: '31.01.2021'},
+  {room_number: 'EW03', full_name: 'Anna Loren Stuhr', email: 'annaloren.stuhr@googlemail.com', move_in: '07.07.2020', move_out: '15.07.2021'},
+  {room_number: 'EW02', full_name: 'Lara Wellner', email: 'lara.wellner@gmail.com', move_in: '11.07.2020', move_out: '11.10.2020'},
+  {room_number: 'DB06', full_name: 'Chirag Ahuja', email: 'chiragvit@gmail.com', move_in: '01.11.2020', move_out: '31.01.2021'},
+  {room_number: 'DB04', full_name: 'Amelie Hartig', email: 'amelie.hartig@hotmail.de', move_in: '29.02.2020', move_out: '30.05.2020'},
+  {room_number: 'D21', full_name: 'Shubham Sharma', email: 'sharmashubham10@gmail.com', move_in: '29.06.2020', move_out: '28.08.2020'},
+]
 # not_found_dates = []
 # bookings.each do |booking_hash|
 #   begin
@@ -126,6 +127,29 @@ bookings = [
 #   end
 # end
 
+not_found_users = [
+  {first_name: "Dominik", last_name: "Moskalik"},
+  {first_name: "Christoph", last_name: "Häberlin"},
+  {first_name: "Philip", last_name: "Pineda"},
+  {first_name: "Ivonne", last_name: "Greulich"},
+  {first_name: "Jan-Rasmus", last_name: "Kässens"},
+  {first_name: "Alvaro", last_name: "Sanz García Sintas"},
+  {first_name: "Katrin", last_name: "Klütsch"},
+  {first_name: "Alexandra", last_name: "Martitz"}
+]
+
+bookings = [
+]
+
+bookings.each do |booking_hash|
+  room = Room.find_by(intern_number: booking_hash[:room_number])
+  user = User.find_by
+  # user.prefered_suites.create()
+  user.skip_password_validation = true
+  user.save(validate: false)
+  user.bookings.create!(move_in: booking_hash[:move_in], move_out: booking_hash[:move_out], state: 'booked', room_id: room.id)
+end
+
 puts('destroy all Projects')
 Project.destroy_all
 
@@ -135,6 +159,13 @@ NOT_FOUND_BOOKINGS = []
 
 def find_users_by_email_or_name(email, full_name)
   User.select{|u| u.full_name == full_name || u.email == email}
+end
+
+not_found_users = []
+bookings.each do |booking_hash|
+  if find_users_by_email_or_name(booking_hash[:email], booking_hash[:full_name]).length == 0
+    not_found_users << booking_hash[:full_name]
+  end
 end
 
 def update_current_tenants(bookings_array)
