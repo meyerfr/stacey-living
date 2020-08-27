@@ -115,6 +115,8 @@ puts('destroy all Projects')
 Project.destroy_all
 
 NOT_FOUND_USERS = []
+NOT_FOUND_ROOMS = []
+NOT_FOUND_BOOKINGS = []
 
 def find_users_by_email_or_name(email, full_name)
   User.select{|u| u.full_name == full_name || u.email == email}
@@ -125,19 +127,22 @@ def update_current_tenants(bookings_array)
     u = find_users_by_email_or_name(booking_attributes[:email], booking_attributes[:name]).first
     if u
       booking = u.bookings.last.present? ? u.bookings.last : u.bookings.new
-      not_found_rooms = []
-      if !Room.find_by(intern_number: booking_attributes[:room_number]).present?
-        not_found_rooms << booking_attributes[:room_number]
+      if booking
+        if !Room.find_by(intern_number: booking_attributes[:room_number]).present?
+          NOT_FOUND_ROOMS << booking_attributes[:room_number]
+        end
+        booking.room_id = Room.find_by(intern_number: booking_attributes[:room_number]).id
+        booking.move_in = Date.parse(booking_attributes[:move_in])
+        booking.move_out = Date.parse(booking_attributes[:move_out])
+        booking.state = 'booked'
+        booking.save!(validate: false)
+        u.role = 'tenant'
+        u.save!(validate: false)
+      else
+        NOT_FOUND_BOOKINGS << booking_attributes[:name]
       end
-      booking.room_id = Room.find_by(intern_number: booking_attributes[:room_number]).id
-      booking.move_in = Date.parse(booking_attributes[:move_in])
-      booking.move_out = Date.parse(booking_attributes[:move_out])
-      booking.state = 'booked'
-      booking.save!(validate: false)
-      u.role = 'tenant'
-      u.save!(validate: false)
     else
-      NOT_FOUND_USERS << booking_attributes[:email]
+      NOT_FOUND_USERS << booking_attributes[:name]
     end
   end
 end
@@ -806,8 +811,12 @@ if Amenity.count == 0
 end
 
 update_current_tenants(bookings)
+puts('not found users')
 puts(NOT_FOUND_USERS)
-
+puts('not found bookings')
+puts(NOT_FOUND_BOOKINGS)
+puts('not found rooms')
+puts(NOT_FOUND_ROOMS)
 # project_hash[:roomtypes][2][:rooms][0]
 
 
