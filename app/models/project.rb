@@ -17,6 +17,7 @@ class Project < ApplicationRecord
   has_many :rooms, through: :roomtypes
   has_many :amenities, through: :join_amenities
   has_many :bookings, through: :rooms
+  has_many :prices, through: :roomtype
   has_many_attached :photos
 
   accepts_nested_attributes_for :address, :descriptions, :join_amenities, :roomtypes, :community_areas, allow_destroy: true

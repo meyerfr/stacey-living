@@ -15,7 +15,7 @@ class Booking < ApplicationRecord
 
   validates :move_in, :move_out, presence: true
 
-  accepts_nested_attributes_for :user, :contract
+  accepts_nested_attributes_for :user, :contract, :price, allow_destroy: true
 
 
   with_options if: -> { required_for_step?(:apply) } do |step|

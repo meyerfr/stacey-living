@@ -117,7 +117,7 @@ Project.destroy_all
 NOT_FOUND_USERS = []
 
 def find_users_by_email_or_name(email, full_name)
-  User.select{|u| u.full_name == full_name || u.email == email}.present?
+  User.select{|u| u.full_name == full_name || u.email == email}
 end
 
 def update_current_tenants(bookings_array)
@@ -125,6 +125,10 @@ def update_current_tenants(bookings_array)
     u = find_users_by_email_or_name(booking_attributes[:email], booking_attributes[:name]).first
     if u
       booking = u.bookings.last.present? ? u.bookings.last : u.bookings.new
+      not_found_rooms = []
+      if !Room.find_by(intern_number: booking_attributes[:room_number]).present?
+        not_found_rooms << booking_attributes[:room_number]
+      end
       booking.room_id = Room.find_by(intern_number: booking_attributes[:room_number]).id
       booking.move_in = Date.parse(booking_attributes[:move_in])
       booking.move_out = Date.parse(booking_attributes[:move_out])
@@ -137,9 +141,6 @@ def update_current_tenants(bookings_array)
     end
   end
 end
-
-update_current_tenants(tenants)
-puts(NOT_FOUND_USERS)
 
 # def handle_string_io_as_file(io)
 #   return io unless io.class == StringIO
@@ -177,7 +178,7 @@ end
 
 def create_projects_and_attributes(projects_array)
   projects_array.each do |project_hash|
-    project = Project.create(name: project_hash[:name], status: project_hash[:status])
+    project = Project.create!(name: project_hash[:name], status: project_hash[:status])
     project_hash[:descriptions].each do |description_hash|
       project.descriptions.create(field: description_hash[:field], content: description_hash[:content])
     end
@@ -206,13 +207,13 @@ def create_projects_and_attributes(projects_array)
         size: roomtype_hash[:size]
       )
       roomtype_hash[:prices].each do |prices_hash|
-        roomtype.prices.create(
+        roomtype.prices.create!(
           duration: prices_hash[:duration],
           amount: prices_hash[:amount]
         )
       end
       roomtype_hash[:rooms].each do |rooms_hash|
-        roomtype.rooms.create(
+        roomtype.rooms.create!(
           intern_number: rooms_hash[:intern_number],
           house_number: rooms_hash[:house_number],
           apartment_number: rooms_hash[:apartment_number],
@@ -265,34 +266,34 @@ projects = [
           {duration: '9+ Months', amount: 645}
         ],
         rooms: [
-          { intern_number: "D05", house_number: "3b 1st floor right", apartment_number: '02', state: 'furnished' },
-          { intern_number: "D07", house_number: "3b 2nd floor right", apartment_number: '03', state: 'furnished' },
-          { intern_number: "D09", house_number: "3b 2nd floor left", apartment_number: '04', state: 'furnished' },
-          { intern_number: "D10", house_number: "3 ground floor left", apartment_number: '05', state: 'furnished' },
-          { intern_number: "D11", house_number: "3 ground floor left", apartment_number: '05', state: 'furnished' },
-          { intern_number: "D13", house_number: "3 ground floor right", apartment_number: '06', state: 'furnished' },
-          { intern_number: "D14", house_number: "3 ground floor right", apartment_number: '06', state: 'furnished' },
-          { intern_number: "D16", house_number: "5 1st floor right", apartment_number: '07', state: 'furnished' },
-          { intern_number: "D19", house_number: "5 2nd floor left", apartment_number: '08', state: 'furnished' },
-          { intern_number: "D22", house_number: "3 2nd floor left", apartment_number: '09', state: 'furnished' },
-          { intern_number: "D25", house_number: "5 ground floor left", apartment_number: '10', state: 'furnished' },
-          { intern_number: "D27", house_number: "5 ground floor left", apartment_number: '10', state: 'furnished' },
-          { intern_number: "D28", house_number: "5 ground floor left", apartment_number: '10', state: 'furnished' },
-          { intern_number: "D29", house_number: "5a 2nd floor left", apartment_number: '11', state: 'furnished' },
-          { intern_number: "D31", house_number: "5a 1st floor right", apartment_number: '12', state: 'furnished' },
-          { intern_number: "D32", house_number: "5a 1st floor right", apartment_number: '12', state: 'furnished' },
-          { intern_number: "D34", house_number: "5a 2nd floor right", apartment_number: '13', state: 'furnished' },
-          { intern_number: "D35", house_number: "3a 2nd floor right", apartment_number: '13', state: 'furnished' },
-          { intern_number: "D37", house_number: "3a 1st floor left", apartment_number: '14', state: 'order furniture' },
-          { intern_number: "D38", house_number: "3a 1st floor left", apartment_number: '14', state: 'order furniture' },
+          { intern_number: "D05", house_number: "3b 1st floor right", apartment_number: '02', state: 'bookable' },
+          { intern_number: "D07", house_number: "3b 2nd floor right", apartment_number: '03', state: 'bookable' },
+          { intern_number: "D09", house_number: "3b 2nd floor left", apartment_number: '04', state: 'bookable' },
+          { intern_number: "D10", house_number: "3 ground floor left", apartment_number: '05', state: 'bookable' },
+          { intern_number: "D11", house_number: "3 ground floor left", apartment_number: '05', state: 'bookable' },
+          { intern_number: "D13", house_number: "3 ground floor right", apartment_number: '06', state: 'bookable' },
+          { intern_number: "D14", house_number: "3 ground floor right", apartment_number: '06', state: 'bookable' },
+          { intern_number: "D16", house_number: "5 1st floor right", apartment_number: '07', state: 'bookable' },
+          { intern_number: "D19", house_number: "5 2nd floor left", apartment_number: '08', state: 'bookable' },
+          { intern_number: "D22", house_number: "3 2nd floor left", apartment_number: '09', state: 'bookable' },
+          { intern_number: "D25", house_number: "5 ground floor left", apartment_number: '10', state: 'bookable' },
+          { intern_number: "D27", house_number: "5 ground floor left", apartment_number: '10', state: 'bookable' },
+          { intern_number: "D28", house_number: "5 ground floor left", apartment_number: '10', state: 'bookable' },
+          { intern_number: "D29", house_number: "5a 2nd floor left", apartment_number: '11', state: 'bookable' },
+          { intern_number: "D31", house_number: "5a 1st floor right", apartment_number: '12', state: 'bookable' },
+          { intern_number: "D32", house_number: "5a 1st floor right", apartment_number: '12', state: 'bookable' },
+          { intern_number: "D34", house_number: "5a 2nd floor right", apartment_number: '13', state: 'bookable' },
+          { intern_number: "D35", house_number: "3a 2nd floor right", apartment_number: '13', state: 'bookable' },
+          { intern_number: "D37", house_number: "3a 1st floor left", apartment_number: '14', state: 'not bookable' },
+          { intern_number: "D38", house_number: "3a 1st floor left", apartment_number: '14', state: 'not bookable' },
 
-          { intern_number: "D40", house_number: "3a ground floor left", apartment_number: '', state: 'order furniture!' },
-          { intern_number: "D41", house_number: "3a ground floor left", apartment_number: '', state: 'order furniture!' },
-          { intern_number: "D44", house_number: "3c 1st floor left", apartment_number: '', state: 'order furniture!' },
-          { intern_number: "D46", house_number: "3c 1st floor left", apartment_number: '', state: 'order furniture!' },
-          { intern_number: "D48", house_number: "3b ground floor right", apartment_number: '', state: 'order furniture!' },
-          { intern_number: "D50", house_number: "5a ground floor right", apartment_number: '', state: 'order furniture!' },
-          { intern_number: "D51", house_number: "5a ground floor right", apartment_number: '', state: 'order furniture!' }
+          { intern_number: "D40", house_number: "3a ground floor left", apartment_number: '', state: 'not bookable' },
+          { intern_number: "D41", house_number: "3a ground floor left", apartment_number: '', state: 'not bookable' },
+          { intern_number: "D44", house_number: "3c 1st floor left", apartment_number: '', state: 'not bookable' },
+          { intern_number: "D46", house_number: "3c 1st floor left", apartment_number: '', state: 'not bookable' },
+          { intern_number: "D48", house_number: "3b ground floor right", apartment_number: '', state: 'not bookable' },
+          { intern_number: "D50", house_number: "5a ground floor right", apartment_number: '', state: 'not bookable' },
+          { intern_number: "D51", house_number: "5a ground floor right", apartment_number: '', state: 'not bookable' }
         ]
       },
       {
@@ -304,12 +305,12 @@ projects = [
           {duration: '9+ Months', amount: 745}
         ],
         rooms: [
-          { intern_number: "D01", house_number: "3d 2nd floor", apartment_number: '01', state: 'furnished' },
-          { intern_number: "D02", house_number: "3d 2nd floor", apartment_number: '01', state: 'furnished' },
-          { intern_number: "D03", house_number: "3d 2nd floor", apartment_number: '01', state: 'furnished' },
-          { intern_number: "D17", house_number: "5 1st floor right", apartment_number: '07', state: 'furnished' },
-          { intern_number: "D20", house_number: "5 2nd floor left", apartment_number: '08', state: 'furnished' },
-          { intern_number: "D23", house_number: "3 2nd floor left", apartment_number: '09', state: 'furnished' }
+          { intern_number: "D01", house_number: "3d 2nd floor", apartment_number: '01', state: 'bookable' },
+          { intern_number: "D02", house_number: "3d 2nd floor", apartment_number: '01', state: 'bookable' },
+          { intern_number: "D03", house_number: "3d 2nd floor", apartment_number: '01', state: 'bookable' },
+          { intern_number: "D17", house_number: "5 1st floor right", apartment_number: '07', state: 'bookable' },
+          { intern_number: "D20", house_number: "5 2nd floor left", apartment_number: '08', state: 'bookable' },
+          { intern_number: "D23", house_number: "3 2nd floor left", apartment_number: '09', state: 'bookable' }
         ]
       },
       {
@@ -321,17 +322,17 @@ projects = [
           {duration: '9+ Months', amount: 795}
         ],
         rooms: [
-          { intern_number: "D12", house_number: "3 ground floor left", apartment_number: '05', state: 'furnished' },
-          { intern_number: "D15", house_number: "3 ground floor right", apartment_number: '06', state: 'furnished' },
-          { intern_number: "D18", house_number: "5 1st floor right", apartment_number: '07', state: 'furnished' },
-          { intern_number: "D21", house_number: "5 2nd floor left", apartment_number: '08', state: 'furnished' },
-          { intern_number: "D24", house_number: "3 2nd floor left", apartment_number: '09', state: 'furnished' },
-          { intern_number: "D26", house_number: "5 ground floor left", apartment_number: '10', state: 'furnished' },
-          { intern_number: "D33", house_number: "5a 1st floor right", apartment_number: '12', state: 'furnished' },
-          { intern_number: "D36", house_number: "5a 2nd floor right", apartment_number: '13', state: 'furnished' },
-          { intern_number: "D39", house_number: "3a 1st floor left", apartment_number: '14', state: 'order furniture' },
-          { intern_number: "D42", house_number: "3a groud floor left", apartment_number: '', state: 'order furniture!' },
-          { intern_number: "D49", house_number: "5a groud floor right", apartment_number: '', state: 'order furniture!' }
+          { :intern_number => "D12", house_number: "3 ground floor left", apartment_number: '05', state: 'bookable' },
+          { :intern_number => "D15", house_number: "3 ground floor right", apartment_number: '06', state: 'bookable' },
+          { :intern_number => "D18", house_number: "5 1st floor right", apartment_number: '07', state: 'bookable' },
+          { :intern_number => "D21", house_number: "5 2nd floor left", apartment_number: '08', state: 'bookable' },
+          { :intern_number => "D24", house_number: "3 2nd floor left", apartment_number: '09', state: 'bookable' },
+          { :intern_number => "D26", house_number: "5 ground floor left", apartment_number: '10', state: 'bookable' },
+          { :intern_number => "D33", house_number: "5a 1st floor right", apartment_number: '12', state: 'bookable' },
+          { :intern_number => "D36", house_number: "5a 2nd floor right", apartment_number: '13', state: 'bookable' },
+          { :intern_number => "D39", house_number: "3a 1st floor left", apartment_number: '14', state: 'not bookable' },
+          { :intern_number => "D42", house_number: "3a groud floor left", apartment_number: '', state: 'not bookable' },
+          { :intern_number => "D49", house_number: "5a groud floor right", apartment_number: '', state: 'not bookable' }
         ]
       },
       {
@@ -344,13 +345,13 @@ projects = [
           {duration: '9+ Months', amount: 945}
         ],
         rooms: [
-          { intern_number: "D04", house_number: "3b 1st floor right", apartment_number: '02', state: 'furnished' },
-          { intern_number: "D06", house_number: "3b 2nd floor right", apartment_number: '03', state: 'furnished' },
-          { intern_number: "D08", house_number: "3b 2nd floor left", apartment_number: '04', state: 'furnished' },
-          { intern_number: "D30", house_number: "5a 2nd floor left", apartment_number: '11', state: 'furnished' },
-          { intern_number: "D43", house_number: "3c 1st floor left", apartment_number: '', state: 'order furniture' },
-          { intern_number: "D45", house_number: "3b 1st floor left", apartment_number: '', state: 'order furniture!' },
-          { intern_number: "D47", house_number: "3c ground floor left", apartment_number: '', state: 'order furniture!' }
+          { intern_number: "D04", house_number: "3b 1st floor right", apartment_number: '02', state: 'bookable' },
+          { intern_number: "D06", house_number: "3b 2nd floor right", apartment_number: '03', state: 'bookable' },
+          { intern_number: "D08", house_number: "3b 2nd floor left", apartment_number: '04', state: 'bookable' },
+          { intern_number: "D30", house_number: "5a 2nd floor left", apartment_number: '11', state: 'bookable' },
+          { intern_number: "D43", house_number: "3c 1st floor left", apartment_number: '', state: 'not bookable' },
+          { intern_number: "D45", house_number: "3b 1st floor left", apartment_number: '', state: 'not bookable' },
+          { intern_number: "D47", house_number: "3c ground floor left", apartment_number: '', state: 'not bookable' }
         ]
       }
     ]
@@ -397,11 +398,11 @@ projects = [
           {duration: '9+ Months', amount: 695}
         ],
         rooms: [
-          { intern_number: "EW04", house_number: "270 2nd floor", apartment_number: '', state: 'furnished' },
-          { intern_number: "EW06", house_number: "270a 1st floor", apartment_number: '', state: 'furnished' },
-          { intern_number: "EW09", house_number: "270a 2nd floor", apartment_number: '', state: 'furnished' },
-          { intern_number: "EW12", house_number: "270a 3rd floor", apartment_number: '', state: 'furnished' },
-          { intern_number: "EW15", house_number: "270a 3rd floor", apartment_number: '', state: 'furnished' }
+          { intern_number: "EW04", house_number: "270 2nd floor", apartment_number: '', state: 'bookable' },
+          { intern_number: "EW06", house_number: "270a 1st floor", apartment_number: '', state: 'bookable' },
+          { intern_number: "EW09", house_number: "270a 2nd floor", apartment_number: '', state: 'bookable' },
+          { intern_number: "EW12", house_number: "270a 3rd floor", apartment_number: '', state: 'bookable' },
+          { intern_number: "EW15", house_number: "270a 3rd floor", apartment_number: '', state: 'bookable' }
         ]
       },
       {
@@ -413,7 +414,7 @@ projects = [
           {duration: '9+ Months', amount: 795}
         ],
         rooms: [
-          { intern_number: "EW05", house_number: "270", apartment_number: '', state: 'furnished' }
+          { intern_number: "EW05", house_number: "270", apartment_number: '', state: 'bookable' }
         ]
       },
       {
@@ -425,10 +426,10 @@ projects = [
           {duration: '9+ Months', amount: 795}
         ],
         rooms: [
-          { intern_number: "EW08", house_number: "270a 1st floor", apartment_number: '', state: 'furnished' },
-          { intern_number: "EW11", house_number: "270a 2nd floor", apartment_number: '', state: 'furnished' },
-          { intern_number: "EW14", house_number: "270a 3rd floor", apartment_number: '', state: 'furnished' },
-          { intern_number: "EW16", house_number: "270a 3rd floor", apartment_number: '', state: 'furnished' }
+          { intern_number: "EW08", house_number: "270a 1st floor", apartment_number: '', state: 'bookable' },
+          { intern_number: "EW11", house_number: "270a 2nd floor", apartment_number: '', state: 'bookable' },
+          { intern_number: "EW14", house_number: "270a 3rd floor", apartment_number: '', state: 'bookable' },
+          { intern_number: "EW16", house_number: "270a 3rd floor", apartment_number: '', state: 'bookable' }
         ]
       },
       {
@@ -440,9 +441,9 @@ projects = [
           {duration: '9+ Months', amount: 895}
         ],
         rooms: [
-          { intern_number: "EW07", house_number: "270a 1st floor", apartment_number: '', state: 'furnished' },
-          { intern_number: "EW10", house_number: "270a 2nd floor", apartment_number: '', state: 'furnished' },
-          { intern_number: "EW13", house_number: "270a 3rd floor", apartment_number: '', state: 'furnished' }
+          { intern_number: "EW07", house_number: "270a 1st floor", apartment_number: '', state: 'bookable' },
+          { intern_number: "EW10", house_number: "270a 2nd floor", apartment_number: '', state: 'bookable' },
+          { intern_number: "EW13", house_number: "270a 3rd floor", apartment_number: '', state: 'bookable' }
         ]
       },
       {
@@ -454,8 +455,8 @@ projects = [
           {duration: '9+ Months', amount: 895}
         ],
         rooms: [
-          { intern_number: "EW01", house_number: "270 2nd floor", apartment_number: '', state: 'furnished' },
-          { intern_number: "EW17", house_number: "270 3rd floor", apartment_number: '', state: 'furnished' }
+          { intern_number: "EW01", house_number: "270 2nd floor", apartment_number: '', state: 'bookable' },
+          { intern_number: "EW17", house_number: "270 3rd floor", apartment_number: '', state: 'bookable' }
         ]
       },
       {
@@ -467,7 +468,7 @@ projects = [
           {duration: '9+ Months', amount: 995}
         ],
         rooms: [
-          { intern_number: "EW02", house_number: "270 2nd floor", apartment_number: '', state: 'furnished' }
+          { intern_number: "EW02", house_number: "270 2nd floor", apartment_number: '', state: 'bookable' }
         ]
       },
       {
@@ -479,7 +480,7 @@ projects = [
           {duration: '9+ Months', amount: 995}
         ],
         rooms: [
-          { intern_number: "EW03", house_number: "270 2nd floor", apartment_number: '', state: 'furnished' }
+          { intern_number: "EW03", house_number: "270 2nd floor", apartment_number: '', state: 'bookable' }
         ]
       },
       {
@@ -491,7 +492,7 @@ projects = [
           {duration: '9+ Months', amount: 995}
         ],
         rooms: [
-          { intern_number: "EW18", house_number: "270 3rd floor", apartment_number: '', state: 'furnished' }
+          { intern_number: "EW18", house_number: "270 3rd floor", apartment_number: '', state: 'bookable' }
         ]
       }
     ]
@@ -538,8 +539,8 @@ projects = [
           {duration: '9+ Months', amount: 645}
         ],
         rooms: [
-          { intern_number: "DB01", house_number: "2 ground floor", apartment_number: '', state: 'furnished' },
-          { intern_number: "DB06", house_number: "2 ground floor", apartment_number: '', state: 'furnished' }
+          { intern_number: "DB01", house_number: "2 ground floor", apartment_number: '', state: 'bookable' },
+          { intern_number: "DB06", house_number: "2 ground floor", apartment_number: '', state: 'bookable' }
         ]
       },
       {
@@ -551,7 +552,7 @@ projects = [
           {duration: '9+ Months', amount: 795}
         ],
         rooms: [
-          { intern_number: "DB04", house_number: "2 ground floor", apartment_number: '', state: 'furnished' }
+          { intern_number: "DB04", house_number: "2 ground floor", apartment_number: '', state: 'bookable' }
         ]
       },
       {
@@ -563,8 +564,8 @@ projects = [
           {duration: '9+ Months', amount: 895}
         ],
         rooms: [
-          { intern_number: "DB02", house_number: "2 ground floor", apartment_number: '', state: 'furnished' },
-          { intern_number: "DB05", house_number: "2 ground floor", apartment_number: '', state: 'furnished' }
+          { intern_number: "DB02", house_number: "2 ground floor", apartment_number: '', state: 'bookable' },
+          { intern_number: "DB05", house_number: "2 ground floor", apartment_number: '', state: 'bookable' }
         ]
       },
       {
@@ -577,8 +578,8 @@ projects = [
           {duration: '9+ Months', amount: 995}
         ],
         rooms: [
-          { intern_number: "DB03", house_number: "2 ground floor", apartment_number: '', state: 'furnished' },
-          { intern_number: "DB07", house_number: "2 ground floor", apartment_number: '', state: 'furnished' }
+          { intern_number: "DB03", house_number: "2 ground floor", apartment_number: '', state: 'bookable' },
+          { intern_number: "DB07", house_number: "2 ground floor", apartment_number: '', state: 'bookable' }
         ]
       }
     ]
@@ -804,7 +805,10 @@ if Amenity.count == 0
   end
 end
 
+update_current_tenants(bookings)
+puts(NOT_FOUND_USERS)
 
+# project_hash[:roomtypes][2][:rooms][0]
 
 
 

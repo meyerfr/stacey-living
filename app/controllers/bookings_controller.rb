@@ -54,7 +54,7 @@ class BookingsController < ApplicationController
     elsif @time_param == 'current'
       # @bookings = @bookings.select{ |booking| booking.move_in <= Date.today && booking.move_out >= Date.today}
       @bookings = @bookings.where(
-        "move_in <= :todays_date AND move_out >= :todays_date AND state = :booked_state",
+        "bookings.move_in <= :todays_date AND bookings.move_out >= :todays_date AND bookings.state = :booked_state",
         todays_date: Date.today,
         booked_state: 'booked'
       ).order(created_at: :desc)
