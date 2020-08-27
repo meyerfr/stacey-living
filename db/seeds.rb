@@ -102,54 +102,6 @@ bookings = [
   {room_number: 'EW05', first_name: 'Alexandra', last_name: 'Martitz', email: 'alexandra.martitz@online.de', gender: 'Female', phone_code: '+49', phone_number: '000000000000', move_in: '15.06.2020', move_out: '03.10.2020'}
 ]
 
-bookings = [
-  {room_number: 'EW05', full_name: 'Kateryna Dib', email: 'kateryna.dib@gmail.com', move_in: '04.10.2020', move_out: '05.01.2021'},
-  {room_number: 'EW14', full_name: 'Emma Widmer', email: 'emma.widmer@uzh.ch', move_in: '01.10.2020', move_out: '28.02.2021 '},
-  {room_number: 'EW09', full_name: 'Antonia Zeilinger', email: 'antonia_zeilinger@hotmail.com', move_in: '01.08.2020', move_out: '31.01.2021'},
-  {room_number: 'EW03', full_name: 'Anna Loren Stuhr', email: 'annaloren.stuhr@googlemail.com', move_in: '07.07.2020', move_out: '15.07.2021'},
-  {room_number: 'EW02', full_name: 'Lara Wellner', email: 'lara.wellner@gmail.com', move_in: '11.07.2020', move_out: '11.10.2020'},
-  {room_number: 'DB06', full_name: 'Chirag Ahuja', email: 'chiragvit@gmail.com', move_in: '01.11.2020', move_out: '31.01.2021'},
-  {room_number: 'DB04', full_name: 'Amelie Hartig', email: 'amelie.hartig@hotmail.de', move_in: '29.02.2020', move_out: '30.05.2020'},
-  {room_number: 'D21', full_name: 'Shubham Sharma', email: 'sharmashubham10@gmail.com', move_in: '29.06.2020', move_out: '28.08.2020'},
-]
-# not_found_dates = []
-# bookings.each do |booking_hash|
-#   begin
-#    Date.parse(booking_hash[:move_in])
-#   rescue ArgumentError
-#      # handle invalid date
-#     not_found_dates << booking_hash[:move_in]
-#   end
-#   begin
-#     Date.parse(booking_hash[:move_out])
-#   rescue ArgumentError
-#     not_found_dates << booking_hash[:move_out]
-#   end
-# end
-
-not_found_users = [
-  {first_name: "Dominik", last_name: "Moskalik"},
-  {first_name: "Christoph", last_name: "Häberlin"},
-  {first_name: "Philip", last_name: "Pineda"},
-  {first_name: "Ivonne", last_name: "Greulich"},
-  {first_name: "Jan-Rasmus", last_name: "Kässens"},
-  {first_name: "Alvaro", last_name: "Sanz García Sintas"},
-  {first_name: "Katrin", last_name: "Klütsch"},
-  {first_name: "Alexandra", last_name: "Martitz"}
-]
-
-bookings = [
-]
-
-bookings.each do |booking_hash|
-  room = Room.find_by(intern_number: booking_hash[:room_number])
-  user = User.find_by
-  # user.prefered_suites.create()
-  user.skip_password_validation = true
-  user.save(validate: false)
-  user.bookings.create!(move_in: booking_hash[:move_in], move_out: booking_hash[:move_out], state: 'booked', room_id: room.id)
-end
-
 puts('destroy all Projects')
 Project.destroy_all
 
