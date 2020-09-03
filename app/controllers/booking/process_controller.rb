@@ -172,11 +172,11 @@ class Booking::ProcessController < ApplicationController
         rooms_last_booking = room.bookings.order(:move_out).last
         if room.bookable_date <= Date.today
           if rooms_last_booking.present? && rooms_last_booking.move_out.future?
-            next_available_move_in = rooms_last_booking.move_out.day > 15 ? (rooms_last_booking.move_out+1.month).beginning_of_month : rooms_last_booking.move_out.beginning_of_month+14.days
+            next_available_move_in = rooms_last_booking.move_out + 1.day
           else
-            next_available_move_in = Date.tomorrow.day > 15 ? (Date.tomorrow+1.month).beginning_of_month : Date.tomorrow.beginning_of_month+14.days
+            next_available_move_in = Date.tomorrow
           end
-          @room_availability.store(room.id, next_available_move_in.strftime('%d.%m.%Y')) if !@room_availability.values.include?(next_available_move_in.strftime('%d.%m.%Y'))
+          @room_availability.store(room.id, next_available_move_in.strftime('%d.%m.%Y')) unless @room_availability.values.include?(next_available_move_in.strftime('%d.%m.%Y'))
         end
       end
       @room_availability = @room_availability.sort_by { |key, value| value.to_date }.to_h
