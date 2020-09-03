@@ -111,7 +111,6 @@ class Booking::ProcessController < ApplicationController
       set_nested_attributes
       render_wizard @booking
     end
-    # raise
   end
 
   def send_booking_process_invite
@@ -137,7 +136,7 @@ class Booking::ProcessController < ApplicationController
   def set_nested_attributes
     case step
     when 'projects'
-      @projects = Project.where(status: 'active')
+      @projects = Project.select{|p| p.status == 'active' && project_any_rooms_bookable?(p)}
       @markers = @projects.map do |project|
         {
           lat: project.address.latitude,
@@ -147,7 +146,7 @@ class Booking::ProcessController < ApplicationController
         }
       end
     when 'rooms'
-      @roomtypes = @project.roomtypes.order(:size).select{|rt| ['Mighty', 'Premium', 'Premium+', 'Jumbo'].include?(rt.name)}
+      @roomtypes = @project.roomtypes.order(:size).select{|rt| ['Mighty', 'Premium', 'Premium+', 'Jumbo'].include?(rt.name) && any_rooms_bookable?(rt)}
       @community_area_amenities = []
       @project.community_areas.first.join_amenities.each{|ja| @community_area_amenities << ja.amenity if ja.name == 'community area' }
       @room_availability_hash = find_available_booking_dates_for_each_room_art(@roomtypes)
@@ -322,5 +321,30 @@ class Booking::ProcessController < ApplicationController
     @booking_fee = 80
     @total_today = @booking_fee + (@price * 2)
     # @total_amount = @deposit + 80
+  end
+
+  def any_rooms_bookable?(roomtype)
+    bookable_rooms = false
+    roomtype.rooms.collect(&:bookable_date).each do |date|
+      if date <= Date.today
+        bookable_rooms = true
+        break
+      end
+    end
+    bookable_rooms
+  end
+
+  def project_any_rooms_bookable?(project)
+    bookable_rooms = false
+    roomtypes = project.roomtypes
+    roomtypes.each do |roomtype|
+      roomtype.rooms.collect(&:bookable_date).each do |date|
+        if date <= Date.today
+          bookable_rooms = true
+          break
+        end
+      end
+    end
+    bookable_rooms
   end
 end
