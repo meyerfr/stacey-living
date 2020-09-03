@@ -61,7 +61,7 @@ class Project::StepsController < ApplicationController
           roomtype.prices.build(duration: duration) unless roomtype.prices.collect(&:duration).include?(duration)
         end
         # roomtype.room_attributes.build
-        roomtype.descriptions.build(field: field) unless roomtype.descriptions.collect(&:field).include?("#{roomtype.name} description")
+        roomtype.descriptions.build(field: "#{roomtype.name} description") unless roomtype.descriptions.collect(&:field).include?("#{roomtype.name} description")
         Amenity.all.each do |amenity|
           roomtype.join_amenities.build(name: 'roomtype index inventory', amenity_id: amenity.id) unless roomtype.join_amenities.select{|ja| ja.name == 'roomtype index inventory' && ja.amenity_id == amenity.id }.present?
           roomtype.join_amenities.build(name: 'roomtype index inclusion', amenity_id: amenity.id) unless roomtype.join_amenities.select{|ja| ja.name == 'roomtype index inclusion' && ja.amenity_id == amenity.id }.present?

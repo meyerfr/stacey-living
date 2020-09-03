@@ -15,9 +15,9 @@
 <div class="common-space-info">
   <p class="info-header">The Community Space</p>
   <span class="description"><%= simple_format(strip_tags(@project.community_areas.first.descriptions.first.content)) %></span>
-  <% if @project_show_amenities.present? %>
+  <% if @community_area_amenities.present? %>
     <ul class="common-space-amenities amenities">
-      <% @project_show_amenities.each do |amenity| %>
+      <% @community_area_amenities.each do |amenity| %>
         <div class="amenity">
           <%= cl_image_tag amenity.photo.key, style: 'width: 20px' %>
           <li><%= amenity.title %></li>
