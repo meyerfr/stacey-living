@@ -12,16 +12,15 @@
     .stacey-card{
       display: flex;
       flex-direction: column;
-      width: 400px;
-      // width: 100%;
       position: relative;
       border: 1px solid #c2c2c2;
       background: white;
       margin: 10px 24px 10px 0;
-      min-width: 335px;
+      max-width: 400px;
       border-radius: 5px;
       box-shadow: 1px 1px 3px rgba(0,0,0,0.1);
       transition: 1s;
+      flex: 1 0 350px;
       .availability{
         position: absolute;
         right: 5px;

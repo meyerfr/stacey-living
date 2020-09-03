@@ -16,6 +16,10 @@
           <span class="price">from €<%= project.roomtypes.find_by(name: 'Mighty').prices.order(:amount).first.amount.to_i  %></span>
         </div>
         <div class="amenities">
+          <span class="amenity">
+            <%= cl_image_tag 'https://res.cloudinary.com/dvuqwvjay/image/upload/v1591348529/square-meter-icon.png', style: 'width: 20px' %>
+            <span><%= project.community_areas.first.size.to_i %> m<sup>2</sup> common space</span>
+          </span>
           <% project_index_amenities = [] %>
           <% project.join_amenities.each do |ja| %>
             <% project_index_amenities << ja.amenity if ja.name == 'project index'  %>

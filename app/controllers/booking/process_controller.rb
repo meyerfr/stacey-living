@@ -98,6 +98,9 @@ class Booking::ProcessController < ApplicationController
       @booking.stripe_billing_plan = subscription_schedule.id
     end
     if @booking.update!(booking_params(step))
+      room = @booking.room
+      room.bookable_date = @booking.move_in+1.day
+      room.save!
       # if step == 'payment'
         # @booking.status == 'active'
         # render_wizard
@@ -167,13 +170,15 @@ class Booking::ProcessController < ApplicationController
 
       @room_availability = {}
       @roomtype.rooms.each do |room|
-        rooms_last_booking = Booking.order(:move_out).select{ |b| b.room == room && b.state == 'booked' }.last
-        if rooms_last_booking.present? && rooms_last_booking.move_out.future?
-          next_available_move_in = rooms_last_booking.move_out.day > 15 ? (rooms_last_booking.move_out+1.month).beginning_of_month : rooms_last_booking.move_out.beginning_of_month+14.days
-        else
-          next_available_move_in = Date.tomorrow.day > 15 ? (Date.tomorrow+1.month).beginning_of_month : Date.tomorrow.beginning_of_month+14.days
+        rooms_last_booking = room.bookings.order(:move_out).last
+        if room.bookable_date <= Date.today
+          if rooms_last_booking.present? && rooms_last_booking.move_out.future?
+            next_available_move_in = rooms_last_booking.move_out.day > 15 ? (rooms_last_booking.move_out+1.month).beginning_of_month : rooms_last_booking.move_out.beginning_of_month+14.days
+          else
+            next_available_move_in = Date.tomorrow.day > 15 ? (Date.tomorrow+1.month).beginning_of_month : Date.tomorrow.beginning_of_month+14.days
+          end
+          @room_availability.store(room.id, next_available_move_in.strftime('%d.%m.%Y')) if !@room_availability.values.include?(next_available_move_in.strftime('%d.%m.%Y'))
         end
-        @room_availability.store(room.id, next_available_move_in.strftime('%d.%m.%Y')) if !@room_availability.values.include?(next_available_move_in.strftime('%d.%m.%Y'))
       end
       @room_availability = @room_availability.sort_by { |key, value| value.to_date }.to_h
       @markers = [
