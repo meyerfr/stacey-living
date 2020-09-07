@@ -46,6 +46,18 @@ class Project < ApplicationRecord
     status == 'active'
   end
 
+  def rooms_bookable?
+    bookable_rooms = false
+    roomtypes.each do |roomtype|
+      roomtype.rooms.collect(&:bookable_date).each do |date|
+        if date <= Date.today
+          bookable_rooms = true
+          break
+        end
+      end
+    end
+    bookable_rooms
+  end
   # def clean_up_data
   #   self.name = self.name.downcase.titleize
   #   self.street = self.street.downcase.titleize

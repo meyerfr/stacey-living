@@ -136,7 +136,7 @@ class Booking::ProcessController < ApplicationController
   def set_nested_attributes
     case step
     when 'projects'
-      @projects = Project.select{|p| p.status == 'active' && project_any_rooms_bookable?(p)}
+      @projects = Project.select{|p| p.status == 'active'}
       @markers = @projects.map do |project|
         {
           lat: project.address.latitude,
@@ -146,7 +146,7 @@ class Booking::ProcessController < ApplicationController
         }
       end
     when 'rooms'
-      @roomtypes = @project.roomtypes.order(:size).select{|rt| ['Mighty', 'Premium', 'Premium+', 'Jumbo'].include?(rt.name) && any_rooms_bookable?(rt)}
+      @roomtypes = @project.roomtypes.order(:size).select{|rt| ['Mighty', 'Premium', 'Premium+', 'Jumbo'].include?(rt.name) && rt.rooms_bookable?}
       @community_area_amenities = []
       @project.community_areas.first.join_amenities.each{|ja| @community_area_amenities << ja.amenity if ja.name == 'community area' }
       @room_availability_hash = find_available_booking_dates_for_each_room_art(@roomtypes)
@@ -205,17 +205,6 @@ class Booking::ProcessController < ApplicationController
                           })
                          end
       @user.update(stripe_id: @stripe_customer.id) unless @user.stripe_id?
-
-      # roomtype = @booking.roomtype
-      # roomtype_prices = roomtype.prices.order(amount: :desc)
-      # correct_price = case @booking.duration
-      #                 when 3..5
-      #                   roomtype_prices.first
-      #                 when 6..8
-      #                   roomtype_prices.second
-      #                 else
-      #                   roomtype_prices.last
-      #                 end
 
       deposit = @booking.price.amount.to_i*2
       @intent = Stripe::PaymentIntent.create({
@@ -297,12 +286,22 @@ class Booking::ProcessController < ApplicationController
 
   def find_available_booking_dates_for_each_room_art(roomtypes)
     availability = {}
-    roomtypes.each do |type|
-      lastBookingId = Booking.select{ |b| b.state == 'booked' && b.move_out >= Date.today && b.room.roomtype.name.delete(' ').downcase == type.name.delete(' ').downcase if b.room.present? }.last
-      if lastBookingId.present?
-        availability.store(type.name, (lastBookingId.move_out + 1.day).strftime('%d.%-m.%Y'))
+    roomtypes.each do |roomtype|
+      bookable_rooms = roomtype.rooms.select{|r| r.bookable_date <= Date.today}
+      available_dates = []
+      bookable_rooms.each do |room|
+        if room.bookings.present?
+          available_dates << room.bookings.order(:move_out).last.move_out + 1.day
+        else
+          available_dates << Date.today
+          break
+        end
+      end
+      available_dates.sort!
+      if available_dates.present? && available_dates.first > Date.today
+        availability.store(roomtype.name, (available_dates.first).strftime('%d.%-m.%Y'))
       else
-        availability.store(type.name, 'today')
+        availability.store(roomtype.name, 'today')
       end
     end
     availability
@@ -321,30 +320,5 @@ class Booking::ProcessController < ApplicationController
     @booking_fee = 80
     @total_today = @booking_fee + (@price * 2)
     # @total_amount = @deposit + 80
-  end
-
-  def any_rooms_bookable?(roomtype)
-    bookable_rooms = false
-    roomtype.rooms.collect(&:bookable_date).each do |date|
-      if date <= Date.today
-        bookable_rooms = true
-        break
-      end
-    end
-    bookable_rooms
-  end
-
-  def project_any_rooms_bookable?(project)
-    bookable_rooms = false
-    roomtypes = project.roomtypes
-    roomtypes.each do |roomtype|
-      roomtype.rooms.collect(&:bookable_date).each do |date|
-        if date <= Date.today
-          bookable_rooms = true
-          break
-        end
-      end
-    end
-    bookable_rooms
   end
 end

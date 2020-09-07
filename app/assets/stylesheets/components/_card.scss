@@ -9,6 +9,9 @@
   .cards-container{
     display: flex;
     flex-wrap: wrap;
+    .stacey-card.not-bookable{
+      opacity: 0.4;
+    }
     .stacey-card{
       display: flex;
       flex-direction: column;

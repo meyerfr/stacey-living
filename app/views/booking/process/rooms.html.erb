@@ -1,7 +1,7 @@
 <%= render 'shared/three_steps_navbar', step: step %> <!-- must be step 1 because choosing Project doesn´t count -->
 <!-- this must be the banner of projects pictures -->
 <div class="header-carousel">
-  <%= render 'shared/carousel', pictures: (@project.photos + @project.community_areas.first.photos), carousel_id: "Project#{@project.id}", no_buttons: true, no_lightbox_button: false, caption: "#{@project.name} Pictures" %>
+  <%= render 'shared/carousel', pictures: (@project.photos + @project.community_areas.first.photos), carousel_id: "Project#{@project.id}", no_lightbox_button: false, caption: "#{@project.name} Pictures" %>
 </div>
 <!-- the quote -->
 
@@ -36,7 +36,7 @@
           <span>Available</span>
           <span><%= @room_availability_hash[roomtype.name] %></span>
         </div>
-        <%= render 'shared/carousel', pictures: roomtype.photos, carousel_id: "Room#{roomtype.id}", no_lightbox_button: true, no_buttons: false, caption: "#{roomtype.name} Suite Pictures" %>
+        <%= render 'shared/carousel', pictures: roomtype.photos, carousel_id: "Room#{roomtype.id}", no_lightbox_button: true, caption: "#{roomtype.name} Suite Pictures" %>
         <div class="stacey-card-header">
           <span class="name"><%= roomtype.name.titleize %></span>
           <span class="price">from €<%= (cheapest_price = roomtype.prices.order(:amount).first.amount) % 1 == 0 ? cheapest_price.to_i : cheapest_price %></span>

@@ -42,4 +42,15 @@ class Roomtype < ApplicationRecord
     end
     self.update(stripe_product: product.id)
   end
+
+  def rooms_bookable?
+    bookable_rooms = false
+    rooms.collect(&:bookable_date).each do |date|
+      if date <= Date.today
+        bookable_rooms = true
+        break
+      end
+    end
+    bookable_rooms
+  end
 end
