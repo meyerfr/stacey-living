@@ -5,11 +5,7 @@
       <div class="one-list-navbar">
         <div class="options">
            <% @time_param_options.each do |time_option| %>
-            <% if @time_param == time_option %>
-              <%= link_to time_option.capitalize, welcome_calls_path(user_group: @user_group_param, time: time_option), class: 'option active' %>
-            <% else %>
-              <%= link_to time_option.capitalize, welcome_calls_path(user_group: @user_group_param, time: time_option), class: 'option' %>
-            <% end %>
+            <%= link_to time_option.capitalize, welcome_calls_path(user_group: @user_group_param, time: time_option), class: class_string('option': true, 'active': (@time_param == time_option)) %>
           <% end %>
           <!-- <div class="option"><%#= link_to 'Date Range', '#' %></div> -->
         </div>
@@ -52,16 +48,8 @@
                 <div class="attendance">
                   <span class="d-none" id="welcome_call_id"><%= call.id %></span>
                   <% if date <= Date.today %>
-                    <% if call.attendance %>
-                      <span class="attended attendance-button green"><i class="fas fa-thumbs-up"></i></span>
-                      <span class="not-attended attendance-button"><i class="fas fa-thumbs-down"></i></span>
-                    <% elsif call.attendance == false %>
-                      <span class="attended attendance-button"><i class="fas fa-thumbs-up"></i></span>
-                      <span class="not-attended attendance-button red"><i class="fas fa-thumbs-down"></i></span>
-                    <% else %>
-                      <span class="attended attendance-button"><i class="fas fa-thumbs-up"></i></span>
-                      <span class="not-attended attendance-button"><i class="fas fa-thumbs-down"></i></span>
-                    <% end %>
+                    <span class="attended attendance-button <%= 'green' if call.attendance %>"><i class="fas fa-thumbs-up"></i></span>
+                    <span class="not-attended attendance-button <%= 'red' if call.attendance == false %>"><i class="fas fa-thumbs-down"></i></span>
                   <% end %>
                 </div>
               </div>

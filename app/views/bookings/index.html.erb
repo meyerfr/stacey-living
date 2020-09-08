@@ -17,11 +17,7 @@
       <div class="one-list-navbar">
         <div class="options">
           <% @project_names.each do |project_name| %>
-            <% if @project_param == project_name %>
-              <%= link_to project_name.capitalize, bookings_path(project_name: project_name), class: 'option active' %>
-            <% else %>
-              <%= link_to project_name.capitalize, bookings_path(project_name: project_name), class: 'option' %>
-            <% end %>
+            <%= link_to project_name.capitalize, bookings_path(project_name: project_name), class: class_string('option': true, 'active': (@project_param == project_name)) %>
           <% end %>
         </div>
         <div class="query">
@@ -39,11 +35,7 @@
       <div class="one-list-navbar padding-top">
         <div class="options">
           <% @all_room_names.each do |name| %>
-            <% if @room_name_param == name %>
-              <%= link_to name.capitalize, bookings_path(project_name: @project_param, room_name: name), class: 'option active' %>
-            <% else %>
-              <%= link_to name.capitalize, bookings_path(project_name: @project_param, room_name: name), class: 'option' %>
-            <% end %>
+            <%= link_to name.capitalize, bookings_path(project_name: @project_param, room_name: name), class: class_string('option': true, 'active': (@room_name_param == name)) %>
           <% end %>
         </div>
       </div>
@@ -51,11 +43,7 @@
       <div class="one-list-navbar flex-end padding-top">
         <div class="options">
           <% @time_param_options.each do |time_option| %>
-            <% if @time_param == time_option %>
-              <%= link_to time_option.capitalize, bookings_path(project_name: @project_param, room_name: @room_name_param, time: time_option), class: 'option active' %>
-            <% else %>
-              <%= link_to time_option.capitalize, bookings_path(project_name: @project_param, room_name: @room_name_param, time: time_option), class: 'option' %>
-            <% end %>
+            <%= link_to time_option.capitalize, bookings_path(project_name: @project_param, room_name: @room_name_param, time: time_option), class: class_string('option': true, 'active': (@time_param == time_option)) %>
           <% end %>
         </div>
       </div>

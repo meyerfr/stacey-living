@@ -16,4 +16,8 @@ module ApplicationHelper
     end
     link_to(name, '#', class: "add_rooms " + args[:class], data: {id: id, fields: fields.gsub("\n", "")})
   end
+
+  def class_string(css_map)
+    css_map.find_all(&:last).map(&:first).join(" ")
+  end
 end

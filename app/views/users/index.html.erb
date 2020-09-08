@@ -5,11 +5,7 @@
       <div class="one-list-navbar">
         <div class="options">
           <% @user_group_param_options.each do |param_option| %>
-            <% if @user_group_param == param_option || !@user_group_param.present? && param_option == 'all' %>
-              <%= link_to param_option.capitalize, users_path(user_group: param_option), class: 'option active' %>
-            <% else %>
-              <%= link_to param_option.capitalize, users_path(user_group: param_option), class: 'option' %>
-            <% end %>
+            <%= link_to param_option.capitalize, users_path(user_group: param_option), class: class_string('option': true, 'active': (@user_group_param == param_option || !@user_group_param.present? && param_option == 'all')) %>
           <% end %>
         </div>
         <% @user_group_param_options.each do |user_group_option| %>
@@ -17,7 +13,7 @@
             <% if user_group_option == 'all' %>
               <span>We have <%= User.all.count %> Users</span>
             <% else %>
-              <span>We have <%= User.all.where(role: user_group_option).count %> <%= User.all.where(role: user_group_option.capitalize).count > 1 ? user_group_option.pluralize : user_group_option.singularize %></span>
+              <span>We have <%= User.all.where(role: user_group_option).count %> <%= User.all.where(role: user_group_option).count > 1 ? user_group_option.pluralize : user_group_option.singularize %></span>
             <% end %>
           <% end %>
         <% end %>
@@ -35,11 +31,7 @@
       <div class="one-list-navbar padding-top">
         <div class="options">
           <% @time_param_options.each do |time_option| %>
-            <% if @time_param == time_option %>
-              <%= link_to time_option.capitalize, users_path(user_group: @user_group_param, time: time_option), class: 'option active' %>
-            <% else %>
-              <%= link_to time_option.capitalize, users_path(user_group: @user_group_param, time: time_option), class: 'option' %>
-            <% end %>
+            <%= link_to time_option.capitalize, users_path(user_group: @user_group_param, time: time_option), class: class_string('option': true, 'active': (@time_param == time_option)) %>
           <% end %>
         </div>
       </div>

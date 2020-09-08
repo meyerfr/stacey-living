@@ -11,40 +11,9 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <% if user_signed_in? %>
-        <% if request.path == welcome_calls_path %>
-          <li class="nav-item active">
-            <%= link_to "Welcome Calls", welcome_calls_path, class: "nav-link" %>
-          </li>
-        <% else %>
-          <li class="nav-item">
-            <%= link_to "Welcome Calls", welcome_calls_path, class: "nav-link" %>
-          </li>
-        <% end %>
-        <% if request.path == users_path %>
-          <li class="nav-item active">
-            <%= link_to "Users", users_path(user_group: 'applicant'), class: "nav-link" %>
-          </li>
-        <% else %>
-          <li class="nav-item">
-            <%= link_to "Users", users_path(user_group: 'applicant'), class: "nav-link" %>
-          </li>
-        <% end %>
-        <% if request.path == partners_path %>
-          <li class="nav-item active">
-            <%= link_to "Partners", partners_path, class: "nav-link" %>
-          </li>
-        <% else %>
-          <li class="nav-item">
-            <%= link_to "Partners", partners_path, class: "nav-link" %>
-          </li>
-        <% end %>
-        <% if request.path == bookings_path %>
-          <li class="nav-item active">
-            <%= link_to "Bookings", bookings_path, class: 'nav-link', id: 'booking_calendar' %>
-          </li>
-        <% else %>
-          <li class="nav-item">
-            <%= link_to "Bookings", bookings_path, class: 'nav-link', id: 'booking_calendar' %>
+        <% {'Welcome Calls': welcome_calls_path, 'Users': users_path(user_group: 'applicant'), 'Partners': partners_path, 'Bookings': bookings_path}.each do |text, path| %>
+          <li class="nav-item <%= 'active' if request.path == path.split('?').first %>">
+            <%= link_to text, path, class: 'nav-link' %>
           </li>
         <% end %>
         <li class="nav-item">

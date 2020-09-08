@@ -4,13 +4,8 @@
     <h2>Where do you want to live next?</h2>
   </div>
   <div class="cards-container">
-    <%# 8.times do %>
     <% @projects.each_with_index do |project, index| %>
-      <% if project.rooms_bookable? %>
-        <div class="stacey-card flat-card">
-      <% else %>
-        <div class="stacey-card flat-card not-bookable">
-      <% end %>
+      <div class="stacey-card flat-card <%= 'not-bookable' if !project.rooms_bookable? %>">
         <%= render 'shared/carousel', pictures: (project.photos + project.community_areas.first.photos), carousel_id: "project#{project.id}", no_lightbox_button: false, caption: "#{project.name} Pictures" %>
         <div class="stacey-card-header">
           <div class="name">
@@ -30,14 +25,9 @@
           <% end %>
           <%= render 'shared/amenities', amenities: project_index_amenities %>
         </div>
-        <% if project.rooms_bookable? %>
-          <%= link_to "Explore", booking_process_path(@booking, @booking.booking_auth_token, 'rooms', project_id: project.id), class: 'stacey-card-button stacey-button reverse-hover' %>
-        <% else %>
-          <%= link_to "not available", booking_process_path(@booking, @booking.booking_auth_token, 'rooms', project_id: project.id), class: 'stacey-card-button stacey-button not-available', disabled: true %>
-        <% end %>
+        <%= link_to project.rooms_bookable? ? 'Explore' : 'not available', booking_process_path(@booking, @booking.booking_auth_token, 'rooms', project_id: project.id), class: class_string("stacey-card-button stacey-button": true, 'reverse-hover': project.rooms_bookable?) %>
       </div>
     <% end %>
-    <%# end %>
   </div>
 </div>
 
