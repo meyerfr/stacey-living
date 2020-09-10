@@ -1,0 +1,27 @@
+<p>Hi <%= @user.first_name %>,</p>
+
+<p>We are excited to welcome you to our STACEY community! To make sure you have the best move-In experience possible, you will find the most important information in this message and the <strong>Move-in One-pager</strong> attached.</p>
+
+<p>Please make sure that you especially read the paragraph "<strong>Where are my keys</strong>" as the move-in process is done remote.</p>
+
+<p><strong>Move-in Time</strong></p>
+<p>You can move-in on the <%= @booking.move_in.strftime('%d.%m %Y') %> from 4:00 pm onwards.</p>
+
+<p><strong>Your Suite</strong></p>
+<ol>
+  <li><%= @project.address.street %> <%= @room.house_number %> <%= '(STACEY @room.apartment_number)' if @room.apartment_number.present? %></li>
+  <li><%= @room.roomtype.name %> Suite</li>
+  <li></li>
+</ol>
+
+<p>You will find the confirmation of residence together with your STACEY Hoodie in your Suite.</p>
+<!--
+Premium Suite
+First room on the left after entering the apartment -->
+
+
+<p>Are you ready to meet new amazing people?</p>
+
+<p>Best regards</p>
+<p>Matteo</p>
+<%= image_tag attachments['logo.png'].url, style: 'width: 150px' %>

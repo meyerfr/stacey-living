@@ -20,4 +20,9 @@ class UserMailerPreview < ActionMailer::Preview
   def invite_for_booking_process
     UserMailer.invite_for_booking_process(Booking.first)
   end
+
+  # Preview this email at http://localhost:3000/rails/mailers/user_mailer/welcome_one_pager
+  def welcome_one_pager
+    UserMailer.welcome_one_pager(Booking.last)
+  end
 end

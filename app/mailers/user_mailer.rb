@@ -40,6 +40,18 @@ class UserMailer < ApplicationMailer
     mail(to: email_with_name, subject: 'Stacey - coliving - booking process')
   end
 
+  def welcome_one_pager(booking)
+    @booking = booking
+    @room = booking.room
+    @project = @room.project
+    @user = booking.user
+    email_with_name = %("#{@user.full_name}" <#{@user.email}>)
+    attachments['welcome_one_pager.pdf'] = WickedPdf.new.pdf_from_string(
+      render_to_string(pdf: "Welcome One-Pager", template: 'documents/welcome_one_pager.html.erb', layout: 'pdf')
+    )
+    mail(to: email_with_name, subject: "STACEY #{@room.project}")# do |format|
+  end
+
   private
 
   def set_logo_attachment
