@@ -25,7 +25,11 @@
           <% end %>
           <%= render 'shared/amenities', amenities: project_index_amenities %>
         </div>
-        <%= link_to project.rooms_bookable? ? 'Explore' : 'not available', booking_process_path(@booking, @booking.booking_auth_token, 'rooms', project_id: project.id), class: class_string("stacey-card-button stacey-button": true, 'reverse-hover': project.rooms_bookable?) %>
+        <% if project.rooms_bookable? %>
+          <%= link_to 'Explore', booking_process_path(@booking, @booking.booking_auth_token, 'rooms', project_id: project.id), class: 'stacey-card-button stacey-button reverse-hover' %>
+        <% else %>
+          <span class="stacey-card-button stacey-button disabled">Not available</span>
+        <% end %>
       </div>
     <% end %>
   </div>
