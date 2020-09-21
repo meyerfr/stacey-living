@@ -56,12 +56,13 @@
     display: flex;
     flex-wrap: wrap;
     margin-top: 15px;
-    width: 50%;
+    width: 700px;
     align-self: center;
     li{
       width: 45%;
       text-align: start;
       list-style: none;
+      word-break: break-word;
     }
   }
 }

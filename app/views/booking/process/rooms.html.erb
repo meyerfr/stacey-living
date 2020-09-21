@@ -36,9 +36,8 @@
 <div class="cards-wrapper">
   <p class="suites-header">The Suites</p>
   <div class="cards-container">
-    <%# 6.times do %>
     <% @roomtypes.each_with_index do |roomtype, index| %>
-      <div class="stacey-card" id='room-card'>
+      <div class="stacey-card<%= ' not-bookable' if !roomtype.rooms_bookable? %>" id='room-card'>
         <div class="availability">
           <span>Available</span>
           <span><%= @room_availability_hash[roomtype.name] %></span>
@@ -79,10 +78,13 @@
             <strong>Person</strong>: For <%= roomtype.amount_of_people %> member
           </div>
         </div>
-        <%= link_to "Explore", booking_process_path(@booking, @booking.booking_auth_token, 'room', roomtype_id: roomtype.id), class: 'stacey-card-button stacey-button reverse-hover' %>
+        <% if roomtype.rooms_bookable? %>
+          <%= link_to 'Explore', booking_process_path(@booking, @booking.booking_auth_token, 'room', roomtype_id: roomtype.id), class: 'stacey-card-button stacey-button reverse-hover' %>
+        <% else %>
+          <span class="stacey-card-button stacey-button disabled">Not available</span>
+        <% end %>
       </div>
     <% end %>
-    <%# end %>
   </div>
 </div>
 <% if current_user.present? && current_user.admin? %>

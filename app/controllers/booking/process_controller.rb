@@ -146,7 +146,7 @@ class Booking::ProcessController < ApplicationController
         }
       end
     when 'rooms'
-      @roomtypes = @project.roomtypes.order(:size).select{|rt| ['Mighty', 'Premium', 'Premium+', 'Jumbo'].include?(rt.name) && rt.rooms_bookable?}
+      @roomtypes = @project.roomtypes.order(:size).select{|rt| ['Mighty', 'Mighty (Ensuite)', 'Premium', 'Premium+', 'Jumbo'].include?(rt.name)}
       @community_area_amenities = []
       @project.community_areas.first.join_amenities.each{|ja| @community_area_amenities << ja.amenity if ja.name == 'community area' }
       @room_availability_hash = find_available_booking_dates_for_each_room_art(@roomtypes)
