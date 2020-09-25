@@ -42,7 +42,8 @@
           <span>Available</span>
           <span><%= @room_availability_hash[roomtype.name] %></span>
         </div>
-        <%= render 'shared/carousel', pictures: roomtype.photos, carousel_id: "Room#{roomtype.id}", no_lightbox_button: true, caption: "#{roomtype.name} Suite Pictures" %>
+        <% photos = roomtype.name == 'Mighty+' ? @roomtypes.first.photos : roomtype.photos %>
+        <%= render 'shared/carousel', pictures: photos, carousel_id: "Room#{roomtype.id}", no_lightbox_button: true, caption: "#{roomtype.name} Suite Pictures" %>
         <div class="stacey-card-header">
           <span class="name"><%= roomtype.name.titleize %></span>
           <span class="price">from €<%= (cheapest_price = roomtype.prices.order(:amount).first.amount) % 1 == 0 ? cheapest_price.to_i : cheapest_price %></span>

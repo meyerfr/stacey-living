@@ -61,7 +61,7 @@ class Booking < ApplicationRecord
 
   def duration
     if move_in.present? && move_out.present?
-      ((move_out.year - move_in.year) * 12) + (move_out.month - move_in.month) - (((move_out+1.day).day >= move_in.day ? 0 : 1))
+      ((move_out.year - move_in.year) * 12) + (move_out.month - move_in.month) - ((move_out.day >= move_in.day ? 0 : 1))
     end
   end
 
