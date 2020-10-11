@@ -18,6 +18,11 @@
     }
     #terms-and-conditions{
       margin: 0 10px 0 0;
+      cursor: pointer;
+    }
+    label{
+      margin: 0;
+      cursor: pointer;
     }
   }
   .terms-and-conditions.terms-and-conditions-error{

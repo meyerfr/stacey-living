@@ -1,0 +1,42 @@
+<style>
+  .success-container{
+    display: flex;
+    height: 100vh;
+    align-items: center;
+    justify-content: center;
+  }
+  .success{
+    width: 45%;
+    background-color: #f1f1f1;
+    padding: 30px;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-radius: 10px;
+    border: 1px solid pink;
+    text-align: center;
+  }
+  i{
+    border: 1px solid #2bc66c;
+    padding: 5px;
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    background-color: #2bc66c;
+  }
+</style>
+
+<div class="success-container">
+  <div class="success">
+    <i class="success-icon">✔︎</i>
+    <p>Success</p>
+    <span>You successfully booked your <%= @roomtype.name %> suite.</span>
+    <span>You're suite will be ready to move in on the <%= @booking.move_in.strftime('%d.%m.%Y') %></span>
+    <span>You will recieve an e-mail with all the information you need one week in advance.</span>
+  </div>
+</div>

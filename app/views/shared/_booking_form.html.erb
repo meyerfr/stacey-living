@@ -9,7 +9,9 @@
             <span>Prices start at <%= room_with_balcony.prices.last.amount.to_i %>€</span>
           </div>
         </div>
-        <%= link_to 'This room with balcony', booking_process_path(@booking, @booking.booking_auth_token, 'room', roomtype_id: room_with_balcony.id) %>
+        <% if room_with_balcony.bookable_date <= Date.today %>
+          <%= link_to 'This room with balcony', booking_process_path(@booking, @booking.booking_auth_token, 'room', roomtype_id: room_with_balcony.id) %>
+        <% end %>
       </div>
     <% elsif with_balcony %>
       <div class="info-position">
@@ -19,7 +21,9 @@
             <span>Prices start at <%= @roomtype_without_balcony.prices.last.amount.to_i %>€</span>
           </div>
         </div>
-        <%= link_to 'This room without balcony', booking_process_path(@booking, @booking.booking_auth_token, 'room', roomtype_id: @roomtype_without_balcony.id) %>
+        <% if with_balcony.bookable_date <= Date.today %>
+          <%= link_to 'This room without balcony', booking_process_path(@booking, @booking.booking_auth_token, 'room', roomtype_id: @roomtype_without_balcony.id) %>
+        <% end %>
       </div>
     <% end %>
     <%= simple_form_for booking, method: :put, url: wizard_path do |f| %>

@@ -1,34 +1,38 @@
 # require "open-uri"
 
-stripe = [
-  { project: 'Eppendorf', roomtype: 'Mighty', prices: ['price_1HVD6HHP1DTF1I43wt1nDo3L', 'price_1HVD6GHP1DTF1I43AplUIC7u', 'price_1HVD6HHP1DTF1I43N4mqK6E6'] },
-  { project: 'Eppendorf', roomtype: 'Mighty+', prices: ['price_1HVD7xHP1DTF1I43IiROyInV', 'price_1HVD7yHP1DTF1I4324REXtEV', 'price_1HVD7yHP1DTF1I43IMq3iV8W'] },
-  { project: 'Eppendorf', roomtype: 'Premium', prices: ['price_1HVDBiHP1DTF1I43Kl2Q78sD', 'price_1HVDBjHP1DTF1I43iw5PasRj', 'price_1HVDBjHP1DTF1I43j1AEWQPQ'] },
-  { project: 'Eppendorf', roomtype: 'Premium (balcony)', prices: ['price_1HVDD0HP1DTF1I43F00acagC', 'price_1HVDD1HP1DTF1I43azDEJnuJ', 'price_1HVDD1HP1DTF1I43spYlgSBg'] },
-  { project: 'Eppendorf', roomtype: 'Premium+', prices: ['price_1HVDKaHP1DTF1I43RVdpn74O', 'price_1HVDKaHP1DTF1I43nVx4eOeT', 'price_1HVDKaHP1DTF1I435Y4s9hL4'] },
-  { project: 'Eppendorf', roomtype: 'Premium+ (balcony)', prices: ['price_1HVDM5HP1DTF1I43ijQELgsw', 'price_1HVDM5HP1DTF1I43tV8zz7IY', 'price_1HVDM5HP1DTF1I43Jz8ojKah'] },
-  { project: 'Eppendorf', roomtype: 'Jumbo', prices: ['price_1HVDN3HP1DTF1I43aCaahnd0', 'price_1HVDN3HP1DTF1I43g1zRZ0y7', 'price_1HVDN4HP1DTF1I43TPcQ3Abg'] },
-  { project: 'Eppendorf', roomtype: 'Jumbo (balcony)', prices: ['price_1HVDErHP1DTF1I43rUcPKSSR', 'price_1HVDEsHP1DTF1I43QmcjFV5i', 'price_1HVDEtHP1DTF1I43zpf3srDJ'] },
+# change mühlenlamp mighty price for 9+ Month back to live mode - price_1HaJN3HP1DTF1I43NtoUdBzx
+# delete booking by meyerfr@gmx.de for mühlenkamp mighty room
 
-  { project: 'Mühlenkamp', roomtype: 'Mighty', prices: ['price_1HUA7bHP1DTF1I43EsX0Xeev', 'price_1HUA7cHP1DTF1I43mNkFTmYv', 'price_1HUA7bHP1DTF1I437r6k1QQY'] },
-  { project: 'Mühlenkamp', roomtype: 'Premium', prices: ['price_1HUA9qHP1DTF1I43OEWkMnHP', 'price_1HUA9rHP1DTF1I43CRHm5Nov', 'price_1HUA9qHP1DTF1I43HK7VdYng'] },
-  { project: 'Mühlenkamp', roomtype: 'Premium+', prices: ['price_1HUABXHP1DTF1I438v5vC4gl', 'price_1HUABYHP1DTF1I432EjbsulW', 'price_1HUABXHP1DTF1I43rhCaZu4Q'] },
-  { project: 'Mühlenkamp', roomtype: 'Jumbo', prices: ['price_1HUAGiHP1DTF1I436TwauxPI', 'price_1HUAGiHP1DTF1I431GlX9FtH', 'price_1HUAGiHP1DTF1I43J22AuUK4'] },
+# stripe = [
+#   { project: 'Eppendorf', roomtype: 'Mighty', prices: ['price_1HaJMgHP1DTF1I43zTlytvv3', 'price_1HaJMgHP1DTF1I43QZKLVyag', 'price_1HaJMgHP1DTF1I435fEAfxal'], stripe_product_id: 'prod_IAegbiIgW9uzBT' },
+#   { project: 'Eppendorf', roomtype: 'Mighty+', prices: ['price_1HaJMbHP1DTF1I43lICs9FOz', 'price_1HaJMbHP1DTF1I436GuxUNdy', 'price_1HaJMbHP1DTF1I43FfH8ggSc'], stripe_product_id: 'prod_IAef4KooN6aJVu' },
+#   { project: 'Eppendorf', roomtype: 'Premium', prices: ['price_1HaJMOHP1DTF1I433Uu586au', 'price_1HaJMOHP1DTF1I43C8k426tl', 'price_1HaJMOHP1DTF1I43UhQK5XEN'], stripe_product_id: 'prod_IAefLxdgG8kNak' },
+#   { project: 'Eppendorf', roomtype: 'Premium (balcony)', prices: ['price_1HaJMIHP1DTF1I437zxOu6D2', 'price_1HaJMIHP1DTF1I43gtPer569', 'price_1HaJMIHP1DTF1I43Nq8Sa3BA'], stripe_product_id: 'prod_IAefPXNVB8REo5' },
+#   { project: 'Eppendorf', roomtype: 'Premium+', prices: ['price_1HaJM3HP1DTF1I43FEBi7IvA', 'price_1HaJM3HP1DTF1I43li1toJ9d', 'price_1HaJM3HP1DTF1I43tjWx4Wf0'], stripe_product_id: 'prod_IAeffBrGuPfa1O' },
+#   { project: 'Eppendorf', roomtype: 'Premium+ (balcony)', prices: ['price_1HaJLyHP1DTF1I43oStr9gKm', 'price_1HaJLyHP1DTF1I43ENtFR0Jy', 'price_1HaJLyHP1DTF1I43BWkv8ABp'], stripe_product_id: 'prod_IAefl1FnTRZo9Y' },
+#   { project: 'Eppendorf', roomtype: 'Jumbo', prices: ['price_1HaJLWHP1DTF1I43bW26I0ha', 'price_1HaJLWHP1DTF1I430zMJf1jP', 'price_1HaJLWHP1DTF1I43a0j7gnTp'], stripe_product_id: 'prod_IAeeVKMYde1Um6' },
+#   { project: 'Eppendorf', roomtype: 'Jumbo (balcony)', prices: ['price_1HaJM8HP1DTF1I43AMZVbzVO', 'price_1HaJM8HP1DTF1I43fREpNS0E', 'price_1HaJM8HP1DTF1I43fDxDDorY'], stripe_product_id: 'prod_IAef6XVY0o34dc' },
 
-  { project: 'St. Pauli', roomtype: 'Mighty', prices: ['price_1HVDW7HP1DTF1I43q2JgrY3D', 'price_1HVDW7HP1DTF1I43acrVxl73', 'price_1HVDW7HP1DTF1I433Dm95uc8'] },
-  { project: 'St. Pauli', roomtype: 'Premium', prices: ['price_1HVDXdHP1DTF1I43ZAVl6Tpp', 'price_1HVDXdHP1DTF1I43sLFKXvau', 'price_1HVDXeHP1DTF1I43VECH41WX'] },
-  { project: 'St. Pauli', roomtype: 'Premium+', prices: ['price_1HVDZ3HP1DTF1I43bqHsE5A0', 'price_1HVDZ3HP1DTF1I43nWENt08S', 'price_1HVDZ3HP1DTF1I43hUcq1Au1'] },
-  { project: 'St. Pauli', roomtype: 'Jumbo', prices: ['price_1HVDaUHP1DTF1I43IJR6l76z', 'price_1HVDaUHP1DTF1I43RohqwQEN', 'price_1HVDaUHP1DTF1I43dJpVlcsw'] }
-]
+#   { project: 'Mühlenkamp', roomtype: 'Mighty', prices: ['price_1HaJN3HP1DTF1I43QYncckmq', 'price_1HaJN3HP1DTF1I43rBV2GhoN', 'price_1HaJN3HP1DTF1I43NtoUdBzx'], stripe_product_id: 'prod_IAegQrzv0NPWS0' },
+#   { project: 'Mühlenkamp', roomtype: 'Premium', prices: ['price_1HaJMzHP1DTF1I43VLYn3rID', 'price_1HaJMzHP1DTF1I43gefLsnKf', 'price_1HaJMzHP1DTF1I43oXPuRS9z'], stripe_product_id: 'prod_IAegtOxT2U4AYY' },
+#   { project: 'Mühlenkamp', roomtype: 'Premium+', prices: ['price_1HaJMuHP1DTF1I43Do9zRULN', 'price_1HaJMuHP1DTF1I43dYjRJ5Ih', 'price_1HaJMuHP1DTF1I435xpsyM8e'], stripe_product_id: 'prod_IAeg9fdeUSoHTD' },
+#   { project: 'Mühlenkamp', roomtype: 'Jumbo', prices: ['price_1HaJMpHP1DTF1I43aW7oMIdb', 'price_1HaJMpHP1DTF1I434FOmRiCT', 'price_1HaJMpHP1DTF1I43aZia8EEE'], stripe_product_id: 'prod_IAegV8aOpqTRX4' },
+
+#   { project: 'St. Pauli', roomtype: 'Mighty', prices: ['price_1HaJLIHP1DTF1I43P1TAE0ZL', 'price_1HaJLIHP1DTF1I43U61w4lAI', 'price_1HaJLIHP1DTF1I43ttKSDZ75'], stripe_product_id: 'prod_IAeeXtMMY1A9pJ' },
+#   { project: 'St. Pauli', roomtype: 'Premium', prices: ['price_1HaJLDHP1DTF1I436TXiLocM', 'price_1HaJLDHP1DTF1I4318NLgn9l', 'price_1HaJLDHP1DTF1I43Y9V4vr76'], stripe_product_id: 'prod_IAeeQG5bMwgR5V' },
+#   { project: 'St. Pauli', roomtype: 'Premium+', prices: ['price_1HaJKqHP1DTF1I43X6fGW1BD', 'price_1HaJKqHP1DTF1I43hZEiM29k', 'price_1HaJKqHP1DTF1I43TdNUu74n'], stripe_product_id: 'prod_IAeeDWGvOjtb1Z' },
+#   { project: 'St. Pauli', roomtype: 'Jumbo', prices: ['price_1HaJbGHP1DTF1I43uNtRCrOp', 'price_1HaJbGHP1DTF1I43eFbKz5iE', 'price_1HaJbGHP1DTF1I43tmXeBxjQ'], stripe_product_id: 'prod_IAevx4HTYuKO2j' }
+# ]
 
 
-stripe.each do |stripe_hash|
-  project = Project.find_by(name: stripe_hash[:project])
-  roomtype = project.roomtypes.find_by(name: stripe_hash[:roomtype])
-  roomtype.prices.find_by(duration: '3-5 Months').update(stripe_plan_id: stripe_hash[:prices].first)
-  roomtype.prices.find_by(duration: '6-8 Months').update(stripe_plan_id: stripe_hash[:prices].second)
-  roomtype.prices.find_by(duration: '9+ Months').update(stripe_plan_id: stripe_hash[:prices].last)
-end
+# stripe.each do |stripe_hash|
+#   project = Project.find_by(name: stripe_hash[:project])
+#   roomtype = project.roomtypes.find_by(name: stripe_hash[:roomtype])
+#   roomtype.update(stripe_product_id: stripe_hash[:stripe_product_id])
+# end
+  # roomtype.prices.find_by(duration: '3-5 Months').update(stripe_plan_id: stripe_hash[:prices].first)
+  # roomtype.prices.find_by(duration: '6-8 Months').update(stripe_plan_id: stripe_hash[:prices].second)
+  # roomtype.prices.find_by(duration: '9+ Months').update(stripe_plan_id: stripe_hash[:prices].last)
 
 # bookings = [
 #   {room_number: 'D08', full_name: 'Bernardo San Juan', email: 'bsanjuan.consulting@googlemail.com', move_in: '01.09.2020', move_out: '31.10.2020'},

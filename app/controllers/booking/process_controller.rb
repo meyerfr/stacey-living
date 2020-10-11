@@ -2,7 +2,7 @@ class Booking::ProcessController < ApplicationController
   include Wicked::Wizard
   steps *Booking.form_steps
 
-  skip_before_action :authenticate_user!, only: %I[apply create]
+  skip_before_action :authenticate_user!#, only: %I[apply create]
   before_action :check_booking_auth_token!, except: %I[apply create]
   before_action :set_objects, except: [:apply, :create]
   layout "bookingprocess", except: [:apply, :create]
@@ -76,6 +76,9 @@ class Booking::ProcessController < ApplicationController
       stripe_plan = Stripe::Plan.retrieve(@booking.price.stripe_plan_id)
       subscription_schedule = Stripe::SubscriptionSchedule.create({
         customer: stripe_customer.id,
+        default_settings: {
+          collection_method: 'charge_automatically'
+        },
         end_behavior: 'cancel',
         start_date: @booking.move_in.to_time.to_i,
         phases: [
@@ -98,6 +101,7 @@ class Booking::ProcessController < ApplicationController
       @booking.stripe_billing_plan = subscription_schedule.id
     end
     if @booking.update!(booking_params(step))
+      @booking.user.update(role: 'tenant')
       room = @booking.room
       room.bookable_date = @booking.move_in+1.day
       room.save!
@@ -213,6 +217,8 @@ class Booking::ProcessController < ApplicationController
                   customer: @stripe_customer.id,
                   setup_future_usage: 'off_session'
                 })
+    when 'success'
+      @roomtype = @booking.roomtype
     end
   end
 

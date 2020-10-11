@@ -12,26 +12,6 @@
   </div>
   <span class="description"><%= @project.descriptions.where(field: 'project info index').first.content %></span>
 </div>
-<div class="common-space-info">
-  <p class="info-header">The Community Space</p>
-  <span class="description"><%= simple_format(strip_tags(@project.community_areas.first.descriptions.first.content)) %></span>
-  <% if @community_area_amenities.present? %>
-    <ul class="common-space-amenities amenities">
-      <% @community_area_amenities.each do |amenity| %>
-        <div class="amenity">
-          <%= cl_image_tag amenity.photo.key, style: 'width: 20px' %>
-          <li><%= amenity.title %></li>
-        </div>
-      <% end %>
-    </ul>
-  <% end %>
-</div>
-
-<% if @project.name == 'Mühlenkamp' %>
-  <div class="matterport-tour" style="text-align: center; margin: 0 50px;">
-    <iframe width='100%' height='480' style="border-radius: 5;" src='https://my.matterport.com/show/?m=FBXCJk7q5LZ' frameborder='0' allowfullscreen allow='xr-spatial-tracking'></iframe>
-  </div>
-<% end %>
 
 <div class="cards-wrapper">
   <p class="suites-header">The Suites</p>
@@ -69,6 +49,7 @@
           <% if roomtype_index_inclusion_amenities.length > 0 %>
             <div class="amenity-section amenity-inventory">
               <strong>Includes</strong>:
+              bathroom
               <% roomtype_index_inclusion_amenities[0...-1].each do |amenity| %>
                 <%= amenity.title %>,
               <% end %>
@@ -90,6 +71,27 @@
 </div>
 <% if current_user.present? && current_user.admin? %>
   <%= link_to 'Create new Roomtype', project_step_path(@project, Project.form_steps.last), class: "stacey-button" %>
+<% end %>
+
+<div class="common-space-info">
+  <p class="info-header">The Community Space</p>
+  <span class="description"><%= simple_format(strip_tags(@project.community_areas.first.descriptions.first.content)) %></span>
+  <% if @community_area_amenities.present? %>
+    <ul class="common-space-amenities amenities">
+      <% @community_area_amenities.each do |amenity| %>
+        <div class="amenity">
+          <%= cl_image_tag amenity.photo.key, style: 'width: 20px' %>
+          <li><%= amenity.title %></li>
+        </div>
+      <% end %>
+    </ul>
+  <% end %>
+</div>
+
+<% if @project.name == 'Mühlenkamp' %>
+  <div class="matterport-tour" style="text-align: center; margin: 0 50px;">
+    <iframe width='100%' height='480' style="border-radius: 5;" src='https://my.matterport.com/show/?m=FBXCJk7q5LZ' frameborder='0' allowfullscreen allow='xr-spatial-tracking'></iframe>
+  </div>
 <% end %>
 
 <div class="common-space-info">
