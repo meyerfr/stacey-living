@@ -103,7 +103,7 @@ class Booking::ProcessController < ApplicationController
     end
     if @booking.update!(booking_params(step))
       if step == 'payment'
-        @booking.state = 'completed'
+        @booking.state = 'booked'
         @booking.stripe_billing_plan = subscription_schedule.id
         @booking.save
         @booking.user.update(role: 'tenant')
