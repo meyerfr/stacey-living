@@ -1,7 +1,6 @@
 # require "open-uri"
 
 # change mühlenlamp mighty price for 9+ Month back to live mode - price_1HaJN3HP1DTF1I43NtoUdBzx
-# delete booking by meyerfr@gmx.de for mühlenkamp mighty room
 
 # stripe = [
 #   { project: 'Eppendorf', roomtype: 'Mighty', prices: ['price_1HaJMgHP1DTF1I43zTlytvv3', 'price_1HaJMgHP1DTF1I43QZKLVyag', 'price_1HaJMgHP1DTF1I435fEAfxal'], stripe_product_id: 'prod_IAegbiIgW9uzBT' },

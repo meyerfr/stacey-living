@@ -73,6 +73,9 @@ class Booking::ProcessController < ApplicationController
           }
         },
       )
+      # if Rails.env.development?
+      #   raise
+      # end
       stripe_plan = Stripe::Plan.retrieve(@booking.price.stripe_plan_id)
       subscription_schedule = Stripe::SubscriptionSchedule.create({
         customer: stripe_customer.id,
@@ -97,14 +100,17 @@ class Booking::ProcessController < ApplicationController
       })
       # subscription = customer.subscriptions.create({plan: plan.id})
 
-      @booking.state = 'completed'
-      @booking.stripe_billing_plan = subscription_schedule.id
     end
     if @booking.update!(booking_params(step))
-      @booking.user.update(role: 'tenant')
-      room = @booking.room
-      room.bookable_date = @booking.move_in+1.day
-      room.save!
+      if step == 'payment'
+        @booking.state = 'completed'
+        @booking.stripe_billing_plan = subscription_schedule.id
+        @booking.save
+        @booking.user.update(role: 'tenant')
+        room = @booking.room
+        room.bookable_date = @booking.move_in+1.day
+        room.save!
+      end
       # if step == 'payment'
         # @booking.status == 'active'
         # render_wizard
