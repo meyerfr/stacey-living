@@ -1,6 +1,6 @@
 function payment() {
   if (document.getElementById('card-element')) {
-    const stripe = Stripe("sk_live_ngK8fsMnJnsynQwYl6WvcKsa");
+    const stripe = Stripe("pk_live_iSuTPX4CbDfy9CHEz2GChCMT");
     const elements = stripe.elements();
 
     const style = {
