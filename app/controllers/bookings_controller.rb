@@ -105,6 +105,7 @@ class BookingsController < ApplicationController
   end
 
   def send_booking_process_invite
+    raise
     booking = Booking.find(params[:id])
     booking.update(booking_auth_token_exp: Date.today+2.weeks)
     UserMailer.invite_for_booking_process(booking)
