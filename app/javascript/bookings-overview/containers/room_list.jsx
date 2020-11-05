@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import ListItem from './list_item'
 import { setSortParams, applyFilter } from '../actions';
 import Modal from 'react-awesome-modal'
+import moment from 'moment'
 
 class RoomList extends Component {
   constructor(props) {
@@ -75,11 +76,11 @@ class RoomList extends Component {
                     <tbody>
                       <tr>
                         <td>Move In:</td>
-                        <td>{this.state.booking.move_in}</td>
+                        <td>{moment(this.state.booking.move_in).format('Do MMMM YYYY')}</td>
                       </tr>
                       <tr>
                         <td>Move Out:</td>
-                        <td>{this.state.booking.move_out}</td>
+                        <td>{moment(this.state.booking.move_out).format('Do MMMM YYYY')}</td>
                       </tr>
                       <tr>
                         <td>Location:</td>

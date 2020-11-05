@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Modal from 'react-bootstrap/Modal'
+import moment from 'moment'
 
 class ListItem extends Component {
   render() {
@@ -14,8 +15,8 @@ class ListItem extends Component {
 		  	<td className={sortParamsKey === 'apartment_number' ? 'sorted' : ''}>{this.props.apartment_number}</td>
 		  	<td className={sortParamsKey === 'room_number' ? 'sorted' : ''}>{this.props.room_number}</td>
 		  	<td className={sortParamsKey === 'user_name' ? 'sorted' : ''}>{this.props.user_name}</td>
-		  	<td className={sortParamsKey === 'move_in' ? 'sorted' : ''}>{this.props.move_in}</td>
-		  	<td className={sortParamsKey === 'move_out' ? 'sorted' : ''}>{this.props.move_out}</td>
+		  	<td className={sortParamsKey === 'move_in' ? 'sorted' : ''}>{moment(this.props.move_in).format('D MMM YY')}</td>
+		  	<td className={sortParamsKey === 'move_out' ? 'sorted' : ''}>{moment(this.props.move_out).format('D MMM YY')}</td>
 		</tr>  
     )
   }

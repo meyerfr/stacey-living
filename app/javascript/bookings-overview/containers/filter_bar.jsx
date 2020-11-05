@@ -30,7 +30,7 @@ class FilterBar extends Component {
           <div className='date-filter'>
             <select className="form-control form-search" name="move_in" onChange={() => this.handleChange('move_in')}>
               <option value="all">all</option>
-              <option value="current">current</option>
+              <option value="current" selected="selected">current</option>
               <option value="upcoming">upcoming</option>
               <option value="past">past</option>
             </select>
