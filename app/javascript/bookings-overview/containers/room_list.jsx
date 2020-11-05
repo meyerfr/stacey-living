@@ -69,9 +69,40 @@ class RoomList extends Component {
             onClickAway={() => this.closeModal()}>
             {
               this.state.booking ?
-                <div>
-                  <h1 id="modal-title">{this.state.booking.id}</h1>
-                  <p id="modal-content">{this.state.booking.user_name}</p>
+                <div className="modal-container">
+                  <h1 id="modal-title">{this.state.booking.user_name}</h1>
+                  <table className="modal-content">
+                    <tbody>
+                      <tr>
+                        <td>Move In:</td>
+                        <td>{this.state.booking.move_in}</td>
+                      </tr>
+                      <tr>
+                        <td>Move Out:</td>
+                        <td>{this.state.booking.move_out}</td>
+                      </tr>
+                      <tr>
+                        <td>Location:</td>
+                        <td>{this.state.booking.project_name}</td>
+                      </tr>
+                      <tr>
+                        <td>Roomtype:</td>
+                        <td>{this.state.booking.roomtype_name}</td>
+                      </tr>
+                      <tr>
+                        <td>Room:</td>
+                        <td>{this.state.booking.room_number}</td>
+                      </tr>
+                      <tr>
+                        <td>Phone:</td>
+                        <td>{this.state.booking.phone}</td>
+                      </tr>
+                      <tr>
+                        <td>Booking Id:</td>
+                        <td>{this.state.booking.id}</td>
+                      </tr>
+                    </tbody>
+                  </table>
                   <a href="" onClick={() => this.closeModal()}>Close</a>
                 </div>
               :

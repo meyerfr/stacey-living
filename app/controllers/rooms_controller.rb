@@ -27,7 +27,8 @@ class RoomsController < ApplicationController
     @bookings = @bookings.map { |booking|
       roomtype = booking.roomtype
       room = booking.room
-      booking.as_json.merge({ project_name: booking.project.name, user_name: booking.user.full_name, roomtype_name: roomtype.name, room_number: room.intern_number, apartment_number: room.apartment_number })
+      user = booking.user
+      booking.as_json.merge({ project_name: booking.project.name, user_name: user.full_name, roomtype_name: roomtype.name, room_number: room.intern_number, apartment_number: room.apartment_number, phone: "#{user.phone_code} #{user.phone_number}" })
     }.sort_by{|b|b[:room_number]}
     # @rooms = Room.all.order(:intern_number)
   end

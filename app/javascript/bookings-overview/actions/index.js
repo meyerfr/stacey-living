@@ -27,22 +27,22 @@ export function fetchRoomInfo(room_id) {
 	}
 }
 
-export function fetchRooms(params) {
-	const param_entries = Object.entries(params)
-	let query_string = ''
-	for (const [param_key, param_value] of param_entries) {
-		if (param_value) {
-			query_string += `${query_string == '' ? '?' : '&'}${param_key}=${param_value}`
-		}
-	}
-	const url = `${BASE_URL}/rooms${query_string}`;
-	const promise = fetch(url, { credentials: "same-origin" }).then(r => r.json());
+// export function fetchRooms(params) {
+// 	const param_entries = Object.entries(params)
+// 	let query_string = ''
+// 	for (const [param_key, param_value] of param_entries) {
+// 		if (param_value) {
+// 			query_string += `${query_string == '' ? '?' : '&'}${param_key}=${param_value}`
+// 		}
+// 	}
+// 	const url = `${BASE_URL}/rooms${query_string}`;
+// 	const promise = fetch(url, { credentials: "same-origin" }).then(r => r.json());
 
-	return {
-		type: FETCH_ROOMS,
-		payload: promise
-	}
-}
+// 	return {
+// 		type: FETCH_ROOMS,
+// 		payload: promise
+// 	}
+// }
 
  export function setSortParams(sortKey) {
 	return {
