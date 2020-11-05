@@ -13,6 +13,8 @@ class Roomtype < ApplicationRecord
     assoc.has_many :prefered_suites
   end
 
+  has_many :bookings, through: :rooms
+
   has_many :amenities, through: :join_amenities
   accepts_nested_attributes_for :join_amenities, :rooms, :prices, :descriptions, allow_destroy: true
   validates_associated :rooms, :prices, :join_amenities

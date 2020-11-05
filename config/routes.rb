@@ -6,6 +6,8 @@ Rails.application.routes.draw do
   resources :partners
   resources :amenities
 
+  resources :rooms, only: [ :index ]
+
   resources :projects, only: [:create, :destroy] do
     resources :steps, only: [:show, :update], controller: 'project/steps'
     resources :roomtypes, only: [:destroy]
@@ -42,5 +44,11 @@ Rails.application.routes.draw do
   require "sidekiq/web"
   authenticate :user, lambda { |u| u.admin? } do
     mount Sidekiq::Web => '/sidekiq'
+  end
+
+  namespace :api, defaults: { format: :json } do
+    namespace :v1 do
+      resources :rooms, only: [ :index ]
+    end
   end
 end
