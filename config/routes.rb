@@ -8,7 +8,7 @@ Rails.application.routes.draw do
 
   resources :rooms, only: [ :index ]
 
-  resources :projects, only: [:create, :destroy] do
+  resources :projects, only: [:show, :create, :destroy] do
     resources :steps, only: [:show, :update], controller: 'project/steps'
     resources :roomtypes, only: [:destroy]
   end
@@ -49,6 +49,10 @@ Rails.application.routes.draw do
   namespace :api, defaults: { format: :json } do
     namespace :v1 do
       resources :rooms, only: [ :index ]
+      resources :projects, only: [ :index ] do
+        resources :roomtypes, only: [ :index ]
+        resources :amenities, only: [ :index ]
+      end
     end
   end
 end

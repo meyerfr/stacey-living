@@ -31,7 +31,6 @@ class RoomList extends Component {
   }
 
   handleHeaderClick = (sortKey) => {
-    console.log(event.target.parentElement);
     let currentlyActiveSortedHeader = event.target.parentElement.querySelector('.active');
     if (currentlyActiveSortedHeader && event.target != currentlyActiveSortedHeader) {
       currentlyActiveSortedHeader.classList.remove('active')

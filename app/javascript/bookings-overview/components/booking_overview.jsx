@@ -20,15 +20,6 @@ class BookingOverview extends Component {
 	}
 
 	render() {
-		console.log(this.state.view)
-		// return(
-		// 	{ 
-		// 		this.state.view === 'table' ?
-		// 			<div>{this.state.view}</div>
-		// 		:
-		// 			<span>{this.state.view}</span>
-		// 	}
-		// )
 		return(
 			<div className="overview-container" style={{width: '100%'}}>
 		        <FilterBar onChange={this.handleViewChange} />

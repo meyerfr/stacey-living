@@ -3,6 +3,7 @@ class ProjectsController < ApplicationController
   before_action :check_booking_auth_token!, only: [:index]
   before_action :set_project, only: [:show, :edit, :update, :destroy]
   layout "bookingprocess", only: [:index]
+  layout "overview", only: [:show]
 
   def create
     @project = Project.new
@@ -15,6 +16,9 @@ class ProjectsController < ApplicationController
     # else
     #   render :new
     # end
+  end
+
+  def show
   end
 
   def destroy

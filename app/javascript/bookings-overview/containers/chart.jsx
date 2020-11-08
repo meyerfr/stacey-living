@@ -70,7 +70,6 @@ class ChartView extends Component {
   }
 
   updateStart = (event) => {
-    console.log(event.target.value)
     this.setState({ 
       start_date: event.target.value,
       options: {

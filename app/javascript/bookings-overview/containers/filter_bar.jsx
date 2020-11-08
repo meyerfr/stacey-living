@@ -28,9 +28,9 @@ class FilterBar extends Component {
           <input type="text" placeholder="search Room..." className="form-control form-search" onChange={() => this.handleChange('room_number')} />
           <input type="text" placeholder="search Tenant..." className="form-control form-search" onChange={() => this.handleChange('user_name')} />
           <div className='date-filter'>
-            <select className="form-control form-search" name="move_in" onChange={() => this.handleChange('move_in')}>
+            <select className="form-control form-search" defaultValue='current' name="move_in" onChange={() => this.handleChange('move_in')}>
               <option value="all">all</option>
-              <option value="current" selected="selected">current</option>
+              <option value="current">current</option>
               <option value="upcoming">upcoming</option>
               <option value="past">past</option>
             </select>

@@ -19,8 +19,13 @@
     <% @roomtypes.each_with_index do |roomtype, index| %>
       <div class="stacey-card<%= ' not-bookable' if !roomtype.rooms_bookable? %>" id='room-card'>
         <div class="availability">
-          <span>Available</span>
-          <span><%= @room_availability_hash[roomtype.name] %></span>
+          <% if !roomtype.rooms_bookable? %>
+            <span>Not</span>
+            <span style="font-weight: bolder">Available</span>
+          <% else %>
+            <span>Available</span>
+            <span><%= @room_availability_hash[roomtype.name] %></span>
+          <% end %>
         </div>
         <% photos = roomtype.name == 'Mighty+' ? @roomtypes.first.photos : roomtype.photos %>
         <%= render 'shared/carousel', pictures: photos, carousel_id: "Room#{roomtype.id}", no_lightbox_button: true, caption: "#{roomtype.name} Suite Pictures" %>

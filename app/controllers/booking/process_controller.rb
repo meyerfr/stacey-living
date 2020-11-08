@@ -76,28 +76,28 @@ class Booking::ProcessController < ApplicationController
       # if Rails.env.development?
       #   raise
       # end
-      stripe_plan = Stripe::Plan.retrieve(@booking.price.stripe_plan_id)
-      subscription_schedule = Stripe::SubscriptionSchedule.create({
-        customer: stripe_customer.id,
-        default_settings: {
-          collection_method: 'charge_automatically'
-        },
-        end_behavior: 'cancel',
-        start_date: @booking.move_in.to_time.to_i,
-        phases: [
-          {
-            plans: [
-              {
-                plan: stripe_plan.id,
-                price: stripe_plan.id,
-                quantity: 1
-              }
-            ],
-            end_date: @booking.move_out.to_time.to_i,
-            proration_behavior: "none"
-          }
-        ]
-      })
+      # stripe_plan = Stripe::Plan.retrieve(@booking.price.stripe_plan_id)
+      # subscription_schedule = Stripe::SubscriptionSchedule.create({
+      #   customer: stripe_customer.id,
+      #   default_settings: {
+      #     collection_method: 'charge_automatically'
+      #   },
+      #   end_behavior: 'cancel',
+      #   start_date: @booking.move_in.to_time.to_i,
+      #   phases: [
+      #     {
+      #       plans: [
+      #         {
+      #           plan: stripe_plan.id,
+      #           price: stripe_plan.id,
+      #           quantity: 1
+      #         }
+      #       ],
+      #       end_date: @booking.move_out.to_time.to_i,
+      #       proration_behavior: "none"
+      #     }
+      #   ]
+      # })
       # subscription = customer.subscriptions.create({plan: plan.id})
 
     end
@@ -296,20 +296,25 @@ class Booking::ProcessController < ApplicationController
     params.require(:booking).permit(permitted_attributes).merge(form_step: step)
   end
 
+  def find_available_dates_for_bookable_rooms(bookable_rooms_array)
+    available_dates = []
+    bookable_rooms_array.each do |room|
+      if room.bookings.present?
+        available_dates << room.bookings.order(:move_out).last.move_out + 1.day
+      else
+        available_dates << Date.today
+        break
+      end
+    end
+    available_dates.sort!
+  end
+
   def find_available_booking_dates_for_each_room_art(roomtypes)
     availability = {}
     roomtypes.each do |roomtype|
       bookable_rooms = roomtype.rooms.select{|r| r.bookable_date <= Date.today}
-      available_dates = []
-      bookable_rooms.each do |room|
-        if room.bookings.present?
-          available_dates << room.bookings.order(:move_out).last.move_out + 1.day
-        else
-          available_dates << Date.today
-          break
-        end
-      end
-      available_dates.sort!
+      available_dates = find_available_dates_for_bookable_rooms(bookable_rooms)
+      
       if available_dates.present? && available_dates.first > Date.today
         availability.store(roomtype.name, (available_dates.first).strftime('%d.%-m.%Y'))
       else
@@ -330,7 +335,7 @@ class Booking::ProcessController < ApplicationController
       @price = @roomtype.prices.last.amount
     end
     @booking_fee = 80
-    @total_today = @booking_fee + (@price * 2)
+    @total_today = @booking_fee
     # @total_amount = @deposit + 80
   end
 end
