@@ -4,4 +4,17 @@ class Room < ApplicationRecord
   has_many :bookings
   has_one :project, through: :roomtype
   # has_one :booking, required: false
+
+  def next_available_move_in_date
+  	bookings = self.bookings.where(state: 'booked')
+  	if self.bookable_date <= Date.today
+  		if bookings.count > 0 && bookings.last.move_out >= Date.today
+  			bookings.order(:move_out).last.move_out + 1.day
+  		else
+  			Date.tomorrow
+  		end
+  	else
+  		false
+  	end
+  end
 end

@@ -15,6 +15,9 @@
 	grid-gap: 40px 25px;
 	margin: 30px 0;
 	min-height: 400px;
+	&.roomtypes{
+		margin: 1rem 0 30px;
+	}
 }
 
 .stacey-card{
@@ -29,11 +32,36 @@
 	position: relative;
 	.stacey-card-photos{
 		max-height: 210px;
+		width: 100%;
 		overflow: hidden;
+		position: relative;
 		img{
 			width: 100%;
 			height: 210px;
 			object-fit: cover;
+		}
+		.photo-aligned{
+			position: absolute;
+			top: 8px;
+			padding: 4px 12px;
+			color: white;
+			border-radius: 5px;
+		}
+		i.fa-image{
+	    left: 8px;
+	    font-size: 25px;
+	    background-color: rgba(0,0,0,.7);
+	    cursor: pointer;
+		}
+		div.available{
+			display: flex;
+			flex-direction: column;
+			right: 8px;
+			font-size: 13px;
+			background-color: $stacey-pink;
+			.bolder{
+				font-weight: 600;
+			}
 		}
 	}
 	.stacey-card-header{

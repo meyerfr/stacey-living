@@ -1,7 +1,16 @@
 class RoomtypesController < ApplicationController
   skip_before_action :authenticate_user!, except: [:index, :show]
   before_action :check_booking_auth_token!, only: [:index, :show]
-  layout "bookingprocess", only: [:index, :show]
+  # layout "bookingprocess", only: [:index, :show]
+  layout "overview", only: [:index, :show]
+
+  def index
+    
+  end
+
+  def show
+    
+  end
 
   def destroy
     @roomtype = Roomtype.find(params[:id])

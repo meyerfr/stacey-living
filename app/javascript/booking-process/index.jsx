@@ -5,16 +5,21 @@ import { createStore, combineReducers, applyMiddleware } from 'redux';
 import reduxPromise from 'redux-promise';
 import logger from 'redux-logger';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-// import { createHistory as history } from 'history';
+import { useHistory as history } from 'react-router-dom';
 
 import ProjectsIndex from './containers/projects_index';
 import RoomtypesIndex from './containers/roomtypes_index';
-import RoomtypesShow from './containers/roomtypes_show';
+import RoomtypeShow from './containers/roomtype_show';
 // import '../assets/stylesheets/application.scss';
 
 import projectsReducer from './reducers/projects_reducer.js';
+import projectReducer from './reducers/project_reducer.js';
 import roomtypesReducer from './reducers/roomtypes_reducer.js';
+import roomtypeReducer from './reducers/roomtype_reducer.js';
 import amenitiesReducer from './reducers/amenities_reducer.js';
+import descriptionsReducer from './reducers/descriptions_reducer.js';
+import { reducer as formReducer } from 'redux-form';
+// [...]
 
 // State and reducers
 const initialState = {
@@ -26,7 +31,10 @@ const initialState = {
 const reducers = combineReducers({
   projects: projectsReducer,
   roomtypes: roomtypesReducer,
-  amenities: amenitiesReducer
+  amenities: amenitiesReducer,
+  project: projectReducer,
+  roomtype: roomtypeReducer,
+  form: formReducer
 });
 
 const middlewares = applyMiddleware(reduxPromise, logger);
@@ -34,12 +42,12 @@ const middlewares = applyMiddleware(reduxPromise, logger);
 // render an instance of the component in the DOM
 ReactDOM.render(
   <Provider store={createStore(reducers, initialState, middlewares)}>
-    <Router>
+    <Router history={history}>
       <div className="view-container">
         <Switch>
-          <Route path="/projects/:id" component={ProjectsIndex} />
-          <Route path="/projects/:id/roomtypes" component={RoomtypesIndex} />
-          <Route path="/projects/:project_id/roomtypes/:id" component={RoomtypesShow} />
+          <Route path="/bookings/:booking_id/projects/:project_id/roomtypes/:id" component={RoomtypeShow} />
+          <Route path="/bookings/:booking_id/projects/:project_id/roomtypes" component={RoomtypesIndex} />
+          <Route path="/bookings/:booking_id/projects/:id" component={ProjectsIndex} />
         </Switch>
       </div>
     </Router>

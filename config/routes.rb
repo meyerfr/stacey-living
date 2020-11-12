@@ -10,12 +10,15 @@ Rails.application.routes.draw do
 
   resources :projects, only: [:show, :create, :destroy] do
     resources :steps, only: [:show, :update], controller: 'project/steps'
-    resources :roomtypes, only: [:destroy]
+    resources :roomtypes, only: [:show, :index, :destroy]
   end
 
   resources :bookings, only: [:index] do
     resources :process, path: 'process/(:booking_auth_token)', only: [:show, :update], controller: 'booking/process'
     get 'send_booking_process_invite', to: 'booking/process#send_booking_process_invite', as: 'send_booking_process_invite'
+    resources :projects, only: [ :show ] do
+      resources :roomtypes, only: [ :show, :index ]
+    end
   end
   get 'apply', to: 'booking/process#apply', as: 'apply'
   post 'apply', to: 'booking/process#create'
@@ -49,10 +52,14 @@ Rails.application.routes.draw do
   namespace :api, defaults: { format: :json } do
     namespace :v1 do
       resources :rooms, only: [ :index ]
-      resources :projects, only: [ :index ] do
+      resources :projects, only: [ :show, :index ] do
         resources :roomtypes, only: [ :index ]
-        resources :amenities, only: [ :index ]
+        # resources :amenities, only: [ :index ]
       end
+      resources :amenities, only: [ :index ]
+      resources :descriptions, only: [ :index ]
+      resources :roomtypes, only: [ :show ]
+      resources :bookings, only: [ :update ]
     end
   end
 end
