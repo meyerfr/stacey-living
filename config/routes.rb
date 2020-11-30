@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   devise_for :users
-  root to: 'booking/process#apply'
+  root to: 'bookings/new'
   resources :users
   resources :partners
   resources :amenities
