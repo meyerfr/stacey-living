@@ -1,93 +1,106 @@
 class BookingsController < ApplicationController
   before_action :authenticate_user!
+  layout 'overview', only: 'index'
 
   BOOKINGS_PER_PAGE = 25
 
   def index
-    @time_param_options = ['all', 'current', 'upcoming', 'past']
+    @bookings = Booking.where(
+              "bookings.move_in <= :todays_date AND move_out >= :todays_date AND state = :booked_state",
+              todays_date: Date.today,
+              booked_state: 'booked'
+            ).order(:move_in)
 
-    @project_param = params[:project_name].present? ? params[:project_name] : 'all'
-    if @project_param != 'all'
-      @project = Project.find_by(name: @project_param)
-    end
+    @bookings = @bookings.map { |booking|
+      roomtype = booking.roomtype
+      room = booking.room
+      user = booking.user
+      booking.as_json.merge({ project_name: booking.project.name, user_name: user.full_name, roomtype_name: roomtype.name, room_number: room.intern_number, apartment_number: room.apartment_number, phone: "#{user.phone_code} #{user.phone_number}" })
+    }
+    # @time_param_options = ['all', 'current', 'upcoming', 'past']
 
-    @room_name_param = params[:room_name].present? ? params[:room_name] : 'all'
+    # @project_param = params[:project_name].present? ? params[:project_name] : 'all'
+    # if @project_param != 'all'
+    #   @project = Project.find_by(name: @project_param)
+    # end
 
-    @time_param = params[:time].present? ? params[:time] : 'all'
+    # @room_name_param = params[:room_name].present? ? params[:room_name] : 'all'
 
-    search_param = params[:search] if params[:search].present?
+    # @time_param = params[:time].present? ? params[:time] : 'all'
 
-    @project_names = Project.all.collect(&:name).unshift('all')
+    # search_param = params[:search] if params[:search].present?
 
-    @bookings = Booking.where(state: 'booked').order(created_at: :desc)
+    # @project_names = Project.all.collect(&:name).unshift('all')
 
-    if @project_param == 'all'
-      @total_room_number = Room.count
-    else
-      @bookings = @project.bookings.where(state: 'booked').order(:move_in)
-      # @bookings = @bookings.includes(:project).where('projects.name = :project_name', project_name: @project_param)
-      @total_room_number = @project.rooms.count
-    end
+    # @bookings = Booking.where(state: 'booked').order(created_at: :desc)
 
-    if @room_name_param == 'all'
-      @total_room_number = @project_param == 'all' ? Room.count : @project.rooms.count
+    # if @project_param == 'all'
+    #   @total_room_number = Room.count
+    # else
+    #   @bookings = @project.bookings.where(state: 'booked').order(:move_in)
+    #   # @bookings = @bookings.includes(:project).where('projects.name = :project_name', project_name: @project_param)
+    #   @total_room_number = @project.rooms.count
+    # end
 
-      @room_name = @room_name_param
-    else
-      @room_name = Roomtype.find_by(name: @room_name_param).name
-      @bookings = @bookings.joins(room: :roomtype).where('roomtypes.name = :room_name', room_name: @room_name)
-      @total_room_number = if @project.present?
-                             @project.rooms.joins(:roomtype).where('roomtypes.name = :room_name', room_name: @room_name).count
-                           else
-                             Room.joins(:roomtype).where('roomtypes.name = :room_name', room_name: @room_name).count
-                           end
-    end
+    # if @room_name_param == 'all'
+    #   @total_room_number = @project_param == 'all' ? Room.count : @project.rooms.count
 
-    @total_current_room_bookings = @bookings.where(
-      "bookings.move_in <= :todays_date AND bookings.move_out >= :todays_date AND bookings.state = :booked_state",
-      todays_date: Date.today,
-      booked_state: 'booked'
-    ).count
+    #   @room_name = @room_name_param
+    # else
+    #   @room_name = Roomtype.find_by(name: @room_name_param).name
+    #   @bookings = @bookings.joins(room: :roomtype).where('roomtypes.name = :room_name', room_name: @room_name)
+    #   @total_room_number = if @project.present?
+    #                          @project.rooms.joins(:roomtype).where('roomtypes.name = :room_name', room_name: @room_name).count
+    #                        else
+    #                          Room.joins(:roomtype).where('roomtypes.name = :room_name', room_name: @room_name).count
+    #                        end
+    # end
 
-    if @time_param == 'upcoming'
-      # @bookings = @bookings.select{ |booking| booking.move_in >= Date.today}
-      @bookings = @bookings.where('move_in >= ?', Date.today)
-    elsif @time_param == 'past'
-      # @bookings = @bookings.select{ |booking| booking.move_out <= Date.today}
-      @bookings = @bookings.where('move_out <= ?', Date.today)
-    elsif @time_param == 'current'
-      # @bookings = @bookings.select{ |booking| booking.move_in <= Date.today && booking.move_out >= Date.today}
-      @bookings = @bookings.where(
-        "bookings.move_in <= :todays_date AND bookings.move_out >= :todays_date AND bookings.state = :booked_state",
-        todays_date: Date.today,
-        booked_state: 'booked'
-      ).order(created_at: :desc)
-    end
+    # @total_current_room_bookings = @bookings.where(
+    #   "bookings.move_in <= :todays_date AND bookings.move_out >= :todays_date AND bookings.state = :booked_state",
+    #   todays_date: Date.today,
+    #   booked_state: 'booked'
+    # ).count
+
+    # if @time_param == 'upcoming'
+    #   # @bookings = @bookings.select{ |booking| booking.move_in >= Date.today}
+    #   @bookings = @bookings.where('move_in >= ?', Date.today)
+    # elsif @time_param == 'past'
+    #   # @bookings = @bookings.select{ |booking| booking.move_out <= Date.today}
+    #   @bookings = @bookings.where('move_out <= ?', Date.today)
+    # elsif @time_param == 'current'
+    #   # @bookings = @bookings.select{ |booking| booking.move_in <= Date.today && booking.move_out >= Date.today}
+    #   @bookings = @bookings.where(
+    #     "bookings.move_in <= :todays_date AND bookings.move_out >= :todays_date AND bookings.state = :booked_state",
+    #     todays_date: Date.today,
+    #     booked_state: 'booked'
+    #   ).order(created_at: :desc)
+    # end
 
 
-    if search_param
-      sql_query = " \
-        users.first_name @@ :search \
-        OR users.last_name @@ :search \
-        OR users.email @@ :search \
-        OR CONCAT(users.first_name, ' ', users.last_name) @@ :search
-      "
-      users = User.where(sql_query, search: "%#{params[:search]}%")
+    # if search_param
+    #   sql_query = " \
+    #     users.first_name @@ :search \
+    #     OR users.last_name @@ :search \
+    #     OR users.email @@ :search \
+    #     OR CONCAT(users.first_name, ' ', users.last_name) @@ :search
+    #   "
+    #   users = User.where(sql_query, search: "%#{params[:search]}%")
 
-      @bookings = Booking.order(created_at: :desc).select{|b| users.include?(b.user) }
-      @page_count = 0
-    else
-      @page = params.fetch(:page, 0).to_i
-      @page_count = @bookings.count / BOOKINGS_PER_PAGE
-      @bookings = @bookings.offset(@page * BOOKINGS_PER_PAGE).limit(BOOKINGS_PER_PAGE)
-    end
+    #   @bookings = Booking.order(created_at: :desc).select{|b| users.include?(b.user) }
+    #   @page_count = 0
+    # else
+    #   @page = params.fetch(:page, 0).to_i
+    #   @page_count = @bookings.count / BOOKINGS_PER_PAGE
+    #   @bookings = @bookings.offset(@page * BOOKINGS_PER_PAGE).limit(BOOKINGS_PER_PAGE)
+    # end
 
-    @all_room_names = Roomtype.order(:size).collect(&:name).uniq.unshift('all')
-    # @available_booking_times = find_available_booking_dates(@bookings)
-    respond_to do |format|
-      format.html { render 'bookings/index' }
-      format.js  # <-- will render `app/views/bookings/index.js.erb`
-    end
+    # @all_room_names = Roomtype.order(:size).collect(&:name).uniq.unshift('all')
+    # # @available_booking_times = find_available_booking_dates(@bookings)
+    # respond_to do |format|
+    #   format.html { render 'bookings/index' }
+    #   format.js  # <-- will render `app/views/bookings/index.js.erb`
+    # end
   end
 
   def update

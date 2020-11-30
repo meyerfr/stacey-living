@@ -8,81 +8,13 @@
   <li><%#= booking.move_out + 1.day %> - <%#=  @bookings[index + 1].present? ? @bookings[index + 1].move_in - 1.day : 'open' %></li>
 <%# end %>
  -->
+<div id="overview-container" data-bookings="<%= @bookings.to_json %>"></div>
 
-<h3 class="list-header">All Bookings</h3>
+<!-- Exaample for passing dataAttributes -->
+<!-- <div id="react_redux_app"
+  data-someAttribute=<%#= SomeAttribute.all.to_json %>
+></div> -->
 
-<div class="list-position">
-  <div class="list-wrapper">
-    <div class="list-navbar">
-      <div class="one-list-navbar">
-        <div class="options">
-          <% @project_names.each do |project_name| %>
-            <%= link_to project_name.capitalize, bookings_path(project_name: project_name), class: class_string('option': true, 'active': (@project_param == project_name)) %>
-          <% end %>
-        </div>
-        <div class="query">
-          <%= form_tag bookings_path, method: :get do %>
-            <%= text_field_tag :search,
-            params[:search],
-            class: "form-control",
-              placeholder: "Find a user"
-              %>
-              <%= submit_tag "Search", class: "btn btn-primary d-none" %>
-          <% end %>
-        </div>
-      </div>
-      <div class="between-navbar-line"></div>
-      <div class="one-list-navbar padding-top">
-        <div class="options">
-          <% @all_room_names.each do |name| %>
-            <%= link_to name.capitalize, bookings_path(project_name: @project_param, room_name: name), class: class_string('option': true, 'active': (@room_name_param == name)) %>
-          <% end %>
-        </div>
-      </div>
-      <div class="between-navbar-line"></div>
-      <div class="one-list-navbar flex-end padding-top">
-        <div class="options">
-          <% @time_param_options.each do |time_option| %>
-            <%= link_to time_option.capitalize, bookings_path(project_name: @project_param, room_name: @room_name_param, time: time_option), class: class_string('option': true, 'active': (@time_param == time_option)) %>
-          <% end %>
-        </div>
-      </div>
-      <div class="between-navbar-line"></div>
-      <div class="navbar-infotext">
-        <span>We have <%= @total_room_number %> <%= @room_name unless @room_name == 'all' %> Rooms <%= "in #{@project_param}" unless @project_param == 'all' %> and we currently have <%= @total_current_room_bookings %> of them booked.</span>
-      </div>
-    </div>
-    <div class="list-container">
-      <div class="list-context-container">
-        <div class="list-info">
-          <span class="list-header set-width">Name</span>
-          <span class="list-header set-width">Email</span>
-          <span class="list-header set-width">MoveIn - MoveOut</span>
-          <!-- <span class="list-header details-header set-width">Detail</span> -->
-        </div>
-      </div>
-      <% @bookings.each do |booking| %>
-        <% user = booking.user %>
-        <!-- <div class="list-context-container"> -->
-          <%= link_to user_path(user, page: 'booking'), remote: true, class: 'list-context-container user-info-container' do %>
-            <div class="list-info">
-              <span class="set-width"><%= user.full_name %></span>
-              <span class="set-width"><%= user.email %></span>
-              <div class="duration-dates set-width">
-                <%= booking.move_in.strftime("%d.%m %Y") %> – <%= booking.move_out.strftime("%d.%m %Y") %>
-              </div>
-              <!-- <div class="details d-flex set-width">
-                <i class="fas fa-caret-right"></i>
-                <i class="fas fa-caret-down d-none"></i>
-                <span>Details</span>
-              </div> -->
-            </div>
-          <% end %>
-        <!-- </div> -->
-      <% end %>
-      <%= render 'shared/pagination', path: bookings_path(project_name: @project_param, room_name: @room_name_param, time: @time_param) %>
-    </div>
-  </div>
-</div>
-
-<div id="user-info-modal"></div>
+<% content_for :after_js do %>
+  <%= javascript_pack_tag "overview" %>
+<% end %>

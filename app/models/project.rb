@@ -17,7 +17,7 @@ class Project < ApplicationRecord
   has_many :rooms, through: :roomtypes
   has_many :amenities, through: :join_amenities
   has_many :bookings, through: :rooms
-  has_many :prices, through: :roomtype
+  has_many :prices, through: :roomtypes
   has_many_attached :photos
 
   accepts_nested_attributes_for :address, :descriptions, :join_amenities, :roomtypes, :community_areas, allow_destroy: true
@@ -58,6 +58,58 @@ class Project < ApplicationRecord
     end
     bookable_rooms
   end
+
+  def cheapest_price
+    self.prices.order(:amount).first.amount
+  end
+
+  def all_descriptions
+    descriptions = self.descriptions
+    self.community_areas.each do |community_area|
+      descriptions += community_area.descriptions
+    end
+    descriptions << self.address.description
+    return descriptions
+  end
+
+  def next_available_move_in_date
+    next_available_move_in = Date.today + 10.years
+    self.roomtypes.each do |roomtype|
+      roomtypes_next_available_move_in = roomtype.next_available_move_in_date
+      if roomtypes_next_available_move_in
+        next_available_move_in = roomtypes_next_available_move_in if roomtypes_next_available_move_in < next_available_move_in
+      end
+      if next_available_move_in == Date.tomorrow
+        break
+      end
+    end
+    (next_available_move_in != Date.today + 10.years) ? next_available_move_in : false
+  end
+
+  def next_available_room
+    next_available_move_in = Date.today + 10.years
+    next_available_room = nil
+    self.rooms.each do |room|
+      rooms_next_available_move_in_date = room.next_available_move_in_date
+      if rooms_next_available_move_in_date
+        if rooms_next_available_move_in_date < next_available_move_in
+          next_available_move_in = rooms_next_available_move_in_date
+          next_available_room = room
+        end
+      end
+      break if next_available_move_in == Date.tomorrow
+    end
+    (next_available_move_in != Date.today + 10.years) ? next_available_room : false
+  end
+
+  def availabilities
+    availabilities = []
+    self.roomtypes.each do |roomtype|
+      availabilities += roomtype.availabilities
+    end
+    return availabilities
+  end
+
   # def clean_up_data
   #   self.name = self.name.downcase.titleize
   #   self.street = self.street.downcase.titleize

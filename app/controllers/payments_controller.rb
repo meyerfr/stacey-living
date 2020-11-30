@@ -1,9 +1,9 @@
 class PaymentsController < ApplicationController
-  skip_before_action :authenticate_user!
+  skip_before_action :authenticate_user!, only: [:new]
   before_action :check_booking_auth_token!
   before_action :set_booking
   before_action :set_price_and_deposit, except: [:new, :create, :create_payment_intent]
-  layout "bookingprocess", only: [:new]
+  layout "overview", only: [:new]
 
   def new
   end

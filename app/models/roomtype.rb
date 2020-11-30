@@ -13,6 +13,8 @@ class Roomtype < ApplicationRecord
     assoc.has_many :prefered_suites
   end
 
+  has_many :bookings, through: :rooms
+
   has_many :amenities, through: :join_amenities
   accepts_nested_attributes_for :join_amenities, :rooms, :prices, :descriptions, allow_destroy: true
   validates_associated :rooms, :prices, :join_amenities
@@ -41,6 +43,47 @@ class Roomtype < ApplicationRecord
       )
     end
     self.update(stripe_product: product.id)
+  end
+
+  def cheapest_price
+    self.prices.order(:amount).first.amount
+  end
+
+  def next_available_move_in_date
+    next_available_move_in = Date.today + 10.years
+    self.rooms.each do |room|
+      rooms_next_available_move_in_date = room.next_available_move_in_date
+      if rooms_next_available_move_in_date
+        next_available_move_in = rooms_next_available_move_in_date if rooms_next_available_move_in_date < next_available_move_in
+      end
+      break if next_available_move_in == Date.tomorrow
+    end
+    (next_available_move_in != Date.today + 10.years) ? next_available_move_in : false
+  end
+
+  def next_available_room
+    next_available_move_in = Date.today + 10.years
+    next_available_room = nil
+    self.rooms.each do |room|
+      rooms_next_available_move_in_date = room.next_available_move_in_date
+      if rooms_next_available_move_in_date
+        if rooms_next_available_move_in_date < next_available_move_in
+          next_available_move_in = rooms_next_available_move_in_date
+          next_available_room = room
+        end
+      end
+      break if next_available_move_in == Date.tomorrow
+    end
+    (next_available_move_in != Date.today + 10.years) ? next_available_room : false
+  end
+
+  def availabilities
+    availabilities = []
+    self.rooms.each do |room|
+      rooms_next_available_move_in_date = room.next_available_move_in_date
+      availabilities << {room_id: room.id, next_available_move_in_date: rooms_next_available_move_in_date } if rooms_next_available_move_in_date
+    end
+    return availabilities.uniq{|a| a[:next_available_move_in_date]}.sort_by {|a| a[:next_available_move_in_date]}
   end
 
   def rooms_bookable?

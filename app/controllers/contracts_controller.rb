@@ -1,7 +1,8 @@
 class ContractsController < ApplicationController
-  before_action :authenticate_user!
-  before_action :check_booking_auth_token!
+  skip_before_action :authenticate_user!, only: [:contract]
+  before_action :check_booking_auth_token!, only: [:contract]
   layout "bookingprocess", only: [:new, :show]
+  layout "overview", only: [:contract]
 
   def new
     # layout booking
@@ -55,6 +56,10 @@ class ContractsController < ApplicationController
         zoom: 0.8
       end
     end
+  end
+
+  def contract
+    # render json: contract
   end
 
   private

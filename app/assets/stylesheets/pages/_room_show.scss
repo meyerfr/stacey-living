@@ -48,3 +48,77 @@
   display: flex;
   justify-content: space-between;
 }
+
+
+.roomtype-container{
+  // width: 60%;
+  .section{
+    margin-bottom: 50px;
+  }
+  .map-container{
+    margin-bottom: 50px;
+    height: 350px !important;
+  }
+  .section:first-child{
+    margin-top: 50px;
+  }
+  h3.section-header.main{
+    font-size: 32px;
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+  }
+  .roomtype-amenities-container{
+    display: grid;
+    grid-gap: 20px 0;
+    .amenity{
+      display: grid;
+      grid-template-columns: auto 1fr;
+      grid-gap: 10px;
+      align-items: center;
+      img{
+        width: 20px;
+        height: 20px;
+        object-fit: contain;
+      }
+    }
+  }
+  .roomtype-photos-container{
+    position: relative;
+    img:first-child{
+      width: 100%;
+      object-fit: fill;
+      height: 420px;
+      margin-bottom: 15px;
+    }
+    img{
+      height: 100px;
+      border-radius: 5px;
+      margin-right: 5px;
+    }
+    .photo-aligned{
+      position: absolute;
+      top: 8px;
+      padding: 4px 12px;
+      color: white;
+      border-radius: 5px;
+    }
+    i.fa-image{
+      right: 8px;
+      font-size: 25px;
+      background-color: rgba(0,0,0,.7);
+      cursor: pointer;
+    }
+  }
+}
+
+@media (min-width: 576px) {
+  .roomtype-amenities-container{
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (min-width: 1024px) {
+  .roomtype-container{
+    width: 60%;
+  }
+}

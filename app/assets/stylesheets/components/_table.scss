@@ -1,0 +1,76 @@
+.table-container{
+	width: 90%;
+	&:not(#chart){
+		height: 65vh;
+	}
+	overflow: scroll;
+	// border: 1px solid lightgray;
+	// border-radius: 10px;
+	table.list-container{
+	    border-collapse: separate;
+		border-spacing: 0;
+		width: 100%;
+		td, th{
+			white-space: nowrap;
+			padding: 10px;
+		}
+		td.sorted{
+			background: #fafafa;
+		}
+		tr:nth-child(2n+1) td.sorted{
+			background: #f1f1f1;
+		}
+		tbody tr:nth-child(2n+1) {
+		    background: #f9f9f9;
+		}
+		tbody tr:hover{
+			background: #f6f6f6;
+			cursor: pointer;
+		}
+		thead tr{
+			th{
+				cursor: pointer;
+				&:hover, &.sorted{
+					background: #fafafa;
+				}
+			}
+		}
+		tr td:first-child, tr th:first-child {
+		    border-left: 1px solid lightgray;
+		}
+		thead tr:first-child th {
+		    border-top: 1px solid lightgray;
+		    background: white;
+		    position: sticky;
+		    top: 0;
+		}
+		tr td:last-child, tr th:last-child {
+			border-right: 1px solid lightgray;
+		}
+		tr:last-child td {
+		    border-bottom: 1px solid lightgray;
+		}
+		thead tr:first-child th:first-child {
+		    border-top-left-radius: 10px;
+		}
+		thead tr:first-child th:last-child {
+			border-top-right-radius: 10px;
+		}
+		tr:last-child td:first-child {
+			border-bottom-left-radius: 10px;
+		}
+		tr:last-child td:last-child {
+			border-bottom-right-radius: 10px;
+		}
+	}
+	.field{
+		display: flex;
+		justify-content: center;
+		input{
+			width: fit-content;
+		}
+		#start{
+			margin-right: 30px;
+		}
+	}
+}

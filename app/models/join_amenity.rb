@@ -1,6 +1,6 @@
 class JoinAmenity < ApplicationRecord
-  belongs_to :amenitiable, polymorphic: true
   belongs_to :amenity
+  belongs_to :amenitiable, polymorphic: true
 
   def name_input
     name_options = [
