@@ -1,4 +1,4 @@
-<%= simple_form_for @booking, method: :post, url: apply_url, html: { class: 'apply-form' } do |b| %>
+<%= simple_form_for @booking, method: :post, html: { class: 'apply-form' } do |b| %>
   <%= b.hidden_field :booking_auth_token %>
   <%= b.hidden_field :booking_auth_token_exp %>
   <%= b.simple_fields_for :user do |u| %>

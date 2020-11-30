@@ -4,6 +4,35 @@ class BookingsController < ApplicationController
 
   BOOKINGS_PER_PAGE = 25
 
+  def new
+    @phone_code = %w(+61 +43 +32 +55 +1 +86 +45 +358 +33 +49 +852 +353 +39 +81 +352 +52 +31 +64 +47 +351 +65 +34 +46 +41 +44)
+    @booking = Booking.new(booking_auth_token: Devise.friendly_token, booking_auth_token_exp: Date.today+2.weeks)
+    @booking.build_user
+    ['Facebook', 'LinkedIn', 'Instagram', 'Twitter'].each do |social_link_name|
+      @booking.user.social_links.build(name: social_link_name) unless @booking.user.social_links.collect(&:name).include?(social_link_name)
+    end
+    Roomtype.order(:size).select{|roomtype| ['Mighty', 'Premium', 'Premium+', 'Jumbo'].include?(roomtype.name)}.uniq{|roomtype| roomtype.name}.each do |roomtype|
+      @booking.user.prefered_suites.build(roomtype_id: roomtype.id) unless @booking.user.prefered_suites.collect(&:roomtype_id).include?(roomtype.id)
+    end
+  end
+
+  def create
+    @booking = Booking.new(bookings_params)
+    @booking.user.skip_password_validation = true
+    if @booking.save
+      UserMailer.welcome(@booking).deliver_later(wait_until:  20.minutes.from_now)
+      redirect_to new_booking_welcome_call_path(@booking.booking_auth_token, @booking)
+    else
+      ['Facebook', 'LinkedIn', 'Instagram', 'Twitter'].each do |social_link_name|
+        @booking.user.social_links.build(name: social_link_name) unless @booking.user.social_links.collect(&:name).include?(social_link_name)
+      end
+      Roomtype.order(:size).select{|roomtype| ['Mighty', 'Premium', 'Premium+', 'Jumbo'].include?(roomtype.name)}.uniq{|roomtype| roomtype.name}.each do |roomtype|
+        @booking.user.prefered_suites.build(roomtype_id: roomtype.id) unless @booking.user.prefered_suites.collect(&:roomtype_id).include?(roomtype.id)
+      end
+      render :new
+    end
+  end
+
   def index
     @bookings = Booking.where(
               "bookings.move_in <= :todays_date AND move_out >= :todays_date AND state = :booked_state",
@@ -128,7 +157,41 @@ class BookingsController < ApplicationController
   private
 
   def bookings_params
-    params.require(:booking).permit(:move_in, :move_out)
+    params.require(:booking).permit(
+                                :move_in,
+                                :move_out,
+                                :booking_auth_token,
+                                :booking_auth_token_exp,
+                                user_attributes: [
+                                  :first_name,
+                                  :last_name,
+                                  :email,
+                                  :phone_code,
+                                  :phone_number,
+                                  :dob,
+                                  :job,
+                                  :street,
+                                  :city,
+                                  :zipcode,
+                                  :country,
+                                  :amount_of_people,
+                                  :linkedin,
+                                  :facebook,
+                                  :twitter,
+                                  :instagram,
+                                  :photo,
+                                  :gender,
+                                  social_links_attributes: [
+                                    :name,
+                                    :url,
+                                    :_destroy
+                                  ],
+                                  prefered_suites_attributes: [
+                                    :roomtype_id,
+                                    :_destroy
+                                  ]
+                                ]
+                              )
   end
 
   def check_duration_between_bookings(first_booking, second_booking)

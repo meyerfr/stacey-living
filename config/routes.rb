@@ -2,7 +2,6 @@ Rails.application.routes.draw do
   devise_for :users
   root to: 'booking/process#apply'
   resources :users
-  get 'open_user_modal', to: 'users#open_user_modal', as: 'open_user_modal'
   resources :partners
   resources :amenities
 
@@ -13,7 +12,7 @@ Rails.application.routes.draw do
     resources :roomtypes, only: [:show, :index, :destroy]
   end
 
-  resources :bookings, only: [ :index ] do
+  resources :bookings, only: [ :new, :create, :index ] do
     # resources :process, path: 'process/(:booking_auth_token)', only: [:show, :update], controller: 'booking/process'
     get 'send_booking_process_invite', to: 'booking/process#send_booking_process_invite', as: 'send_booking_process_invite'
   end

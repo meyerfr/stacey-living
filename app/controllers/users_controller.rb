@@ -70,13 +70,6 @@ class UsersController < ApplicationController
   def destroy
   end
 
-  # def open_user_modal
-  #   @user = User.find(params[:id])
-  #   respond_to do |format|
-  #     format.html { render }
-  #   end
-  # end
-
   private
 
   def users_params
