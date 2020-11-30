@@ -180,7 +180,7 @@ export function updateUser(user) {
 }
 
 export function createUserAddress(user_id, address) {
-	const url = `${BASE_URL}/users/${user_id}/address`;
+	const url = `${BASE_URL}/users/${user_id}/addresses`;
   const csrfToken = document.querySelector('meta[name="csrf-token"]').attributes.content.value;
 
   const promise = fetch(url, {

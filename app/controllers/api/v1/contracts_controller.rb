@@ -1,4 +1,31 @@
 class Api::V1::ContractsController < ActionController::Base
+	def create
+		booking = Booking.find(params[:booking_id])
+		contract = booking.create_contract(signature: params[:signature], signed_date: Date.today)
+
+		user = booking.user
+		roomtype = booking.roomtype
+    project = roomtype.project
+    
+		contract = contract.as_json.merge(
+    	{
+				move_in: booking.move_in,
+				move_out: booking.move_out,
+				user: {
+					id: user.id,
+					first_name: user.first_name,
+					last_name: user.last_name,
+					dob: user.dob,
+					address: user.address ? user.address : nil,
+				},
+				price_per_month: booking.price.amount,
+				roomtype_name: roomtype.name,
+				project_address: project.address.address
+			}
+    )
+		render json: contract
+	end
+
 	def update
 		# booking = Booking.find(params[:booking_id])
 		contract = Contract.find(params[:id])
@@ -22,7 +49,7 @@ class Api::V1::ContractsController < ActionController::Base
 					dob: user.dob,
 					address: user.address ? user.address : nil,
 				},
-				price_per_month: 100,
+				price_per_month: booking.price.amount,
 				roomtype_name: roomtype.name,
 				project_address: project.address.address
 			}
@@ -50,7 +77,7 @@ class Api::V1::ContractsController < ActionController::Base
 					dob: user.dob,
 					address: user.address ? user.address : nil,
 				},
-				price_per_month: 100,
+				price_per_month: booking.price.amount,
 				roomtype_name: roomtype.name,
 				project_address: project.address.address
 			}
