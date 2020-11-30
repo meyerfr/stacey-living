@@ -1,17 +1,10 @@
-<%= render 'shared/three_steps_navbar', step: 3 %>
+<div id="booking-process"></div>
 
-<%#= @list %>
+<!-- Exaample for passing dataAttributes -->
+<!-- <div id="react_redux_app"
+  data-someAttribute=<%#= SomeAttribute.all.to_json %>
+></div> -->
 
-<div class="payment-wrapper">
-  <div class="payment-container">
-    <div class="payment-forms">
-      <%= render 'personal_information', user: @booking.user, phone_code: @phone_code %>
-      <%= render 'stripe_section' %>
-    </div>
-    <div class="booking-summary">
-      <%= render 'booking_summary', booking: @booking %>
-    </div>
-  </div>
-</div>
-
-<%= render 'shared/footer' %>
+<% content_for :after_js do %>
+  <%= javascript_pack_tag "booking_process" %>
+<% end %>

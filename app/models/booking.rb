@@ -65,6 +65,23 @@ class Booking < ApplicationRecord
     end
   end
 
+  def price
+    unless self.roomtype && self.roomtype.prices.length > 0
+      return
+    end
+
+    prices = self.roomtype.prices.order(amount: :desc)
+    duration = self.duration
+    case(true)
+    when (duration < 5)
+      return prices.first
+    when (duration < 8)
+      return price = prices.second
+    else
+      return price = prices.last
+    end
+  end
+
   # Validate whether the availability is not overlapping any already existing availabilities
   # def booking_overlap
   #   if start_time.present? && end_time.present?

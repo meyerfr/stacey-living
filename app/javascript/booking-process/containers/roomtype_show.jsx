@@ -123,7 +123,7 @@ class RoomtypeShow extends Component {
                     Everything you need is included in one convenient payment: Rent, furniture, internet, utilities, cleaning, events, Netflix + Spotify in the common spaces and even the GEZ. Do not take our word for granted, move in and experience the STACEY way of living!</span>
                 </div>
               </div>,
-              <BookingForm booking_id={this.props.match.params.booking_id} roomtype={roomtype} key="bookingForm" history={this.props.history}/>
+              <BookingForm booking_id={this.props.match.params.booking_id} booking_auth_token={this.props.match.params.booking_auth_token} roomtype={roomtype} key="bookingForm" history={this.props.history}/>
             ]
           }
         </div>

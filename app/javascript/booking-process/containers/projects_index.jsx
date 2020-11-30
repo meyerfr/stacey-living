@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import { fetchProjects, fetchAmenities } from '../actions';
+import { fetchProjects } from '../actions';
 import Card from './card';
 import Map from '../components/map'
 import Spinner from 'react-bootstrap/Spinner';
@@ -11,7 +11,6 @@ import Spinner from 'react-bootstrap/Spinner';
 class ProjectsIndex extends Component {
   componentDidMount() {
     this.props.fetchProjects();
-    this.props.fetchAmenities('projects');
   }
 
   render () {
@@ -31,7 +30,7 @@ class ProjectsIndex extends Component {
                 return (
                   <Card key={project.id} type='project' input={project}>
                     {/* project.rooms_bookable ? 'Explore' : 'Not available' */}
-                    <Link to={`/projects/${project.id}/roomtypes`} key={project.id} className="stacey-button reverse-hover">Explore</Link>
+                    <Link to={`/bookings/${this.props.match.params.booking_auth_token}/${this.props.match.params.booking_id}/projects/${project.id}/roomtypes`} key={project.id} className="stacey-button reverse-hover">Explore</Link>
                   </Card>
                 );
               })
@@ -52,7 +51,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ fetchProjects, fetchAmenities }, dispatch);
+  return bindActionCreators({ fetchProjects }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProjectsIndex);

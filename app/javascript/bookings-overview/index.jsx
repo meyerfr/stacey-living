@@ -43,7 +43,7 @@ ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>
       <Switch>
-        <Route path="/rooms" component={App} />
+        <Route path="/bookings" component={App} />
       </Switch>
     </BrowserRouter>
   </Provider>,

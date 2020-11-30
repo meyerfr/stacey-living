@@ -232,3 +232,154 @@
     }
   }
 }
+
+
+
+.payment-wrapper2{
+  display: flex;
+  justify-content: center;
+  .payment-container2{    
+    width: 66%;
+    display: flex;
+    flex-direction: column;
+    padding: 50px;
+    border-radius: 5px;
+    border: 1px solid #c5c5c5;
+    margin-top: 50px;
+    .payment-header{
+      display: grid;
+      grid-gap: 30px;
+      grid-template-columns: 48% 45%;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 40px;
+      h2{
+        margin: 0;
+      }
+    }
+    .payment-body{
+      display: grid;
+      grid-gap: 30px;
+      grid-template-columns: 48% 45%;
+      justify-content: space-between;
+      .left-szene-container{
+        .user-info-list{
+          display: grid;
+          grid-gap: 1rem;
+          .user-info-item{
+            display: grid;
+            grid-gap: 0.5rem;
+            label, .label{
+              font-size: 16px;
+            }
+            .value{
+              padding: 5px;
+              border: 1px solid lightgray;
+              border-radius: 5px;
+              background: #f3f3f3;
+            }
+            .gender-input{
+              margin-left: 20px;
+              display: grid;
+              grid-template-columns: auto 1fr;
+              grid-gap: 10px;
+              align-items: center;
+              label, .label{
+                margin: 0;
+                font-size: 14px;
+                text-transform: capitalize;
+              }
+            }
+          }
+        }
+        .stripe-section{
+          margin-top: 50px;
+          .section-header{
+            display: grid;
+            grid-template-columns: 140px auto;
+            .secure-payment{
+              grid-gap: 13px;
+            }
+          }
+          form{
+            display: flex;
+            flex-direction: column;
+          }
+          .terms-and-conditions{
+            font-size: 15px;
+            margin-top: 12px;
+            display: grid;
+            grid-template-columns: auto 1fr;
+            align-items: center;
+            grid-gap: 10px;
+            &.error{
+              color: red;
+              border-bottom: 1px solid red;
+            }
+          }
+          .info{
+            font-size: 13px;
+            margin-top: 10px;
+          }
+          button.stacey-button{
+            width: 100%;
+            margin-top: 30px;
+            .spinner-border{
+              width: 25px;
+              height: 25px;
+            }
+          }
+        }
+      }
+
+      .right-szene-container{
+        width: 90%;
+        .booking-summary-list{
+          display: grid;
+          grid-gap: 25px;
+          .booking-section:not(:first-child){
+            border-top: 1px solid;
+            padding-top: 25px;
+          }
+          .booking-section{
+            display: grid;
+            grid-gap: 12.5px;
+          }
+          .booking-summary-list-item{
+            display: flex;
+            justify-content: space-between;
+            color: #4f4f4f;
+            .light{
+              color: #b5b5b5;
+            }
+          }
+        }
+      }
+      .szene-header{
+        margin-bottom: 15px;
+      }
+      .header-margin{
+        margin-bottom: 25px;
+      }
+    }
+  }
+  .secure-payment{
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    grid-gap: 20px;
+    align-items: center;
+    span{
+      white-space: nowrap;
+    }
+    i.fas.fa-lock{
+      font-size: 14px;
+      color: #ADB5BD;
+    }
+    .cards{
+      display: grid;
+      grid-auto-flow: column;
+      grid-gap: 10px;
+      font-size: 22px;
+    }
+  }
+}

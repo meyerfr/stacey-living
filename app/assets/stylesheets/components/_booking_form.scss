@@ -119,13 +119,14 @@
 
 .roomtype-wrapper{
   display: flex;
+  flex-direction: column-reverse;
   justify-content: space-between;
   position: relative;
   .booking-form{
-    width: 30%;
-    margin-right: 10px;
+    // width: 30%;
+    // margin-right: 10px;
     height: fit-content;
-    position: sticky;
+    // position: sticky;
     top: 50px;
     background-color: white;
     padding: 30px;
@@ -172,5 +173,24 @@
   }
   .stacey-button{
     width: 100%;
+  }
+}
+
+@media (min-width: 1024px) {
+  .roomtype-wrapper{
+    flex-direction: row;
+    .booking-form{
+      width: 37%;
+      position: sticky;
+    }
+  }
+}
+
+@media (min-width: 1400px) {
+  .roomtype-wrapper{
+    .booking-form{
+      width: 30%;
+      margin-right: 10px;
+    }
   }
 }

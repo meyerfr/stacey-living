@@ -51,7 +51,7 @@
 
 
 .roomtype-container{
-  width: 60%;
+  // width: 60%;
   .section{
     margin-bottom: 50px;
   }
@@ -114,5 +114,11 @@
 @media (min-width: 576px) {
   .roomtype-amenities-container{
     grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (min-width: 1024px) {
+  .roomtype-container{
+    width: 60%;
   }
 }

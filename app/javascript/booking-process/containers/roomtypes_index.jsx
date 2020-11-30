@@ -90,7 +90,7 @@ class RoomtypesIndex extends Component {
               return (
                 <Card key={roomtype.id} type='roomtype' input={roomtype}>
                   {/* project.rooms_bookable ? 'Explore' : 'Not available' */}
-                  <Link to={`/projects/${roomtype.project_id}/roomtypes/${roomtype.id}`} key={roomtype.id} className="stacey-button reverse-hover">Explore</Link>
+                  <Link to={`/bookings/${this.props.match.params.booking_auth_token}/${this.props.match.params.booking_id}/projects/${roomtype.project_id}/roomtypes/${roomtype.id}`} key={roomtype.id} className="stacey-button reverse-hover">Explore</Link>
                 </Card>
               );
             })
