@@ -15,6 +15,10 @@ class Contract extends Component {
 		this.props.fetchContract(this.props.match.params.booking_id)
 	}
 
+	handleNextStep = () => {
+    this.props.history.push(`/bookings/${this.props.match.params.booking_auth_token}/${this.props.match.params.booking_id}/payment`);
+  }
+
 	render() {
     // console.log(this.props.contract ? true : false)
 		return(
@@ -22,7 +26,7 @@ class Contract extends Component {
 				{
 					this.props.contract &&
 					[
-						<ContractForm key="ContractForm" booking_auth_token={this.props.match.params.booking_auth_token} booking_id={this.props.match.params.booking_id} />,
+						<ContractForm key="ContractForm" handleNextStep={this.handleNextStep} booking_id={this.props.match.params.booking_id} />,
 						<div key="ContractPdfWrapper" className="contract-pdf-wrapper">
 	            <PDFViewer>
 	              <ContractPdf contract={this.props.contract} />

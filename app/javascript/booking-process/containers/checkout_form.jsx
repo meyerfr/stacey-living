@@ -96,7 +96,6 @@ class CheckoutForm extends React.Component {
   }
 
   render() {
-    console.log(this.props)
     return (
       <form onSubmit={this.handleSubmit}>
         <CardSection />

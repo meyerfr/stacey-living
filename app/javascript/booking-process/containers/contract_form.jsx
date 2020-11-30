@@ -105,10 +105,6 @@ class ContractForm extends Component {
     })
   }
 
-  handleNextStep = () => {
-    this.props.history.push(`/bookings/${this.props.booking_auth_token}/${this.props.booking_id}/payment`);
-  }
-
   render () {
     const userForm = this.state.userForm
     // console.log(userForm)
@@ -199,7 +195,7 @@ class ContractForm extends Component {
                 {({ blob, url, loading, error }) => (loading ? 'Loading document...' : 'Download now!')}
               </PDFDownloadLink>
               <span>Plase proceed by clicking the button below.</span>
-              <button className="stacey-button" onClick={this.handleNextStep}>Next Step</button>
+              <button className="stacey-button" onClick={this.props.handleNextStep}>Next Step</button>
             </div>
           }
         </div>
