@@ -4,20 +4,26 @@
 
 <p>Please make sure that you especially read the paragraph "<strong>Where are my keys</strong>" as the move-in process is done remote.</p>
 
-<p><strong>Move-in Time</strong></p>
-<p>You can move-in on the <%= @booking.move_in.strftime('%d.%m %Y') %> from 4:00 pm onwards.</p>
+<div style="display: grid; grid-gap: 5px;">
+	<span><strong>Move-in Time</strong></span>
+	<span>You can move-in on the <%= @booking.move_in.strftime('%d.%m %Y') %> from 4:00 pm onwards.</span>
+</div>
 
-<p><strong>Your Suite</strong></p>
-<ol>
-  <li><%= @project.address.street %> <%= @room.house_number %> <%= '(STACEY @room.apartment_number)' if @room.apartment_number.present? %></li>
-  <li><%= @room.roomtype.name %> Suite</li>
-  <li></li>
-</ol>
+<div style="display: grid; grid-gap: 5px; margin-top: 10px">
+	<span><strong>Your Suite</strong></span>
+	<ol style="padding: 0 20px; margin: 0;">
+	  <li><%= @project.address.street %> <%= @room.house_number %> <%= '(STACEY @room.apartment_number)' if @room.apartment_number.present? %></li>
+	  <li><%= @room.roomtype.name %> Suite</li>
+	  <li></li>
+	</ol>
+</div>
 
 <p>You will find the confirmation of residence together with your STACEY Hoodie in your Suite.</p>
 
 <p>Are you ready to meet new amazing people?</p>
 
-<p>Best regards</p>
-<p>Matteo</p>
-<%= image_tag attachments['logo.png'].url, style: 'width: 150px' %>
+<div style="display: grid;">
+	<span>Best regards</span>
+	<span>Matteo</span>
+	<%= image_tag attachments['logo.png'].url, style: 'width: 150px' %>
+</div>

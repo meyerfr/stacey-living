@@ -49,7 +49,7 @@ class UserMailer < ApplicationMailer
     attachments['welcome_one_pager.pdf'] = WickedPdf.new.pdf_from_string(
       render_to_string(pdf: "Welcome One-Pager", template: 'documents/welcome_one_pager.html.erb', layout: 'pdf')
     )
-    mail(to: email_with_name, subject: "STACEY #{@room.project}")# do |format|
+    mail(to: email_with_name, subject: "STACEY #{@room.project.name}")# do |format|
   end
 
   private

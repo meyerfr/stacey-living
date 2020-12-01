@@ -18,7 +18,7 @@
   <li>3. Fill out your payment information</li>
 </ul>
 <p>Therefore, please click the link below and you are ready to move in:</p>
-<span><%= link_to 'booking process', booking_process_url(@booking, @booking.booking_auth_token, Booking.form_steps.second), style: 'color: blue;' %></span>
+<span><%= link_to 'booking process', booking_projects_url(@booking, @booking.booking_auth_token, Booking.form_steps.second), style: 'color: blue;' %></span>
 <br>
 <span  style="font-size: 14px;">This link expires on the <%= @booking.booking_auth_token_exp.strftime('%d.%B %Y') %>.</span>
 <p>If problems occur, reply to this email or call me at +49 40 696389600.</p>
