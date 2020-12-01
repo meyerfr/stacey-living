@@ -87,10 +87,12 @@
 	}
 	.stacey-card-amenities{
 		width: calc(100% - 50px);
-		display: grid;
-		grid-template-columns: 1fr 1fr;
 		grid-gap: 15px 25px;
 		margin: 25px 0 85px;
+		display: grid;
+		&:not(.roomtype){
+			grid-template-columns: 1fr 1fr;
+		}
 		.amenity{
 			display: grid;
 			grid-template-columns: auto 1fr;
@@ -99,6 +101,13 @@
 			img{
 				width: 20px;
 				height: 20px;
+			}
+		}
+		.amenity-list{
+			display: flex;
+			flex-wrap: wrap;
+			span{
+				margin-right: 5px;
 			}
 		}
 	}
@@ -143,7 +152,7 @@
   //   grid-template-columns: 1fr;
   // }
 	.stacey-card{
-		.stacey-card-amenities{
+		.stacey-card-amenities:not(.roomtype){
 			grid-template-columns: 1fr 1fr;
 		}
 	}
@@ -164,7 +173,7 @@
 
 @media (min-width: 900px) {
 	.stacey-card{
-		.stacey-card-amenities{
+		.stacey-card-amenities:not(.roomtype){
 			grid-template-columns: 1fr 1fr;
 		}
 	}	

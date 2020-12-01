@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import SimpleReactLightbox, { SRLWrapper } from "simple-react-lightbox";
 
 import { fetchRoomtype, fetchProject } from '../actions';
-import Card from './card';
+// import Card from './card';
 import Map from '../components/map';
 import BookingForm from './booking_form';
 import Spinner from 'react-bootstrap/Spinner';

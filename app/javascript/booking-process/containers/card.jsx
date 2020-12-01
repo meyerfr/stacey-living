@@ -75,7 +75,7 @@ class Card extends Component {
 						  from €{input.cheapest_price}
 						</span>
 					</div>
-					<div className="stacey-card-amenities">
+					<div className={`stacey-card-amenities ${this.props.type}`}>
 						{
 				      amenities.length === 0 ?
 					   //      	<Spinner animation="border" role="status">
@@ -94,22 +94,34 @@ class Card extends Component {
 									})
 								:
 									[
-										amenities.roomtype_index_inventory_amenities.map((amenity) => {
-											return (
-												<div className="amenity" key={amenity.id}>
-													{amenity.photo ? <img src={amenity.photo} alt="photo" className='photo large bordered' /> : <i className="fa fa-user img-prev"></i>}
-													<span>{amenity.title}</span>
-												</div>
-											);
-										}),
-										amenities.roomtype_index_inclusion_amenities.map((amenity) => {
-											return (
-												<div className="amenity" key={amenity.id}>
-													{amenity.photo ? <img src={amenity.photo} alt="photo" className='photo large bordered' /> : <i className="fa fa-user img-prev"></i>}
-													<span>{amenity.title}</span>
-												</div>
-											);
-										}),
+										<div key="card-item1">
+											<span>Size: {this.props.input.size} m<sup>2</sup></span>
+										</div>,
+										<div key="card-item2" className="amentity-list-wrapper">
+											<div>
+												<span>Room Inventory: {this.props.size} </span>
+												{
+													amenities.roomtype_index_inventory_amenities.map((amenity, index) => {
+														return (
+															<span key={amenity.id}>{amenity.title}{index < amenities.roomtype_index_inventory_amenities.length-1 && ', '}</span>
+														);
+													})
+												}
+											</div>
+											<div>
+												<span>Includes: </span>
+												{
+													amenities.roomtype_index_inclusion_amenities.map((amenity, index) => {
+														return (
+															<span key={amenity.id}>{amenity.title}{index < amenities.roomtype_index_inclusion_amenities.length-1 && ','} </span>
+														);
+													})
+												}
+											</div>
+										</div>,
+										<div key="card-item3">
+											<span>Person: For 1 member</span>
+										</div>
 									]
 				    }
 					</div>
