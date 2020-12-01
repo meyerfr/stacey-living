@@ -22,7 +22,12 @@ class FilterBar extends Component {
           <option value="chart">chart</option>
         </select>
         <div className="inputs">
-          <input type="text" placeholder="search Location..." className="form-control form-search" onChange={() => this.handleChange('project_name')} />
+          <select className="form-control form-search" defaultValue='all' name="project_name" onChange={() => this.handleChange('project_name')}>
+            <option value="all">all</option>
+            <option value="mühlenkamp">Mühlenkamp</option>
+            <option value="eppendorf">Eppendorf</option>
+            <option value="st. pauli">St. Pauli</option>
+          </select>
           <input type="text" placeholder="search Roomtype..." className="form-control form-search" onChange={() => this.handleChange('roomtype_name')} />
           <input type="text" placeholder="search Apartment..." className="form-control form-search" onChange={() => this.handleChange('apartment_number')} />
           <input type="text" placeholder="search Room..." className="form-control form-search" onChange={() => this.handleChange('room_number')} />

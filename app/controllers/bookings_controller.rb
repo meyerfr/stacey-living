@@ -1,5 +1,5 @@
 class BookingsController < ApplicationController
-  before_action :authenticate_user!
+  skip_before_action :authenticate_user!, only: [:new] 
   layout 'overview', only: 'index'
 
   BOOKINGS_PER_PAGE = 25

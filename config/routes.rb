@@ -55,7 +55,7 @@ Rails.application.routes.draw do
 
   namespace :api, defaults: { format: :json } do
     namespace :v1 do
-      resources :rooms, only: [ :index ]
+      # resources :rooms, only: [ :index ]
       resources :projects, only: [ :show, :index ] do
         resources :roomtypes, only: [ :index ]
         # resources :amenities, only: [ :index ]
@@ -63,7 +63,7 @@ Rails.application.routes.draw do
       resources :amenities, only: [ :index ]
       resources :descriptions, only: [ :index ]
       resources :roomtypes, only: [ :show ]
-      resources :bookings, only: [ :show, :update ] do
+      resources :bookings, only: [ :index, :show, :update ] do
         resources :contracts, only: [ :index, :create ]
         get 'secret', to: 'payments#secret'
       end

@@ -56,7 +56,7 @@ export function fetchRoomInfo(room_id) {
 }
 
 export function applyFilter(searchquery, filterKey) {
-	const url = `${BASE_URL}/rooms${searchquery ? `?filter=${filterKey}&${filterKey}=${searchquery}` : ''}`
+	const url = `${BASE_URL}/bookings${searchquery ? `?filter=${filterKey}&${filterKey}=${searchquery}` : ''}`
   	const promise = fetch(url, { credentials: 'same-origin' }).then(r => r.json());
   	return {
     	type: APPLY_FILTER,
