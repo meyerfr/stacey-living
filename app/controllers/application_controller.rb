@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
       if booking.booking_auth_token == params[:booking_auth_token]
         unless booking.booking_auth_token_exp.future?
           flash[:alert] = "This link has expired, please request a renewal."
-          redirect_to root_path unless current_user&.admin?
+          redirect_to root_path
         end
       else
         flash[:alert] = "You don´t have access to the page. Maybe wrong url."

@@ -15,10 +15,10 @@ class Card extends Component {
 	}
 
 	componentDidMount() {
-		const url = `http://localhost:3000/api/v1/amenities?type=${this.props.type}&type_id=${this.props.input.id}`
-		fetch(url)
-			.then(res => res.json())
-	  		.then(data => this.setState({amenities: data}))
+		this.props.fetchAmenities(this.props.type, this.props.input.id)
+			.then((promise) => {
+				this.setState({amenities: promise.payload})
+			})
 	}
 
 	openLightbox = () => {
@@ -126,8 +126,8 @@ class Card extends Component {
 // 	};
 // }
 
-// function mapDispatchToProps(dispatch) {
-// 	return bindActionCreators({ fetchAmenities }, dispatch);
-// }
+function mapDispatchToProps(dispatch) {
+	return bindActionCreators({ fetchAmenities }, dispatch);
+}
 
-export default Card;
+export default connect(null, mapDispatchToProps)(Card);
