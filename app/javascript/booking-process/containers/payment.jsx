@@ -121,23 +121,6 @@ class Payment extends Component {
 								<Elements stripe={stripePromise}>
 						      <CheckoutForm booking_id={this.props.match.params.booking_id} updateUserOnSubmit={this.updateUserOnSubmit} booking_auth_token={this.props.match.params.booking_auth_token} history={this.props.history} />
 						    </Elements>
-								{
-
-								// <form id="payment-form">
-						  //     <div id="card-element">
-						  //     	{
-						  //     		// Stripe.js injects the Card Element
-						  //     	}
-						  //     </div>
-						  //     <button id="submit">
-						  //       <div class="spinner hidden" id="spinner"></div>
-						  //       <span id="button-text">Pay</span>
-						  //     </button>
-						  //     <p id="card-error" role="alert"></p>
-						  //     <p class="result-message hidden">
-						  //     </p>
-						  //   </form>
-								}
 							</div>
 						</div>
 

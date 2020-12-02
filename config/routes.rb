@@ -32,6 +32,7 @@ Rails.application.routes.draw do
     end
     get 'payment', to: 'payments#new', as: 'new_payment'
     get 'contract', to: 'contracts#contract', as: 'contract'
+    get 'success', to: 'bookings#success', as: 'success'
 
     # resources :projects, only: [:index] do
     #   resources :roomtypes, only: [:index]

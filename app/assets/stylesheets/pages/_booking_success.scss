@@ -1,0 +1,41 @@
+.success-wrapper{
+	display: flex;
+	justify-content: center;
+	margin-top: 50px;
+	.success-container{
+		width: 60%;
+		padding: 30px;
+		border: 1px solid $stacey-pink;
+		border-radius: 5px;
+		display: grid;
+		grid-gap: 15px;
+		.header{
+			display: flex;
+	    flex-direction: column;
+	    align-items: center;
+			i{
+				color: green;
+				font-size: 50px;
+			}
+		}
+		.body{
+			display: grid;
+			grid-gap: 6px;
+			.d-grid{
+				display: grid;
+			}
+			.account-info{
+				display: grid;
+				text-align: center;
+		    font-size: 15px;
+		    margin-bottom: 10px;
+			}
+		}
+		.footer{
+			display: grid;
+			.smaller{
+				font-size: small;
+			}
+		}
+	}
+}

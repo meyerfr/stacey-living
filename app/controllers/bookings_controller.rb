@@ -1,6 +1,6 @@
 class BookingsController < ApplicationController
-  skip_before_action :authenticate_user!, only: [:new, :create] 
-  layout 'overview', only: 'index'
+  skip_before_action :authenticate_user!, only: [:new, :create, :success] 
+  layout 'overview', only: [ :index, :success]
 
   BOOKINGS_PER_PAGE = 25
 
@@ -152,6 +152,10 @@ class BookingsController < ApplicationController
     booking.update(booking_auth_token_exp: Date.today+2.weeks)
     UserMailer.invite_for_booking_process(booking)
     booking.update(booking_process_invite_send: true)
+  end
+
+  def success
+    
   end
 
   private
