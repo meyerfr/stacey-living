@@ -344,6 +344,14 @@
           .booking-section{
             display: grid;
             grid-gap: 12.5px;
+            &.important{
+              .booking-summary-list-item{
+                color: black;
+              }
+              .booking-section-header{
+                font-weight: 500;
+              }
+            }
           }
           .booking-summary-list-item{
             display: flex;

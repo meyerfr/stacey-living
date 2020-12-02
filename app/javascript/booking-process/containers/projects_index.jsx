@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import Spinner from 'react-bootstrap/Spinner';
 
 import { fetchProjects } from '../actions';
 import Card from './card';
 import Map from '../components/map'
-import Spinner from 'react-bootstrap/Spinner';
 
 class ProjectsIndex extends Component {
   componentDidMount() {
@@ -37,7 +37,7 @@ class ProjectsIndex extends Component {
             }
           </div>
           {
-            projects.length > 0 && <Map input={projects} />
+            projects.length > 0 && <Map input={projects} booking_id={this.props.match.params.booking_id} booking_auth_token={this.props.match.params.booking_auth_token} history={this.props.history} />
           }
         </div>
     )

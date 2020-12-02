@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import SimpleReactLightbox, { SRLWrapper } from "simple-react-lightbox";
 
-import { fetchRoomtypes, fetchProject, fetchDescriptions } from '../actions';
+import { fetchRoomtypes, fetchProject, fetchDescriptions, fetchAmenities } from '../actions';
 import Card from './card';
 import Map from '../components/map';
 import Spinner from 'react-bootstrap/Spinner';
@@ -19,10 +19,10 @@ class RoomtypesIndex extends Component {
   componentDidMount() {
   	this.props.fetchProject(this.props.match.params.project_id);
     this.props.fetchRoomtypes(this.props.match.params.project_id);
-    const url = `http://localhost:3000/api/v1/amenities?type=project_show&type_id=${this.props.match.params.project_id}`
-		fetch(url)
-			.then(res => res.json())
-	  		.then(data => this.setState({community_area_amenities: data}))
+    this.props.fetchAmenities('project_show', this.props.match.params.project_id)
+      .then((promise) => {
+        this.setState({community_area_amenities: promise.payload})
+      })
   }
 
   openLightbox = () => {
@@ -34,6 +34,7 @@ class RoomtypesIndex extends Component {
     const project = this.props.project;
     const photos = project && project.photos
 	  const community_area_amenities = this.state.community_area_amenities
+    console.log(community_area_amenities)
     const options = {
 	  	buttons: {
 		    showDownloadButton: false,
@@ -50,13 +51,17 @@ class RoomtypesIndex extends Component {
         <SimpleReactLightbox key="simpleReactLightbox">
         	{
 		  			!project ?
-						<div className="no-photos" key="nophotos">No photos yet</div>
+  						<Spinner animation="border" role="status">
+                <span className="sr-only">Loading...</span>
+              </Spinner>
 					:
         		<div className="project-info-wrapper">
 							<div className="project-info-photos">
 								{
 									!photos ? 
-										<div className="no-photos" key="nophotos">No photos yet</div>
+										<Spinner animation="border" role="status">
+                      <span className="sr-only">Loading...</span>
+                    </Spinner>
 									:
 										<SRLWrapper options={options}>
 											{photos.map((photo, index) => {
@@ -139,7 +144,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ fetchRoomtypes, fetchProject, fetchDescriptions }, dispatch);
+  return bindActionCreators({ fetchRoomtypes, fetchProject, fetchDescriptions, fetchAmenities }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(RoomtypesIndex);

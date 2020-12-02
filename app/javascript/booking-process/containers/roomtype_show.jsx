@@ -51,13 +51,17 @@ class RoomtypeShow extends Component {
         <SimpleReactLightbox key="simpleReactLightbox">
         	{
 		  			!roomtype ?
-						<div className="no-photos" key="nophotos">No photos yet</div>
+						<Spinner animation="border" role="status">
+              <span className="sr-only">Loading...</span>
+            </Spinner>
 					:
         		<div className="project-info-wrapper">
 							<div className="project-info-photos">
 								{
 									!photos ? 
-										<div className="no-photos" key="nophotos">No photos yet</div>
+										<Spinner animation="border" role="status">
+                      <span className="sr-only">Loading...</span>
+                    </Spinner>
 									:
 										<SRLWrapper options={options}>
 											{photos.map((photo, index) => {

@@ -129,7 +129,7 @@ class ContractForm extends Component {
               [
                 <input
                   type="text"
-                  placeholder="street..."
+                  placeholder="street & number..."
                   id="street-input"
                   name="street"
                   key="street"
@@ -139,7 +139,7 @@ class ContractForm extends Component {
                 />,
                 <input
                   type="text"
-                  placeholder="zip..."
+                  placeholder="zip code..."
                   id="zip-input"
                   name="zip"
                   key="zip"
@@ -169,7 +169,7 @@ class ContractForm extends Component {
                 />
               ]
             }
-            <button className={formFilledOut ? "stacey-button" : "stacey-button hidden"} onClick={this.changeForm}>Next</button>
+            <button className={formFilledOut ? "stacey-button reverse-hover" : "stacey-button"} disabled={!formFilledOut} onClick={this.changeForm}>Next</button>
           </div>
           <div className={this.state.contractFormShow ? "contract-form-container" : "contract-form-container hidden"}>
             {
@@ -191,11 +191,11 @@ class ContractForm extends Component {
             this.props.contract &&
             <div className={this.state.completed ? "completed" : 'completed hidden'}>
               <span>Perfect, you're contract is now generated and ready for you to download.</span>
-               <PDFDownloadLink document={<ContractPdf contract={this.props.contract} />} fileName="stacey_rental_contract.pdf">
+             <PDFDownloadLink document={<ContractPdf contract={this.props.contract} />} fileName="stacey_rental_contract.pdf">
                 {({ blob, url, loading, error }) => (loading ? 'Loading document...' : 'Download now!')}
               </PDFDownloadLink>
               <span>Plase proceed by clicking the button below.</span>
-              <button className="stacey-button" onClick={this.props.handleNextStep}>Next Step</button>
+              <button className="stacey-button reverse-hover" onClick={this.props.handleNextStep}>Next Step</button>
             </div>
           }
         </div>

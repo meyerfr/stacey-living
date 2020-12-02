@@ -2,9 +2,11 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { fetchAmenities } from '../actions';
 import SimpleReactLightbox, { SRLWrapper } from "simple-react-lightbox";
 import Spinner from 'react-bootstrap/Spinner';
+import moment from 'moment'
+
+import { fetchAmenities } from '../actions';
 
 class Card extends Component {
 	constructor(props) {
@@ -48,7 +50,9 @@ class Card extends Component {
 		  	<div key={input.id} className="stacey-card">
 		  		{
 		  			photos === undefined ?
-						<div className="no-photos" key="nophotos">No photos yet</div>
+						<Spinner animation="border" role="status">
+              <span className="sr-only">Loading...</span>
+            </Spinner>
 					:
 						<div className="stacey-card-photos">
 							<SRLWrapper options={options}>
@@ -62,16 +66,16 @@ class Card extends Component {
 					  		></i>
 						  <div className="available photo-aligned">
 						  	<span className='bolder'>Available</span>
-						  	<span>{input.next_available_move_in}</span>
+						  	<span>{moment(input.next_available_move_in).format('Do MMMM')}</span>
 						  </div>
 						</div>
 		  		}
 					<div className="stacey-card-header">
 						<div className="name">
 							<span>STACEY</span>
-							<span>{input.name}</span>
+							<span style={{marginTop: '-7px'}}>{input.name}</span>
 						</div>
-						<span className="price">
+						<span className="price" style={{fontSize: '14px'}}>
 						  from €{input.cheapest_price}
 						</span>
 					</div>
@@ -95,11 +99,11 @@ class Card extends Component {
 								:
 									[
 										<div key="card-item1">
-											<span>Size: {this.props.input.size} m<sup>2</sup></span>
+											<span><strong>Size</strong>: {this.props.input.size} m<sup>2</sup></span>
 										</div>,
 										<div key="card-item2" className="amentity-list-wrapper">
 											<div>
-												<span>Room Inventory: {this.props.size} </span>
+												<span><strong>Room Inventory</strong>: </span>
 												{
 													amenities.roomtype_index_inventory_amenities.map((amenity, index) => {
 														return (
@@ -109,7 +113,7 @@ class Card extends Component {
 												}
 											</div>
 											<div>
-												<span>Includes: </span>
+												<span><strong>Includes</strong>: </span>
 												{
 													amenities.roomtype_index_inclusion_amenities.map((amenity, index) => {
 														return (
@@ -120,7 +124,7 @@ class Card extends Component {
 											</div>
 										</div>,
 										<div key="card-item3">
-											<span>Person: For 1 member</span>
+											<span><strong>Person</strong>: For 1 member</span>
 										</div>
 									]
 				    }

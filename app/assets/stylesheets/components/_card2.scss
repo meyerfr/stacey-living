@@ -59,6 +59,7 @@
 		div.available{
 			display: flex;
 			flex-direction: column;
+			align-items: center;
 			right: 8px;
 			font-size: 13px;
 			background-color: $stacey-pink;
@@ -109,6 +110,9 @@
 			span{
 				margin-right: 5px;
 			}
+		}
+		strong{
+			font-weight: 500;
 		}
 	}
 	a{

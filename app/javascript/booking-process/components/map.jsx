@@ -18,6 +18,10 @@ export default class Map extends Component {
 		}
 	}
 
+	onClick = (input_id) => {
+		this.props.history.push(`/bookings/${this.props.booking_auth_token}/${this.props.booking_id}/projects/${input_id}/roomtypes`);
+	}
+
 	render() {
 		const input = this.props.input;
 		return (
@@ -30,7 +34,7 @@ export default class Map extends Component {
 					{
 						input.length > 0 ?
 							input.map((value) => {
-								return <Marker key={value.id} lat={value.marker.lat} lng={value.marker.lng} />
+								return <Marker key={value.id} input_id={value.id} lat={value.marker.lat} lng={value.marker.lng} onClick={this.onClick} />
 							})
 						:
 							<Marker key={input.id} lat={input.marker.lat} lng={input.marker.lng} />

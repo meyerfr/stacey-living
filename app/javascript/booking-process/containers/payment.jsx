@@ -2,11 +2,12 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { reduxForm, Field } from 'redux-form'
+import moment from 'moment'
 
 import {Elements} from '@stripe/react-stripe-js';
 import {loadStripe} from '@stripe/stripe-js';
-import CheckoutForm from './checkout_form';
 
+import CheckoutForm from './checkout_form';
 import { fetchBooking, updateUser } from '../actions';
 
 const stripePromise = loadStripe("pk_test_FSjxxtkIfO0UtESzFKdjLarS");
@@ -107,8 +108,8 @@ class Payment extends Component {
 									</div>
 
 									<div className="user-info-item">
-										<span className="label">Birthday</span>
-										<span className="value">{user.dob}</span>
+										<span className="label">Date of Birth</span>
+										<span className="value">{moment(user.dob).format('DD/MM/YYYY')}</span>
 									</div>
 								</div>
 							}
@@ -134,15 +135,15 @@ class Payment extends Component {
 									</div>
 									<div className="booking-summary-list-item">
 										<span className="light">Move-in</span>
-										<span>{booking && booking.move_in}</span>
+										<span>{booking && moment(booking.move_in).format('DD/MM/YYYY')}</span>
 									</div>
 									<div className="booking-summary-list-item">
 										<span className="light">Move-out</span>
-										<span>{booking && booking.move_out}</span>
+										<span>{booking && moment(booking.move_out).format('DD/MM/YYYY')}</span>
 									</div>
 									<div className="booking-summary-list-item">
 										<span className="light">Duration of your stay</span>
-										<span>{booking && booking.duration}</span>
+										<span>{booking && booking.duration} days</span>
 									</div>
 								</div>
 								<div className="booking-section">
@@ -152,10 +153,10 @@ class Payment extends Component {
 										<span>{booking && booking.price} €</span>
 									</div>
 								</div>
-								<div className="booking-section">
-									<span className="booking-section-header">Total Today</span>
+								<div className="booking-section important">
+									<span className="booking-section-header">Total Now</span>
 									<div className="booking-summary-list-item">
-										<span className="light">Booking Fee</span>
+										<span>Booking Fee</span>
 										<span>80 €</span>
 									</div>
 								</div>

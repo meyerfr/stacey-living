@@ -79,6 +79,7 @@ class Api::V1::ContractsController < ActionController::Base
 				},
 				price_per_month: booking.price.amount,
 				roomtype_name: roomtype.name,
+				project_name: project.name,
 				project_address: project.address.address
 			}
     )

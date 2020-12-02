@@ -227,6 +227,19 @@
 .contract-pdf-wrapper{
   width: 85%;
   height: 96%;
+  .contract{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .spinner{
+      display: grid;
+      grid-template-columns: auto 1fr;
+      grid-gap: 10px;
+      align-items: center;
+    }
+  }
   iframe{
     width: 100%;
     height: 100%;

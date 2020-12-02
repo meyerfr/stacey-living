@@ -39,7 +39,7 @@ class Success extends Component {
 					</div>
 					<div className="body">
 						<span>
-							We are looking forward to welcoming you at STACEY (Location) soon!
+							We are looking forward to welcoming you at STACEY {this.props.contract && this.props.contract.project_name} soon!
 						</span>
 						<span className="margin-bottom">The only step that's missing now is for you to send your Deposit to the following Account.</span>
 						<div className="account-info">
