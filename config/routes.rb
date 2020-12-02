@@ -65,6 +65,7 @@ Rails.application.routes.draw do
       resources :roomtypes, only: [ :show ]
       resources :bookings, only: [ :index, :show, :update ] do
         resources :contracts, only: [ :index, :create ]
+        # get 'success', to: 'bookings#show'
         get 'secret', to: 'payments#secret'
       end
       resources :contracts, only: [ :update ]

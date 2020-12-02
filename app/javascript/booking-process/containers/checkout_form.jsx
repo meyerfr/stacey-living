@@ -76,6 +76,7 @@ class CheckoutForm extends React.Component {
       if (result.paymentIntent.status === 'succeeded') {
         console.log('handle Success')
         this.props.updateUserOnSubmit()
+        // this.props.history.push(`/bookings/${this.props.booking_auth_token}/${this.props.booking_id}/success`);
         // Show a success message to your customer
         // There's a risk of the customer closing the window before callback
         // execution. Set up a webhook or plugin to listen for the

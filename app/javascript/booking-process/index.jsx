@@ -12,6 +12,7 @@ import RoomtypesIndex from './containers/roomtypes_index';
 import RoomtypeShow from './containers/roomtype_show';
 import Contract from './containers/contract';
 import Payment from './containers/payment';
+import Success from './containers/success';
 // import '../assets/stylesheets/application.scss';
 
 import projectsReducer from './reducers/projects_reducer.js';
@@ -53,6 +54,7 @@ ReactDOM.render(
     <BrowserRouter history={history}>
       <div className="view-container">
         <Switch>
+          <Route path="/bookings/:booking_auth_token?/:booking_id/success" exact component={Success} />
           <Route path="/bookings/:booking_auth_token?/:booking_id/payment" exact component={Payment} />
           <Route path="/bookings/:booking_auth_token?/:booking_id/contract" exact component={Contract} />
           <Route path="/bookings/:booking_auth_token?/:booking_id/projects/:project_id/roomtypes/:id" component={RoomtypeShow} />

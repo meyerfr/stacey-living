@@ -119,7 +119,7 @@ class Payment extends Component {
 									{this.renderSecurePayment()}
 								</div>
 								<Elements stripe={stripePromise}>
-						      <CheckoutForm booking_id={this.props.match.params.booking_id} updateUserOnSubmit={this.updateUserOnSubmit} />
+						      <CheckoutForm booking_id={this.props.match.params.booking_id} updateUserOnSubmit={this.updateUserOnSubmit} booking_auth_token={this.props.match.params.booking_auth_token} history={this.props.history} />
 						    </Elements>
 								{
 

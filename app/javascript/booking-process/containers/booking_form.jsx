@@ -112,7 +112,7 @@ export default class BookingForm extends Component {
 			booking,
 			csrfToken,
 			() => {
-      		this.props.history.push(`/bookings/${this.props.booking_auth_token}/${this.props.booking_id}/contract`);
+    		this.props.history.push(`/bookings/${this.props.booking_auth_token}/${this.props.booking_id}/contract`);
     	}
   	)
 	}
