@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import moment from 'moment'
 
 import { Page, Image, Text, View, Document, StyleSheet, Font } from '@react-pdf/renderer';
 import logo from '../../../assets/images/stacey_logo_schwarz.png'
@@ -27,11 +28,11 @@ const styles = StyleSheet.create({
     borderStyle: "solid",
     borderWidth: 1,
     borderRight: 0,
-    marginVertical: 15
+    marginVertical: 9
   },
   notFullWidthTable: {
     width: '100%',
-    marginVertical: 15,
+    marginVertical: 9,
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center'
@@ -104,7 +105,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 20
+    marginBottom: 10
   },
   imageContainer: {
     width: '100%',
@@ -170,7 +171,8 @@ const styles = StyleSheet.create({
   documentDate: {
     display: 'flex',
     flexDirection: 'column',
-    marginBottom: 10
+    marginBottom: 8, 
+    fontSize: 8
   },
   borderTop: {
     borderTop: 1
@@ -183,7 +185,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 30
+    marginTop: 20
   },
   signContractSection: {
     display: 'flex', 
@@ -224,7 +226,7 @@ const styles = StyleSheet.create({
 class ContractPdf extends Component {
   signContract = (signature) => {
     return(
-      <View style={styles.signContractWrapper}>
+      <View style={styles.signContractWrapper} wrap={false}>
         <View style={styles.signContractSection}>
           <Text style={styles.signContractSectionInfo}>Tenant Name</Text>
           <Text style={styles.inputField}>{(this.props.contract && this.props.contract.user) && `${this.props.contract.user.first_name} ${this.props.contract.user.last_name}`}</Text>
@@ -299,8 +301,8 @@ class ContractPdf extends Component {
               <Text>and</Text>
               <Text style={styles.bold}>the tenant</Text>
             </View>
-            <Text>{this.props.contract && this.props.contract.user.first_name}</Text>
-            <Text>{this.props.contract && this.props.contract.user.dob}</Text>
+            <Text>{this.props.contract && `${this.props.contract.user.first_name} ${this.props.contract.user.last_name}`}</Text>
+            <Text>Born {this.props.contract && moment(this.props.contract.user.dob).format('Do MMMM YYYY')}</Text>
             {
               userAddress &&
               <Text>{userAddress}</Text>
@@ -346,10 +348,10 @@ class ContractPdf extends Component {
                 <Text style={styles.tableCell}>{this.props.contract && this.props.contract.price_per_month} €</Text>
               </View>
               <View style={styles.tableCol}>
-                <Text style={styles.tableCell}>{this.props.contract && this.props.contract.move_in}</Text>
+                <Text style={styles.tableCell}>{this.props.contract && moment(this.props.contract.move_in).format('DD/MM/YYYY')}</Text>
               </View>
               <View style={styles.tableCol}>
-                <Text style={styles.tableCell}>{this.props.contract && this.props.contract.move_out}</Text>
+                <Text style={styles.tableCell}>{this.props.contract && moment(this.props.contract.move_in).format('DD/MM/YYYY')}</Text>
               </View>
             </View>
             <Text style={[styles.borderTop, styles.tableColFullWidth]}>Payment terms: monthly, due 1 day before {this.props.contract && this.props.contract.move_in} for the first month, and due the 1st day, at latest by the 3rd business day of each month for the following months. Deposit in form of 2-months rent is due upon signing the agreement.</Text>
@@ -357,6 +359,11 @@ class ContractPdf extends Component {
           <View style={styles.table}>
             <View style={styles.tableRow}>
               <Text style={[styles.background, styles.tableColFullWidth, styles.tableHeader]}>Terms of Service</Text>
+              <Text style={styles.tableColFullWidth}>Payment terms: monthly; due on the {moment(this.props.contract.move_in).format('DD/MM/YYYY')} for the first (partial) calendar month, and due the 1st day, at leatest by the 3rd business day of each calendar month for the following months. Deposit in form of 2-months rent is due upon signing the agreement.</Text>
+            </View>
+          </View>
+          <View style={styles.table}>
+            <View style={styles.tableRow}>
               <Text style={styles.tableColFullWidth}>This is the rental contract for your STACEY room. By signing, you acknowledge that you have read, understood and agree to the (1) Rental Agreement, (2) Terms and Condition of Internet Use, (3) House Rules. Any other terms and conditions do not apply to this contract and are null and void.</Text>
             </View>
           </View>
@@ -364,7 +371,7 @@ class ContractPdf extends Component {
             <View style={styles.notFullWidthTableRow}>
               <Text style={[styles.background, styles.tableColFullWidth, styles.tableHeader]}>Payment Information</Text>
               <View style={[styles.centerElements, styles.tableColFullWidth]}>
-                <Text>Your monthly rent will be transferred to the following account:</Text>
+                <Text>Your monthly rent will be paid to the following account:</Text>
                 <Text>STACEY Real Estate UG</Text>
                 <Text>IBAN: DE61 2005 0550 1500 8679 06</Text>
                 <Text>BIC: HASPDEHHXXX</Text>
@@ -378,19 +385,15 @@ class ContractPdf extends Component {
             <Text style={styles.sectionHeader} break>(1) Rental Contract</Text>
             <View style={styles.sectionBody} wrap={false}>
               <Text style={styles.bodyHeader}>1. Subject Matter of the Agreement</Text>
-              <Text style={styles.paragraph}>STACEY rents out only furnished rooms of the shared apartments. The rooms of shared apartments operated by STACEY are rented out to each member as private rooms. The apartments are rented to the STACEY member for exclusive use as living space. The STACEY member shall not use the living space for commercial room rentals as holiday apartments. STACEY members are not allowed to sublet the apartment to third parties.</Text>
+              <Text style={styles.paragraph}>STACEY rents out only furnished rooms of the shared apartments. The rooms of shared apartments operated by STACEY are rented out to each member as private rooms. The apartments are rented to the STACEY member for exclusive use as living space. The STACEY member shall not use the living space for commercial room rentals as holiday apartments. STACEY members are not allowed to sublet the apartment to third parties. The private rooms can not be locked by the tenant. The tenant agrees the personell from STACEY is allowed to enter the apartments. However, the STACEY personell, except of the cleaning team, is not allowed to enter the private rooms without the presence of prior approval of the tenant.</Text>
               <Text style={styles.paragraph}>The contractual obligations of STACEY include but are not limited to making a room available for sole private use by the user; providing access to and allowing shared use of the shared space within the property; providing furniture for the rented room and the shared space of the property; internet service (subject to 'Terms of Conditions of Internet Use' here attached and part of the agreement); organization of a weekly cleaning service (for furnished rooms and common areas); maintenance or repair of the facilities if such need [for maintenance or repair] arises from using the property in compliance with the agreement.</Text>
-              <Text style={styles.paragraph}>Members are individually responsible for how they organize the communal life in the shared apartment.</Text>
+              <Text style={styles.paragraph}>Members are individually responsible for how they organize the communal life in the shared apartment. The lessor may post pictures and videos of the lessee, that originate within the communal life of the STACEY community, online.</Text>
               <Text style={styles.paragraph}>The duration of the tenants stay is limited to the rent duration, as the property will experience major physical alteration after the end of the tenant's lease period. The homeowner will conduct the refurbishment of the house's facade, snaitary- & electrical installations, as well as the house's roof. Due to the construction measures, the layout of the leased room will change. The utilization of the room by the tenant is an obstruction during the refurbishment of the listed measures above. Thus, it is in the interest of the lessor that the room will not be hired out till the end of the construction & refurbishment.</Text>
-              <Text style={styles.paragraph}>The rental period starts on the {this.props.contract && this.props.contract.move_in} and ends on the {this.props.contract && this.props.contract.move_out}.</Text>
+              <Text style={styles.paragraph}>The rental period starts on the {this.props.contract && moment(this.props.contract.move_in).format('DD/MM/YYYY')} and ends on the {this.props.contract && moment(this.props.contract.move_out).format('DD/MM/YYYY')}.</Text>
             </View>
             <View style={styles.sectionBody} wrap={false}>
               <Text style={styles.bodyHeader}>2. Contract Signing</Text>
-              <Text style={styles.paragraph}>On its website, STACEY publishes pictures of a variety of generic rooms, common areas, etc., which show the different residential designs on its website. </Text>
-              <View style={styles.listItem}>
-                <Text style={styles.listCount}>1.</Text>
-                <Text>If the customer is interested in the offer, he the can clicks the button “APPLY”. When a customer applies STACEY gets the personal information of the user. The customer will then receive a YES or NO answer on his application, which is based on the information provided and the availability of rooms at that specific moment.</Text>
-              </View>
+              <Text style={styles.paragraph}>On its website, STACEY publishes pictures of a variety of generic rooms, common areas, etc., which show the different residential designs on its website.</Text>
               <View style={styles.listItem}>
                 <Text style={styles.listCount}>1.</Text>
                 <Text>If the customer is interested in the offer, he the can clicks the button “APPLY”. When a customer applies STACEY gets the personal information of the user. The customer will then receive a YES or NO answer on his application, which is based on the information provided and the availability of rooms at that specific moment.</Text>
@@ -419,12 +422,12 @@ class ContractPdf extends Component {
             </View>
             <View style={styles.sectionBody} wrap={false}>
               <Text style={styles.bodyHeader}>4. Deposit</Text>
-              <Text style={styles.paragraph}>Upon signing the contract the lessee pays a deposit that, depending on the length of the lease period, shall not exceed the sum of three basic rental charges (total rent excl. service charge). The deposit is paid through the online payment provider Stripe.</Text>
+              <Text style={styles.paragraph}>Upon signing the contract the lessee pays a deposit that, depending on the length of the lease period, shall not exceed the sum of three basic rental charges (total rent excl. service charge). The deposit has to be paid via bank transfer to the STACEY bank account as specified in the contract.</Text>
               <Text style={styles.paragraph}>The deposit serves as a security for the lessor who is allowed to deduct any claims that arise under this contract from the deposit.</Text>
             </View>
             <View style={styles.sectionBody} wrap={false}>
               <Text style={styles.bodyHeader}>5. Termination</Text>
-              <Text style={styles.paragraph}>The termination is not possible during the rent period as it is a fixed-term tenancy agreement. However, both parties agreed to the special termination right, stating that both parties have the right to annul the contract on the {this.props.contract && earliestMoveOutDate}. Therefore, the tenant or the lessor has to inform the other party 1 month prior to this date, otherwise this clause is void.</Text>
+              <Text style={styles.paragraph}>The termination is not possible during the rent period as it is a fixed-term tenancy agreement. The lesor has the right to withdraw from the contract till 1 month before the start date, as well as in the period of 2 days after receiving the signed rental agreement from the tenant.</Text>
             </View>
             <View style={styles.sectionBody} wrap={false}>
               <Text style={styles.bodyHeader}>6. Extraordinary termination of mermbership</Text>
@@ -472,7 +475,7 @@ class ContractPdf extends Component {
             </View>
             <View style={styles.sectionBody} wrap={false}>
               <Text style={styles.bodyHeader}>8. Special events</Text>
-              <Text style={styles.paragraph}>In the case of special events the lessor has the right to relocate the tenant to a different room within the community. The room has to be the same or a better room category than the category mentioned in this agreement.</Text>
+              <Text style={styles.paragraph}>The lessor has the right to relocate the tenant to a different room within the STACEY network. This room has to be the same or a better room category mentioned in the agreement.</Text>
             </View>
             <View style={styles.sectionBody} wrap={false}>
               <Text style={styles.bodyHeader}>9. Right of withdrawal</Text>
@@ -497,7 +500,7 @@ class ContractPdf extends Component {
               <Text>To exercise the right of withdrawal, please inform us (STACEY Real Estate UG (haftungsbeschränkt), Brandstwiete 36, 20457 Hamburg, phone.: 040 696389600, email: hello@stacey-living.de) of your decision to withdraw from the Agreement as per item 8, by submitting a clearly worded declaration (e.g. by sending a letter by post, or sending a fax or email). You can use the attached withdrawal form template for this purpose, but the use of this form is not mandatory.</Text>
               <Text style={styles.paragraph}>In order to meet the withdrawal deadline it is sufficient to send the information about the exercise of the right of withdrawal before the end of the withdrawal deadline.</Text>
               <Text style={styles.bodyHeader}>Consequences of withdrawal</Text>
-              <Text style={styles.paragraph}>If you withdraw from this Agreement, we will return to you all payments from you immediately no later than 14 days of the date on which we received the notice of your withdrawal from this Agreement. We will refund the above expenses using the same means of payment as you used for the original transaction unless expressly agreed otherwise with you; in no case will we charge you a fee for this refund. If your requested period of service performance overlaps with the withdrawal period, you will have to pay us an appropriate fee equal to the portion payable for the services performed until the date on which you informed us that you withdraw from the Agreement in relation to the entire scope of services provided for in the agreement.</Text>
+              <Text style={styles.paragraph}>If you withdraw from this Agreement, we will return all payments immediately, no later than 14 days of the date on which we received the notice of your withdrawal from this Agreement. We will refund the above expenses using the same means of payment as you used for the original transaction unless expressly agreed otherwise with you; in no case will we charge you a fee for this refund. If your requested period of service performance overlaps with the withdrawal period, you will have to pay us an appropriate fee equal to the portion payable for the services performed until the date on which you informed us that you withdraw from the Agreement in relation to the entire scope of services provided for in the agreement.</Text>
               <Text style={styles.bodyHeader}>Withdrawal form template:</Text>
               <Text style={styles.paragraph}>If you wish to withdraw from the agreement as per the paragraphs above, you can complete and submit this form. You are not required to use this form, though.</Text>
               <Text>I/We (*) hereby withdraw from the agreement signed by me/us (*) on the provision of the following services (*)</Text>

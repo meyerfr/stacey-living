@@ -34,15 +34,15 @@ class Success extends Component {
 			<div className="success-wrapper">
 				<div className="success-container">
 					<div className="header">
-						<i className="far fa-check-circle"></i>
-						<h3>Booking successfully completed</h3>
+						<i>!</i>
+						<h3>Just one more step left.</h3>
 					</div>
 					<div className="body">
 						<span>
 							We are looking forward to welcoming you at STACEY {this.props.contract && this.props.contract.project_name} soon!
 						</span>
-						<span className="margin-bottom">The only step that's missing now is for you to send your Deposit to the following Account.</span>
-						<div className="account-info">
+						<span className="important">The only step that's missing now is for you to send your Deposit to the following Account.</span>
+						<div className="account-info important">
               <span>STACEY Real Estate UG</span>
               <span>IBAN: DE61 2005 0550 1500 8679 06</span>
               <span>BIC: HASPDEHHXXX</span>

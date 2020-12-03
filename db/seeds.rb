@@ -876,6 +876,164 @@
 # # puts('not found rooms')
 # # puts(NOT_FOUND_ROOMS)
 
+projects = Project.create({name: 'Mühlenkamp'}, {name: 'Eppendorf'}, {name: 'St. Pauli'})
+
+
+mühlenkamp_roomtypes = Project.find_by(name: 'Mühlenkamp').roomtypes.create!(
+	{ name: 'Mighty', size: 8 },
+	{ name: 'Premium', size: 12 },
+	{ name: 'Premium +', size: 14 },
+	{ name: 'Jumbo', size: 25, amount_of_people: 2 }
+)
+
+mühlenkamp_mighty_rooms = Project.find_by(name: 'Mühlenkamp').roomtypes.find_by(name: 'Mighty').rooms.create(
+	{ intern_number: 'D05', house_number: '', apartment_number: 2, state: , bookable_date: },
+	{ intern_number: 'D07', house_number: '', apartment_number: 3, state: , bookable_date: },
+	{ intern_number: 'D09', house_number: '', apartment_number: 4, state: , bookable_date: },
+	{ intern_number: 'D10', house_number: '', apartment_number: 5, state: , bookable_date: },
+	{ intern_number: 'D11', house_number: '', apartment_number: 5, state: , bookable_date: },
+	{ intern_number: 'D13', house_number: '', apartment_number: 6, state: , bookable_date: },
+	{ intern_number: 'D14', house_number: '', apartment_number: 6, state: , bookable_date: },
+	{ intern_number: 'D16', house_number: '', apartment_number: 7, state: , bookable_date: },
+	{ intern_number: 'D19', house_number: '', apartment_number: 8, state: , bookable_date: },
+	{ intern_number: 'D22', house_number: '', apartment_number: 9, state: , bookable_date: },
+	{ intern_number: 'D25', house_number: '', apartment_number: 10, state: , bookable_date: },
+	{ intern_number: 'D27', house_number: '', apartment_number: 10, state: , bookable_date: },
+	{ intern_number: 'D28', house_number: '', apartment_number: 10, state: , bookable_date: },
+	{ intern_number: 'D29', house_number: '', apartment_number: 11, state: , bookable_date: },
+	{ intern_number: 'D31', house_number: '', apartment_number: 12, state: , bookable_date: },
+	{ intern_number: 'D32', house_number: '', apartment_number: 12, state: , bookable_date: },
+	{ intern_number: 'D34', house_number: '', apartment_number: 13, state: , bookable_date: },
+	{ intern_number: 'D35', house_number: '', apartment_number: 13, state: , bookable_date: },
+	{ intern_number: 'D37', house_number: '', apartment_number: 14, state: , bookable_date: },
+	{ intern_number: 'D38', house_number: '', apartment_number: 14, state: 'möbel bestellen', bookable_date: },
+	{ intern_number: 'D40', house_number: '', apartment_number: 15, state: 'möbel bestellen', bookable_date: },
+	{ intern_number: 'D41', house_number: '', apartment_number: 15, state: 'möbel bestellen', bookable_date: },
+	{ intern_number: 'D44', house_number: '', apartment_number: 16, state: 'möbel bestellen', bookable_date: },
+	{ intern_number: 'D46', house_number: '', apartment_number: 17, state: 'möbel bestellen', bookable_date: },
+	{ intern_number: 'D48', house_number: '', apartment_number: 18, state: 'möbel bestellen', bookable_date: },
+	{ intern_number: 'D50', house_number: '', apartment_number: 19, state: 'möbel bestellen', bookable_date: },
+	{ intern_number: 'D53', house_number: '', apartment_number: 20, state: 'möbel bestellen', bookable_date: }
+)
+
+mühlenkamp_premium_rooms = Project.find_by(name: 'Mühlenkamp').roomtypes.find_by(name: 'Premium').rooms.create(
+	{ intern_number: 'D01', house_number: '', apartment_number: 1, state: , bookable_date: }
+	{ intern_number: 'D02', house_number: '', apartment_number: 1, state: , bookable_date: }
+	{ intern_number: 'D03', house_number: '', apartment_number: 1, state: , bookable_date: }
+	{ intern_number: 'D17', house_number: '', apartment_number: 7, state: , bookable_date: }
+	{ intern_number: 'D20', house_number: '', apartment_number: 8, state: , bookable_date: }
+	{ intern_number: 'D23', house_number: '', apartment_number: 9, state: , bookable_date: }
+)
+
+mühlenkamp_premium_plus_rooms = Project.find_by(name: 'Mühlenkamp').roomtypes.find_by(name: 'Premium +').rooms.create(
+	{ intern_number: 'D12', house_number: '', apartment_number: 5, state: , bookable_date:  },
+	{ intern_number: 'D15', house_number: '', apartment_number: 6, state: , bookable_date:  },
+	{ intern_number: 'D18', house_number: '', apartment_number: 7, state: , bookable_date:  },
+	{ intern_number: 'D21', house_number: '', apartment_number: 8, state: , bookable_date:  },
+	{ intern_number: 'D24', house_number: '', apartment_number: 9, state: , bookable_date:  },
+	{ intern_number: 'D26', house_number: '', apartment_number: 10, state: , bookable_date:  },
+	{ intern_number: 'D33', house_number: '', apartment_number: 12, state: , bookable_date:  },
+	{ intern_number: 'D36', house_number: '', apartment_number: 13, state: , bookable_date:  },
+	{ intern_number: 'D39', house_number: '', apartment_number: 14, state: , bookable_date:  },
+	{ intern_number: 'D42', house_number: '', apartment_number: 15, state: 'möbel bestellen', bookable_date:  }
+)
+
+mühlenkamp_jumbo_rooms = Project.find_by(name: 'Mühlenkamp').roomtypes.find_by(name: 'Jumbo').rooms.create(
+	{ intern_number: 'D04', house_number: '', apartment_number: 2, state: , bookable_date:  },
+	{ intern_number: 'D06', house_number: '', apartment_number: 3, state: , bookable_date:  },
+	{ intern_number: 'D08', house_number: '', apartment_number: 4, state: , bookable_date:  },
+	{ intern_number: 'D30', house_number: '', apartment_number: 11, state: , bookable_date:  },
+	{ intern_number: 'D43', house_number: '', apartment_number: 16, state: , bookable_date:  },
+	{ intern_number: 'D45', house_number: '', apartment_number: 17, state: 'möbel bestellen', bookable_date:  },
+	{ intern_number: 'D47', house_number: '', apartment_number: 18, state: 'möbel bestellen', bookable_date:  },
+	{ intern_number: 'D49', house_number: '', apartment_number: 19, state: 'möbel bestellen', bookable_date:  },
+	{ intern_number: 'D52', house_number: '', apartment_number: 20, state: 'möbel bestellen', bookable_date:  }
+)
+
+
+
+eppendorf_roomtypes = Project.find_by(name: 'Eppendorf').roomtypes.create!(
+	{ name: 'Mighty', size: 10 },
+	{ name: 'Mighty +', size: 12 },
+	{ name: 'Premium', size: 12 },
+	{ name: 'Premium (balcony)', size: 14 },
+	{ name: 'Premium +', size: 14 },
+	{ name: 'Premium + (balcony)', size: 16 },
+	{ name: 'Jumbo', size: 17, amount_of_people: 2 }
+	{ name: 'Jumbo (balcony)', size: 19, amount_of_people: 2 }
+)
+
+
+eppendorf_mighty_rooms = Project.find_by(name: 'Eppendorf').roomtypes.find_by(name: 'Mighty').rooms.create(
+	{ intern_number: 'EW02', house_number: '', apartment_number: '1', state: , bookable_date: },
+	{ intern_number: 'EW08', house_number: '', apartment_number: '2', state: , bookable_date: },
+	{ intern_number: 'EW09', house_number: '', apartment_number: '3', state: , bookable_date: },
+	{ intern_number: 'EW12', house_number: '', apartment_number: '4', state: , bookable_date: },
+	{ intern_number: 'EW16', house_number: '', apartment_number: '5', state: , bookable_date: }
+)
+	
+eppendorf_might_plus_rooms = Project.find_by(name: 'Eppendorf').roomtypes.find_by(name: 'Mighty +').rooms.create(
+	{ intern_number: 'EW01', house_number: '', apartment_number: '0', state: , bookable_date: }
+)
+
+eppendorf_premium_rooms = Project.find_by(name: 'Eppendorf').roomtypes.find_by(name: 'Premium').rooms.create(
+	{ intern_number: 'EW04', house_number: '', apartment_number: '1', state: , bookable_date: },
+	{ intern_number: 'EW11', house_number: '', apartment_number: '3', state: , bookable_date: },
+	{ intern_number: 'EW14', house_number: '', apartment_number: '4', state: , bookable_date: },
+	{ intern_number: 'EW18', house_number: '', apartment_number: '5', state: , bookable_date: }
+)
+
+eppendorf_premium_balcony_rooms = Project.find_by(name: 'Eppendorf').roomtypes.find_by(name: 'Premium (balcony)').rooms.create(
+	{ intern_number: 'EW03', house_number: '', apartment_number: '1', state: , bookable_date: },
+	{ intern_number: 'EW10', house_number: '', apartment_number: '3', state: , bookable_date: },
+	{ intern_number: 'EW17', house_number: '', apartment_number: '5', state: , bookable_date: }
+)
+
+eppendorf_premium_plus_rooms = Project.find_by(name: 'Eppendorf').roomtypes.find_by(name: 'Premium +').rooms.create(
+	{ intern_number: 'EW05', house_number: '', apartment_number: '2', state: , bookable_date: },
+	{ intern_number: 'EW13', house_number: '', apartment_number: '4', state: , bookable_date: }
+)
+
+eppendorf_premium_plus_balcony_rooms = Project.find_by(name: 'Eppendorf').roomtypes.find_by(name: 'Premium + (balcony)').rooms.create(
+	{ intern_number: 'EW06', house_number: '', apartment_number: '2', state: , bookable_date: }
+)
+
+eppendorf_jumbo_rooms = Project.find_by(name: 'Eppendorf').roomtypes.find_by(name: 'Jumbo').rooms.create(
+	{ intern_number: 'EW07', house_number: '', apartment_number: '2', state: , bookable_date: }
+)
+
+eppendorf_jumbo_balcony_rooms = Project.find_by(name: 'Eppendorf').roomtypes.find_by(name: 'Jumbo (balcony)').rooms.create(
+	{ intern_number: 'EW15', house_number: '', apartment_number: '4', state: , bookable_date: }
+)
+
+
+
+st_pauli_roomtypes = Project.find_by(name: 'St. Pauli').roomtypes.create!(
+	{ name: 'Mighty', size: 9 },
+	{ name: 'Premium', size: 12 },
+	{ name: 'Premium +', size: 14 },
+	{ name: 'Jumbo', size: 21, amount_of_people: 2 }
+)
+
+st_pauli_mighty_rooms = Project.find_by(name: 'St. Pauli').roomtypes.find_by(name: 'Mighty')(
+	{ intern_number: 'DB01', house_number: '', apartment_number: 1, state: , bookable_date: },
+	{ intern_number: 'DB06', house_number: '', apartment_number: 1, state: , bookable_date: }
+)
+
+st_pauli_premium_rooms = Project.find_by(name: 'St. Pauli').roomtypes.find_by(name: 'Premium')(
+	{ intern_number: 'DB04', house_number: '', apartment_number: 1, state: , bookable_date: }
+)
+
+st_pauli_premium_plus_rooms = Project.find_by(name: 'St. Pauli').roomtypes.find_by(name: 'Premium +')(
+	{ intern_number: 'DB02', house_number: '', apartment_number: 1, state: , bookable_date: },
+	{ intern_number: 'DB05', house_number: '', apartment_number: 1, state: , bookable_date: }
+)
+
+st_pauli_jumbo_rooms = Project.find_by(name: 'St. Pauli').roomtypes.find_by(name: 'Jumbo')(
+	{ intern_number: 'DB03', house_number: '', apartment_number: 1, state: , bookable_date: },
+	{ intern_number: 'DB07', house_number: '', apartment_number: 1, state: , bookable_date: }
+)
+
 
 
 
