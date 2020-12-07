@@ -1068,15 +1068,17 @@ bookings = [
 	{ room: "EW17", name: "Gesa Franke", email: "gesafranke@googlemail.com", move_in: Date.parse("15.11.2020"), move_out: Date.parse("31.03.2021") },
 	{ room: "EW18", name: "Nick Finckenstein", email: "nfinckenstein@gmail.com", move_in: Date.parse("17.11.2020"), move_out: Date.parse("14.02.2021") }
 ]
-
-# NOT_FOUND_USERS = []
 # NOT_FOUND_ROOMS = []
 # NOT_FOUND_BOOKINGS = []
 
+# NOT_FOUND_USERS = []
 
 # bookings.each do |booking|
-# 	user = User.select{|u| u.full_name == booking[:name] || u.email == booking[:email]}
-# 	user = user.select{|u| u.email == booking[:email]}.first
+# 	NOT_FOUND_USERS << {name: booking[:name], email: booking[:email]} unless user
+# end
+
+# bookings.each do |booking|
+# 	user = User.where(email: booking[:email])
 # 	NOT_FOUND_USERS << {name: booking[:name], email: booking[:email]} unless user
 # 	room = Room.find_by(intern_number: booking[:room])
 # 	NOT_FOUND_ROOMS << {room: booking[:room]} unless room
@@ -1095,7 +1097,7 @@ bookings = [
 
 # puts('create existing bookings')
 bookings.each do |booking|
-	user = User.select{|u| u.full_name == booking[:name] || u.email == booking[:email]}
+	user = User.where(email: booking[:email])
 	unless user.prefered_suites
 		user.prefered_suites.create(roomtype_id: Roomtype.first.id)
 	end
