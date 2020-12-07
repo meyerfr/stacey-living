@@ -34,6 +34,7 @@
             <%= link_to time_option.capitalize, users_path(user_group: @user_group_param, time: time_option), class: class_string('option': true, 'active': (@time_param == time_option)) %>
           <% end %>
         </div>
+        <%= link_to "Download CSV", all_users_path(format: :csv) %>
       </div>
     </div>
     <div class="list-container">

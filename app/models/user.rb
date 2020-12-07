@@ -28,6 +28,18 @@ class User < ApplicationRecord
   devise :database_authenticatable,
          :recoverable, :rememberable, :validatable
 
+  def self.to_csv_test
+    attributes = %w{email first_name last_name full_phone_number}
+
+    CSV.generate(headers: true) do |csv|
+      csv << attributes
+
+      all.each do |user|
+        csv << attributes.map{ |attr| user.send(attr) }
+      end
+    end
+  end
+
   def clean_up_data
     self.first_name = self.first_name.downcase.titleize
     self.last_name = self.last_name.downcase.titleize
@@ -58,6 +70,10 @@ class User < ApplicationRecord
 
   def applicant?
     role == 'applicant'
+  end
+
+  def full_phone_number
+    "#{phone_code} #{phone_number}"
   end
 
   private

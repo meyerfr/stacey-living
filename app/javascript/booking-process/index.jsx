@@ -46,7 +46,15 @@ const reducers = combineReducers({
   client_secret: clientSecretsReducer
 });
 
-const middlewares = applyMiddleware(reduxPromise, logger);
+const middlewares = (process.env.NODE_ENV !== 'production') ?
+                      applyMiddleware(reduxPromise, logger)
+                    :
+                      applyMiddleware(reduxPromise)
+
+
+// const middlewares = process.env.NOVE_ENV === 'development' ?  applyMiddleware(logger) : applyMiddleware(reduxPromise, logger);
+
+// console.log(middlewares)
 
 // render an instance of the component in the DOM
 ReactDOM.render(

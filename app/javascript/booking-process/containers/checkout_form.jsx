@@ -70,11 +70,11 @@ class CheckoutForm extends React.Component {
 
     if (result.error) {
       // Show error to your customer (e.g., insufficient funds)
-      console.log(result.error);
+      // console.log(result.error);
     } else {
       // The payment has been processed!
       if (result.paymentIntent.status === 'succeeded') {
-        console.log('handle Success')
+        // console.log('handle Success')
         this.props.updateUserOnSubmit()
         this.props.history.push(`/bookings/${this.props.booking_auth_token}/${this.props.booking_id}/success`);
         // Show a success message to your customer
@@ -97,7 +97,6 @@ class CheckoutForm extends React.Component {
   }
 
   render() {
-    console.log(this.props)
     return (
       <form onSubmit={this.handleSubmit}>
         <CardSection />

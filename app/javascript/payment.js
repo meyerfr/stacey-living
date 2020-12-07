@@ -73,7 +73,7 @@ function payment() {
 
         if (result.error) {
           // Show error to your customer
-          console.log(result.error.message);
+          // console.log(result.error.message);
         } else if(!document.getElementById('terms-and-conditions').checked){
           var errorElement = document.createElement('SPAN');
           var errorTextNode = document.createTextNode("Please agree to the Terms and Conditions before proceeding");

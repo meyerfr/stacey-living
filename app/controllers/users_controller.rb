@@ -4,8 +4,8 @@ class UsersController < ApplicationController
   USERS_PER_PAGE = 25
 
   def all_users
-    @users = helpers.all_applicants
-    raise
+    @users = User.all
+    send_data @users.to_csv_test, filename: "users-#{Date.today}.csv"
   end
 
   def index

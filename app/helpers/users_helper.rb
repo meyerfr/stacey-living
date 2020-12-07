@@ -1,13 +1,13 @@
 module UsersHelper
   def all_admins
-    User.select{ |u| u.has_role?('admin') }
+    User.where(role: 'admin')
   end
 
   def all_applicants
-    User.select{ |u| u.has_role?('applicant') }
+    User.where(role: 'applicant')
   end
 
   def all_tenants
-    User.select{ |u| u.has_role?('tenant') }
+    User.where(role: 'tenant')
   end
 end

@@ -34,7 +34,7 @@ class RoomtypesIndex extends Component {
     const project = this.props.project;
     const photos = project && project.photos
 	  const community_area_amenities = this.state.community_area_amenities
-    console.log(community_area_amenities)
+    // console.log(community_area_amenities)
     const options = {
 	  	buttons: {
 		    showDownloadButton: false,
