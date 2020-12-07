@@ -11,7 +11,7 @@ class Api::V1::PaymentsController < ActionController::Base
 	             end
 
 		intent = Stripe::PaymentIntent.create({
-		  amount: 1099,
+		  amount: 8000,
 		  currency: 'eur',
 		  # Verify your integration in this guide by including this parameter
 		  metadata: {integration_check: 'accept_a_payment'},

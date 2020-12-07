@@ -29,7 +29,7 @@ class ProjectsIndex extends Component {
               projects.map((project) => {
                 return (
                   <Card key={project.id} type='project' input={project}>
-                    {/* project.rooms_bookable ? 'Explore' : 'Not available' */}
+                    {/* project.next_available_move_in ? 'Explore' : 'Not available' */}
                     <Link to={`/bookings/${this.props.match.params.booking_auth_token}/${this.props.match.params.booking_id}/projects/${project.id}/roomtypes`} key={project.id} className="stacey-button reverse-hover">Explore</Link>
                   </Card>
                 );

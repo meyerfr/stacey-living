@@ -1,14 +1,43 @@
 class Api::V1::RoomtypesController < ActionController::Base
 	def index
-		roomtypes = Roomtype.where(project_id: params[:project_id])
+		show_categories = ['Mighty', 'Mighty+', 'Premium', 'Premium+', 'Jumbo']
+		project = Project.find(params[:project_id])
+		roomtypes = project.roomtypes.select{|roomtype| show_categories.include?(roomtype.name)}
+
+		if project.name = 'Eppendorf'
+			available_roomtypes = []
+			roomtypes.each_with_index do |roomtype, index|
+				if roomtype.next_available_room == nil
+					roomtype_with_balcony = project.roomtypes.find_by(name: "#{roomtype.name} (balcony)")
+					if roomtype_with_balcony.present? && roomtype_with_balcony.next_available_room != nil
+						available_roomtypes.push(roomtype_with_balcony)
+					else
+						available_roomtypes.push(roomtypes)
+					end
+				else
+					available_roomtypes.push(roomtype)
+				end
+			end
+			roomtypes = available_roomtypes
+		end
+
+		roomtypes = roomtypes.sort_by {|roomtype| roomtype.size }
 
 		roomtypes = roomtypes.map { |roomtype|
 			cheapest_price = roomtype.cheapest_price
-			photos = roomtype.photos.map { |photo|
-								 url_for(photo)	
-							 }
+			if project.name == 'Eppendorf' && roomtype.name == 'Mighty+'.include?('(balcony)')
+				roomtype_without_balcony = project.roomtype.find_by(name: roomtype.name.gsub(' (balcony)', ''))
+				photos = roomtype_without_balcony.photos.map{ |photo| 
+									 url_for(photo)
+								 }
+			else
+				photos = roomtype.photos.map { |photo|
+									 url_for(photo)	
+								 }
+			end
 			next_available_move_in = roomtype.next_available_move_in_date
-			roomtype.as_json.merge({ cheapest_price: cheapest_price, photos: photos, next_available_move_in: next_available_move_in })
+			roomtype_with_balcony_id = project.roomtypes.find_by(name: "#{roomtype.name} (balcony)")&.id
+			roomtype.as_json.merge({ cheapest_price: cheapest_price, photos: photos, next_available_move_in: next_available_move_in, roomtype_with_balcony_id: roomtype_with_balcony_id })
 		}
 
 		render json: roomtypes

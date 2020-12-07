@@ -124,7 +124,7 @@ class Card extends Component {
 											</div>
 										</div>,
 										<div key="card-item3">
-											<span><strong>Person</strong>: For 1 member</span>
+											<span><strong>Person</strong>: For {this.props.input.amount_of_people} person</span>
 										</div>
 									]
 				    }
