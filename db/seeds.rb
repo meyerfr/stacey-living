@@ -1097,7 +1097,7 @@ bookings = [
 
 # puts('create existing bookings')
 bookings.each do |booking|
-	user = User.where(email: booking[:email])
+	user = User.find_by(email: booking[:email])
 	unless user.prefered_suites
 		user.prefered_suites.create(roomtype_id: Roomtype.first.id)
 	end
