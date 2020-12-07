@@ -1102,8 +1102,8 @@ bookings.each do |booking|
 		user.prefered_suites.create(roomtype_id: Roomtype.first.id)
 	end
 	room = Room.find_by(intern_number: booking[:room])
-	users_bookings = user.bookings.last
-	users_bookings.assign_attributes(
+	users_booking = user.bookings.last
+	users_booking.assign_attributes(
 		move_in: booking[:move_in],
 		move_out: booking[:move_out],
 		booking_auth_token: Devise.friendly_token,
@@ -1111,5 +1111,5 @@ bookings.each do |booking|
 		room_id: room.id,
 		state: 'booked'
 	)
-	user_bookings.save(validate: false)
+	users_booking.save(validate: false)
 end
