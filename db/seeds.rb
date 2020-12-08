@@ -755,174 +755,174 @@ require "open-uri"
 
 
 
-# all_rooms = [
-# 	{
-# 		project: 'Mühlenkamp',
-# 		project_rooms: [
-# 			{
-# 				roomtype: 'Mighty',
-# 				rooms: [
-# 		    	{ intern_number: 'D05', house_number: '3b 1st floor right', apartment_number: '02', state: 'bookable' },
-# 					{ intern_number: 'D07', house_number: '3b 2nd floor right', apartment_number: '03', state: 'bookable' },
-# 					{ intern_number: 'D09', house_number: '3b 2nd floor left', apartment_number: '04', state: 'bookable' },
-# 					{ intern_number: 'D10', house_number: '3 ground floor left', apartment_number: '05', state: 'bookable' },
-# 					{ intern_number: 'D11', house_number: '3 ground floor left', apartment_number: '05', state: 'bookable' },
-# 					{ intern_number: 'D13', house_number: '3 ground floor right', apartment_number: '06', state: 'bookable' },
-# 					{ intern_number: 'D14', house_number: '3 ground floor right', apartment_number: '06', state: 'bookable' },
-# 					{ intern_number: 'D16', house_number: '5 1st floor right', apartment_number: '07', state: 'bookable' },
-# 					{ intern_number: 'D19', house_number: '5 2nd floor left', apartment_number: '08', state: 'bookable' },
-# 					{ intern_number: 'D22', house_number: '3 2nd floor left', apartment_number: '09', state: 'bookable' },
-# 					{ intern_number: 'D25', house_number: '5 ground floor left', apartment_number: '10', state: 'bookable' },
-# 					{ intern_number: 'D27', house_number: '5 ground floor left', apartment_number: '10', state: 'bookable' },
-# 					{ intern_number: 'D28', house_number: '5 ground floor left', apartment_number: '10', state: 'bookable' },
-# 					{ intern_number: 'D29', house_number: '5a 2nd floor left', apartment_number: '11', state: 'bookable' },
-# 					{ intern_number: 'D31', house_number: '5a 1st floor right', apartment_number: '12', state: 'bookable' },
-# 					{ intern_number: 'D32', house_number: '5a 1st floor right', apartment_number: '12', state: 'bookable' },
-# 					{ intern_number: 'D34', house_number: '5a 2nd floor right', apartment_number: '13', state: 'bookable' },
-# 					{ intern_number: 'D35', house_number: '5a 2nd floor right', apartment_number: '13', state: 'bookable' },
-# 					{ intern_number: 'D37', house_number: '3a 1st floor left', apartment_number: '14', state: 'bookable' },
-# 					{ intern_number: 'D38', house_number: '3a 1st floor left', apartment_number: '14', state: 'bookable' },
-# 					{ intern_number: 'D41', house_number: '3a ground floor left', apartment_number: '15', state: 'bookable' },
-# 					{ intern_number: 'D44', house_number: '3a 1st floor left', apartment_number: '16', state: 'bookable' },
-# 					{ intern_number: 'D46', house_number: '3c 1st floor left', apartment_number: '17', state: 'bookable' }
-# 		    ]
-# 		  },
-# 		  {
-# 		  	roomtype: 'Premium',
-# 				rooms: [
-# 		      { intern_number: "D01", house_number: "3d 2nd floor", apartment_number: '01', state: 'bookable' },
-# 		      { intern_number: "D02", house_number: "3d 2nd floor", apartment_number: '01', state: 'bookable' },
-# 		      { intern_number: "D03", house_number: "3d 2nd floor", apartment_number: '01', state: 'bookable' },
-# 		      { intern_number: "D17", house_number: "5 1st floor right", apartment_number: '07', state: 'bookable' },
-# 		      { intern_number: "D20", house_number: "5 2nd floor left", apartment_number: '08', state: 'bookable' },
-# 		      { intern_number: "D23", house_number: "3 2nd floor left", apartment_number: '09', state: 'bookable' }
-# 		    ]
-# 		  },
-# 		  {
-# 		  	roomtype: 'Premium+',
-# 				rooms: [
-# 		      { intern_number: "D12", house_number: "3 ground floor left", apartment_number: '05', state: 'bookable' },
-# 		      { intern_number: "D15", house_number: "3 ground floor right", apartment_number: '06', state: 'bookable' },
-# 		      { intern_number: "D18", house_number: "5 1st floor right", apartment_number: '07', state: 'bookable' },
-# 		      { intern_number: "D21", house_number: "5 2nd floor left", apartment_number: '08', state: 'bookable' },
-# 		      { intern_number: "D24", house_number: "3 2nd floor left", apartment_number: '09', state: 'bookable' },
-# 		      { intern_number: "D26", house_number: "5 ground floor left", apartment_number: '10', state: 'bookable' },
-# 		      { intern_number: "D33", house_number: "5a 1st floor right", apartment_number: '12', state: 'bookable' },
-# 		      { intern_number: "D36", house_number: "5a 2nd floor right", apartment_number: '13', state: 'bookable' },
-# 		      { intern_number: "D39", house_number: "3a 1st floor left", apartment_number: '14', state: 'not bookable' },
-# 		      { intern_number: "D42", house_number: "3a groud floor left", apartment_number: '15', state: 'not bookable' }
-# 		    ]
-# 		  },
-# 		  {
-# 		  	roomtype: 'Jumbo',
-# 				rooms: [
-# 		      { intern_number: "D04", house_number: "3b 1st floor right", apartment_number: '02', state: 'bookable' },
-# 		      { intern_number: "D06", house_number: "3b 2nd floor right", apartment_number: '03', state: 'bookable' },
-# 		      { intern_number: "D08", house_number: "3b 2nd floor left", apartment_number: '04', state: 'bookable' },
-# 		      { intern_number: "D30", house_number: "5a 2nd floor left", apartment_number: '11', state: 'bookable' },
-# 		      { intern_number: "D43", house_number: "3a 1st floor right", apartment_number: '16', state: 'not bookable' },
-# 		      { intern_number: "D45", house_number: "3c 1st floor left", apartment_number: '17', state: 'not bookable' },
-# 		      { intern_number: "D47", house_number: "3c ground floor left", apartment_number: '18', state: 'not bookable' }
-# 		    ]
-# 		  }
-# 		]
-# 	},
-# 	{
-# 		project: 'Eppendorf',
-# 		project_rooms: [
-# 			{
-# 				roomtype: 'Mighty',
-# 				rooms: [
-# 				  { intern_number: "EW02", house_number: "270a 1st floor", apartment_number: '01', state: 'bookable' },
-# 				  { intern_number: "EW08", house_number: "270 2nd floor", apartment_number: '02', state: 'bookable' },
-# 				  { intern_number: "EW09", house_number: "270a 2nd floor", apartment_number: '03', state: 'bookable' },
-# 				  { intern_number: "EW12", house_number: "270a 3rd floor", apartment_number: '04', state: 'bookable' },
-# 				  { intern_number: "EW16", house_number: "270a 3rd floor", apartment_number: '05', state: 'bookable' }
-# 				]
-# 			},
-# 			{
-# 				roomtype: 'Mighty+',
-# 				rooms: [
-# 				  { intern_number: "EW01", house_number: "270", apartment_number: '00', state: 'bookable' }
-# 				]
-# 			},
-# 			{
-# 				roomtype: 'Premium',
-# 				rooms: [
-# 				  { intern_number: "EW04", house_number: "270a 1st floor", apartment_number: '01', state: 'bookable' },
-# 				  { intern_number: "EW11", house_number: "270a 2nd floor", apartment_number: '03', state: 'bookable' },
-# 				  { intern_number: "EW14", house_number: "270 3rd floor", apartment_number: '04', state: 'bookable' },
-# 				  { intern_number: "EW18", house_number: "270a 3rd floor", apartment_number: '05', state: 'bookable' }
-# 				]
-# 			},
-# 			{
-# 				roomtype: 'Premium (balcony)',
-# 				rooms: [
-# 				  { intern_number: "EW03", house_number: "270a 1st floor", apartment_number: '01', state: 'bookable' },
-# 				  { intern_number: "EW10", house_number: "270a 2nd floor", apartment_number: '03', state: 'bookable' },
-# 				  { intern_number: "EW17", house_number: "270a 3rd floor", apartment_number: '05', state: 'bookable' }
-# 				]
-# 			},
-# 			{
-# 				roomtype: 'Premium+',
-# 				rooms: [
-# 				  { intern_number: "EW05", house_number: "270 2nd floor", apartment_number: '02', state: 'bookable' },
-# 				  { intern_number: "EW13", house_number: "270 3rd floor", apartment_number: '04', state: 'bookable' }
-# 				]
-# 			},
-# 			{
-# 				roomtype: 'Premium+ (balcony)',
-# 				rooms: [
-# 				  { intern_number: "EW06", house_number: "270 2nd floor", apartment_number: '02', state: 'bookable' }
-# 				]
-# 			},
-# 			{
-# 				roomtype: 'Jumbo',
-# 				rooms: [
-# 				  { intern_number: "EW07", house_number: "270 2nd floor", apartment_number: '02', state: 'bookable' }
-# 				]
-# 			},
-# 			{
-# 				roomtype: 'Jumbo (balcony)',
-# 				rooms: [
-# 				  { intern_number: "EW15", house_number: "270 3rd floor", apartment_number: '04', state: 'bookable' }
-# 				]
-# 			}
-# 		]
-# 	},
-# 	{
-# 		project: 'St. Pauli',
-# 		project_rooms: [
-# 			{
-# 				roomtype: 'Mighty',
-# 				rooms: [
-# 				  { intern_number: "DB01", house_number: "2 ground floor", state: 'bookable' },
-# 				  { intern_number: "DB06", house_number: "2 ground floor", state: 'bookable' }
-# 				]
-# 			},
-# 			{
-# 				roomtype: 'Premium',
-# 				rooms: [
-# 				  { intern_number: "DB04", house_number: "2 ground floor", state: 'bookable' }
-# 				]
-# 			},
-# 			{
-# 				roomtype: 'Premium+',
-# 				rooms: [
-# 				  { intern_number: "DB02", house_number: "2 ground floor", state: 'bookable' },
-# 				  { intern_number: "DB05", house_number: "2 ground floor", state: 'bookable' }
-# 				]
-# 			},
-# 			{
-# 				roomtype: 'Jumbo',
-# 				rooms: [
-# 				  { intern_number: "DB03", house_number: "2 ground floor", state: 'bookable' },
-# 				  { intern_number: "DB07", house_number: "2 ground floor", state: 'bookable' }
-# 				]
-# 			}
-# 		]
-# 	}
-# ]
+all_rooms = [
+	{
+		project: 'Mühlenkamp',
+		project_rooms: [
+			{
+				roomtype: 'Mighty',
+				rooms: [
+		    	{ intern_number: 'D05', house_number: '3b 1st floor right', apartment_number: '02', state: 'bookable' },
+					{ intern_number: 'D07', house_number: '3b 2nd floor right', apartment_number: '03', state: 'bookable' },
+					{ intern_number: 'D09', house_number: '3b 2nd floor left', apartment_number: '04', state: 'bookable' },
+					{ intern_number: 'D10', house_number: '3 ground floor left', apartment_number: '05', state: 'bookable' },
+					{ intern_number: 'D11', house_number: '3 ground floor left', apartment_number: '05', state: 'bookable' },
+					{ intern_number: 'D13', house_number: '3 ground floor right', apartment_number: '06', state: 'bookable' },
+					{ intern_number: 'D14', house_number: '3 ground floor right', apartment_number: '06', state: 'bookable' },
+					{ intern_number: 'D16', house_number: '5 1st floor right', apartment_number: '07', state: 'bookable' },
+					{ intern_number: 'D19', house_number: '5 2nd floor left', apartment_number: '08', state: 'bookable' },
+					{ intern_number: 'D22', house_number: '3 2nd floor left', apartment_number: '09', state: 'bookable' },
+					{ intern_number: 'D25', house_number: '5 ground floor left', apartment_number: '10', state: 'bookable' },
+					{ intern_number: 'D27', house_number: '5 ground floor left', apartment_number: '10', state: 'bookable' },
+					{ intern_number: 'D28', house_number: '5 ground floor left', apartment_number: '10', state: 'bookable' },
+					{ intern_number: 'D29', house_number: '5a 2nd floor left', apartment_number: '11', state: 'bookable' },
+					{ intern_number: 'D31', house_number: '5a 1st floor right', apartment_number: '12', state: 'bookable' },
+					{ intern_number: 'D32', house_number: '5a 1st floor right', apartment_number: '12', state: 'bookable' },
+					{ intern_number: 'D34', house_number: '5a 2nd floor right', apartment_number: '13', state: 'bookable' },
+					{ intern_number: 'D35', house_number: '5a 2nd floor right', apartment_number: '13', state: 'bookable' },
+					{ intern_number: 'D37', house_number: '3a 1st floor left', apartment_number: '14', state: 'bookable' },
+					{ intern_number: 'D38', house_number: '3a 1st floor left', apartment_number: '14', state: 'bookable' },
+					{ intern_number: 'D41', house_number: '3a ground floor left', apartment_number: '15', state: 'bookable' },
+					{ intern_number: 'D44', house_number: '3a 1st floor left', apartment_number: '16', state: 'bookable' },
+					{ intern_number: 'D46', house_number: '3c 1st floor left', apartment_number: '17', state: 'bookable' }
+		    ]
+		  },
+		  {
+		  	roomtype: 'Premium',
+				rooms: [
+		      { intern_number: "D01", house_number: "3d 2nd floor", apartment_number: '01', state: 'bookable' },
+		      { intern_number: "D02", house_number: "3d 2nd floor", apartment_number: '01', state: 'bookable' },
+		      { intern_number: "D03", house_number: "3d 2nd floor", apartment_number: '01', state: 'bookable' },
+		      { intern_number: "D17", house_number: "5 1st floor right", apartment_number: '07', state: 'bookable' },
+		      { intern_number: "D20", house_number: "5 2nd floor left", apartment_number: '08', state: 'bookable' },
+		      { intern_number: "D23", house_number: "3 2nd floor left", apartment_number: '09', state: 'bookable' }
+		    ]
+		  },
+		  {
+		  	roomtype: 'Premium+',
+				rooms: [
+		      { intern_number: "D12", house_number: "3 ground floor left", apartment_number: '05', state: 'bookable' },
+		      { intern_number: "D15", house_number: "3 ground floor right", apartment_number: '06', state: 'bookable' },
+		      { intern_number: "D18", house_number: "5 1st floor right", apartment_number: '07', state: 'bookable' },
+		      { intern_number: "D21", house_number: "5 2nd floor left", apartment_number: '08', state: 'bookable' },
+		      { intern_number: "D24", house_number: "3 2nd floor left", apartment_number: '09', state: 'bookable' },
+		      { intern_number: "D26", house_number: "5 ground floor left", apartment_number: '10', state: 'bookable' },
+		      { intern_number: "D33", house_number: "5a 1st floor right", apartment_number: '12', state: 'bookable' },
+		      { intern_number: "D36", house_number: "5a 2nd floor right", apartment_number: '13', state: 'bookable' },
+		      { intern_number: "D39", house_number: "3a 1st floor left", apartment_number: '14', state: 'bookable' },
+		      { intern_number: "D42", house_number: "3a groud floor left", apartment_number: '15', state: 'bookable' }
+		    ]
+		  },
+		  {
+		  	roomtype: 'Jumbo',
+				rooms: [
+		      { intern_number: "D04", house_number: "3b 1st floor right", apartment_number: '02', state: 'bookable' },
+		      { intern_number: "D06", house_number: "3b 2nd floor right", apartment_number: '03', state: 'bookable' },
+		      { intern_number: "D08", house_number: "3b 2nd floor left", apartment_number: '04', state: 'bookable' },
+		      { intern_number: "D30", house_number: "5a 2nd floor left", apartment_number: '11', state: 'bookable' },
+		      { intern_number: "D43", house_number: "3a 1st floor right", apartment_number: '16', state: 'bookable' },
+		      { intern_number: "D45", house_number: "3c 1st floor left", apartment_number: '17', state: 'bookable' },
+		      { intern_number: "D47", house_number: "3c ground floor left", apartment_number: '18', state: 'bookable' }
+		    ]
+		  }
+		]
+	},
+	{
+		project: 'Eppendorf',
+		project_rooms: [
+			{
+				roomtype: 'Mighty',
+				rooms: [
+				  { intern_number: "EW02", house_number: "270a 1st floor", apartment_number: '01', state: 'bookable' },
+				  { intern_number: "EW08", house_number: "270 2nd floor", apartment_number: '02', state: 'bookable' },
+				  { intern_number: "EW09", house_number: "270a 2nd floor", apartment_number: '03', state: 'bookable' },
+				  { intern_number: "EW12", house_number: "270a 3rd floor", apartment_number: '04', state: 'bookable' },
+				  { intern_number: "EW16", house_number: "270a 3rd floor", apartment_number: '05', state: 'bookable' }
+				]
+			},
+			{
+				roomtype: 'Mighty+',
+				rooms: [
+				  { intern_number: "EW01", house_number: "270", apartment_number: '00', state: 'bookable' }
+				]
+			},
+			{
+				roomtype: 'Premium',
+				rooms: [
+				  { intern_number: "EW04", house_number: "270a 1st floor", apartment_number: '01', state: 'bookable' },
+				  { intern_number: "EW11", house_number: "270a 2nd floor", apartment_number: '03', state: 'bookable' },
+				  { intern_number: "EW14", house_number: "270 3rd floor", apartment_number: '04', state: 'bookable' },
+				  { intern_number: "EW18", house_number: "270a 3rd floor", apartment_number: '05', state: 'bookable' }
+				]
+			},
+			{
+				roomtype: 'Premium (balcony)',
+				rooms: [
+				  { intern_number: "EW03", house_number: "270a 1st floor", apartment_number: '01', state: 'bookable' },
+				  { intern_number: "EW10", house_number: "270a 2nd floor", apartment_number: '03', state: 'bookable' },
+				  { intern_number: "EW17", house_number: "270a 3rd floor", apartment_number: '05', state: 'bookable' }
+				]
+			},
+			{
+				roomtype: 'Premium+',
+				rooms: [
+				  { intern_number: "EW05", house_number: "270 2nd floor", apartment_number: '02', state: 'bookable' },
+				  { intern_number: "EW13", house_number: "270 3rd floor", apartment_number: '04', state: 'bookable' }
+				]
+			},
+			{
+				roomtype: 'Premium+ (balcony)',
+				rooms: [
+				  { intern_number: "EW06", house_number: "270 2nd floor", apartment_number: '02', state: 'bookable' }
+				]
+			},
+			{
+				roomtype: 'Jumbo',
+				rooms: [
+				  { intern_number: "EW07", house_number: "270 2nd floor", apartment_number: '02', state: 'bookable' }
+				]
+			},
+			{
+				roomtype: 'Jumbo (balcony)',
+				rooms: [
+				  { intern_number: "EW15", house_number: "270 3rd floor", apartment_number: '04', state: 'bookable' }
+				]
+			}
+		]
+	},
+	{
+		project: 'St. Pauli',
+		project_rooms: [
+			{
+				roomtype: 'Mighty',
+				rooms: [
+				  { intern_number: "DB01", house_number: "2 ground floor", state: 'bookable' },
+				  { intern_number: "DB06", house_number: "2 ground floor", state: 'bookable' }
+				]
+			},
+			{
+				roomtype: 'Premium',
+				rooms: [
+				  { intern_number: "DB04", house_number: "2 ground floor", state: 'bookable' }
+				]
+			},
+			{
+				roomtype: 'Premium+',
+				rooms: [
+				  { intern_number: "DB02", house_number: "2 ground floor", state: 'bookable' },
+				  { intern_number: "DB05", house_number: "2 ground floor", state: 'bookable' }
+				]
+			},
+			{
+				roomtype: 'Jumbo',
+				rooms: [
+				  { intern_number: "DB03", house_number: "2 ground floor", state: 'bookable' },
+				  { intern_number: "DB07", house_number: "2 ground floor", state: 'bookable' }
+				]
+			}
+		]
+	}
+]
 
 # # puts('create Rooms')
 # all_rooms.each do |project_hash|
@@ -1048,7 +1048,7 @@ bookings = [
 	{ room: "EW02", name: "Olina Karlsdottir", email: "olina.ann@hotmail.com", move_in: Date.parse("11.06.2020"), move_out: Date.parse("24.10.2020") },
 	{ room: "EW02", name: "Nils Erikson", email: "nils_erikson@hotmail.com", move_in: Date.parse("26.10.2020"), move_out: Date.parse("31.01.2021") },
 	{ room: "EW03", name: "Corinna Thölke", email: "corinna.thoelke@gmail.com", move_in: Date.parse("13.06.2020"), move_out: Date.parse("31.10.2020") },
-	{ room: "EW03", name: "Lawal Bakere", email: "lawal.bakare@gmail.com", move_in: Date.parse("04.11.2020"), move_out: Date.parse("30.11.2020") },
+	{ room: "EW03", name: "Lawal Bakere", email: "lawal.bakare@gmail.com", move_in: Date.parse("01.12.2020"), move_out: Date.parse("14.02.2021") },
 	{ room: "EW04", name: "Jan Niclas Lietzow", email: "niclas.lietzow@outlook.com", move_in: Date.parse("14.06.2020"), move_out: Date.parse("16.09.2020") },
 	{ room: "EW04", name: "Tom Rose", email: "tomrose1998@hotmail.co.uk", move_in: Date.parse("17.09.2020"), move_out: Date.parse("14.01.2021") },
 	{ room: "EW05", name: "Katrin van Asten", email: "kat.vanasten@gmail.com", move_in: Date.parse("01.07.2020"), move_out: Date.parse("31.03.2021") },
@@ -1114,3 +1114,7 @@ bookings.each do |booking|
 	)
 	users_booking.save(validate: false)
 end
+
+
+
+# lookup Sara Isla Cainzos
