@@ -933,6 +933,7 @@ require "open-uri"
 # 	end
 # end
 
+Booking.update_all(state: nil)
 
 bookings = [
 	{ room: "D01", name: "Anna Weirauch", email: "team@stacey-living.de", move_in: Date.parse("01.10.2019"), move_out: Date.parse("31.03.2020") },
