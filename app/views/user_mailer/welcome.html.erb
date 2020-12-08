@@ -7,7 +7,10 @@
 	<span>This link expires on the <%= @booking.booking_auth_token_exp.strftime('%d.%B %Y') %>.</span>
 </div>
 <p>If problems occur, reply to this email or call me at +49 40 696389600.</p>
-<p>Looking forward to our call!</p>
-<p>Cheers</p>
-<p>Hannah</p>
-<%= image_tag attachments['logo.png'].url, style: 'width: 150px' %>
+
+<div style="display: grid;">
+	<span>Looking forward to our call!</span>
+	<span>Cheers</span>
+	<span>Hannah</span>
+	<%= image_tag attachments['logo.png'].url, style: 'width: 150px' %>
+</div>
