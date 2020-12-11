@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import SimpleReactLightbox, { SRLWrapper } from "simple-react-lightbox";
+import { Link } from 'react-router-dom';
+
 
 import { fetchRoomtype, fetchProject } from '../actions';
 // import Card from './card';
@@ -27,6 +29,10 @@ class RoomtypeShow extends Component {
 
   openLightbox = () => {
     event.target.previousElementSibling.children[0].click()
+  }
+
+  switchToBalconyRoomtype = () => {
+    this.props.history.push(`/bookings/${this.props.match.params.booking_auth_token}/${this.props.match.params.booking_id}/projects/${this.props.project.id}/roomtypes/`);
   }
 
   render () {
@@ -83,7 +89,21 @@ class RoomtypeShow extends Component {
             [
               <div className="roomtype-container" key={`roomtypeWrapper${roomtype.id}`}>
                 <div className="section">
-                  <h3 className="section-header main" key='sectionHeaderMain'>{roomtype.name} Suite</h3>
+                  <div className="section-header main">
+                    <h3>{roomtype.name} Suite</h3>
+                    {
+                      this.props.roomtype.roomtype_with_balcony_id &&
+                      <a href={`/bookings/${this.props.match.params.booking_auth_token}/${this.props.match.params.booking_id}/projects/${this.props.match.params.project_id}/roomtypes/${roomtype.roomtype_with_balcony_id}`}>This room with balcony</a>
+                      // <Link to={`/bookings/${this.props.match.params.booking_auth_token}/${this.props.match.params.booking_id}/projects/${roomtype.roomtype_with_balcony_id}/roomtypes/${roomtype.id}`} key={roomtype.id} className="stacey-button reverse-hover">Explore</Link>
+                      // <span onClick={this.switchToBalconyRoomtype}>This Room with Balcony</span>
+                    }
+                    {
+                      this.props.roomtype.roomtype_without_balcony_id &&
+                      <a href={`/bookings/${this.props.match.params.booking_auth_token}/${this.props.match.params.booking_id}/projects/${this.props.match.params.project_id}/roomtypes/${roomtype.roomtype_without_balcony_id}`}>This room without balcony</a>
+                      // <Link to={`/bookings/${this.props.match.params.booking_auth_token}/${this.props.match.params.booking_id}/projects/${roomtype.roomtype_with_balcony_id}/roomtypes/${roomtype.id}`} key={roomtype.id} className="stacey-button reverse-hover">Explore</Link>
+                      // <span onClick={this.switchToBalconyRoomtype}>This Room with Balcony</span>
+                    }
+                  </div>
                   <div className="roomtype-amenities-container">
                     {
                       roomtype_amenities.length > 0 && 
