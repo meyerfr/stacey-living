@@ -101,7 +101,6 @@ export default class BookingForm extends Component {
 	}
 
 	handleSubmit = () => {
-		const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content')
 		let booking = {
 			room_id: this.state.selectedRoom,
 			move_in: this.state.selectedMoveInDate,
@@ -110,7 +109,6 @@ export default class BookingForm extends Component {
 		updateBooking(
 			this.props.booking_id,
 			booking,
-			csrfToken,
 			() => {
     		this.props.history.push(`/bookings/${this.props.booking_auth_token}/${this.props.booking_id}/contract`);
     	}

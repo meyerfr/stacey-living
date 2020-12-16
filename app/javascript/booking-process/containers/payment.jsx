@@ -8,7 +8,7 @@ import {Elements} from '@stripe/react-stripe-js';
 import {loadStripe} from '@stripe/stripe-js';
 
 import CheckoutForm from './checkout_form';
-import { fetchBooking, updateUser } from '../actions';
+import { fetchBooking, updateBooking, updateUser } from '../actions';
 
 const stripePromise = loadStripe("pk_test_FSjxxtkIfO0UtESzFKdjLarS");
 // Make sure to call `loadStripe` outside of a component’s render to avoid
@@ -70,6 +70,20 @@ class Payment extends Component {
 		this.props.updateUser(user)
 	}
 
+	updateBookingOnSubmit = (new_state) => {
+		let booking = {
+			state: new_state
+		}
+
+		updateBooking(
+			this.props.match.params.booking_id,
+			booking,
+			() => {
+				this.props.history.push(`/bookings/${this.props.match.params.booking_auth_token}/${this.props.match.params.booking_id}/success`);
+    	}
+  	)
+	}
+
 	render() {
 		const user = (this.props.booking && this.props.booking.user) && this.props.booking.user
 		const booking = this.props.booking
@@ -120,7 +134,7 @@ class Payment extends Component {
 									{this.renderSecurePayment()}
 								</div>
 								<Elements stripe={stripePromise}>
-						      <CheckoutForm booking_id={this.props.match.params.booking_id} updateUserOnSubmit={this.updateUserOnSubmit} booking_auth_token={this.props.match.params.booking_auth_token} history={this.props.history} />
+						      <CheckoutForm booking_id={this.props.match.params.booking_id} updateUserOnSubmit={this.updateUserOnSubmit} updateBookingOnSubmit={this.updateBookingOnSubmit} booking_auth_token={this.props.match.params.booking_auth_token} history={this.props.history} />
 						    </Elements>
 							</div>
 						</div>

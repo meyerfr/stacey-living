@@ -71,12 +71,13 @@ class CheckoutForm extends React.Component {
     if (result.error) {
       // Show error to your customer (e.g., insufficient funds)
       // console.log(result.error);
+      this.props.updateBookingOnSubmit('bookingFee payment failed')
     } else {
       // The payment has been processed!
       if (result.paymentIntent.status === 'succeeded') {
         // console.log('handle Success')
         this.props.updateUserOnSubmit()
-        this.props.history.push(`/bookings/${this.props.booking_auth_token}/${this.props.booking_id}/success`);
+        this.props.updateBookingOnSubmit('deposit outstanding')
         // Show a success message to your customer
         // There's a risk of the customer closing the window before callback
         // execution. Set up a webhook or plugin to listen for the
@@ -115,7 +116,7 @@ const InjectedCheckoutForm = (props) => {
   return (
     <ElementsConsumer>
       {({stripe, elements}) => (
-        <CheckoutForm  stripe={stripe} elements={elements} booking_id={props.booking_id} updateUserOnSubmit={props.updateUserOnSubmit} booking_auth_token={props.booking_auth_token} history={props.history} />
+        <CheckoutForm  stripe={stripe} elements={elements} booking_id={props.booking_id} updateUserOnSubmit={props.updateUserOnSubmit} updateBookingOnSubmit={props.updateBookingOnSubmit} booking_auth_token={props.booking_auth_token} history={props.history} />
       )}
     </ElementsConsumer>
   );

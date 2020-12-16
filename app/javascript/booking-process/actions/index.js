@@ -93,7 +93,8 @@ export function fetchBooking(booking_id) {
 	}
 }
 
-export function updateBooking(booking_id, booking, csrfToken, callback) {
+export function updateBooking(booking_id, booking, callback) {
+	const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content')
 	const url = `${BASE_URL}/bookings/${booking_id}`
 	const request = fetch(url, {
     method: 'PATCH',
@@ -105,7 +106,6 @@ export function updateBooking(booking_id, booking, csrfToken, callback) {
   }).then(r => r.json())
     .then(() => callback());
 }
-
 
 export function fetchContract(booking_id) {
 	const url = `${BASE_URL}/bookings/${booking_id}/contracts`;

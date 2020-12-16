@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
     borderStyle: "solid",
     borderWidth: 1,
     borderRight: 0,
-    marginVertical: 9
+    marginVertical: 5
   },
   notFullWidthTable: {
     width: '100%',
@@ -185,7 +185,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 20
+    marginTop: 5
   },
   signContractSection: {
     display: 'flex', 
@@ -365,6 +365,11 @@ class ContractPdf extends Component {
           <View style={styles.table}>
             <View style={styles.tableRow}>
               <Text style={styles.tableColFullWidth}>This is the rental contract for your STACEY room. By signing, you acknowledge that you have read, understood and agree to the (1) Rental Agreement, (2) Terms and Condition of Internet Use, (3) House Rules. Any other terms and conditions do not apply to this contract and are null and void.</Text>
+            </View>
+          </View>
+          <View style={styles.table}>
+            <View style={styles.tableRow}>
+              <Text style={styles.tableColFullWidth}>If we do not receive a document stating the confirmation of the transaction of your security deposit within 48h after signing your agreement, your rental agreement will be canceled.</Text>
             </View>
           </View>
           <View style={styles.notFullWidthTable}>
