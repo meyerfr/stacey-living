@@ -6,6 +6,7 @@ class UserMailer < ApplicationMailer
   #
   before_action :set_logo_attachment
 
+  # welcome is beeing send after sign up if welcome_call has not been scheduled
   def welcome(booking)
     @booking = booking
     @user = @booking.user
@@ -15,41 +16,6 @@ class UserMailer < ApplicationMailer
       email_with_name = %("#{@user.full_name}" <#{@user.email}>)
       mail(to: email_with_name, subject: 'Stacey - coliving')
     end
-  end
-
-  def welcome_call(welcome_call)
-    @welcome_call = welcome_call
-    @booking = @welcome_call.booking
-    @user = @booking.user
-    email_with_name = %("#{@user.full_name}" <#{@user.email}>)
-    mail(to: email_with_name, subject: 'Stacey - coliving - Call invitation')
-  end
-
-  def welcome_call_rescheduled(welcome_call)
-    @welcome_call = welcome_call
-    @booking = @welcome_call.booking
-    @user = @booking.user
-    email_with_name = %("#{@user.full_name}" <#{@user.email}>)
-    mail(to: email_with_name, subject: 'Stacey - coliving - welcome call')
-  end
-
-  def invite_for_booking_process(booking)
-    @booking = booking
-    @user = booking.user
-    email_with_name = %("#{@user.full_name}" <#{@user.email}>)
-    mail(to: email_with_name, subject: 'Stacey - coliving - booking process')
-  end
-
-  def welcome_one_pager(booking)
-    @booking = booking
-    @room = booking.room
-    @project = @room.project
-    @user = booking.user
-    email_with_name = %("#{@user.full_name}" <#{@user.email}>)
-    attachments['welcome_one_pager.pdf'] = WickedPdf.new.pdf_from_string(
-      render_to_string(pdf: "Welcome One-Pager", template: 'documents/welcome_one_pager.html.erb', layout: 'pdf')
-    )
-    mail(to: email_with_name, subject: "STACEY #{@room.project.name}")# do |format|
   end
 
   private

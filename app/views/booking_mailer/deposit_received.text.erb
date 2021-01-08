@@ -1,0 +1,16 @@
+Hello <%= @user.first_name %>,
+Thank you for sending us the security deposit. This is the final booking confirmation of your stay.
+
+Tenant Name: <%= @user.full_name %>
+Location: <%= @roomtype.project.name %>
+Suite Category: <%= @roomtype.name %>
+Monthly Rent: <%= @booking.price.amount %> €
+Duration: <%= (@booking.move_out - @booking.move_in).to_i %>
+
+You will receive a short “Welcome Note” including all relevant information concerning your move-in about one week before your arrival :)
+
+We hope to see you soon and wish you a memorable stay at STACEY!
+Cheers
+Buu
+<%= image_tag attachments['logo.png'].url, style: 'width: 150px' %>
+

@@ -37,6 +37,7 @@ gem 'sassc-rails'
 gem 'simple_form'
 gem 'uglifier'
 gem 'webpacker'
+gem 'slack-ruby-client'
 
 group :development do
   gem 'web-console', '>= 3.3.0'

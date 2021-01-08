@@ -20,25 +20,47 @@
 .modal-container{
 	display: flex;
 	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	#modal-title{
-		margin-top: 0.5rem;
-	}
-	.modal-content{
-		padding: 15px 40px;
-		td{
-			padding: 5px 10px;
-		}
-	}
-	a{
+  width: 100%;
+  .modal-header{
+    width: 100%;
+    justify-content: center;
+    #modal-title{
+      margin: 0;
+    }
+  }
+  .modal-body{
+    width: 100%;
+    display: grid;
+    grid-template-columns: 70% auto;
+    button.fixButton{
+      position: absolute;
+      left: calc(50% - 100px);
+      z-index: 1;
+    }
+  	.modal-content{
+  		padding: 15px 40px;
+      border: none;
+  		td{
+  			padding: 5px 10px;
+  		}
+  	}
+    .button-container{
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      a.bookingProcess{
+        text-align: end;
+      }
+    }
+  }
+	button.closeModalButton{
 		align-self: flex-end;
-	    padding: 5px 10px;
-	    background: darkgreen;
-	    border-radius: 5px;
-	    margin: 10px;
-	    position: absolute;
-	    top: 0;
-	    color: white;
+    padding: 5px 10px;
+    background: darkgreen;
+    border-radius: 5px;
+    margin: 10px;
+    position: absolute;
+    top: 0;
+    color: white;
 	}
 }

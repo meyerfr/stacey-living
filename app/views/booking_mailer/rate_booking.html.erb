@@ -1,0 +1,25 @@
+<p>Hello <%= @user.first_name %>,</p>
+
+<p>Your time at STACEY is nearly over and we hope that you had a great time, found new friends within the community and we wish you all the best wherever you go!</p>
+
+<p>As we are trying to improve our experience and spread the word about Co-Living across Hamburg, we would be very grateful if you could take 5 minutes for a kind review on Google - <%= link_to 'Google review', 'https://g.page/stacey-living/review?rc' %></p>
+
+<div style="display: grid; margin-bottom: 10px">
+  <span><strong>Move-out Instructions</strong></span>
+  <span>To simplify the move-out process please help us by following these steps:</span>
+  <ul style="margin-top: 5px; padding-left: 18px;">
+    <li>Leave your Private Suite the latest at 12:00pm (noon) on the end-date</li>
+    <li>Leave the Kiwi chip (keys) on your bedside table</li>
+    <li>Leave all sheets and the laundry basket on the bed</li>
+    <li>If any damages occurred during your stay, please contact us before your move-out so that we can have a look together</li>
+    <li>We will reimburse you with the security deposit within about 2 weeks after the end-date</li>
+  </ul>
+</div>
+
+<p>If you have any questions concerning the move-out or anything else to tell, you can always get back to me :)</p>
+
+<span>Cheers</span>
+<br>
+<span>Buu</span>
+<br>
+<%= image_tag attachments['logo.png'].url, style: 'margin-top: 20px; width: 150px;' %>

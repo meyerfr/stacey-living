@@ -22,13 +22,13 @@ class BookingOverview extends Component {
 	render() {
 		return(
 			<div className="overview-container" style={{width: '100%'}}>
-		        <FilterBar onChange={this.handleViewChange} />
-		        {
-		        	this.state.view === 'table' ?
+        <FilterBar onChange={this.handleViewChange} />
+        {
+        	this.state.view === 'table' ?
 					<RoomList />
 					:
 					<Chart />
-		        }
+		    }
 			</div>
 		)
 	}

@@ -1,0 +1,16 @@
+Hello <%= @user.first_name %>,
+Thanks for taking your time for the short call with me. We think that you are a perfect match to our community!  If you feel ready to select your desired suite and complete your booking with us, the link below will take you there.
+
+<%= booking_projects_url(@booking.booking_auth_token, @booking.id) %>
+
+It only takes 3 steps:
+
+1. Choose your preferred suite
+2. Sign your rental agreement
+3. Complete the booking
+
+Please complete the booking till the <%= @booking.booking_auth_token_exp.strftime('%d.%B %Y') %>. If problems occur, reply to this mail or call me at +49 40 696389600.
+
+Cheers
+Hannah
+<%= image_tag attachments['logo.png'].url, style: 'width: 150px' %>

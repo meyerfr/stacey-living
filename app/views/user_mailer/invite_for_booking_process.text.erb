@@ -1,16 +1,12 @@
-Hello <%= @user.first_name %>,
-We are excited to hear about you becoming a part of the STACEY family!
-The link belows leads you to our booking process.
-It's super easy and selfexplainatory.
-The steps:
-  1. Choose the location
-  2. Choose your room
-  3. Sign the contract
-  4. Payment information
-Therefore, please click the link below and you are ready to move in:
-<%= booking_projects_url(@booking, @booking.booking_auth_token_exp, Booking.form_steps.second) %>
-This link expires on the <%= @booking.booking_auth_token_exp.strftime('%d.%B %Y') %>.
-If problems occur, reply to this email or call me at +49 40 696389600.
+Hi <%= @user.first_name %>,
+
+I am excited to hear about your interest in living with us and becoming a part of the STACEY family! It looks like we do have availabilities across our locations for your selected move-in date in Hamburg.
+
+So what is the next step?
+To get started I will get back to you for a 10min call, in which you will get to know our Co-Living concept better and have a chance to ask me all your questions..
+
+If you do not get a call from us within the next 48h, reply to this email or call me at +49 40 696389600. I am excited to get to know you :)
+
 Cheers
 Hannah
 <%= image_tag attachments['logo.png'].url, style: 'width: 150px' %>

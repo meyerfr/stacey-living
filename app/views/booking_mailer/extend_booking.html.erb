@@ -1,0 +1,13 @@
+<p>Hello <%= @user.first_name %>,</p>
+
+<p>I hope you are doing well and are enjoying your time at STACEY :)</p>
+
+<p>As your stay is about to end on the <%= @booking.move_out.strftime('%d.%B %Y') %>, we wanted to ask you if you are interested in extending your stay? If so, just get back to me and I will let you know what I can do!</p>
+
+<p>If not, we will get in contact with you about all the details concerning your move-out approx. 2-weeks before the end-date.</p>
+
+<span>Cheers</span>
+<br>
+<span>Buu</span>
+<br>
+<%= image_tag attachments['logo.png'].url, style: 'margin-top: 20px; width: 150px;' %>

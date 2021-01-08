@@ -1,8 +1,12 @@
 class BookingsController < ApplicationController
-  skip_before_action :authenticate_user!, only: [:new, :create, :success] 
-  layout 'overview', only: [ :index, :success]
+  skip_before_action :authenticate_user!, only: [:new, :create, :success]
+  layout 'overview', only: [ :apply, :index, :success ]
 
   BOOKINGS_PER_PAGE = 25
+
+  def apply
+
+  end
 
   def new
     @phone_code = %w(+61 +43 +32 +55 +1 +86 +45 +358 +33 +49 +852 +353 +39 +81 +352 +52 +31 +64 +47 +351 +65 +34 +46 +41 +44)
@@ -44,7 +48,7 @@ class BookingsController < ApplicationController
       roomtype = booking.roomtype
       room = booking.room
       user = booking.user
-      booking.as_json.merge({ project_name: booking.project.name, user_name: user.full_name, roomtype_name: roomtype.name, room_number: room.intern_number, apartment_number: room.apartment_number, phone: "#{user.phone_code} #{user.phone_number}" })
+      booking.as_json.merge({ project_name: booking.project.name, user_name: user.full_name, roomtype_name: roomtype.name, room_number: room.intern_number, apartment_number: room.apartment_number, phone_code: user.phone_code, phone_number: user.phone_number })
     }
     # @time_param_options = ['all', 'current', 'upcoming', 'past']
 
@@ -149,12 +153,12 @@ class BookingsController < ApplicationController
   def send_booking_process_invite
     booking = Booking.find(params[:id])
     booking.update(booking_auth_token_exp: Date.today+2.weeks)
-    UserMailer.invite_for_booking_process(booking)
-    booking.update(booking_process_invite_send: true)
+    BookingMailer.invite_for_booking_process(booking)
+    booking.update(booking_process_invite_send: Date.today)
   end
 
   def success
-    
+
   end
 
   private

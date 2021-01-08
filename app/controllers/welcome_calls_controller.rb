@@ -49,7 +49,7 @@ class WelcomeCallsController < ApplicationController
     if first_welcome_call?(@booking)
       if @welcome_call.save
         # Send email with all the information
-        UserMailer.welcome_call(@welcome_call).deliver_now
+        WelcomeCallMailer.welcome_call(@welcome_call).deliver_now
         flash[:alert] = "We just send you an email with all informations."
         redirect_to :root
       else
@@ -81,7 +81,7 @@ class WelcomeCallsController < ApplicationController
     if @welcome_call.save
       @old_welcome_call.update(name: nil, booking_id: nil, available: true)
       @booking.update(booking_auth_token_exp: @welcome_call.start_time.to_date + 1.day) if @booking.booking_auth_token_exp < @welcome_call.start_time.to_date
-      UserMailer.welcome_call_rescheduled(@welcome_call).deliver_now
+      WelcomeCallMailer.welcome_call_rescheduled(@welcome_call).deliver_now
       flash[:alert] = 'Our call has been reschedueled. Please check your mails'
       redirect_to root_path
     else

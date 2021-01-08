@@ -1,4 +1,6 @@
 import { FETCH_ROOMS, SET_SORT_PARAMS, APPLY_FILTER } from '../actions';
+import { UPDATE_BOOKING } from '../../booking-process/actions'
+
 
 export default function bookingsReducer(state = null, action) {
   switch (action.type) {
@@ -17,7 +19,21 @@ export default function bookingsReducer(state = null, action) {
     	}
     	return {bookings: copiedBookings, sortParams: sortParams}
    	case APPLY_FILTER:
-   		return {bookings: action.payload, sortParams: {sortKey: null, order: 'asc'}}
+   		return {bookings: action.payload, sortParams: {sortKey: 'move_in', order: 'asc'}}
+    case UPDATE_BOOKING:
+      copiedBookings = state.bookings.slice(0)
+      console.log(action.payload)
+      return {
+        bookings: copiedBookings.map((booking) => {
+          if (booking.id === action.payload.id) {
+            return action.payload
+          }
+
+          return booking
+        }),
+        sortParams: state.sortParams
+      }
+      // return {bookings: newBookings, sortParams: state.sortParams}
     default:
       return state;
   }

@@ -17,7 +17,7 @@ Rails.application.routes.draw do
     get 'send_booking_process_invite', to: 'booking/process#send_booking_process_invite', as: 'send_booking_process_invite'
   end
 
-  get 'apply', to: 'booking/process#apply', as: 'apply'
+  get 'apply', to: 'bookings#apply', as: 'apply'
   post 'apply', to: 'booking/process#create'
 
   get 'fritz_all_users', to: 'users#all_users', as: 'all_users'

@@ -3,27 +3,29 @@
     <%= image_tag "stacey_logo_pink.png" %>
   <% end %>
 
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+  <% unless current_page?(apply_path) %>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <% if user_signed_in? %>
-        <% {'Welcome Calls': welcome_calls_path, 'Users': users_path(user_group: 'applicant'), 'Partners': partners_path, 'Bookings': bookings_path}.each do |text, path| %>
-          <li class="nav-item <%= 'active' if request.path == path.split('?').first %>">
-            <%= link_to text, path, class: 'nav-link' %>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <% if user_signed_in? %>
+          <% {'Welcome Calls': welcome_calls_path, 'Users': users_path(user_group: 'applicant'), 'Partners': partners_path, 'Bookings': bookings_path}.each do |text, path| %>
+            <li class="nav-item <%= 'active' if request.path == path.split('?').first %>">
+              <%= link_to text, path, class: 'nav-link' %>
+            </li>
+          <% end %>
+          <li class="nav-item">
+            <%= link_to "Log out", destroy_user_session_path, method: :delete, class: "nav-link" %>
+          </li>
+        <% else %>
+          <li class="nav-item">
+            <%= link_to "Login", new_user_session_path, class: "nav-link" %>
           </li>
         <% end %>
-        <li class="nav-item">
-          <%= link_to "Log out", destroy_user_session_path, method: :delete, class: "nav-link" %>
-        </li>
-      <% else %>
-        <li class="nav-item">
-          <%= link_to "Login", new_user_session_path, class: "nav-link" %>
-        </li>
-      <% end %>
-    </ul>
-  </div>
+      </ul>
+    </div>
+  <% end %>
 </div>

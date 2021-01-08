@@ -94,12 +94,19 @@ GEM
       railties (>= 3.2)
     erubi (1.10.0)
     execjs (2.7.0)
+    faraday (1.2.0)
+      multipart-post (>= 1.2, < 3)
+      ruby2_keywords
+    faraday_middleware (1.0.0)
+      faraday (~> 1.0)
     ffi (1.13.1)
     font-awesome-sass (5.6.1)
       sassc (>= 1.11)
     geocoder (1.6.4)
+    gli (2.19.2)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
+    hashie (4.1.0)
     http-accept (1.7.0)
     http-cookie (1.0.3)
       domain_name (~> 0.5)
@@ -137,6 +144,7 @@ GEM
     mini_portile2 (2.4.0)
     minitest (5.14.2)
     msgpack (1.3.3)
+    multipart-post (2.1.1)
     mustermann (1.1.1)
       ruby2_keywords (~> 0.0.1)
     netrc (0.11.0)
@@ -226,6 +234,12 @@ GEM
     simple_form (5.0.3)
       actionpack (>= 5.0)
       activemodel (>= 5.0)
+    slack-ruby-client (0.15.1)
+      faraday (>= 1.0)
+      faraday_middleware
+      gli
+      hashie
+      websocket-driver
     spring (2.1.1)
     spring-watcher-listen (2.0.1)
       listen (>= 2.7, < 4.0)
@@ -300,6 +314,7 @@ DEPENDENCIES
   simple_calendar (~> 2.0)
   simple_form
   sinatra!
+  slack-ruby-client
   spring
   spring-watcher-listen (~> 2.0.0)
   stripe

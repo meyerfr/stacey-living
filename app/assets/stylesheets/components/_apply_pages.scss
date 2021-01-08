@@ -165,3 +165,216 @@
     }
   }
 }
+
+.application-wrapper{
+  height: calc(100vh - 56px);
+  position: relative;
+  .location-wrapper{
+    height: 100%;
+    display: grid;
+    grid-template-columns: 55% auto;
+    transition: .9s;
+    position: absolute;
+    .location-list-wrapper{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      overflow: hidden;
+      h3.underline{
+        text-decoration: underline;
+        font-size: 27px;
+        text-align: center;
+      }
+      .location-list{
+        display: grid;
+        grid-gap: 24px;
+        justify-items: center;
+        padding: 20px 0;
+        overflow: scroll;
+        .location-card{
+          position: relative;
+          background: white;
+          box-shadow: 0 0 15px rgba(0,0,0,0.2);
+          width: 80%;
+          &.active{
+            border: 1.5px solid rgba(253, 143, 184, 0.6);
+            box-shadow: 0 0 15px rgba(0,0,0,0.4);
+          }
+          img {
+            height: 160px;
+            width: 100%;
+            object-fit: cover;
+          }
+
+          h2{
+            font-size: 16px;
+            font-weight: bold;
+            margin: 0;
+          }
+
+          h3{
+            font-size: 14px;
+            font-weight: bold;
+            margin: 0;
+          }
+
+          p {
+            font-size: 12px;
+            opacity: .7;
+            margin: 0;
+            &.center{
+              text-align: center;
+            }
+          }
+
+          .location-card-infos {
+            padding: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            .card-trip-user {
+              position: absolute;
+              right: 16px;
+              top: -20px;
+              width: 40px;
+            }
+          }
+          .card-link {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            right: 0;
+            width: 100%;
+            z-index: 2;
+            background: black;
+            opacity: 0;
+            transition: .3s;
+          }
+
+          .card-link:hover {
+            opacity: 0.1;
+          }
+        }
+        &:after{
+          content: "";
+          display: block;
+          height: 30px;
+          width: 100%;
+        }
+      }
+    }
+  }
+  .hidden{
+    transform: translateX(-100%);
+  }
+  .hidden-right{
+    transform: translateX(+100%);
+  }
+  .move-wrapper{
+    position: absolute;
+    transition: .9s;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 55% 45%;
+    height: 100%;
+    .moveIn-options-wrapper{
+      display: grid;
+      grid-template-rows: min-content min-content;
+      grid-gap: 30px;
+      transition: transform .9s;
+      position: absolute;
+      right: 0;
+      width: 45%;
+      &.hidden, &.hidden-right{
+        z-index: -10;
+      }
+      h3.underline{
+        text-align: center;
+        text-decoration: underline;
+      }
+      .moveIn-options{
+        display: grid;
+        justify-items: center;
+        grid-gap: 20px;
+        .option{
+          border: 1px solid $stacey-pink;
+          padding: 10px;
+          color: black;
+          width: 80%;
+          text-align: center;
+          background: transparent;
+          height: unset;
+          display: unset;
+          transition: .3s;
+          cursor: pointer;
+          &:hover{
+            background: $stacey-pink;
+            color: white;
+            font-weight: bold;
+            &::placeholder{
+              color: white;
+            }
+          }
+          &::placeholder{
+            color: black;
+          }
+        }
+        .flatpickr-wrapper{
+          width: 100%;
+          text-align: center;
+        }
+      }
+    }
+  }
+
+  .personalData-form{
+    justify-self: center;
+    width: 80%;
+    div.dob{
+      display: grid;
+      grid-template-columns: 100px auto 200px;
+      label.dob{
+        grid-column-start: 1;
+        grid-column-end: span 3;
+        margin-bottom: 1px;
+        color: gray;
+        font-weight: 700;
+      }
+    }
+    .apply-button{
+      width: 100%;
+      font-weight: 700;
+      font-size: 1.4rem;
+    }
+  }
+}
+
+.PhoneInput{
+  display: flex;
+  align-items: center;
+  height: 100%;
+  .PhoneInputCountry {
+    position: relative;
+    align-self: stretch;
+    display: flex;
+    align-items: center;
+    margin: 7px;
+    select.PhoneInputCountrySelect {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      z-index: 1;
+      border: 0;
+      opacity: 0;
+      cursor: pointer;
+    }
+    .PhoneInputCountryIcon{
+      width: 30px;
+      height: 20px;
+    }
+  }
+}
+

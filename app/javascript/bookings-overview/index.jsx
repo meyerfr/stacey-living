@@ -16,10 +16,9 @@ const initialState = {
   app: {
     bookings: JSON.parse(overviewContainer.dataset.bookings),
     sortParams: {
-      key: null,
+      key: 'move_in',
       order: 'asc'
-    },
-    filterKey: null
+    }
   }
   // bookings: JSON.parse(overviewContainer.dataset.bookings),
   // sortParams: {

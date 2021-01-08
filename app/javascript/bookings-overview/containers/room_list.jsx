@@ -3,6 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import ListItem from './list_item'
 import { setSortParams, applyFilter } from '../actions';
+import { updateBooking } from '../../booking-process/actions'
 import Modal from 'react-awesome-modal'
 import moment from 'moment'
 
@@ -16,7 +17,6 @@ class RoomList extends Component {
   }
 
   openModal = (booking) => {
-    console.log(booking)
     this.setState({
       visible: true,
       booking: booking
@@ -26,7 +26,8 @@ class RoomList extends Component {
   closeModal = () => {
     this.setState({
       visible: false,
-      booking: null
+      booking: null,
+      edit: false
     })
   }
 
@@ -39,7 +40,45 @@ class RoomList extends Component {
     event.target.classList.add('active');
   }
 
+  handleChange = (event) => {
+    if (window.confirm(`Are you sure you wish to change the booking state to ${event.target.selectedOptions[0].value}?`)){
+      console.log(event.target.selectedOptions[0].value)
+      let booking = {
+        state: event.target.selectedOptions[0].value
+      }
+      this.props.updateBooking(
+        this.state.booking.id,
+        booking
+      )
+    }
+  }
+
+  handleSave = (event) => {
+    if (window.confirm(`Are you sure you wish to update the User properties?`)){
+      let booking = {
+        move_in: this.state.booking.move_in,
+        move_out: this.state.booking.move_out,
+        phone_number: this.state.booking.phone_number,
+      }
+      this.props.updateBooking(
+        this.state.booking.id,
+        booking
+      )
+    }
+  }
+
+  updateBookingState = (event) => {
+    this.setState({
+      booking: {
+        ...this.state.booking,
+        [event.target.name]: event.target.value
+      }
+    })
+  }
+
   render() {
+    const booking = this.state.booking
+    console.log(booking)
     return (
       <div className="table-container">
         <table className="list-container">
@@ -62,48 +101,95 @@ class RoomList extends Component {
             }
           </tbody>
         </table>
-        <Modal 
+        <Modal
             visible={this.state.visible}
             width="90%"
             effect="fadeInUp"
             onClickAway={() => this.closeModal()}>
             {
-              this.state.booking ?
+              booking ?
                 <div className="modal-container">
-                  <h1 id="modal-title">{this.state.booking.user_name}</h1>
-                  <table className="modal-content">
-                    <tbody>
-                      <tr>
-                        <td>Move In:</td>
-                        <td>{moment(this.state.booking.move_in).format('Do MMMM YYYY')}</td>
-                      </tr>
-                      <tr>
-                        <td>Move Out:</td>
-                        <td>{moment(this.state.booking.move_out).format('Do MMMM YYYY')}</td>
-                      </tr>
-                      <tr>
-                        <td>Location:</td>
-                        <td>{this.state.booking.project_name}</td>
-                      </tr>
-                      <tr>
-                        <td>Roomtype:</td>
-                        <td>{this.state.booking.roomtype_name}</td>
-                      </tr>
-                      <tr>
-                        <td>Room:</td>
-                        <td>{this.state.booking.room_number}</td>
-                      </tr>
-                      <tr>
-                        <td>Phone:</td>
-                        <td>{this.state.booking.phone}</td>
-                      </tr>
-                      <tr>
-                        <td>Booking Id:</td>
-                        <td>{this.state.booking.id}</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                  <a href="" onClick={() => this.closeModal()}>Close</a>
+                  <button className="closeModalButton" onClick={() => this.closeModal()}>Close</button>
+                  <div className="modal-header">
+                    <h1 id="modal-title">{booking.user_name}</h1>
+                  </div>
+                  <div className="modal-body">
+                    {
+                      this.state.edit ?
+                        <button className="fixButton d-none" onClick={this.handleSave}>Save</button>
+                      :
+                        <button className="fixButton d-none" onClick={() => this.setState({edit: true})}>Edit</button>
+                    }
+                    <table className="modal-content">
+                      <tbody>
+                        <tr>
+                          <td>Move In:</td>
+                          <td>
+                            {
+                              this.state.edit ?
+                                <input onChange={this.updateBookingState} className="form-control" type="date" defaultValue={booking.move_in} id="move_in" name="move_in" min={new Date}/>
+                              :
+                                moment(booking.move_in).format('Do MMMM YYYY')
+                            }
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>Move Out:</td>
+                          <td>
+                            {
+                              this.state.edit ?
+                                <input onChange={this.updateBookingState} className="form-control" type="date" defaultValue={booking.move_out} id="move_out" name="move_out" min={new Date}/>
+                              :
+                              moment(booking.move_out).format('Do MMMM YYYY')
+                            }
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>Location:</td>
+                          <td>
+                            {
+                              booking.project_name
+                            }
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>Roomtype:</td>
+                          <td>{booking.roomtype_name}</td>
+                        </tr>
+                        <tr>
+                          <td>Room:</td>
+                          <td>{booking.room_number}</td>
+                        </tr>
+                        <tr>
+                          <td>Phone:</td>
+                          <td style={{display: 'flex', alignItems: 'center'}}>
+                            {
+                              this.state.edit ?
+                                [
+                                  booking.phone_code,
+                                  <input key="phoneNumberInput" onChange={this.updateBookingState} className="form-control" type="text" value={booking.phone_number} id="phone_number" name="phone_number" />
+                                ]
+                              :
+                                `${booking.phone_code} ${booking.phone_number}`
+                            }
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>Booking Id:</td>
+                          <td>{booking.id}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <div className="button-container">
+                      <select className="form-control form-search" defaultValue={this.state.booking.state} name="state" onChange={this.handleChange}>
+                        <option value="booked">booked</option>
+                        <option value="deposit outstanding">deposit outstanding</option>
+                        <option value="bookingFee payment failed">bookingFee payment failed</option>
+                        <option value="cancel">cancel</option>
+                      </select>
+                      <a href={`/bookings/${this.state.booking.booking_auth_token}/${this.state.booking.id}/projects`} className="bookingProcess">Go to Booking Process</a>
+                    </div>
+                  </div>
                 </div>
               :
                 <h1>Nothing Slected</h1>
@@ -122,7 +208,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ setSortParams, applyFilter }, dispatch);
+  return bindActionCreators({ setSortParams, applyFilter, updateBooking }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(RoomList);

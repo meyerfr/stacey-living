@@ -1,0 +1,70 @@
+<style>
+  th{
+    text-align: start;
+  }
+  .paymentInfo .th{
+    font-weight: bold;
+  }
+</style>
+
+<p>Hello <%= @user.first_name %>,</p>
+
+<p>Thank you for completing the booking process. Your suite is now reserved for the next 48 hours. </p>
+
+<table>
+  <tr>
+    <th>Tenant Name:</th>
+    <td><%= @user.full_name %></td>
+  </tr>
+  <tr>
+    <th>Location:</th>
+    <td><%= @roomtype.project.name %></td>
+  </tr>
+  <tr>
+    <th>Suite Category:</th>
+    <td><%= @roomtype.name %></td>
+  </tr>
+  <tr>
+    <th>Monthly Rent:</th>
+    <td><%= @booking.price.amount.to_i %> €</td>
+  </tr>
+  <tr>
+    <th>Duration:</th>
+    <td><%= (@booking.move_out - @booking.move_in).to_i %></td>
+  </tr>
+</table>
+
+<p>However, to complete the final booking of your suite, you have to transfer the security deposit consisting of 2-monthly rents to the account stated in the rental agreement and mentioned below by reference:</p>
+
+<table class="paymentInfo">
+  <tr>
+    <th>Acoount Name:</th>
+    <td>STACEY Real Estate UG</td>
+  </tr>
+  <tr>
+    <th>IBAN:</th>
+    <td>DE61200505501500867906 </td>
+  </tr>
+  <tr>
+    <th>BIC:</th>
+    <td>HASPDEHHXXX</td>
+  </tr>
+  <tr>
+    <th>Amount:</th>
+    <td><%= (@booking.price.amount * 2).to_i %> €</td>
+  </tr>
+  <tr>
+    <th>Reference:</th>
+    <td>Deposit <%= @user.full_name %> <%= @booking.id %></td>
+  </tr>
+</table>
+
+<p><strong>Please send us a transaction confirmation thereof to <a href="mailto:booking@stacey-living.de">booking@stacey-living.de</a> within the next 48 hours.</strong></p>
+
+<p>Once we have received the transaction confirmation or the deposit in full, you will receive a booking confirmation with all information that you need to know before your arrival. In case that we do not receive anything from you within 2 days, we are forced to resign from the rental agreement.</p>
+
+<span>Cheers</span>
+<br>
+<span>Buu</span>
+<br>
+<%= image_tag attachments['logo.png'].url, style: 'margin-top: 20px; width: 150px;' %>

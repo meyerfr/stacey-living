@@ -1,0 +1,42 @@
+<style>
+  th{
+    text-align: start;
+  }
+</style>
+
+<p>Hello <%= @user.first_name %>,</p>
+
+<p>Thank you for sending us the security deposit. This is the final booking confirmation of your stay.</p>
+
+<table>
+  <tr>
+    <th>Tenant Name:</th>
+    <td><%= @user.full_name %></td>
+  </tr>
+  <tr>
+    <th>Location:</th>
+    <td><%= @roomtype.project.name %></td>
+  </tr>
+  <tr>
+    <th>Suite Category:</th>
+    <td><%= @roomtype.name %></td>
+  </tr>
+  <tr>
+    <th>Monthly Rent:</th>
+    <td><%= @booking.price.amount %> €</td>
+  </tr>
+  <tr>
+    <th>Duration:</th>
+    <td><%= (@booking.move_out - @booking.move_in).to_i %></td>
+  </tr>
+</table>
+
+<p>You will receive a short “Welcome Note” including all relevant information concerning your move-in about one week before your arrival :)</p>
+
+<p>We hope to see you soon and wish you a memorable stay at STACEY!</p>
+
+<span>Cheers</span>
+<br>
+<span>Buu</span>
+<br>
+<%= image_tag attachments['logo.png'].url, style: 'margin-top: 20px; width: 150px;' %>

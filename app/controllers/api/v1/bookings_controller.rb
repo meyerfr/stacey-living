@@ -6,16 +6,39 @@ class Api::V1::BookingsController < ActionController::Base
       room = booking.room
       roomtype = room.roomtype
       user = booking.user
-      booking.as_json.merge({ project_name: booking.project.name, user_name: booking.user.full_name, roomtype_name: roomtype.name, room_number: room.intern_number, apartment_number: room.apartment_number, phone: "#{user.phone_code} #{user.phone_number}" })
+      booking.as_json.merge({ project_name: booking.project.name, user_name: booking.user.full_name, roomtype_name: roomtype.name, room_number: room.intern_number, apartment_number: room.apartment_number, phone_code: user.phone_code, phone_number: user.phone_number })
     }
+
+    bookings = bookings.sort_by { |hash| hash['move_in'] }
 
     render json: bookings
 	end
 
 	def update
 		booking = Booking.find(params[:id])
+
+    if params[:state] != booking.state
+      case params[:state]
+      when 'booked'
+        BookingMailer.deposit_received(booking)
+      # when 'deposit outstanding'
+
+      # when 'cancel'
+
+      # when 'bookingFee payment failed'
+
+      end
+    end
+
 		booking.assign_attributes(bookings_params)
 		booking.save(validate: false)
+
+
+    room = booking.room
+    roomtype = room.roomtype
+    user = booking.user
+    booking = booking.as_json.merge({ project_name: booking.project.name, user_name: booking.user.full_name, roomtype_name: roomtype.name, room_number: room.intern_number, apartment_number: room.apartment_number, phone_code: user.phone_code, phone_number: user.phone_number })
+
 
 		render json: booking
 	end
@@ -46,7 +69,7 @@ class Api::V1::BookingsController < ActionController::Base
 		case filter
 		when 'project_name'
 			if params[:project_name] == 'all'
-				@bookings = Booking.all.where(state: ['booked', 'deposit outstanding', 'bookingFee payment failed'])
+				@bookings = Booking.where(state: ['booked', 'deposit outstanding', 'bookingFee payment failed'])
 			else
 				sql_query = "name ILIKE :query"
 				projects = Project.where(sql_query, query: "%#{params[:project_name]}%")
@@ -56,26 +79,25 @@ class Api::V1::BookingsController < ActionController::Base
 		when 'roomtype_name'
 			sql_query = "name ILIKE :query"
 			roomtypes = Roomtype.where(sql_query, query: "%#{params[:roomtype_name]}%")
-			@bookings = Booking.select{|b| ['booked', 'deposit outstanding', 'bookingFee payment failed'].include?(b.state) && roomtypes.include?(b.roomtype)}
+      @bookings = Booking.joins(:room).where(state: ['booked', 'deposit outstanding', 'bookingFee payment failed'],rooms: {roomtype_id: roomtypes.collect(&:id)})
 			# roomtypes.each{|roomtype| bookings << roomtype.bookings.where(state: 'booked')}
 		when 'apartment_number'
 			sql_query = "apartment_number ILIKE :query"
 			rooms = Room.where(sql_query, query: "%#{params[:apartment_number]}%")
-			@bookings = Booking.select{|b| ['booked', 'deposit outstanding', 'bookingFee payment failed'].include?(b.state) && rooms.include?(b.room)}
+      @bookings = Booking.where(state: ['booked', 'deposit outstanding', 'bookingFee payment failed'], room_id: rooms.collect(&:id))
 			# rooms.each{|room| bookings << room.bookings.where(state: 'booked')}
 		when 'room_number'
 			sql_query = "intern_number ILIKE :query"
 			rooms = Room.where(sql_query, query: "%#{params[:room_number]}%")
-			@bookings = Booking.select{|b| ['booked', 'deposit outstanding', 'bookingFee payment failed'].include?(b.state) && rooms.include?(b.room)}
+      @bookings = Booking.where(state: ['booked', 'deposit outstanding', 'bookingFee payment failed'], room_id: rooms.collect(&:id))
 		when 'user_name'
 			sql_query = " \
 		        users.first_name ILIKE :query \
 		        OR users.last_name ILIKE :query \
 		        OR users.email ILIKE :query \
 		    "
-	      	users = User.where(sql_query, query: "%#{params[:user_name]}%")
-	      	@bookings = Booking.select{|b| ['booked', 'deposit outstanding', 'bookingFee payment failed'].include?(b.state) && users.include?(b.user)}
-	      	# users.each{|user| bookings << user.bookings.where(state: 'booked')}
+    	users = User.where(sql_query, query: "%#{params[:user_name]}%")
+      @bookings = Booking.where(state: ['booked', 'deposit outstanding', 'bookingFee payment failed'], user_id: users.collect(&:id))
 		when 'move_in'
 			case params[:move_in]
 			when 'past'
@@ -97,10 +119,10 @@ class Api::V1::BookingsController < ActionController::Base
 				 	booked_state: ['booked', 'deposit outstanding', 'bookingFee payment failed']
 				 )
 			else
-				@bookings = Booking.all.where(state: ['booked', 'deposit outstanding', 'bookingFee payment failed'])
+				@bookings = Booking.where(state: ['booked', 'deposit outstanding', 'bookingFee payment failed'])
 			end
 		else
-			@bookings = Booking.all.where(state: ['booked', 'deposit outstanding', 'bookingFee payment failed'])
+			@bookings = Booking.where(state: ['booked', 'deposit outstanding', 'bookingFee payment failed'])
 		end
 	end
 

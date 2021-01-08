@@ -96,7 +96,7 @@ export function fetchBooking(booking_id) {
 export function updateBooking(booking_id, booking, callback) {
 	const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content')
 	const url = `${BASE_URL}/bookings/${booking_id}`
-	const request = fetch(url, {
+	const promise = fetch(url, {
     method: 'PATCH',
     headers: {
     	'Content-Type': 'application/json',
@@ -104,7 +104,12 @@ export function updateBooking(booking_id, booking, callback) {
     },
     body: JSON.stringify(booking)
   }).then(r => r.json())
-    .then(() => callback());
+    .then(r => typeof callback === 'function' ? callback() : r);
+
+  return {
+    type: UPDATE_BOOKING,
+    payload: promise
+  }
 }
 
 export function fetchContract(booking_id) {
@@ -228,5 +233,5 @@ export function fetchIntent(booking_id) {
 	return {
 		type: FETCH_INTENT,
 		payload: promise
-	}	
+	}
 }

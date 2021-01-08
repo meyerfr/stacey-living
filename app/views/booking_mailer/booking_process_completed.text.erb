@@ -1,0 +1,27 @@
+Hello <%= @user.first_name %>,
+
+Thank you for completing the booking process. Your suite is now reserved for the next 48 hours.
+
+Tenant Name: <%= @user.full_name %>
+Location: <%= @roomtype.project.name %>
+Suite Category: <%= @roomtype.name %>
+Monthly Rent: <%= @booking.price.amount.to_i %> €
+Duration: <%= (@booking.move_out - @booking.move_in).to_i %>
+
+However, to complete the final booking of your suite, you have to transfer the security deposit consisting of 2-monthly rents to the account stated in the rental agreement and mentioned below by reference:
+
+Account Name: STACEY Real Estate UG
+IBAN: DE61200505501500867906
+BIC: HASPDEHHXXX
+Amount: <%= @booking.price.amount.to_i * 2 %> €
+Reference: Deposit <%= @user.full_name %> <%= @booking.id %>
+
+Please send us a transaction confirmation thereof to booking@stacey-living.de within the next 48 hours.
+
+Once we have received the transaction confirmation or the deposit in full, you will receive a booking confirmation with all information that you need to know before your arrival. In case that we do not receive anything from you within 2 days, we are forced to resign from the rental agreement.
+
+
+Cheers
+Buu
+<%= image_tag attachments['logo.png'].url, style: 'width: 150px' %>
+
