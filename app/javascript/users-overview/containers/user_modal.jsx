@@ -84,22 +84,17 @@ class UserModal extends Component {
                         <td>{moment(user.booking.created_at).format('DD/MM/YYYY')}</td>
                       </tr>,
                       <tr key="2">
-                        <td>Move in:</td>
-                        <td>{user.booking.move_in}</td>
+                        <td>{user.booking.move_in ? 'Move in:' : 'Wants to move in:'}</td>
+                        <td>{user.booking.move_in ? user.booking.move_in : user.application.move_in}</td>
                       </tr>,
                       <tr key="3">
-                        <td>Move out:</td>
-                        <td>{user.booking.move_out}</td>
+                        <td>{user.booking.move_out ? 'Move out:' : 'Wants to move out:'}</td>
+                        <td>{user.booking.move_out ? user.booking.move_out : user.application.move_out}</td>
                       </tr>,
                       <tr key="4">
                         <td>Booking ID:</td>
                         <td><a href={`/bookings/${user.booking.booking_auth_token}/${user.booking.id}/projects`} className="bookingProcess">{user.booking.id}</a></td>
-                      </tr>,
-                      <tr key="5">
-                        <td>
-
-                        </td>
-                      </tr>,
+                      </tr>
                     ]
                   :
                     [

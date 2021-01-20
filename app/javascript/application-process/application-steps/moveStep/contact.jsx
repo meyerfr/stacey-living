@@ -162,7 +162,7 @@ class Contact extends Component{
       <div className="step-container moveIn-options-wrapper">
         <h3 className="underline step-header">Who are you?</h3>
 
-        <div className="personalData-form moveIn-options step-form-container">
+        <div className="personalData-form step-form-container">
           <div className="move-placeholder-wrapper step-form-item">
             <input onChange={this.updateApplicant} type="text" value={applicant.first_name} className="move-placeholder-input" name="first_name" placeholder=" " onBlur={this.validate} />
             <div className="move-placeholder-placeholder">First Name</div>

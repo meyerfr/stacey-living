@@ -166,15 +166,7 @@
   }
 }
 
-// .application-wrapper{
-
-// }
-
 .application-wrapper{
-  // height: 100vh;
-  // position: relative;
-  // overflow-x: hidden;
-  // overflow-y: scroll;
   .step-wrapper{
     height: 100%;
     display: grid;
@@ -296,17 +288,6 @@
               width: 40px;
             }
           }
-          // .card-link {
-          //   position: absolute;
-          //   top: 0;
-          //   bottom: 0;
-          //   right: 0;
-          //   width: 100%;
-          //   z-index: 2;
-          //   background: black;
-          //   opacity: 0;
-          //   transition: .3s;
-          // }
         }
         &:after{
           content: "";
@@ -314,95 +295,13 @@
           height: 30px;
           width: 100%;
         }
+        &.moveIn-options .step-form-item{
+          height: 46px;
+        }
       }
     }
   }
 }
-//   .hidden{
-//     transform: translateX(-100%);
-//   }
-//   .hidden-right{
-//     transform: translateX(+100%);
-//   }
-//   .move-wrapper{
-//     position: relative;
-//     transition: .9s;
-//     width: 100%;
-//     display: grid;
-//     // grid-template-columns: 55% 45%;
-//     height: 100vh;
-//     overflow: hidden;
-//     .moveIn-options-wrapper{
-//       display: grid;
-//       grid-template-rows: min-content min-content;
-//       grid-gap: 30px;
-//       // transition: transform .9s;
-//       position: absolute;
-//       right: 0;
-//       width: 45vw;
-//       &.hidden, &.hidden-right{
-//         z-index: -10;
-//       }
-//       h3.underline{
-//         text-align: center;
-//         text-decoration: underline;
-//       }
-//       .moveIn-options{
-//         display: grid;
-//         justify-items: center;
-//         grid-gap: 20px;
-//         .option{
-//           border: 1px solid $stacey-pink;
-//           padding: 10px;
-//           color: black;
-//           width: 80%;
-//           text-align: center;
-//           background: transparent;
-//           height: unset;
-//           display: unset;
-//           transition: .3s;
-//           cursor: pointer;
-//           &:hover{
-//             background: $stacey-pink;
-//             color: white;
-//             font-weight: bold;
-//             &::placeholder{
-//               color: white;
-//             }
-//           }
-//           &::placeholder{
-//             color: black;
-//           }
-//         }
-//         .flatpickr-wrapper{
-//           width: 100%;
-//           text-align: center;
-//         }
-//       }
-//     }
-//   }
-
-//   .personalData-form{
-//     justify-self: center;
-//     width: 80%;
-//     div.dob{
-//       display: grid;
-//       grid-template-columns: 100px auto 200px;
-//       label.dob{
-//         grid-column-start: 1;
-//         grid-column-end: span 3;
-//         margin-bottom: 1px;
-//         color: gray;
-//         font-weight: 700;
-//       }
-//     }
-//     .apply-button{
-//       width: 100%;
-//       font-weight: 700;
-//       font-size: 1.4rem;
-//     }
-//   }
-// }
 
 .PhoneInput{
   display: flex;

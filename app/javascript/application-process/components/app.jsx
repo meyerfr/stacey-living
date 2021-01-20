@@ -15,7 +15,7 @@ import MoveWrapper from '../application-steps/moveStep/move_wrapper'
 import PersonalDataWrapper from '../application-steps/personalDataStep/personalData_wrapper'
 import FinishModal from './finish_modal'
 
-import createApplication from '../actions'
+import {createApplication} from '../actions'
 
 class App extends Component {
   constructor(props) {
@@ -105,22 +105,7 @@ class App extends Component {
       }
     }
 
-    console.log(JSON.stringify(application))
-
-    const url = `http://localhost:3000/api/v1/applications`;
-    const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-    const promise = fetch(url, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-CSRF-Token': csrfToken
-      },
-      body: JSON.stringify(application)
-    }).then(response => response.json())
-      .then(data => this.handleResponse(data))
-      .catch((error) => {
-        console.error('Error:', error);
-      });
+    createApplication(application, this.handleResponse)
 
     // createApplication(
     //   application
@@ -128,9 +113,6 @@ class App extends Component {
     //   //   window.location.href = "https://www.stacey.de/faq";
     //   // }, 30000)
     // )
-
-
-    // createApplication(application, this.handleResponse)
   }
 
   myDisplayer = (some) => {
