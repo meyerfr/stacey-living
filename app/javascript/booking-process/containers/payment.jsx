@@ -23,16 +23,16 @@ class Payment extends Component {
 	}
 
 	componentDidMount() {
-		this.props.fetchBooking(this.props.match.params.booking_id);
+		this.props.fetchBooking(this.props.match.params.booking_auth_token, this.props.match.params.booking_id);
 	}
 
-	componentDidUpdate(prevProps) {
-		if (prevProps.booking != this.props.booking) {
-			this.setState({
-				gender: this.props.booking.user.gender.toLowerCase()
-			})
-		}
-	}
+	// componentDidUpdate(prevProps) {
+	// 	if (prevProps.booking != this.props.booking) {
+	// 		this.setState({
+	// 			gender: this.props.booking.user.gender.toLowerCase()
+	// 		})
+	// 	}
+	// }
 
 	changeGender = () => {
 		this.setState({
@@ -76,6 +76,7 @@ class Payment extends Component {
 		}
 
 		updateBooking(
+      this.props.match.params.booking_auth_token,
 			this.props.match.params.booking_id,
 			booking,
 			() => {

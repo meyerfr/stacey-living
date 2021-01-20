@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_01_151511) do
+ActiveRecord::Schema.define(version: 2021_01_20_095728) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -58,6 +58,17 @@ ActiveRecord::Schema.define(version: 2020_09_01_151511) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "applications", force: :cascade do |t|
+    t.string "move_in"
+    t.string "move_out"
+    t.string "prefered_location"
+    t.string "prefered_suite"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_applications_on_user_id"
+  end
+
   create_table "bookings", force: :cascade do |t|
     t.bigint "user_id"
     t.date "move_in"
@@ -69,7 +80,7 @@ ActiveRecord::Schema.define(version: 2020_09_01_151511) do
     t.date "booking_auth_token_exp"
     t.string "stripe_billing_plan"
     t.bigint "room_id"
-    t.date "booking_process_invite_send"
+    t.date "booking_process_completed_date"
     t.float "monthly_price"
     t.bigint "price_id"
     t.index ["price_id"], name: "index_bookings_on_price_id"
@@ -225,6 +236,7 @@ ActiveRecord::Schema.define(version: 2020_09_01_151511) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "applications", "users"
   add_foreign_key "bookings", "prices"
   add_foreign_key "bookings", "users"
   add_foreign_key "community_areas", "projects"

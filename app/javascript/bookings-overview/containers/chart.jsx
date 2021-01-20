@@ -52,7 +52,7 @@ class ChartView extends Component {
 
   createChartSeries = () => {
     let series = []
-    this.props.bookings.map((booking) => {
+    this.props.bookings && this.props.bookings.map((booking) => {
       series.push({
         name: booking.user_name,
         data: [
@@ -70,11 +70,11 @@ class ChartView extends Component {
   }
 
   updateStart = (event) => {
-    this.setState({ 
+    this.setState({
       start_date: event.target.value,
       options: {
         xaxis: {
-          type: 'datetime', 
+          type: 'datetime',
           min: new Date(event.target.value).getTime(),
           max: new Date(event.target.nextElementSibling.value).getTime()
         }
@@ -89,7 +89,7 @@ class ChartView extends Component {
       end_date: event.target.value,
       options: {
         xaxis: {
-          type: 'datetime', 
+          type: 'datetime',
           min: new Date(event.target.previousElementSibling.value).getTime(),
           max: new Date(event.target.value).getTime()
         }

@@ -7,15 +7,14 @@ class UserMailer < ApplicationMailer
   before_action :set_logo_attachment
 
   # welcome is beeing send after sign up if welcome_call has not been scheduled
-  def welcome(booking)
-    @booking = booking
-    @user = @booking.user
-    if WelcomeCall.find_by(booking_id: @booking.id)
-      message.perform_deliveries = false
-    else
-      email_with_name = %("#{@user.full_name}" <#{@user.email}>)
-      mail(to: email_with_name, subject: 'Stacey - coliving')
-    end
+  def welcome(user)
+    @user = user
+    # if WelcomeCall.find_by(booking_id: @booking.id)
+    #   message.perform_deliveries = false
+    # else
+    email_with_name = %("#{@user.full_name}" <#{@user.email}>)
+    mail(to: email_with_name, subject: 'Stacey - coliving')
+    # end
   end
 
   private

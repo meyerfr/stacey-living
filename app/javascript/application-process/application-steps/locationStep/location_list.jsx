@@ -17,9 +17,9 @@ const LocationList = (props) => {
   };
 
   return (
-    <div className="location-list-wrapper">
-      <h3 className="underline">Select your prefered Location in Hamburg</h3>
-      <div className="location-list">
+    <div className="location-list-wrapper step-container">
+      <h3 className="underline step-header">Select your prefered Location in Hamburg</h3>
+      <div className="step-form-container location-list">
         {renderLocationList()}
       </div>
     </div>

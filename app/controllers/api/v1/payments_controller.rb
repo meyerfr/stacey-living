@@ -1,14 +1,18 @@
-class Api::V1::PaymentsController < ActionController::Base
+class Api::V1::PaymentsController < ApplicationController
+  skip_before_action :authenticate_user!, only: [ :secret ]
+  before_action :check_booking_auth_token!, only: [ :secret ]
+
 	def secret
 		Stripe.api_key = 'sk_test_pblbbDNQnHAALD1MrdaNtOx6'
 
 		booking = Booking.find(params[:booking_id])
 		user = booking.user
-		customer = if user.stripe_id?
-	              Stripe::Customer.retrieve(user.stripe_id)
-	             else
-	              Stripe::Customer.create(name: user.full_name, email: user.email)
-	             end
+		if user.stripe_id?
+      customer = Stripe::Customer.retrieve(user.stripe_id)
+    else
+      customer = Stripe::Customer.create(name: user.full_name, email: user.email)
+      user.update(stripe_id: customer.id)
+    end
 
 		intent = Stripe::PaymentIntent.create({
 		  amount: 8000,

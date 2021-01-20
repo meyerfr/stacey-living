@@ -7,7 +7,7 @@ class LocationCard extends Component {
 
   render() {
     return (
-      <div className={`location-card${this.props.selected ? ' active' : ''}`} title="Click me">
+      <div className={`location-card${this.props.selected ? ' active' : ''}`} title="Click me" onClick={this.handleClick}>
         <img src={this.props.location.imageUrl} />
         <div className="location-card-infos">
           <div>
@@ -15,11 +15,10 @@ class LocationCard extends Component {
             <p>{this.props.location.address}</p>
           </div>
           <div>
-            <p className="center">starting by</p>
+            <p className="center">starting from</p>
             <h3 className="card-trip-pricing">{this.props.location.price} € / month</h3>
           </div>
         </div>
-        <a className="card-link" href="#" onClick={this.handleClick}></a>
       </div>
     );
   }

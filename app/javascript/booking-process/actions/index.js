@@ -82,8 +82,8 @@ export function fetchDescriptions(type, type_id) {
 	}
 }
 
-export function fetchBooking(booking_id) {
-	const url = `${BASE_URL}/bookings/${booking_id}`;
+export function fetchBooking(booking_auth_token, booking_id) {
+	const url = `${BASE_URL}/bookings/${booking_auth_token}/${booking_id}`;
 	const promise = fetch(url)
 		.then(r => r.json());
 
@@ -93,9 +93,9 @@ export function fetchBooking(booking_id) {
 	}
 }
 
-export function updateBooking(booking_id, booking, callback) {
+export function updateBooking(booking_auth_token, booking_id, booking, callback) {
 	const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-	const url = `${BASE_URL}/bookings/${booking_id}`
+	const url = `${BASE_URL}/bookings/${booking_auth_token}/${booking_id}`
 	const promise = fetch(url, {
     method: 'PATCH',
     headers: {
@@ -112,8 +112,8 @@ export function updateBooking(booking_id, booking, callback) {
   }
 }
 
-export function fetchContract(booking_id) {
-	const url = `${BASE_URL}/bookings/${booking_id}/contracts`;
+export function fetchContract(booking_auth_token, booking_id) {
+	const url = `${BASE_URL}/bookings/${booking_auth_token}/${booking_id}/contracts`;
 	const promise = fetch(url)
 		.then(r => r.json());
 
@@ -123,8 +123,8 @@ export function fetchContract(booking_id) {
 	}
 }
 
-export function createContract(booking_id, contract) {
-	const url = `${BASE_URL}/bookings/${booking_id}/contracts`;
+export function createContract(booking_auth_token, booking_id, contract) {
+	const url = `${BASE_URL}/bookings/${booking_auth_token}/${booking_id}/contracts`;
   const csrfToken = document.querySelector('meta[name="csrf-token"]').attributes.content.value;
 
   const promise = fetch(url, {
@@ -226,7 +226,7 @@ export function updateUserAddress(address) {
 }
 
 export function fetchIntent(booking_id) {
-	const url = `${BASE_URL}/bookings/${booking_id}/secret`;
+	const url = `${BASE_URL}/bookings/${booking_auth_token}/${booking_id}/secret`;
 	const promise = fetch(url)
 		.then(r => r.json());
 

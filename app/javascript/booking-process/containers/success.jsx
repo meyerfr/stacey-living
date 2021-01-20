@@ -23,7 +23,7 @@ class Success extends Component {
 	}
 
 	componentDidMount() {
-		this.props.fetchContract(this.props.match.params.booking_id)
+		this.props.fetchContract(this.props.match.params.booking_auth_token, this.props.match.params.booking_id)
 	}
 
 	// componentDidUpdate(prevProps) {

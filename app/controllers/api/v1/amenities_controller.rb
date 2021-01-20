@@ -12,7 +12,7 @@ class Api::V1::AmenitiesController < ActionController::Base
 			roomtype_index_inclusion_amenities = Amenity.joins(:join_amenities).where(join_amenities: {amenitiable_type: 'Roomtype', amenitiable_id: roomtype.id, name: 'roomtype index inclusion'})
 			# community_area_amenities = Amenity.joins(:join_amenities).where(join_amenities: {amenitiable_type: 'CommunityArea', amenitiable_id: project.community_areas.first.id, name: 'roomtype index inclusion'})
 			amenities = {
-				roomtype_index_inventory_amenities: roomtype_index_inventory_amenities, 
+				roomtype_index_inventory_amenities: roomtype_index_inventory_amenities,
 				roomtype_index_inclusion_amenities: roomtype_index_inclusion_amenities
 			}
 			amenities = amenities.each do |amenity_type, types_amenities|

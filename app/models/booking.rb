@@ -13,23 +13,23 @@ class Booking < ApplicationRecord
   has_one :project, through: :room, required: false
   has_one :contract, required: false
 
-  validates :move_in, :move_out, presence: true
+  # validates :move_in, :move_out, presence: true
 
-  accepts_nested_attributes_for :user, :contract, :price, allow_destroy: true
-
-
-  with_options if: -> { required_for_step?(:apply) } do |step|
-    step.validates_associated :user
-  end
-
-  with_options if: -> { required_for_step?(:contract_new) } do |step|
-    step.validates_associated :contract
-  end
+  # accepts_nested_attributes_for :user, :contract, :price, allow_destroy: true
 
 
-  with_options dependent: :destroy do |assoc|
-    assoc.has_many :welcome_calls
-  end
+  # with_options if: -> { required_for_step?(:apply) } do |step|
+  #   step.validates_associated :user
+  # end
+
+  # with_options if: -> { required_for_step?(:contract_new) } do |step|
+  #   step.validates_associated :contract
+  # end
+
+
+  # with_options dependent: :destroy do |assoc|
+  #   assoc.has_many :welcome_calls
+  # end
 
   # def move_in_dates
   #   errors.add(:move_in, 'Must be in the future') unless self.move_in >= Date.today

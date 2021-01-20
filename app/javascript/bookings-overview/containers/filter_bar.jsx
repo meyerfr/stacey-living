@@ -16,12 +16,24 @@ class FilterBar extends Component {
   render() {
     return (
       <div className="filter-container">
-        <label htmlFor="view">Change View</label>
-        <select className="form-control form-search" name="view" id="view" onChange={this.props.onChange}>
-          <option value="table">table</option>
-          <option value="chart">chart</option>
-        </select>
         <div className="inputs">
+          <div className="input">
+            <label htmlFor="view">Change View</label>
+            <select className="form-control form-search" name="view" id="view" onChange={this.props.onChange}>
+              <option value="table">table</option>
+              <option value="chart">chart</option>
+            </select>
+          </div>
+          <div className="input">
+            <label htmlFor="state">Select a State</label>
+            <select className="form-control form-search" id="state" defaultValue='all' name="booking_state" onChange={() => this.handleChange('booking_state')}>
+              <option value="all">all</option>
+              <option value="booked">Booked</option>
+              <option value="deposit outstanding">deposit outstanding</option>
+              <option value="bookingFee payment failed">bookingFee payment failed</option>
+            </select>
+          </div>
+          <div className="input"></div>
           <select className="form-control form-search" defaultValue='all' name="project_name" onChange={() => this.handleChange('project_name')}>
             <option value="all">all</option>
             <option value="mühlenkamp">Mühlenkamp</option>

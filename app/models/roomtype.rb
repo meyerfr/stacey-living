@@ -53,9 +53,11 @@ class Roomtype < ApplicationRecord
     next_available_move_in = Date.today + 10.years
     self.rooms.each do |room|
       rooms_next_available_move_in_date = room.next_available_move_in_date
-      if rooms_next_available_move_in_date
-        next_available_move_in = rooms_next_available_move_in_date if rooms_next_available_move_in_date < next_available_move_in
+
+      if rooms_next_available_move_in_date && rooms_next_available_move_in_date < next_available_move_in
+        next_available_move_in = rooms_next_available_move_in_date
       end
+
       break if next_available_move_in == Date.tomorrow
     end
     (next_available_move_in != Date.today + 10.years) ? next_available_move_in : false
@@ -66,11 +68,10 @@ class Roomtype < ApplicationRecord
     next_available_room = nil
     self.rooms.each do |room|
       rooms_next_available_move_in_date = room.next_available_move_in_date
-      if rooms_next_available_move_in_date
-        if rooms_next_available_move_in_date < next_available_move_in
-          next_available_move_in = rooms_next_available_move_in_date
-          next_available_room = room
-        end
+
+      if rooms_next_available_move_in_date && rooms_next_available_move_in_date < next_available_move_in
+        next_available_move_in = rooms_next_available_move_in_date
+        next_available_room = room
       end
       break if next_available_move_in == Date.tomorrow
     end

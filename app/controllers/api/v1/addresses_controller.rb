@@ -1,4 +1,5 @@
 class Api::V1::AddressesController < ActionController::Base
+
 	def create
 		user = User.find(params[:user_id])
 		address = user.create_address(addresses_params)

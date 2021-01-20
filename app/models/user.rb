@@ -5,13 +5,14 @@ class User < ApplicationRecord
   GENDER_TYPES = ["Male", "Female"]
 
   # validate :validate_arrays
-  validates :first_name, :last_name, :email, :dob, :phone_number, :gender, :job, presence: true
-  validate :minimum_prefered_suites
+  # validates :first_name, :last_name, :email, :dob, :phone_number, presence: true
+  # validate :minimum_prefered_suites
 
   with_options dependent: :destroy do |assoc|
     assoc.has_many :social_links
     assoc.has_many :prefered_suites
     assoc.has_many :bookings
+    assoc.has_one :application
     assoc.has_one :address, as: :addressable, required: false
   end
 

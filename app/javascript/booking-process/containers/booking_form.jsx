@@ -107,6 +107,7 @@ export default class BookingForm extends Component {
 			move_out: this.state.moveOut
 		}
 		updateBooking(
+      this.props.booking_auth_token,
 			this.props.booking_id,
 			booking,
 			() => {

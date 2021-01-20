@@ -13,7 +13,7 @@ const LocationWrapper = (props) => {
   }
 
   return (
-    <div className={`location-wrapper${props.hidden ? ' hidden' : ''}`}>
+    <div className="step-wrapper location-wrapper">
       <div className="map-container">
         <GoogleMapReact
           defaultCenter={center()}

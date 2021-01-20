@@ -19,7 +19,7 @@ class CheckoutForm extends React.Component {
 
   componentDidMount() {
     (async () => {
-      const response = await fetch(`/api/v1/bookings/${this.props.booking_id}/secret`);
+      const response = await fetch(`/api/v1/bookings/${this.props.booking_auth_token}/${this.props.booking_id}/secret`);
       const client_secret = await response.json();
       this.setState({
         client_secret: client_secret.client_secret

@@ -6,8 +6,8 @@ class ApplicationController < ActionController::Base
 
   def check_booking_auth_token!
     unless current_user&.admin?
-      booking = Booking.find(params[:booking_id])
-      if booking.booking_auth_token == params[:booking_auth_token]
+      booking = params[:booking_id] ? Booking.find(params[:booking_id]) : Booking.find(params[:id])
+      if booking && booking.booking_auth_token == params[:booking_auth_token]
         unless booking.booking_auth_token_exp.future?
           flash[:alert] = "This link has expired, please request a renewal."
           redirect_to root_path

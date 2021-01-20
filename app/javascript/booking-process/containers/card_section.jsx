@@ -16,8 +16,9 @@ const CARD_ELEMENT_OPTIONS = {
       color: "#fa755a",
       iconColor: "#fa755a",
     },
-  },
-};
+  }
+}
+
 
 function CardSection() {
   return (
@@ -25,7 +26,7 @@ function CardSection() {
       Enter credit or debit card
       <CardElement options={CARD_ELEMENT_OPTIONS} />
     </label>
-  );
-};
+  )
+}
 
 export default CardSection;

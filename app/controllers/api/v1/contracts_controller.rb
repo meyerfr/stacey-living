@@ -6,7 +6,7 @@ class Api::V1::ContractsController < ActionController::Base
 		user = booking.user
 		roomtype = booking.roomtype
     project = roomtype.project
-    
+
 		contract = contract.as_json.merge(
     	{
 				move_in: booking.move_in,

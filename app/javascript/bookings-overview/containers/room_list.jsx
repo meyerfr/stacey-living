@@ -95,7 +95,7 @@ class RoomList extends Component {
           </thead>
           <tbody>
             {
-              this.props.bookings.map((booking) => {
+              this.props.bookings && this.props.bookings.map((booking) => {
                 return <ListItem key={booking.id} onClick={() => this.openModal(booking)} {...booking} />;
               })
             }

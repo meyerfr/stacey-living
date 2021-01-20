@@ -1,4 +1,5 @@
 class Api::V1::ProjectsController < ActionController::Base
+
 	def index
 		projects = Project.where(status: 'active')
 
@@ -38,7 +39,7 @@ class Api::V1::ProjectsController < ActionController::Base
 		end
 
 		project = project.as_json.merge({
-			marker: marker, 
+			marker: marker,
 			photos: photos,
 			descriptions: descriptions
 		})

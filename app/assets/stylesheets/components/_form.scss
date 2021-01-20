@@ -70,7 +70,7 @@ select:-webkit-autofill:focus {
   }
 }
 .move-placeholder-input, .PhoneInputInput{
-  position: relative;
+  position: absolute;
   width: 100%;
   height: 56px;
   background: transparent;
@@ -78,11 +78,23 @@ select:-webkit-autofill:focus {
   font-weight: 700;
   text-indent: 0.75rem;
   color: black;
+  top: 0;
+  left: 0;
+  // box-shadow: none;
   &:focus + .move-placeholder-placeholder{
     color: black;
     transform: translate(0.625rem, -10px) scale(0.8);
     padding: 0 3px;
   }
+  &:-webkit-autofill, :-webkit-autofill:hover, :-webkit-autofill:focus{
+    border: 0 !important;
+    box-shadow: none !important;
+  }
+}
+
+input.PhoneInputInput:focus{
+  border: unset;
+  box-shadow: none;
 }
 
 .move-placeholder-input:not(:focus):placeholder-shown + .move-placeholder-placeholder{
@@ -100,6 +112,17 @@ select:-webkit-autofill:focus {
   background: white;
   pointer-events: none;
   transition: 0.5s, background 0.3s;
+}
+
+.move-placeholder-error{
+  position: absolute;
+  bottom: 0;
+  font-size: 12px;
+  transform: translateY(50%);
+  background: white;
+  padding: 0 3px;
+  color: red;
+  cursor: default;
 }
 
 .move-placeholder-wrapper.phone .move-placeholder-placeholder{

@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   skip_before_action :authenticate_user!, only: %I[new create]
+  layout 'overview', only: [ :index ]
 
   USERS_PER_PAGE = 25
 
@@ -9,35 +10,35 @@ class UsersController < ApplicationController
   end
 
   def index
-    @user_group_param_options = ['all', 'applicant', 'tenant']
-    @time_param_options = ['all', 'upcoming', 'past']
+    # @user_group_param_options = ['all', 'applicant', 'tenant']
+    # @time_param_options = ['all', 'upcoming', 'past']
 
-    @user_group_param = params.fetch(:user_group, 'all')
-    @time_param = params.fetch(:time, 'all')
+    # @user_group_param = params.fetch(:user_group, 'all')
+    # @time_param = params.fetch(:time, 'all')
 
-    search_param = params[:search] if params[:search].present?
-    # if search and period
-    @users = User.all.order(created_at: :desc)
-    @users = @users.where(role: @user_group_param) unless @user_group_param == 'all'
-    if @time_param == 'future'
-      @users = @users.includes(:bookings).where("bookings.move_in >= :todays_date", todays_date: Date.today).references(:bookings)
-    elsif @time_param == 'past'
-      @users = @users.includes(:bookings).where("bookings.move_in < :todays_date", todays_date: Date.today).references(:bookings)
-    end
-    # @users = @users.uniq
+    # search_param = params[:search] if params[:search].present?
+    # # if search and period
+    # @users = User.all.order(created_at: :desc)
+    # @users = @users.where(role: @user_group_param) unless @user_group_param == 'all'
+    # if @time_param == 'future'
+    #   @users = @users.includes(:bookings).where("bookings.move_in >= :todays_date", todays_date: Date.today).references(:bookings)
+    # elsif @time_param == 'past'
+    #   @users = @users.includes(:bookings).where("bookings.move_in < :todays_date", todays_date: Date.today).references(:bookings)
+    # end
+    # # @users = @users.uniq
 
-    if search_param
-      sql_query = " \
-        users.first_name @@ :search \
-        OR users.last_name @@ :search \
-        OR users.email @@ :search \
-        OR CONCAT(users.first_name, ' ', users.last_name) @@ :search
-      "
-      @users = User.where(sql_query, search: "%#{params[:search]}%").order(created_at: :desc)
-    end
-    @page = params.fetch(:page, 0).to_i
-    @page_count = @users.count / USERS_PER_PAGE
-    @users = @users.offset(@page * USERS_PER_PAGE).limit(USERS_PER_PAGE)
+    # if search_param
+    #   sql_query = " \
+    #     users.first_name @@ :search \
+    #     OR users.last_name @@ :search \
+    #     OR users.email @@ :search \
+    #     OR CONCAT(users.first_name, ' ', users.last_name) @@ :search
+    #   "
+    #   @users = User.where(sql_query, search: "%#{params[:search]}%").order(created_at: :desc)
+    # end
+    # @page = params.fetch(:page, 0).to_i
+    # @page_count = @users.count / USERS_PER_PAGE
+    # @users = @users.offset(@page * USERS_PER_PAGE).limit(USERS_PER_PAGE)
   end
 
   def show

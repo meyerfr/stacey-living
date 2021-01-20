@@ -5,7 +5,6 @@ class BookingsController < ApplicationController
   BOOKINGS_PER_PAGE = 25
 
   def apply
-
   end
 
   def new
@@ -38,11 +37,7 @@ class BookingsController < ApplicationController
   end
 
   def index
-    @bookings = Booking.where(
-              "bookings.move_in <= :todays_date AND move_out >= :todays_date AND state = :booked_state",
-              todays_date: Date.today,
-              booked_state: 'booked'
-            ).order(:move_in)
+    @bookings = Booking.where(state: ['booked', 'deposit outstanding', 'bookingFee payment failed'])
 
     @bookings = @bookings.map { |booking|
       roomtype = booking.roomtype
@@ -148,13 +143,6 @@ class BookingsController < ApplicationController
       flash[:alert] = "Oops something went wrong. Please try again."
       redirect_to booking_project_roomtype_path(@booking.booking_auth_token, @booking, @booking.project, @booking.room.roomtype.name)
     end
-  end
-
-  def send_booking_process_invite
-    booking = Booking.find(params[:id])
-    booking.update(booking_auth_token_exp: Date.today+2.weeks)
-    BookingMailer.invite_for_booking_process(booking)
-    booking.update(booking_process_invite_send: Date.today)
   end
 
   def success

@@ -25,20 +25,20 @@ class Api::V1::RoomtypesController < ActionController::Base
 
 		roomtypes = roomtypes.map { |roomtype|
 			cheapest_price = roomtype.cheapest_price
-			if project.name == 'Eppendorf' && roomtype.name.include?('(balcony)') 
+			if project.name == 'Eppendorf' && roomtype.name.include?('(balcony)')
 				roomtype_without_balcony = project.roomtypes.find_by(name: roomtype.name.gsub(' (balcony)', ''))
-				photos = roomtype_without_balcony.photos.map{ |photo| 
+				photos = roomtype_without_balcony.photos.map{ |photo|
 									 url_for(photo)
 								 }
 			else
 				if roomtype.name == 'Mighty+'
 					mighty_roomtype = project.roomtypes.find_by(name: 'Mighty')
 					photos = mighty_roomtype.photos.map { |photo|
-										 url_for(photo)	
+										 url_for(photo)
 									 }
 				else
 					photos = roomtype.photos.map { |photo|
-										 url_for(photo)	
+										 url_for(photo)
 									 }
 				end
 			end
@@ -60,16 +60,16 @@ class Api::V1::RoomtypesController < ActionController::Base
 		roomtype = Roomtype.find(params[:id])
 		project = roomtype.project
 		availabilities = roomtype.availabilities
-		if project.name == 'Eppendorf' && roomtype.name.include?('(balcony)') 
+		if project.name == 'Eppendorf' && roomtype.name.include?('(balcony)')
 			roomtype_without_balcony = project.roomtypes.find_by(name: roomtype.name.gsub(' (balcony)', ''))
 			roomtype_without_balcony_id = roomtype_without_balcony&.id
-			photos = roomtype_without_balcony.photos.map{ |photo| 
+			photos = roomtype_without_balcony.photos.map{ |photo|
 								 url_for(photo)
 							 }
 		else
 			roomtype_with_balcony_id = project.roomtypes.find_by(name: "#{roomtype.name} (balcony)")&.id
 			photos = roomtype.photos.map { |photo|
-								 url_for(photo)	
+								 url_for(photo)
 							 }
 		end
 		prices = roomtype.prices.order(amount: :desc).collect(&:amount)

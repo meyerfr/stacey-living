@@ -1,40 +1,40 @@
-<h3 class="list-header">All Users</h3>
+<!-- <h3 class="list-header">All Users</h3>
 <div class="list-position">
   <div class="list-wrapper">
     <div class="list-navbar">
       <div class="one-list-navbar">
         <div class="options">
-          <% @user_group_param_options.each do |param_option| %>
-            <%= link_to param_option.capitalize, users_path(user_group: param_option), class: class_string('option': true, 'active': (@user_group_param == param_option || !@user_group_param.present? && param_option == 'all')) %>
-          <% end %>
+          <%# @user_group_param_options.each do |param_option| %>
+            <%#= link_to param_option.capitalize, users_path(user_group: param_option), class: class_string('option': true, 'active': (@user_group_param == param_option || !@user_group_param.present? && param_option == 'all')) %>
+          <%# end %>
         </div>
-        <% @user_group_param_options.each do |user_group_option| %>
-          <% if @user_group_param == user_group_option %>
-            <% if user_group_option == 'all' %>
-              <span>We have <%= User.all.count %> Users</span>
-            <% else %>
-              <span>We have <%= User.all.where(role: user_group_option).count %> <%= User.all.where(role: user_group_option).count > 1 ? user_group_option.pluralize : user_group_option.singularize %></span>
-            <% end %>
-          <% end %>
-        <% end %>
+        <%# @user_group_param_options.each do |user_group_option| %>
+          <%# if @user_group_param == user_group_option %>
+            <%# if user_group_option == 'all' %>
+              <span>We have <%#= User.all.count %> Users</span>
+            <%# else %>
+              <span>We have <%#= User.all.where(role: user_group_option).count %> <%#= User.all.where(role: user_group_option).count > 1 ? user_group_option.pluralize : user_group_option.singularize %></span>
+            <%# end %>
+          <%# end %>
+        <%# end %>
         <div class="query">
-          <%= form_tag users_path, method: :get do %>
-            <%= text_field_tag :search,
+          <%#= form_tag users_path, method: :get do %>
+            <%#= text_field_tag :search,
             params[:search],
             class: "form-control",
               placeholder: "Find a user"
               %>
-              <%= submit_tag "Search", class: "btn btn-primary d-none" %>
-          <% end %>
+              <%#= submit_tag "Search", class: "btn btn-primary d-none" %>
+          <%# end %>
         </div>
       </div>
       <div class="one-list-navbar padding-top">
         <div class="options">
-          <% @time_param_options.each do |time_option| %>
-            <%= link_to time_option.capitalize, users_path(user_group: @user_group_param, time: time_option), class: class_string('option': true, 'active': (@time_param == time_option)) %>
-          <% end %>
+          <%# @time_param_options.each do |time_option| %>
+            <%#= link_to time_option.capitalize, users_path(user_group: @user_group_param, time: time_option), class: class_string('option': true, 'active': (@time_param == time_option)) %>
+          <%# end %>
         </div>
-        <%= link_to "Download CSV", all_users_path(format: :csv) %>
+        <%#= link_to "Download CSV", all_users_path(format: :csv) %>
       </div>
     </div>
     <div class="list-container">
@@ -43,25 +43,30 @@
           <span class="list-header set-width">Name</span>
           <span class="list-header set-width">Email</span>
           <span class="list-header set-width">MoveIn - MoveOut</span>
-          <!-- <span class="list-header details-header set-width">Detail</span> -->
         </div>
       </div>
-      <% @users.each do |user| %>
-        <!-- Large modal -->
-        <%= link_to user_path(user, page: 'user'), remote: true, class: 'list-context-container user-info-container' do %>
+      <%# @users.each do |user| %>
+        <%#= link_to user_path(user, page: 'user'), remote: true, class: 'list-context-container user-info-container' do %>
             <div class="list-info">
-              <span class="set-width"><%= user.full_name %></span>
-              <span class="set-width"><%= user.email %></span>
+              <span class="set-width"><%#= user.full_name %></span>
+              <span class="set-width"><%#= user.email %></span>
               <div class="duration-dates set-width">
-                <% if user.bookings.length.positive? %>
-                  <%= user.bookings.last.move_in.strftime("%d.%m %Y") %> – <%= user.bookings.last.move_out.strftime("%d.%m %Y") %>
-                <% end %>
+                <%# if user.bookings.length.positive? %>
+                  <%#= user.bookings.last.move_in.strftime("%d.%m %Y") %> – <%#= user.bookings.last.move_out.strftime("%d.%m %Y") %>
+                <%# end %>
               </div>
             </div>
-        <% end %>
-      <% end %>
-      <%= render 'shared/pagination', path: users_path(user_group: @user_group_param, time: @time_param) %>
+        <%# end %>
+      <%# end %>
+      <%#= render 'shared/pagination', path: users_path(user_group: @user_group_param, time: @time_param) %>
     </div>
   </div>
 </div>
 <div id="user-info-modal"></div>
+ -->
+
+<div id="user-overview-container"></div>
+
+<% content_for :after_js do %>
+  <%= javascript_pack_tag "users_overview" %>
+<% end %>

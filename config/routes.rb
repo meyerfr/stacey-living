@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   devise_for :users
-  root to: 'bookings#new'
+  # get 'apply', to: 'applications#new', as: 'apply'
+  root to: 'applications#new'
+  resources :applications, only: [ :new ]
   resources :users
   resources :partners
   resources :amenities
@@ -17,7 +19,6 @@ Rails.application.routes.draw do
     get 'send_booking_process_invite', to: 'booking/process#send_booking_process_invite', as: 'send_booking_process_invite'
   end
 
-  get 'apply', to: 'bookings#apply', as: 'apply'
   post 'apply', to: 'booking/process#create'
 
   get 'fritz_all_users', to: 'users#all_users', as: 'all_users'
@@ -57,6 +58,7 @@ Rails.application.routes.draw do
   namespace :api, defaults: { format: :json } do
     namespace :v1 do
       # resources :rooms, only: [ :index ]
+      resources :applications, only: [ :create ]
       resources :projects, only: [ :show, :index ] do
         resources :roomtypes, only: [ :index ]
         # resources :amenities, only: [ :index ]
@@ -64,13 +66,14 @@ Rails.application.routes.draw do
       resources :amenities, only: [ :index ]
       resources :descriptions, only: [ :index ]
       resources :roomtypes, only: [ :show ]
-      resources :bookings, only: [ :index, :show, :update ] do
+      resources :bookings, path: 'bookings/(:booking_auth_token)', only: [ :index, :show, :update ] do
         resources :contracts, only: [ :index, :create ]
         # get 'success', to: 'bookings#show'
         get 'secret', to: 'payments#secret'
       end
       resources :contracts, only: [ :update ]
-      resources :users, only: [ :update ] do
+      resources :users, only: [ :index, :update ] do
+        resources :bookings, only: [ :create ]
         resources :addresses, only: [ :create ]
       end
       resources :addresses, only: [ :update ]
