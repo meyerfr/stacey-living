@@ -47,7 +47,6 @@ class Api::V1::UsersController < ActionController::Base
       when 'invite send'
         @users = User.includes(:bookings).where("bookings.state = :state", state: 'booking process invite send').references(:bookings)
       when 'invite outstanding'
-        User.joins(:email).where(email: {user_id: nil})
         @users = User.left_outer_joins(:bookings).where( bookings: { id: nil} )
       else
         @users = User.all
@@ -55,9 +54,9 @@ class Api::V1::UsersController < ActionController::Base
     when 'role'
       case params[:searchquery]
       when 'current Tenants'
-        @users = User.where(role: 'tenant')
+        @users = User.left_outer_joins(:bookings).where("bookings.state = :state AND bookings.move_in >= :todays_date AND bookings.move_out <= :todays_date", state: 'booked', todays_date: Date.today)
       when 'prev Tenants'
-        @users = User.where(role: 'prev tenant')
+        @users = User.left_outer_joins(:bookings).where("bookings.move_out <= ?", Date.today)
       when 'applicants'
         @users = User.where(role: 'applicant')
       end
@@ -71,7 +70,7 @@ class Api::V1::UsersController < ActionController::Base
       "
       @users = User.where(sql_query, search: "%#{params[:searchquery]}%").order(created_at: :desc)
     else
-      @users = User.last(10)
+      @users = User.all
     end
   end
 

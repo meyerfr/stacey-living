@@ -11,9 +11,9 @@ class FilterBar extends Component {
 
   changeFilter = event => {
     console.log('changeFilter')
-    // console.log(event.target)
+    console.log(event.target)
     // console.log(event.target.attributes['filter'].value)
-    const filterKey = event.target.options[event.target.selectedIndex].attributes['filter'].value
+    const filterKey = event.target.options ? event.target.options[event.target.selectedIndex].attributes['filter'].value : event.target.attributes["filter"].value
     this.applyFilter(event.target.value, filterKey)
   }
 
