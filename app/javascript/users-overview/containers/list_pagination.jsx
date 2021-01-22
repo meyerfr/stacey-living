@@ -6,9 +6,18 @@ const ListPagination = props => {
   }
 
   const pagesRange = [];
-  for (let i = 0; i < props.pages+1; ++i) {
-    pagesRange.push(i);
-  }
+  // if (props.pages >= 10) {
+    const start = props.page >= 5 ? props.page - 5 : 0
+    const end = props.page + 5 >= props.pages ? props.pages : props.page + 5
+    for (let i = start; i < end+1; ++i) {
+      pagesRange.push(i);
+    }
+  // } else{
+
+  //   for (let i = 0; i < props.pages+1; ++i) {
+  //     pagesRange.push(i);
+  //   }
+  // }
 
   const setPage = page => {
     props.onSetPage(page);

@@ -1,5 +1,12 @@
 require "open-uri"
 
+
+['fritzaef@de.de', 'fritzaef@de.dede', 'fritzaef@deqaddde.de', 'fritzaef@dasfdae.de', 'fritzaefsdfasfda@de.de', 'fasfritzaef@de.de', 'fritzaeasfdf@de.de', 'asdfafritzaef@de.de', 'fritzaeafasfassf@de.de', 'ferfrasfdfritzaef@de.de'].each do |email|
+  u = User.last.dup
+  u.email = email
+  u.save!(validate: false)
+end
+
 # change mühlenlamp mighty price for 9+ Month back to live mode - price_1HaJN3HP1DTF1I43NtoUdBzx
 
 # stripe = [
