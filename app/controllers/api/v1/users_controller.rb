@@ -1,8 +1,12 @@
 class Api::V1::UsersController < ActionController::Base
   before_action :set_filter, only: [ :index ]
 
+  USERS_PER_PAGE = 1
+
   def index
-    users = @users.map { |user|
+    users = @users.offset(@page * USERS_PER_PAGE).limit(USERS_PER_PAGE)
+
+    users = users.map { |user|
       booking = user.bookings.last
       application = user.application
       booking_present = user.bookings.present?
@@ -14,7 +18,13 @@ class Api::V1::UsersController < ActionController::Base
 
     # users = users.sort_by { |hash| hash['created_at'] }.reverse
 
-    render json: users
+    render json: {
+      users: users,
+      pagination: {
+        page: params.fetch(:page, 0).to_i,
+        pages: @users.count / USERS_PER_PAGE
+      }
+    }
   end
 
 	def update
@@ -40,6 +50,12 @@ class Api::V1::UsersController < ActionController::Base
 	end
 
   def set_filter
+    @page = params.fetch(:page, 0).to_i
+    # availabilities = availabilities_inside_timerange(@start_time_query, @end_time_query)
+    # @page_count = availabilities.count / SITTERS_PER_PAGE
+    # @users = users
+
+
     filter = params[:filter]
     case filter
     when 'invite'

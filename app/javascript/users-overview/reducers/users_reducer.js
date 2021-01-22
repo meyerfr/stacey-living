@@ -3,7 +3,7 @@ import { FETCH_USERS, APPLY_FILTER, CREATE_BOOKING } from '../actions';
 export default function usersReducer(state = null, action) {
   switch (action.type) {
     case FETCH_USERS:
-      return action.payload;
+      return action.payload.users;
 
     case APPLY_FILTER:
       return action.payload

@@ -1078,7 +1078,7 @@ bookings = [
   {room: 'EW12', name: 'Jan Dobinsky', email: 'jan.dobinsky@gmail.com', move_in: Date.parse("01.10.2020"), move_out: Date.parse("14.01.2021") },
   {room: 'EW12', name: 'Olina Karlsdottir', email: 'olina.ann@hotmail.com', move_in: Date.parse("15.01.2021"), move_out: Date.parse("14.04.2021") },
   {room: 'EW13', name: 'Nicolas Claudet', email: 'nico.claudet@icloud.com', move_in: Date.parse("01.10.2020"), move_out: Date.parse("14.07.2021") },
-  {room: 'EW14', name: 'Emma Widmer', email: 'emma.widmer@uzh.ch', move_in: Date.parse("01.10.2020"), move_out: Date.parse("28.02.2021") },
+  {room: 'EW14', name: 'Emma Widmer', email: 'emma.widmer@gmx.ch', move_in: Date.parse("01.10.2020"), move_out: Date.parse("28.02.2021") },
   {room: 'EW15', name: 'Francesca Solagna', email: 'f.solagna@uke.de', move_in: Date.parse("21.09.2020"), move_out: Date.parse("05.01.2021") },
   {room: 'EW15', name: 'Imad Jawad', email: 'imad.a.jawad@gmail.com', move_in: Date.parse("01.02.2021"), move_out: Date.parse("30.04.2021") },
   {room: 'EW16', name: 'Wanjiru Chabeda', email: 'wanjiru.chabeda@gmail.com', move_in: Date.parse("15.10.2020"), move_out: Date.parse("19.10.2020") },
@@ -1095,15 +1095,17 @@ bookings.each do |b|
   user = User.select{|u| u.full_name == b[:name] || u.email == b[:email]}
   user = user.count > 1 ? user.select{|u| u.email == b[:email]}.first : user.first
 
-  booking = user.bookings.order(:created_at).last
-  booking.attributes = {
-    move_in: b[:move_in],
-    move_out: b[:move_out],
-    room_id: Room.find_by(intern_number: b[:room]).id,
-    state: 'booked',
-    booking_process_completed_date: booking.move_in - 1.week
-  }
+  booking = user.bookings.new(
+              move_in: b[:move_in],
+              move_out: b[:move_out],
+              room_id: Room.find_by(intern_number: b[:room]).id,
+              state: 'booked',
+              booking_process_completed_date: b[:move_in] - 1.week
+            )
+
   booking.save!(validate: false)
+
+  # booking = user.bookings.order(:created_at).last
 
   ALL_RELEVENT_BOOKING_IDS << booking.id
 
@@ -1120,7 +1122,7 @@ ALL_RELEVENT_BOOKING_IDS.each do |id|
 end
 
 
-Booking.where.not(state: nil).each do |booking|
+Booking.where(state: nil).each do |booking|
   user = booking.user
   unless user.role == 'admin'
     user.role = 'applicant'
@@ -1128,6 +1130,12 @@ Booking.where.not(state: nil).each do |booking|
     application.move_in = booking.move_in.strftime('%d/%m/%Y') if booking.move_in.present?
     application.move_out = booking.move_out.strftime('%d/%m/%Y') if booking.move_out.present?
     application.save!
+
+    welcomeCall = WelcomeCall.find_by(booking_id: booking.id)
+    welcomeCall.destroy if welcomeCall
+
+    contract = Contract.find_by(booking_id: booking.id)
+    contract.destroy if contract
 
     booking.destroy!
   end
