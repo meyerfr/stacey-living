@@ -6,7 +6,7 @@ export default function usersReducer(state = null, action) {
       return action.payload.users;
 
     case APPLY_FILTER:
-      return action.payload
+      return action.payload.users
 
     case CREATE_BOOKING:
       const copiedUsers = state.slice(0)
