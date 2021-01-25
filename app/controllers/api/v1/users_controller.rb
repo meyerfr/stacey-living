@@ -76,7 +76,7 @@ class Api::V1::UsersController < ActionController::Base
       when 'next Tenants'
         @users = User.left_outer_joins(:bookings).where("bookings.state = :state AND bookings.move_in >= :todays_date", state: 'booked', todays_date: Date.today)
       when 'applicants'
-        @users = User.where(role: 'applicant')
+        @users = User.where(role: 'applicant').includes(:application).order('applications.created_at')
       end
 
     when 'name'
@@ -88,7 +88,7 @@ class Api::V1::UsersController < ActionController::Base
       "
       @users = User.where(sql_query, search: "%#{params[:searchquery]}%").order(created_at: :desc)
     else
-      @users = User.all
+      @users = User.includes(:application).order('applications.created_at')
     end
   end
 

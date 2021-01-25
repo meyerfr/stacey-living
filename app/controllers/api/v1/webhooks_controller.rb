@@ -36,26 +36,20 @@ class Api::V1::WebhooksController < ActionController::Base
 
     state = ''
     case(current_stage)
-    when '2. Call':
+    when '2. Call'
       state = '2. Call'
-    when '3. Call':
+    when '3. Call'
       state = '3. Call'
-      break;
-    when 'Einladung zum Buchungsprozess gesendet':
+    when 'Einladung zum Buchungsprozess gesendet'
       state = 'invite send'
-      break;
-    when 'Deposit ausstehend':
+    when 'Deposit ausstehend'
       state = 'deposit outstanding'
-      break;
-    when 'Deposit eingegangen':
+    when 'Deposit eingegangen'
       state = 'deposit received'
-      break;
-    when 'Eingezogen':
+    when 'Eingezogen'
       state = 'moved In'
-      break;
-    when 'Ausgezogen':
+    when 'Ausgezogen'
       state = 'moved Out'
-      break;
     end
     return state
   end
