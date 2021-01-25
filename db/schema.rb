@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_20_095728) do
+ActiveRecord::Schema.define(version: 2021_01_25_093453) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -66,6 +66,7 @@ ActiveRecord::Schema.define(version: 2021_01_20_095728) do
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "pipedrive_deal_id"
     t.index ["user_id"], name: "index_applications_on_user_id"
   end
 
@@ -83,6 +84,7 @@ ActiveRecord::Schema.define(version: 2021_01_20_095728) do
     t.date "booking_process_completed_date"
     t.float "monthly_price"
     t.bigint "price_id"
+    t.integer "pipedrive_deal_id"
     t.index ["price_id"], name: "index_bookings_on_price_id"
     t.index ["room_id"], name: "index_bookings_on_room_id"
     t.index ["user_id"], name: "index_bookings_on_user_id"
@@ -221,6 +223,7 @@ ActiveRecord::Schema.define(version: 2021_01_20_095728) do
     t.string "card_exp_month"
     t.string "card_exp_year"
     t.string "card_type"
+    t.integer "pipedrive_person_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

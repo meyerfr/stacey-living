@@ -29,6 +29,7 @@ class FilterBar extends Component {
           <option value="invite send" filter="invite">invite send</option>
           <option value="invite outstanding" filter="invite">invite outstanding</option>
           <option value="current Tenants" filter="role">current Tenants</option>
+          <option value="next Tenants" filter="role">next Tenants</option>
           <option value="prev Tenants" filter="role">prev Tenants</option>
           <option value="applicants" filter="role">applicants</option>
         </select>

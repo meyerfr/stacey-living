@@ -70,9 +70,11 @@ class Api::V1::UsersController < ActionController::Base
     when 'role'
       case params[:searchquery]
       when 'current Tenants'
-        @users = User.left_outer_joins(:bookings).where("bookings.state = :state AND bookings.move_in >= :todays_date AND bookings.move_out <= :todays_date", state: 'booked', todays_date: Date.today)
+        @users = User.left_outer_joins(:bookings).where("bookings.state = :state AND bookings.move_in <= :todays_date AND bookings.move_out >= :todays_date", state: 'booked', todays_date: Date.today)
       when 'prev Tenants'
-        @users = User.left_outer_joins(:bookings).where("bookings.move_out <= ?", Date.today)
+        @users = User.left_outer_joins(:bookings).where("bookings.state = :state AND bookings.move_out <= :todays_date", state: 'booked', todays_date: Date.today)
+      when 'next Tenants'
+        @users = User.left_outer_joins(:bookings).where("bookings.state = :state AND bookings.move_in >= :todays_date", state: 'booked', todays_date: Date.today)
       when 'applicants'
         @users = User.where(role: 'applicant')
       end

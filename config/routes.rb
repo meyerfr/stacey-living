@@ -57,6 +57,7 @@ Rails.application.routes.draw do
 
   namespace :api, defaults: { format: :json } do
     namespace :v1 do
+      post 'pipedrive_webhook', to: 'webhooks#pipedrive_webhook'
       # resources :rooms, only: [ :index ]
       resources :applications, only: [ :create ]
       resources :projects, only: [ :show, :index ] do
