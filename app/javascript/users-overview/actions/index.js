@@ -4,8 +4,19 @@ export const FETCH_USERS = 'FETCH_USERS'
 export const APPLY_FILTER = 'APPLY_FILTER'
 export const CREATE_BOOKING = 'CREATE_BOOKING'
 
-export function fetchUsers(nextPage = null) {
-  const url = nextPage ? `${BASE_URL}/users?page=${nextPage}` : `${BASE_URL}/users`;
+// export function fetchUsers(nextPage = null) {
+//   const url = nextPage ? `${BASE_URL}/users?page=${nextPage}` : `${BASE_URL}/users`;
+//   const promise = fetch(url, { credentials: "same-origin" }).then(r => r.json());
+
+//   return {
+//     type: FETCH_USERS,
+//     payload: promise // Will be resolved by redux-promise
+//   };
+// }
+
+export function fetchUsers(nextPage = null, searchquery, filterKey){
+  const url = `${BASE_URL}/users?${nextPage ? `page=${nextPage}` : ''}${searchquery ? `&searchquery=${searchquery}` : ''}${filterKey ? `&filter=${filterKey}` : ''}`
+
   const promise = fetch(url, { credentials: "same-origin" }).then(r => r.json());
 
   return {
@@ -13,8 +24,6 @@ export function fetchUsers(nextPage = null) {
     payload: promise // Will be resolved by redux-promise
   };
 }
-
-
 //  export function applyFilter(searchquery, filterKey) {
 //   return {
 //     type: APPLY_FILTER,

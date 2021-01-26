@@ -21,28 +21,13 @@ class Api::V1::ApplicationsController < ActionController::Base
       if user.pipedrive_person_id
         # create Deal
         create_pipedrive_deal(user)
-
-        # res_deal = deal_client.create(title: "#{user.full_name} Deal", person_id: user.pipedrive_person_id, stage_id: 11)
       else
+        # create Person
         create_pipedrive_person(user)
 
-
-
-        # person_client = ::Pipedrive::Person.new
-
-        # create Person + add pipedrive_person_id to User
-            # res = person_client.create(name: 'Fritz Meyer', email: "fritz.meyer@code.berlin", phone: "+49 15775725703")
-        # res_person = person_client.create(name: user.full_name, email: user.email, phone: "#{user.phone_code} #{user.phone_number}")
-        # pipedrive_person_id = res_person.data.id
-        # user.update(pipedrive_person_id: pipedrive_person_id)
-
-        create_pipedrive_deal(user)
-
         # create Deal
-        # res_deal = deal_client.create(title: "#{user.full_name} Deal", person_id: pipedrive_person_id, stage_id: 11)
+        create_pipedrive_deal(user)
       end
-
-      # application.update(pipedrive_deal_id: res_deal.data.id)
 
       UserMailer.welcome(application.user).deliver_later(wait_until:  2.minutes.from_now)
       render json: application
@@ -51,9 +36,6 @@ class Api::V1::ApplicationsController < ActionController::Base
       render json: application.errors
     end
   end
-
-
-
 
   private
 
@@ -82,8 +64,7 @@ class Api::V1::ApplicationsController < ActionController::Base
       {
         "name": user.full_name,
         "email": [ { "label": "home", "value": user.email, "primary": true } ],
-        "phone": [ { "label": "mobile", "value": "#{user.phone_code} #{user.phone_number}", "primary": true } ],
-        "add_time": user.created_at.strftime('%Y-%m-%d %H:%M:%S')
+        "phone": [ { "label": "mobile", "value": "#{user.phone_code} #{user.phone_number}", "primary": true } ]
       }.to_json,
       {content_type: :json, accept: :json}
     )
@@ -100,7 +81,7 @@ class Api::V1::ApplicationsController < ActionController::Base
     application = user.application
 
     # create Deal
-    res_deal = RestClient.post url('deals'), {"title": "#{user.full_name} Deal", "person_id": user.pipedrive_person_id, "stage_id": 11}.to_json, {content_type: :json, accept: :json}
+    res_deal = RestClient.post url('deals'), {"title": "#{user.full_name} Deal", "person_id": user.pipedrive_person_id, "stage_id": 11, "add_time": user.created_at.strftime('%Y-%m-%d %H:%M:%S')}.to_json, {content_type: :json, accept: :json}
     repos_deal = JSON.parse(res_deal)
     pipedrive_deal_id = repos_deal['data']['id']
 

@@ -17,7 +17,8 @@ class UsersList extends Component {
   }
 
   fetchUsers = (page = null) => {
-    this.props.fetchUsers(page)
+    console.log(page)
+    this.props.fetchUsers(page, 'applicants', 'role')
   }
 
   componentDidMount() {
@@ -85,8 +86,25 @@ class UsersList extends Component {
   }
 
   render() {
-    console.log(this.props)
     const user = this.state.user
+
+    var users = this.props.users.slice(0);
+    // byDate = byDate.sort(function(a,b) {
+    //     return a.application.created_at - b.application.created_at;
+    // });
+
+    // byDate = byDate.sortBy(function(o){ return new Date( o.application.created_at ) });
+    users = users.sort(function(a, b) {
+      if (a.application && b.application) {
+        var c = new Date(a.application.created_at);
+        var d = new Date(b.application.created_at);
+      } else{
+        var c = new Date(a.created_at);
+        var d = new Date(b.created_at);
+      }
+      return d-c;
+    });
+
     return (
       <div className="table-container">
         <table className="list-container">
@@ -100,7 +118,7 @@ class UsersList extends Component {
           </thead>
           <tbody>
             {
-              this.props.users.length > 0 && this.props.users.map((user) => {
+              users.length > 0 && users.map((user) => {
                 return <UserItem key={user.id} onClick={() => this.openModal(user)} {...user} />;
               })
             }

@@ -23,6 +23,10 @@ class Api::V1::UsersController < ActionController::Base
       pagination: {
         page: params.fetch(:page, 0).to_i,
         pages: @users.count / USERS_PER_PAGE
+      },
+      filter: {
+        filterKey: params.fetch(:filter),
+        searchquery: params.fetch(:searchquery)
       }
     }
   end

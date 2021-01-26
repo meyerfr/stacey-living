@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { applyFilter } from '../actions';
+import { fetchUsers } from '../actions';
 
 class FilterBar extends Component {
-  applyFilter = (searchquery, filterKey) => {
-    this.props.applyFilter(searchquery, filterKey)
+  fetchUsers = (searchquery, filterKey) => {
+    this.props.fetchUsers(null, searchquery, filterKey)
   }
 
   changeFilter = event => {
@@ -14,7 +14,7 @@ class FilterBar extends Component {
     console.log(event.target)
     // console.log(event.target.attributes['filter'].value)
     const filterKey = event.target.options ? event.target.options[event.target.selectedIndex].attributes['filter'].value : event.target.attributes["filter"].value
-    this.applyFilter(event.target.value, filterKey)
+    this.fetchUsers(event.target.value, filterKey)
   }
 
 
@@ -24,7 +24,7 @@ class FilterBar extends Component {
         {
           // Download CSV -> Action to call on User index
         }
-        <select className="form-control form-search" name="filter" id="filter" defaultValue="all" onChange={this.changeFilter}>
+        <select className="form-control form-search" name="filter" id="filter" defaultValue="applicants" onChange={this.changeFilter}>
           <option value="all" filter="invite">all</option>
           <option value="invite send" filter="invite">invite send</option>
           <option value="invite outstanding" filter="invite">invite outstanding</option>
@@ -41,12 +41,14 @@ class FilterBar extends Component {
 
 function mapStateToProps(state) {
   return {
-    users: state.users
+    users: state.users,
+    filter: state.filter,
+    pagination: state.pagination
   };
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ applyFilter }, dispatch);
+  return bindActionCreators({ fetchUsers }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(FilterBar);

@@ -7,6 +7,7 @@ import ReduxPromise from 'redux-promise';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import usersReducer from './reducers/users_reducer'
 import paginationReducer from './reducers/pagination_reducer'
+import filterReducer from './reducers/filter_reducer'
 // import sortParamsReducer from './reducers/sort_params_reducer'
 
 import UsersOverview from './components/users_overview';
@@ -17,6 +18,9 @@ const initialState = {
   users: [],
   pagination: {
     page: 0
+  },
+  filter: {
+    filterKey: 'applicants'
   }
   // bookings: JSON.parse(overviewContainer.dataset.bookings),
   // sortParams: {
@@ -29,7 +33,8 @@ const initialState = {
 
 const reducers = combineReducers({
   users: usersReducer,
-  pagination: paginationReducer
+  pagination: paginationReducer,
+  filter: filterReducer
   // bookings: bookingsReducer,
   // sortParams: sortParamsReducer
 });
