@@ -7,7 +7,7 @@ class Api::V1::ApplicationsController < ActionController::Base
     user = User.find_by(email: applications_params[:user_attributes][:email])
     if user.present?
       application = user.build_application(applications_params.except(:user_attributes))
-      pipedrive_person_id = user.pipedrive_person_id
+      # pipedrive_person_id = user.pipedrive_person_id
       # create Deal in Pipedrive
     else
       application = Application.new(applications_params)

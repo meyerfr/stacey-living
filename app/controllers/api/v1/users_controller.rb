@@ -76,7 +76,7 @@ class Api::V1::UsersController < ActionController::Base
       when 'next Tenants'
         @users = User.left_outer_joins(:bookings).where("bookings.state = :state AND bookings.move_in >= :todays_date", state: 'booked', todays_date: Date.today)
       when 'applicants'
-        @users = User.where(role: 'applicant').includes(:application).order('applications.created_at')
+        @users = User.where(role: 'applicant').where.not(application: nil).joins(:application).order("applications.created_at")
       end
 
     when 'name'
