@@ -4,7 +4,7 @@ class Api::V1::UsersController < ActionController::Base
   USERS_PER_PAGE = 30
 
   def index
-    users = @users.offset(@page * USERS_PER_PAGE).limit(USERS_PER_PAGE)
+    users = @users.reverse_order.offset(@page * USERS_PER_PAGE).limit(USERS_PER_PAGE)
 
     users = users.map { |user|
       booking = user.bookings.last
@@ -14,7 +14,7 @@ class Api::V1::UsersController < ActionController::Base
       user.as_json.merge({ full_name: user.full_name, booking: booking, application: application, invite_send: invite_send })
     }
 
-    users = (users.reject{ |u| u[:booking].nil? }.sort_by{ |u| u[:booking][:created_at] } + users.select{ |u| u[:booking].nil? }.sort_by{ |u| u["created_at"]}).reverse
+    # users = (users.reject{ |u| u[:booking].nil? }.sort_by{ |u| u[:booking][:created_at] } + users.select{ |u| u[:booking].nil? }.sort_by{ |u| u["created_at"]})
 
     # users = users.sort_by { |hash| hash['created_at'] }.reverse
 
@@ -25,8 +25,8 @@ class Api::V1::UsersController < ActionController::Base
         pages: @users.count / USERS_PER_PAGE
       },
       filter: {
-        filterKey: params.fetch(:filter),
-        searchquery: params.fetch(:searchquery)
+        filterKey: params.fetch(:filter, nil),
+        searchquery: params.fetch(:searchquery, nil)
       }
     }
   end
