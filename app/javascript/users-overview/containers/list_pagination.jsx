@@ -1,17 +1,23 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { fetchUsers } from '../actions';
 
-const ListPagination = props => {
-  if (props.pages == 0) {
-    return null;
-  }
+class ListPagination extends Component {
 
-  const pagesRange = [];
-  // if (props.pages >= 10) {
-    const start = props.page >= 5 ? props.page - 5 : 0
-    const end = props.page + 5 >= props.pages ? props.pages : props.page + 5
+  getPagesRange = () => {
+    const page = this.props.pagination.page
+    const pages = this.props.pagination.pages
+
+    const pagesRange = [];
+    // if (props.pages >= 10) {
+    const start = page >= 5 ? page - 5 : 0
+    const end = page + 5 >= pages ? pages : page + 5
     for (let i = start; i < end+1; ++i) {
       pagesRange.push(i);
     }
+    return pagesRange
+  }
   // } else{
 
   //   for (let i = 0; i < props.pages+1; ++i) {
@@ -19,37 +25,61 @@ const ListPagination = props => {
   //   }
   // }
 
-  const setPage = page => {
-    props.onSetPage(page);
+  // const setPage = page => {
+  //   props.onSetPage(page);
+  // }
+
+  setPage = (page = null) => {
+    // console.log(page)
+    this.props.fetchUsers(page, 'applicants', 'role')
   }
 
-  return (
-    <nav>
-      <ul className="pagination">
+  render() {
+    const pagesRange = this.getPagesRange()
 
-        {
-          pagesRange.map(v => {
-            const isCurrent = v === props.page;
-            const onClick = ev => {
-              ev.preventDefault();
-              setPage(v);
-            };
-            return (
-              <li
-                className={ isCurrent ? 'page-item active' : 'page-item' }
-                onClick={onClick}
-                key={v.toString()}>
+    if (this.props.pagination.pages == 0) {
+      return null;
+    }
 
-                <a className="page-link" href="">{v + 1}</a>
+    return (
+      <nav>
+        <ul className="pagination">
 
-              </li>
-            );
-          })
-        }
+          {
+            pagesRange.map(v => {
+              const isCurrent = v === this.props.pagination.page;
+              const onClick = ev => {
+                ev.preventDefault();
+                this.setPage(v);
+              };
+              return (
+                <li
+                  className={ isCurrent ? 'page-item active' : 'page-item' }
+                  onClick={onClick}
+                  key={v.toString()}>
 
-      </ul>
-    </nav>
-  );
+                  <a className="page-link" href="">{v + 1}</a>
+
+                </li>
+              );
+            })
+          }
+
+        </ul>
+      </nav>
+    );
+  }
 };
 
-export default ListPagination;
+
+function mapStateToProps(state) {
+  return {
+    pagination: state.pagination
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ fetchUsers }, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ListPagination);

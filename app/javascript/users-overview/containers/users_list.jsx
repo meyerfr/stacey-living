@@ -3,7 +3,6 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import UserItem from '../components/user_item'
 import UserModal from './user_modal'
-import ListPagination from './list_pagination'
 
 import { fetchUsers, applyFilter } from '../actions';
 
@@ -128,10 +127,6 @@ class UsersList extends Component {
           user &&
             <UserModal user={this.state.user} onHide={this.closeModal} visible={this.state.visible} />
         }
-        <ListPagination
-          pages={this.props.pagination.pages}
-          page={this.props.pagination.page}
-          onSetPage={this.fetchUsers} />
       </div>
     )
   }
@@ -139,8 +134,7 @@ class UsersList extends Component {
 
 function mapStateToProps(state) {
   return {
-    users: state.users,
-    pagination: state.pagination
+    users: state.users
   };
 }
 
