@@ -1207,3 +1207,98 @@ def b(id)
 
   return "user_name: #{user.full_name} email: #{user.email} move_in: #{booking.move_in} move_out: #{booking.move_out} room_intern_number: #{room_intern_number}"
 end
+
+
+
+
+# create Amenities + Photos.
+amenities = {
+  "wifi" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591606737/wifi.png'),
+  "smart locks" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591606737/padlock.png'),
+  "coffee flatrate" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591606737/coffee-cup.png'),
+  "fully furnished" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591606737/couch.png'),
+  "work spaces" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591606737/work-space.png'),
+  "table tennis" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591606737/ping-pong.png'),
+  "common space" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591606737/meeting.png'),
+  "weekly cleaning" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591606737/liquid-soap.png'),
+  "fully equipped kitchen" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591606737/chefs-hat.png'),
+  "2x fully equipped kitchens" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591606737/chefs-hat.png'),
+  "lounge space" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591606737/lounge-chair.png'),
+  "inner yard" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591606737/tree.png'),
+  "2 people" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591606736/users.png'),
+  "dining space" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591606736/service.png'),
+  "laundry room" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591606736/washing-machine.png'),
+  "1 person" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591606736/user.png'),
+  "monthly member events" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591608023/calendar.png'),
+  "welcome gift" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591608023/gift.png'),
+  "side table" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591608023/side-table.png'),
+  "wardrobe with hangers and drawers" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591608023/closet.png'),
+  "artwork" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591608023/artist.png'),
+  "armchair" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591608024/armchair.png'),
+  "desk with chair" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591608023/desk.png'),
+  "bedding" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591608023/pillow.png'),
+  "double bed" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591608024/bed.png'),
+  "queensize bed" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591608608/king_size_bed.png'),
+  "shared bathroom" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1594203504/toilet-paper.png')
+}
+
+amenities = {
+  "common space" => URI.open("https://res.cloudinary.com/dvuqwvjay/image/upload/v1612285441/house-plan-scale.png"),
+  "members" => URI.open("https://res.cloudinary.com/dvuqwvjay/image/upload/v1612285441/group.png"),
+  "apartment" => URI.open("https://res.cloudinary.com/dvuqwvjay/image/upload/v1612285442/rent-board.png"),
+  "fully equipped kitchen" => URI.open("https://res.cloudinary.com/dvuqwvjay/image/upload/v1612285443/kitchen.png"),
+  "2x fully equipped kitchens" => URI.open("https://res.cloudinary.com/dvuqwvjay/image/upload/v1612285443/kitchen.png"),
+  "bathrooms" => URI.open("https://res.cloudinary.com/dvuqwvjay/image/upload/v1612285442/toilet.png"),
+  "pool table" => URI.open("https://res.cloudinary.com/dvuqwvjay/image/upload/v1612285442/pool-table.png"),
+  "ping pong table" => URI.open("https://res.cloudinary.com/dvuqwvjay/image/upload/v1612285443/table-tennis.png"),
+  "small backyard" => URI.open("https://res.cloudinary.com/dvuqwvjay/image/upload/v1612285441/fence-farm.png"),
+  "inner yard" => URI.open("https://res.cloudinary.com/dvuqwvjay/image/upload/v1591606737/tree.png"),
+  "barbecue" => URI.open("https://res.cloudinary.com/dvuqwvjay/image/upload/v1612285441/barbecue.png")
+}
+
+def handle_string_io_as_file(io)
+  return io unless io.class == StringIO
+
+  file = Tempfile.new(["temp",".png"], encoding: 'ascii-8bit')
+  file.binmode
+  file.write io.read
+  file.open
+end
+
+puts('create Amenities')
+amenities.each do |title, file|
+  a = Amenity.new(title: title)
+  a.photo.attach(io: handle_string_io_as_file(file), filename: "#{title.gsub(' ', '_')}.png", content_type: 'image/png')
+  a.save
+end
+
+Project.all.each do |project|
+  project.join_amenities.destroy_all
+end
+
+Project.all.each do |project|
+  Amenity.where("created_at >= ?", Date.yesterday).limit(4).each do |amenity|
+    project.join_amenities.create(name: 'project index', amenity_id: amenity.id)
+  end
+end
+
+
+
+# mühlenkamp
+project = Project.first
+project.join_amenities.create(name: 'project index', amenity_id: ping_pong_table.id)
+
+# eppendorf
+project = Project.second
+project.join_amenities.create(name: 'project index', amenity_id: pool_table.id)
+
+# st. Pauli
+project = Project.third
+project.join_amenities.create(name: 'project index', amenity_id: small_backyard.id)
+
+
+barbecue = Amenity.where(title: "barbecue").last
+inner_yard = Amenity.where(title: "inner yard").last
+small_backyard = Amenity.where(title: "small backyard").last
+ping_pong_table = Amenity.where(title: "ping pong table").last
+pool_table = Amenity.where(title: "pool table").last

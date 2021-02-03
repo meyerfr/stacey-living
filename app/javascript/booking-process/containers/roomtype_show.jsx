@@ -5,7 +5,7 @@ import SimpleReactLightbox, { SRLWrapper } from "simple-react-lightbox";
 import { Link } from 'react-router-dom';
 
 
-import { fetchRoomtype, fetchProject } from '../actions';
+import { fetchRoomtype, fetchProject, fetchAmenities } from '../actions';
 // import Card from './card';
 import Map from '../components/map';
 import BookingForm from './booking_form';
@@ -21,10 +21,10 @@ class RoomtypeShow extends Component {
   componentDidMount() {
   	this.props.fetchProject(this.props.match.params.project_id, 'roomtype_show');
     this.props.fetchRoomtype(this.props.match.params.id);
-    const url = `http://localhost:3000/api/v1/amenities?type=roomtype_show&type_id=${this.props.match.params.id}`
-		fetch(url)
-			.then(res => res.json())
-	  		.then(data => this.setState({roomtype_amenities: data}))
+    this.props.fetchAmenities('roomtype_show', this.props.match.params.id)
+      .then((promise) => {
+        this.setState({roomtype_amenities: promise.payload})
+      })
   }
 
   openLightbox = () => {
@@ -64,7 +64,7 @@ class RoomtypeShow extends Component {
         		<div className="project-info-wrapper">
 							<div className="project-info-photos">
 								{
-									!photos ? 
+									!photos ?
 										<Spinner animation="border" role="status">
                       <span className="sr-only">Loading...</span>
                     </Spinner>
@@ -106,7 +106,7 @@ class RoomtypeShow extends Component {
                   </div>
                   <div className="roomtype-amenities-container">
                     {
-                      roomtype_amenities.length > 0 && 
+                      roomtype_amenities.length > 0 &&
                       roomtype_amenities.map((amenity) => {
                         return (
                           <div className="amenity" key={amenity.id}>
@@ -164,7 +164,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ fetchRoomtype, fetchProject }, dispatch);
+  return bindActionCreators({ fetchRoomtype, fetchProject, fetchAmenities }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(RoomtypeShow);

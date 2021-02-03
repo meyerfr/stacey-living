@@ -120,6 +120,7 @@ class Payment extends Component {
 										<span className="label">Gender</span>
 										{this.renderRadioField('male')}
 										{this.renderRadioField('female')}
+                    {this.renderRadioField('diverse')}
 									</div>
 
 									<div className="user-info-item">

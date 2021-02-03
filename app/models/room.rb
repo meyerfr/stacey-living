@@ -8,7 +8,7 @@ class Room < ApplicationRecord
   def next_available_move_in_date
   	bookings = self.bookings.where(state: ['booked', 'deposit outstanding']).order(:move_out)
   	# if self.bookable_date && self.bookable_date <= Date.today
-    if bookings.empty?
+    if bookings.empty? || bookings.last.move_out&.past?
       Date.tomorrow
     elsif !bookings.last.move_out.nil?
       bookings.last.move_out + 1.day

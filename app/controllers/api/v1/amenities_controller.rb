@@ -4,7 +4,8 @@ class Api::V1::AmenitiesController < ActionController::Base
 		id = params[:type_id]
 		case type
 		when 'project'
-			amenities = Project.find(id).amenities
+      project = Project.find(id)
+			amenities = project.amenities
 		when 'roomtype'
 			roomtype = Roomtype.find(id)
 			project = roomtype.project
@@ -29,8 +30,22 @@ class Api::V1::AmenitiesController < ActionController::Base
 
 		unless type == 'roomtype'
 			amenities = amenities.map { |amenity|
-		      amenity.as_json.merge({ photo: url_for(amenity.photo) })
-		    }
+        title = amenity.title
+        case title
+        when 'common space'
+          title = "#{project.community_areas.first.size.to_i} m2 #{title}"
+        when 'fully equipped kitchen'
+          if project.name == 'Mühlenkamp'
+            title = "2x #{title}s"
+          end
+        when 'members'
+          title = "#{project.rooms.count} #{title}"
+        when 'apartments'
+          apartment_count = project.rooms.collect(&:apartment_number).uniq.count
+          title = "#{apartment_count} #{apartment_count == 1 ? 'apartment' : title}"
+        end
+	      amenity.as_json.merge({ title: title, photo: url_for(amenity.photo) })
+	    }
 		end
 		render json: amenities
 		# bookings = @bookings.map { |booking|
