@@ -72,6 +72,14 @@ class Api::V1::RoomtypesController < ActionController::Base
 								 url_for(photo)
 							 }
 		end
+
+    if roomtype.name == 'Mighty+'
+      mighty_roomtype = project.roomtypes.find_by(name: 'Mighty')
+      photos = mighty_roomtype.photos.map { |photo|
+                 url_for(photo)
+               }
+    end
+
 		prices = roomtype.prices.order(amount: :desc).collect(&:amount)
 
 		roomtype = roomtype.as_json.merge({ project: project, photos: photos, availabilities: availabilities, prices: prices, roomtype_with_balcony_id: roomtype_with_balcony_id, roomtype_without_balcony_id: roomtype_without_balcony_id })

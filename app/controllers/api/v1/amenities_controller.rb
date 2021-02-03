@@ -22,9 +22,11 @@ class Api::V1::AmenitiesController < ActionController::Base
 			    }
 			end
 		when 'project_show'
+      project = Project.find(id)
 			amenities = Project.find(id).community_areas.first.amenities
 		when 'roomtype_show'
 			roomtype = Roomtype.find(id)
+      project = roomtype.project
 			amenities = Amenity.joins(:join_amenities).where(join_amenities: {amenitiable_type: 'Roomtype', amenitiable_id: roomtype.id, name: 'roomtype show'})
 		end
 
