@@ -45,6 +45,17 @@ class Api::V1::AmenitiesController < ActionController::Base
         when 'apartments'
           apartment_count = project.rooms.collect(&:apartment_number).uniq.count
           title = "#{apartment_count} #{apartment_count == 1 ? 'apartment' : title}"
+        when 'bathrooms'
+          bathroom_count = project.rooms.collect(&:apartment_number).uniq.count
+          case project.name
+          when 'Mühlenkamp'
+            bathroom_count += 3
+          when 'Eppendorf'
+            bathroom_count += 2
+          when 'St. Pauli'
+            bathroom_count += 1
+          end
+          title = "#{bathroom_count} #{title}"
         end
 	      amenity.as_json.merge({ title: title, photo: url_for(amenity.photo) })
 	    }

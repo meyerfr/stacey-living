@@ -80,7 +80,7 @@ class Api::V1::RoomtypesController < ActionController::Base
                }
     end
 
-		prices = roomtype.prices.order(amount: :desc).collect(&:amount)
+		prices = roomtype.prices.order(amount: :desc)
 
 		roomtype = roomtype.as_json.merge({ project: project, photos: photos, availabilities: availabilities, prices: prices, roomtype_with_balcony_id: roomtype_with_balcony_id, roomtype_without_balcony_id: roomtype_without_balcony_id })
 		render json: roomtype

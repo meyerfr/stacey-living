@@ -169,6 +169,14 @@
         background-image: none;
         padding: 6px 12px;
       }
+      table{
+        width: 100%;
+        text-align: center;
+        margin-top: 6px;
+        .active{
+          background-color: #fee6ef;
+        }
+      }
     }
   }
   .stacey-button{

@@ -144,7 +144,28 @@ export default class BookingForm extends Component {
 				</div>
 	      <div className="booking-section bordered margin-top">
 	      	<span>Rent per Month</span>
-	      	<span>€{this.state.price}</span>
+          <table>
+            <tbody>
+              <tr>
+                {
+                  roomtype.prices.map((price) => {
+                    return (
+                      <td key={`duration${price.id}`} className={price.id == this.state.price.id ? 'active' : ''}>{price.duration}</td>
+                    )
+                  })
+                }
+              </tr>
+              <tr>
+                {
+                  roomtype.prices.map((price) => {
+                    return (
+                      <td key={`amount${price.id}`} className={price.id == this.state.price.id ? 'active' : ''}>€{price.amount}</td>
+                    )
+                  })
+                }
+              </tr>
+            </tbody>
+          </table>
 	      </div>
 	      <div className="booking-section bordered margin-bottom">
 	      	<span>Refundable Deposit</span>

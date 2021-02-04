@@ -39,11 +39,12 @@ class Success extends Component {
 					</div>
 					<div className="body">
 						<span>
-							We are looking forward to welcoming you at STACEY {this.props.contract && this.props.contract.project_name} soon!
+							We are looking forward to welcoming you at STACEY {this.props.contract?.project_name} soon!
 						</span>
 						<span className="important">The only step that's missing now is for you to send your Deposit to the following Account.</span>
 						<div className="account-info important">
               <span>STACEY Real Estate UG</span>
+              <span>Amount: {(this.props.contract?.price_per_month * 2).toFixed(0)} €</span>
               <span>IBAN: DE61 2005 0550 1500 8679 06</span>
               <span>BIC: HASPDEHHXXX</span>
             </div>

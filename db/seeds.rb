@@ -1277,7 +1277,7 @@ Project.all.each do |project|
 end
 
 Project.all.each do |project|
-  Amenity.where("created_at >= ?", Date.yesterday).limit(4).each do |amenity|
+  Amenity.where("created_at >= ?", Date.yesterday).limit(5).each do |amenity|
     project.join_amenities.create(name: 'project index', amenity_id: amenity.id)
   end
 end
@@ -1302,3 +1302,4 @@ inner_yard = Amenity.where(title: "inner yard").last
 small_backyard = Amenity.where(title: "small backyard").last
 ping_pong_table = Amenity.where(title: "ping pong table").last
 pool_table = Amenity.where(title: "pool table").last
+

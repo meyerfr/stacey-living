@@ -28,7 +28,7 @@ class RoomtypesIndex extends Component {
   openLightbox = () => {
     event.target.previousElementSibling.children[0].click()
   }
-  
+
   render () {
     const roomtypes = this.props.roomtypes;
     const project = this.props.project;
@@ -57,7 +57,7 @@ class RoomtypesIndex extends Component {
         		<div className="project-info-wrapper">
 							<div className="project-info-photos">
 								{
-									!photos ? 
+									!photos ?
 										<Spinner animation="border" role="status">
                       <span className="sr-only">Loading...</span>
                     </Spinner>
@@ -78,7 +78,7 @@ class RoomtypesIndex extends Component {
 				  				<span>STACEY</span>
 				  				<span>{project.name}</span>
 				  			</div>
-				  			<span className="description">{project.descriptions.find((description) => description.field === 'project info index').content}</span>
+				  			<span className="description">{project.descriptions.length > 0 && project.descriptions.find((description) => description.field === 'project info index').content}</span>
 				  		</div>
         		</div>
 		  		}
@@ -102,13 +102,13 @@ class RoomtypesIndex extends Component {
         </div>
         <h3 className="section-header" key="sectionHeaderCommunitySpace">The Community Space</h3>
         {
-        	project && 
+        	project &&
         	[
-          	<span className="description" key="community_area_description">{project.descriptions.find((description) => description.field === 'common space description').content}</span>,
+          	<span className="description" key="community_area_description">{project.descriptions.length > 0 && project.descriptions.find((description) => description.field === 'common space description').content}</span>,
           	<div className="community_area-amenities-wrapper" key="community_area-amenities-wrapper">
 	          	<div className="community_area-amenities-container">
 		          	{
-			          	community_area_amenities.length > 0 && 
+			          	community_area_amenities.length > 0 &&
 			          	community_area_amenities.map((amenity) => {
 										return (
 											<div className="amenity" key={amenity.id}>

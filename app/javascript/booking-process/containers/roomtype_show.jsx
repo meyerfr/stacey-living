@@ -92,19 +92,23 @@ class RoomtypeShow extends Component {
                   <div className="section-header main">
                     <h3>{roomtype.name} Suite</h3>
                     {
-                      this.props.roomtype.roomtype_with_balcony_id &&
+                      roomtype.roomtype_with_balcony_id &&
                       <a href={`/bookings/${this.props.match.params.booking_auth_token}/${this.props.match.params.booking_id}/projects/${this.props.match.params.project_id}/roomtypes/${roomtype.roomtype_with_balcony_id}`}>This room with balcony</a>
                       // <Link to={`/bookings/${this.props.match.params.booking_auth_token}/${this.props.match.params.booking_id}/projects/${roomtype.roomtype_with_balcony_id}/roomtypes/${roomtype.id}`} key={roomtype.id} className="stacey-button reverse-hover">Explore</Link>
                       // <span onClick={this.switchToBalconyRoomtype}>This Room with Balcony</span>
                     }
                     {
-                      this.props.roomtype.roomtype_without_balcony_id &&
+                      roomtype.roomtype_without_balcony_id &&
                       <a href={`/bookings/${this.props.match.params.booking_auth_token}/${this.props.match.params.booking_id}/projects/${this.props.match.params.project_id}/roomtypes/${roomtype.roomtype_without_balcony_id}`}>This room without balcony</a>
                       // <Link to={`/bookings/${this.props.match.params.booking_auth_token}/${this.props.match.params.booking_id}/projects/${roomtype.roomtype_with_balcony_id}/roomtypes/${roomtype.id}`} key={roomtype.id} className="stacey-button reverse-hover">Explore</Link>
                       // <span onClick={this.switchToBalconyRoomtype}>This Room with Balcony</span>
                     }
                   </div>
                   <div className="roomtype-amenities-container">
+                    <div className="amenity">
+                      <img src="https://res.cloudinary.com/dvuqwvjay/image/upload/v1591348529/square-meter-icon.png" alt="photo" className='photo large bordered' />
+                      <span>{roomtype.size.toFixed(0)} m<sup>2</sup></span>
+                    </div>
                     {
                       roomtype_amenities.length > 0 &&
                       roomtype_amenities.map((amenity) => {
@@ -116,6 +120,10 @@ class RoomtypeShow extends Component {
                         );
                       })
                     }
+                    <div className="amenity">
+                      <img src={roomtype.amount_of_people > 1 ? 'https://res.cloudinary.com/dvuqwvjay/image/upload/v1591606736/users.png' : 'https://res.cloudinary.com/dvuqwvjay/image/upload/v1591606736/user.png'} alt="photo" className='photo large bordered' />
+                      <span>{roomtype.amount_of_people > 1 ? 'two people' : 'one person'}</span>
+                    </div>
                   </div>
                 </div>
 

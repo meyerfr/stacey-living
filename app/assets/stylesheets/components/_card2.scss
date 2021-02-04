@@ -99,6 +99,7 @@
 			grid-template-columns: auto 1fr;
 			grid-gap: 10px;
 			align-items: center;
+      font-size: 14px;
 			img{
 				width: 20px;
 				height: 20px;
@@ -180,7 +181,7 @@
 		.stacey-card-amenities:not(.roomtype){
 			grid-template-columns: 1fr 1fr;
 		}
-	}	
+	}
 }
 
 @media (min-width: 1200px) {
