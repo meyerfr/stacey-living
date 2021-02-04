@@ -1,7 +1,7 @@
 class Api::V1::UsersController < ActionController::Base
   before_action :set_filter, only: [ :index ]
 
-  USERS_PER_PAGE = 2
+  USERS_PER_PAGE = 30
 
   def index
     users = @users.reverse_order.offset(@page * USERS_PER_PAGE).limit(USERS_PER_PAGE)
