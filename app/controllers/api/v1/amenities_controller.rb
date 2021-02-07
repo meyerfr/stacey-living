@@ -38,7 +38,7 @@ class Api::V1::AmenitiesController < ActionController::Base
           title = "#{project.community_areas.first.size.to_i} m2 #{title}"
         when 'fully equipped kitchen'
           if project.name == 'Mühlenkamp'
-            title = "2x #{title}s"
+            title = "9x #{title}s"
           end
         when 'members'
           title = "#{project.rooms.count} #{title}"
@@ -55,7 +55,7 @@ class Api::V1::AmenitiesController < ActionController::Base
           when 'St. Pauli'
             bathroom_count += 1
           end
-          title = "#{bathroom_count} #{title}"
+          title = "#{bathroom_count} shared #{title}"
         end
 	      amenity.as_json.merge({ title: title, photo: url_for(amenity.photo) })
 	    }
