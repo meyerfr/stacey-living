@@ -31,7 +31,7 @@ class Api::V1::WebhooksController < ActionController::Base
           when 'invite send'
             # send Booking process invite
             user = deal.user
-            pipedrive_deal_id = application.pipedrive_deal_id
+            pipedrive_deal_id = deal.pipedrive_deal_id
             booking = user.bookings.new(
               state: 'invite send',
               booking_auth_token: Devise.friendly_token,
