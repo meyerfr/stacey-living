@@ -5,10 +5,12 @@ class Api::V1::BookingsController < ActionController::Base
 
   def create
     user = User.find(params[:user_id])
+    application = user.application
     booking = user.bookings.new(
       state: 'invite send',
       booking_auth_token: Devise.friendly_token,
-      booking_auth_token_exp: Date.today+2.weeks
+      booking_auth_token_exp: Date.today+2.weeks,
+      pipedrive_deal_id: application.pipedrive_deal_id
     )
     # booking.user.skip_password_validation = true
     if booking.save!
