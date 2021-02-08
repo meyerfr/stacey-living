@@ -49,7 +49,7 @@ class Contract extends Component {
 				{
 					this.props.contract &&
 					[
-						<ContractForm key="ContractForm" handleNextStep={this.handleNextStep} booking_id={this.props.match.params.booking_id} />,
+						<ContractForm key="ContractForm" handleNextStep={this.handleNextStep} booking_id={this.props.match.params.booking_id} booking_auth_token={this.props.match.params.booking_auth_token} />,
 						<div key="ContractPdfWrapper" className="contract-pdf-wrapper">
 							 <BlobProvider document={<ContractPdf contract={this.props.contract} />}>
 					      {({ blob, url, loading, error }) => {

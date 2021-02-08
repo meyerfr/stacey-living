@@ -54,6 +54,8 @@ class Roomtype < ApplicationRecord
     self.rooms.each do |room|
       rooms_next_available_move_in_date = room.next_available_move_in_date
 
+      next unless rooms_next_available_move_in_date
+
       if rooms_next_available_move_in_date && rooms_next_available_move_in_date < next_available_move_in
         next_available_move_in = rooms_next_available_move_in_date
       end
@@ -69,6 +71,8 @@ class Roomtype < ApplicationRecord
     self.rooms.each do |room|
       rooms_next_available_move_in_date = room.next_available_move_in_date
 
+      next unless rooms_next_available_move_in_date
+
       if rooms_next_available_move_in_date && rooms_next_available_move_in_date < next_available_move_in
         next_available_move_in = rooms_next_available_move_in_date
         next_available_room = room
@@ -82,6 +86,7 @@ class Roomtype < ApplicationRecord
     availabilities = []
     self.rooms.each do |room|
       rooms_next_available_move_in_date = room.next_available_move_in_date
+      next unless rooms_next_available_move_in_date
       availabilities << {room_id: room.id, next_available_move_in_date: rooms_next_available_move_in_date } if rooms_next_available_move_in_date
     end
     return availabilities.uniq{|a| a[:next_available_move_in_date]}.sort_by {|a| a[:next_available_move_in_date]}
