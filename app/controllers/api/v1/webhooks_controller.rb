@@ -2,8 +2,8 @@ require 'rest-client'
 require 'json'
 
 class Api::V1::WebhooksController < ActionController::Base
-  before_action :authenticate_user!
-  # skip_before_action :verify_authenticity_token
+  # before_action :authenticate_user!
+  skip_before_action :verify_authenticity_token
 
   def pipedrive_webhook
     begin

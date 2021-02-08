@@ -48,16 +48,26 @@ class Api::V1::BookingsController < ActionController::Base
       when 'deposit outstanding'
         BookingMailer.booking_process_completed(booking)
         booking.booking_process_completed_date = Date.today
+        stage_id = 14
       when 'deposit received'
         BookingMailer.booking_process_completed(booking)
         booking.user.update(role: 'tenant')
+        stage_id = 15
       when 'cancel'
         BookingMailer.deposit_not_received(booking)
       end
     end
 
 		booking.assign_attributes(bookings_params)
-		booking.save!(validate: false)
+    if booking.save!(validate: false)
+      RestClient.put(
+        pipedrive_api_url("deals/#{booking.pipedrive_deal_id}"),
+        {
+          "stage_id": stage_id,
+        }.to_json,
+        {content_type: :json, accept: :json}
+      )
+    end
 
 
     room = booking.room
@@ -171,5 +181,10 @@ class Api::V1::BookingsController < ActionController::Base
 			@bookings = Booking.where(state: ['booked', 'deposit outstanding', 'bookingFee payment failed'])
 		end
 	end
+
+
+  def pipedrive_api_url(action)
+    "https://api.pipedrive.com/v1/#{action}?api_token=#{ENV['PIPEDRIVE_API_TOKEN']}"
+  end
 
 end
