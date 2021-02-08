@@ -24,7 +24,7 @@ gem 'wicked'
 # gem 'sprockets-rails', '2.3.3', group: :development
 
 gem 'cloudinary', '~> 1.12.0'
-gem 'carrierwave', '~> 2.0'
+gem 'carrierwave', '~> 2.1'
 
 gem 'stripe'
 
