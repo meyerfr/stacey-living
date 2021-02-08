@@ -8,7 +8,7 @@ class Api::V1::WebhooksController < ActionController::Base
   def pipedrive_webhook
     begin
       event = JSON.parse(request.body.read)
-      return unless event['current']["title"] == "Fritz Meyer Deal"
+      # return unless event['current']["title"] == "Fritz Meyer Deal"
       return unless event['meta']['change_source'] == 'app'
       deal = Booking.find_by(pipedrive_deal_id: deal_id) || Application.find_by(pipedrive_deal_id: deal_id)
 

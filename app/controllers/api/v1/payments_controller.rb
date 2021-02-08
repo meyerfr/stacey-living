@@ -3,7 +3,11 @@ class Api::V1::PaymentsController < ApplicationController
   before_action :check_booking_auth_token!, only: [ :secret ]
 
 	def secret
-		Stripe.api_key = 'sk_test_pblbbDNQnHAALD1MrdaNtOx6'
+    if Rails.env.development?
+		  Stripe.api_key = ENV['STRIPE_SECRET_KEY_DEVELOPMENT']
+    else
+      Stripe.api_key = ENV['STRIPE_SECRET_KEY_PRODUCTION']
+    end
 
 		booking = Booking.find(params[:booking_id])
 		user = booking.user
