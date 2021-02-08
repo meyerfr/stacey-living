@@ -59,7 +59,8 @@ class Api::V1::BookingsController < ActionController::Base
     end
 
 		booking.assign_attributes(bookings_params)
-    if booking.save!(validate: false)
+    booking.save!
+    if stage_id
       RestClient.put(
         pipedrive_api_url("deals/#{booking.pipedrive_deal_id}"),
         {

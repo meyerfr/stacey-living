@@ -95,7 +95,7 @@ class ContractForm extends Component {
       contract.id ?
         this.props.updateContract(contract)
       :
-        this.props.createContract(this.props.booking_id, contract)
+        this.props.createContract(this.props.booking_auth_token, this.props.booking_id, contract)
     }, 300)
 
     this.setState({
