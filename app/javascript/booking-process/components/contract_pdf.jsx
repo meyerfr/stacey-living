@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
     fontSize: 11,
     fontFamily: 'Montserrat'
   },
-  table: { 
+  table: {
     width: '100%',
     borderStyle: "solid",
     borderWidth: 1,
@@ -171,7 +171,7 @@ const styles = StyleSheet.create({
   documentDate: {
     display: 'flex',
     flexDirection: 'column',
-    marginBottom: 8, 
+    marginBottom: 8,
     fontSize: 8
   },
   borderTop: {
@@ -188,7 +188,7 @@ const styles = StyleSheet.create({
     marginTop: 5
   },
   signContractSection: {
-    display: 'flex', 
+    display: 'flex',
     flexDirection: 'row',
     alignItems: 'end',
     width: '60%',
@@ -239,16 +239,16 @@ class ContractPdf extends Component {
           <View style={styles.inputField}>
             {
               // console.log((signature.signature && signature.signed_date) ? true : false)
-              (signature.signature && signature.signed_date) ? 
+              (signature.signature && signature.signed_date) ?
                 [
                   <Text key="signedDate" style={styles.signatureDate}>
-                    {signature.signed_date}, 
+                    {signature.signed_date},
                   </Text>,
                   <Text key="signature" style={styles.signature}>
                     {signature.signature}
                   </Text>
                 ]
-              : 
+              :
                 <Text>
                   -
                 </Text>
@@ -262,7 +262,7 @@ class ContractPdf extends Component {
           </View>
           <View style={styles.inputField}>
             <Text style={styles.signatureDate}>
-              {new Date().toISOString().slice(0, 10)}, 
+              {new Date().toISOString().slice(0, 10)},
             </Text>
             <Text style={styles.signature}>
               Matteo Kreidler
@@ -313,14 +313,14 @@ class ContractPdf extends Component {
             <Text>{new Date().toISOString().slice(0, 10)}</Text>
           </View>
           <View style={styles.table}>
-            {/* TableHeader */} 
+            {/* TableHeader */}
             <View style={styles.tableRow}>
               <View style={styles.tableCol}>
                 <Text style={[styles.tableHeader, styles.background]}>Description</Text>
               </View>
               <View style={styles.tableColLarge}>
                 <Text style={[styles.tableHeader, styles.background]}>Property Address</Text>
-              </View> 
+              </View>
               <View style={styles.tableCol}>
                 <Text style={[styles.tableHeader, styles.background]}>Room</Text>
               </View>
@@ -340,7 +340,7 @@ class ContractPdf extends Component {
               </View>
               <View style={styles.tableColLarge}>
                 <Text style={styles.tableCell}>{this.props.contract && this.props.contract.project_address}</Text>
-              </View> 
+              </View>
               <View style={styles.tableCol}>
                 <Text style={styles.tableCell}>{this.props.contract && this.props.contract.roomtype_name}</Text>
               </View>
@@ -351,7 +351,7 @@ class ContractPdf extends Component {
                 <Text style={styles.tableCell}>{this.props.contract && moment(this.props.contract.move_in).format('DD/MM/YYYY')}</Text>
               </View>
               <View style={styles.tableCol}>
-                <Text style={styles.tableCell}>{this.props.contract && moment(this.props.contract.move_in).format('DD/MM/YYYY')}</Text>
+                <Text style={styles.tableCell}>{this.props.contract && moment(this.props.contract.move_out).format('DD/MM/YYYY')}</Text>
               </View>
             </View>
             <Text style={[styles.borderTop, styles.tableColFullWidth]}>Payment terms: monthly, due 1 day before {this.props.contract && this.props.contract.move_in} for the first month, and due the 1st day, at latest by the 3rd business day of each month for the following months. Deposit in form of 2-months rent is due upon signing the agreement.</Text>

@@ -41,18 +41,19 @@ class Api::V1::WebhooksController < ActionController::Base
             # booking.user.skip_password_validation = true
             BookingMailer.invite_for_booking_process(booking).deliver_now if booking.save!
 
-            content = "<div>Eingeladen zum Buchungsprozess am <b>#{Date.today.stftime('%d.%B %Y')}</b></div>"
-            RestClient.post(
-              pipedrive_api_url('notes'),
-              {
-                "content": content,
-                deal_id: pipedrive_deal_id
-              }.to_json,
-              {
-                content_type: :json,
-                accept: :json
-              }
-            )
+            # # add Note to Pipedrive -> unneccessary because the log is kept automatically
+            # content = "<div>Eingeladen zum Buchungsprozess am <b>#{Date.today.stftime('%d.%B %Y')}</b></div>"
+            # RestClient.post(
+            #   pipedrive_api_url('notes'),
+            #   {
+            #     "content": content,
+            #     deal_id: pipedrive_deal_id
+            #   }.to_json,
+            #   {
+            #     content_type: :json,
+            #     accept: :json
+            #   }
+            # )
           when 'deposit received'
             BookingMailer.deposit_received(deale)
           # when ['deposit outstanding', 'deposit received', 'moved in', 'moved out']

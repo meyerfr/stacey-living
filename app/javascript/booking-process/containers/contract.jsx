@@ -54,7 +54,7 @@ class Contract extends Component {
 							 <BlobProvider document={<ContractPdf contract={this.props.contract} />}>
 					      {({ blob, url, loading, error }) => {
 					        // Do whatever you need with blob here
-					        return this.renderContract(loading)
+                  return this.renderContract(loading)
 					      }}
 					    </BlobProvider>
 	        	</div>

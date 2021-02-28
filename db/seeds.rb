@@ -941,275 +941,6 @@ end
 # end
 
 
-# bookings from Mietübersicht, version: 21.01.2021
-bookings = [
-  {room: 'D01', name: 'Anna Weirauch', email: 'team@stacey-living.de', move_in: Date.parse("01.10.2019"),  move_out: Date.parse("31.03.2020") },
-  {room: 'D01', name: 'Carolin Helena Klaus', email: 'carolin_klaus@outlook.de', move_in: Date.parse("31.03.2020"),  move_out: Date.parse("01.09.2020") },
-  {room: 'D01', name: 'Lina Drozd', email: 'linadrozd5@gmail.com', move_in: Date.parse("02.09.2020"), move_out: Date.parse("14.12.2020") },
-  {room: 'D02', name: 'Andreas Janz', email: 'andreas.janz@gmail.com', move_in: Date.parse("24.03.2020"), move_out: Date.parse("28.02.2021") },
-  {room: 'D02', name: 'Lam Thi Tran', email: 'icethi@live.de', move_in: Date.parse("01.03.2021"), move_out: Date.parse("30.05.2021") },
-  {room: 'D03', name: 'Clarissa Leu', email: 'clacoleu@aol.com', move_in: Date.parse("05.08.2019"), move_out: Date.parse("05.03.2020") },
-  {room: 'D03', name: 'Anatasia Nefed', email: 'anastasianefed@gmail.com', move_in: Date.parse("14.03.2020"), move_out: Date.parse("13.07.2020") },
-  {room: 'D03', name: 'Lance Williams', email: 'lance.kem.williams@gmail.com', move_in: Date.parse("29.07.2020"), move_out: Date.parse("31.01.2021") },
-  {room: 'D03', name: 'Saad El Hajjaji', email: 'saadelha@gmail.com', move_in: Date.parse("01.02.2021"), move_out: Date.parse("14.04.2021") },
-  {room: 'D04', name: 'Melanie Schaub', email: 'schaub.melanie@gmail.com', move_in: Date.parse("28.07.2019"), move_out: Date.parse("28.10.2020") },
-  {room: 'D04', name: 'Nadine Rinaldi', email: 'nadine.rinaldi@hotmail.ch', move_in: Date.parse("01.11.2020"), move_out: Date.parse("30.06.2021") },
-  {room: 'D05', name: 'Rene Navrkal', email: 'renenavrkal@gmail.com', move_in: Date.parse("31.08.2019"), move_out: Date.parse("05.05.2020") },
-  {room: 'D05', name: 'Mark Veldkamp', email: 'mark_veldkamp@hotmail.nl', move_in: Date.parse("15.05.2020"), move_out: Date.parse("23.08.2020") },
-  {room: 'D05', name: 'Francesco Lo Piccolo', email: 'frlpiccolo@gmail.com', move_in: Date.parse("26.08.2020"), move_out: Date.parse("31.08.2020") },
-  {room: 'D05', name: 'Amelie Lessmann', email: 'amelielessmann26@gmail.com', move_in: Date.parse("01.09.2020"), move_out: Date.parse("30.09.2020") },
-  {room: 'D05', name: 'Saad El Hajjaji', email: 'saadelha@gmail.com', move_in: Date.parse("14.09.2020"), move_out: Date.parse("31.01.2021") },
-  {room: 'D06', name: 'Christian Ritterbach', email: 'ch.ritterbach@t-online.de', move_in: Date.parse("01.12.2019"), move_out: Date.parse("31.05.2020") },
-  {room: 'D06', name: 'Alyssa Eybächer', email: 'alyssa.eybaecher@gmail.com', move_in: Date.parse("02.07.2020"), move_out: Date.parse("30.09.2021") },
-  {room: 'D07', name: 'Daniel Nicolae Obersterescu', email: 'dani4793@yahoo.com', move_in: Date.parse("15.09.2020"), move_out: Date.parse("30.04.2021") },
-  {room: 'D08', name: 'Julian Müller', email: 'jn.f.mueller@gmail.com', move_in: Date.parse("01.09.2019"), move_out: Date.parse("31.08.2020") },
-  {room: 'D08', name: 'Bernardo San Juan', email: 'bsanjuan.consulting@googlemail.com', move_in: Date.parse("01.09.2020"), move_out: Date.parse("31.10.2020") },
-  {room: 'D08', name: 'Yael Nakash', email: 'baseggioarts@gmail.com', move_in: Date.parse("06.11.2020"), move_out: Date.parse("14.03.2021") },
-  {room: 'D09', name: 'Sheila Grace Tan', email: 'sheilagracetan@gmail.com', move_in: Date.parse("26.07.2019"), move_out: Date.parse("25.12.2019") },
-  {room: 'D09', name: 'Candido Castillo', email: 'candidodomingocastillo@gmail.com', move_in: Date.parse("04.10.2019"), move_out: Date.parse("30.09.2020") },
-  {room: 'D09', name: 'Laura Ladefoged', email: 'lauraladefoged01@gmail.com', move_in: Date.parse("01.10.2020"), move_out: Date.parse("31.01.2021") },
-  {room: 'D10', name: 'Antonia Rudolf', email: 'antoniarudolf@aol.com', move_in: Date.parse("31.08.2019"), move_out: Date.parse("29.02.2020") },
-  {room: 'D10', name: 'Francisco Coutinho', email: 'flgpc@hotmail.com', move_in: Date.parse("01.03.2020"), move_out: Date.parse("28.02.2021") },
-  {room: 'D11', name: 'Dominik Moskalik', email: 'dmoskalik@web.de', move_in: Date.parse("31.08.2019"), move_out: Date.parse("30.09.2020") },
-  {room: 'D11', name: 'Jonas Simonsen', email: 'simonsenjonas@aol.de', move_in: Date.parse("01.10.2020"), move_out: Date.parse("31.03.2021") },
-  {room: 'D12', name: 'Christoph Häberlin', email: 'christoph.haeberlin@gmail.com', move_in: Date.parse("27.07.2019"), move_out: Date.parse("26.01.2021") },
-  {room: 'D13', name: 'Gauriesh Bindra', email: 'gaurieshbindra@gmail.com', move_in: Date.parse("02.08.2019"), move_out: Date.parse("26.01.2020") },
-  {room: 'D13', name: 'Javier Randez Garbayo', email: 'javier_93_rg@hotmail.com', move_in: Date.parse("27.01.2020"), move_out: Date.parse("31.12.2020") },
-  {room: 'D13', name: 'Niklas Tausend', email: 'niklas.tausend1000@gmail.com', move_in: Date.parse("05.11.2020"), move_out: Date.parse("14.04.2021") },
-  {room: 'D14', name: 'Arkaprabha Ray', email: 'arkadeep97@gmail.com', move_in: Date.parse("01.09.2019"), move_out: Date.parse("27.01.2020") },
-  {room: 'D14', name: 'Anastasia Krieg', email: 'anastasia.krieg@t-online.de', move_in: Date.parse("02.02.2020"), move_out: Date.parse("01.05.2020") },
-  {room: 'D14', name: 'Sophia Schembecker', email: 'sophiaschembecker@web.de', move_in: Date.parse("01.05.2020"), move_out: Date.parse("14.10.2020") },
-  {room: 'D14', name: 'Deniss Butajevs', email: 'deniss.butajevs@gmail.com' , move_in: Date.parse("22.10.2020"), move_out: Date.parse("31.10.2020") },
-  {room: 'D14', name: 'Niklas Tausend', email: 'niklas.tausend1000@gmail.com', move_in: Date.parse("01.11.2020"), move_out: Date.parse("05.01.2021") },
-  {room: 'D14', name: 'Alexandra Gedert', email: 'gedertalex@gmail.com', move_in: Date.parse("06.01.2021"), move_out: Date.parse("14.04.2021") },
-  {room: 'D15', name: 'Ernesto Ruiz Manzano', email: 'ernesto_900_ruiz@hotmail.com', move_in: Date.parse("07.09.2019"), move_out: Date.parse("06.01.2020") },
-  {room: 'D15', name: 'Gino Lodola', email: 'gino.lodola@hotmail.com', move_in: Date.parse("30.12.2019"), move_out: Date.parse("31.08.2020") },
-  {room: 'D15', name: 'Simon Hoese', email: 'simonhoese@gmx.de', move_in: Date.parse("01.09.2020"), move_out: Date.parse("30.11.2020") },
-  {room: 'D15', name: 'Lawal Bakare', email: 'lawal.bakare@gmail.com', move_in: Date.parse("01.12.2020"), move_out: Date.parse("14.02.2021") },
-  {room: 'D16', name: 'Kyley Rosser', email: 'kyleyrosser99@gmail.com', move_in: Date.parse("07.10.2019"), move_out: Date.parse("06.06.2020") },
-  {room: 'D16', name: 'Carolin Stahl', email: 'carolin.stahl@aol.de', move_in: Date.parse("04.06.2020"), move_out: Date.parse("28.02.2021") },
-  {room: 'D16', name: 'Vinzenz Ludwig Meineke Wiemann', email: 'vinzenz.wiemann@gmx.de', move_in: Date.parse("01.03.2021"), move_out: Date.parse("31.07.2021") },
-  {room: 'D17', name: 'Andrea Cianfarani', email: 'andrea.cianfarani@hotmail.com', move_in: Date.parse("04.10.2019"), move_out: Date.parse("03.04.2020") },
-  {room: 'D17', name: 'Charles Herbert', email: 'c.herbert04@gmail.com', move_in: Date.parse("03.04.2020"), move_out: Date.parse("21.08.2020") },
-  {room: 'D17', name: 'Philip Pineda', email: 'pipopin@gmail.com', move_in: Date.parse("22.08.2020"), move_out: Date.parse("30.11.2020") },
-  {room: 'D17', name: 'Jakob Oskar Daniel Woll', email: 'jakobwoll13@gmail.com', move_in: Date.parse("30.12.2020"), move_out: Date.parse("31.03.2021") },
-  {room: 'D18', name: 'Johannes Benthaus', email: 'johannes.benthaus@gmail.com', move_in: Date.parse("04.10.2019"), move_out: Date.parse("03.01.2020") },
-  {room: 'D18', name: 'Vanessa Elana Kröger', email: 'miss.kroeger@web.de', move_in: Date.parse("04.01.2020"), move_out: Date.parse("04.07.2020") },
-  {room: 'D18', name: 'Melina Badde', email: 'melina.badde@whu.edu', move_in: Date.parse("10.06.2020"), move_out: Date.parse("30.09.2020") },
-  {room: 'D18', name: 'Anastasia Bain', email: 'afbainey@aol.com', move_in: Date.parse("01.10.2020"), move_out: Date.parse("04.10.2021") },
-  {room: 'D19', name: 'Tobias Lössl', email: 'tobiloessl@hotmail.de', move_in: Date.parse("03.10.2019"), move_out: Date.parse("05.01.2020") },
-  {room: 'D19', name: 'Pierre Guillaume', email: 'pierre.g.27@live.fr', move_in: Date.parse("06.01.2020"), move_out: Date.parse("16.05.2020") },
-  {room: 'D19', name: 'Ivonne Greulich', email: 'ivonnegreulich@gmail.com', move_in: Date.parse("01.05.2020"), move_out: Date.parse("31.01.2021") },
-  {room: 'D20', name: 'Matteo Angione', email: 'angionem6@gmail.com', move_in: Date.parse("03.10.2019"), move_out: Date.parse("02.01.2020") },
-  {room: 'D20', name: 'Joachim Bizot', email: 'joachim.bizot@outlook.fr', move_in: Date.parse("07.01.2020"), move_out: Date.parse("06.07.2020") },
-  {room: 'D20', name: 'Nikolai Siekmann', email: 'nikolai.siekmann@gmail.com', move_in: Date.parse("01.07.2020"), move_out: Date.parse("14.10.2020") },
-  {room: 'D20', name: 'Ann-Katrin Vonnahme', email: 'ann-katrin@vonnahme.com', move_in: Date.parse("15.10.2020"), move_out: Date.parse("31.03.2021") },
-  {room: 'D21', name: 'David Höhl', email: 'david.hoehl@aol.com', move_in: Date.parse("04.11.2019"), move_out: Date.parse("30.06.2020") },
-  {room: 'D21', name: 'Victor Haas', email: 'victor.haas67@gmail.com', move_in: Date.parse("29.08.2020"), move_out: Date.parse("30.11.2020") },
-  {room: 'D22', name: 'Nil Biosca Jimenez', email: 'nbiosca2q@gmail.com', move_in: Date.parse("06.11.2019"), move_out: Date.parse("31.03.2020") },
-  {room: 'D22', name: 'Sai Jagtap', email: 'mesaee@gmail.com', move_in: Date.parse("18.04.2020"), move_out: Date.parse("14.11.2020") },
-  {room: 'D22', name: 'Sina Schunk', email: 'sina.schunk@jahr-tsv.de', move_in: Date.parse("15.11.2020"), move_out: Date.parse("31.03.2021") },
-  {room: 'D23', name: 'Angelo Arceri', email: 'angeloarceri@live.it', move_in: Date.parse("03.10.2019"), move_out: Date.parse("02.04.2020") },
-  {room: 'D23', name: 'Riekje Cordes', email: 'riekje.cordes@gmx.de', move_in: Date.parse("03.04.2020"), move_out: Date.parse("31.07.2020") },
-  {room: 'D23', name: 'Bernardo San Juan', email: 'bsanjuan.consulting@googlemail.com', move_in: Date.parse("01.08.2020"), move_out: Date.parse("31.08.2020") },
-  {room: 'D23', name: 'Francesco Lo Piccolo', email: 'frlpiccolo@gmail.com', move_in: Date.parse("01.09.2020"), move_out: Date.parse("14.10.2020") },
-  {room: 'D23', name: 'Nick Finckenstein', email: 'nfinckenstein@gmail.com', move_in: Date.parse("15.10.2020"), move_out: Date.parse("16.11.2020") },
-  {room: 'D24', name: 'Victoria Areli Bracamontes Vazquez', email: 'vbracamontes.bss@gmail.com', move_in: Date.parse("04.11.2019"), move_out: Date.parse("30.11.2020") },
-  {room: 'D25', name: 'Ferris Dalle-Grave ', email: 'b.dalle-grave@rieckermann.com', move_in: Date.parse("05.06.2020"), move_out: Date.parse("04.09.2020") },
-  {room: 'D25', name: 'Tieme Schardam ', email: 'schardamtieme@gmail.com', move_in: Date.parse("04.09.2020"), move_out: Date.parse("31.01.2021") },
-  {room: 'D26', name: 'Marcel Franke', email: 'marcel.edmund.franke@gmail.com', move_in: Date.parse("01.06.2020"), move_out: Date.parse("30.09.2020") },
-  {room: 'D26', name: 'Michael Klein', email: 'michael.klein.contact@gmail.com', move_in: Date.parse("01.10.2020"), move_out: Date.parse("31.03.2021") },
-  {room: 'D26', name: 'Paul Hase', email: 'hase-paul@t-online.de', move_in: Date.parse("01.04.2021"), move_out: Date.parse("31.03.2022") },
-  {room: 'D27', name: 'Pohl Timotheus ', email: 'timotheus.pohlt5@gmail.com', move_in: Date.parse("27.07.2020"), move_out: Date.parse("30.11.2020") },
-  {room: 'D27', name: 'Ervin Demiri ', email: 'ervin0805@gmail.com', move_in: Date.parse("01.12.2020"), move_out: Date.parse("30.11.2021") },
-  {room: 'D28', name: 'Malte Schülein ', email: 'mcschuelein@gmail.com', move_in: Date.parse("01.08.2020"), move_out: Date.parse("30.04.2021") },
-  {room: 'D29', name: 'Jan-Rasmus Kässens', email: 'jr.kaessens@gmx.de', move_in: Date.parse("20.07.2020"), move_out: Date.parse("19.10.2020") },
-  {room: 'D29', name: 'Johanna Launer', email: 'JLauner@web.de', move_in: Date.parse("20.10.2020"), move_out: Date.parse("28.02.2021") },
-  {room: 'D30', name: 'Felix Chemnitzer', email: 'f.chemnitzer@gmail.com', move_in: Date.parse("27.06.2020"), move_out: Date.parse("31.03.2021") },
-  {room: 'D31', name: 'Cecan Cakar', email: 'cecan1@web.de', move_in: Date.parse("22.08.2020"), move_out: Date.parse("30.11.2020") },
-  {room: 'D32', name: 'Maximilian Busch', email: 'mpbusch01@gmail.com', move_in: Date.parse("01.08.2020"), move_out: Date.parse("28.02.2021") },
-  {room: 'D33', name: 'Eva-Maria Phieler', email: 'evamariaphieler@gmail.com', move_in: Date.parse("01.08.2020"), move_out: Date.parse("30.11.2020") },
-  {room: 'D33', name: 'Tobias Heiles', email: 'contact@tobiasheiles.de', move_in: Date.parse("01.12.2020"), move_out: Date.parse("31.05.2021") },
-  {room: 'D34', name: 'Elizabeth Lee', email: 'eliz.y.lee@gmail.com', move_in: Date.parse("22.08.2020"), move_out: Date.parse("31.03.2021") },
-  {room: 'D35', name: 'Charlotte Droste', email: 'charlotte.antonia.droste@gmail.com', move_in: Date.parse("01.09.2020"), move_out: Date.parse("05.01.2021") },
-  {room: 'D36', name: 'Daniel Ammann', email: 'daniel.j.ammann@gmail.com', move_in: Date.parse("31.08.2020"), move_out: Date.parse("30.11.2020") },
-  {room: 'D36', name: 'Marvin Beulig', email: 'marvin-beulig@web.de', move_in: Date.parse("01.12.2020"), move_out: Date.parse("31.08.2021") },
-  {room: 'D37', name: 'Emili Läte', email: 'emililte@gmail.com', move_in: Date.parse("01.10.2020"), move_out: Date.parse("31.01.2021") },
-  {room: 'D38', name: 'Theo Pernot', email: 'pernot.theo@outlook.fr', move_in: Date.parse("01.10.2020"), move_out: Date.parse("14.01.2021") },
-  {room: 'D39', name: 'Simao Bareto', email: 'simaofbarreto@gmail.com', move_in: Date.parse("15.09.2020"), move_out: Date.parse("14.12.2020") },
-  {room: 'D39', name: 'Helena Correia', email: 'helenac.housing1@gmail.com', move_in: Date.parse("01.01.2021"), move_out: Date.parse("31.03.2021") },
-  {room: 'D41', name: 'Natalia Monroy', email: 'tatala07@hotmail.com', move_in: Date.parse("01.10.2020"), move_out: Date.parse("31.03.2021") },
-  {room: 'D42', name: 'Chloe Bernard', email: 'chloe.bernard8@gmail.com', move_in: Date.parse("01.10.2020"), move_out: Date.parse("05.01.2021") },
-  {room: 'D43', name: 'Deniz Aksoy', email: 'd.aksoy@gmx.net', move_in: Date.parse("01.10.2020"), move_out: Date.parse("31.01.2021") },
-  {room: 'D43', name: 'Katharina Beck', email: 'katharinabeck@posteo.de', move_in: Date.parse("01.02.2021"), move_out: Date.parse("31.05.2021") },
-  {room: 'D44', name: 'Helena Correia', email: 'helenac.housing1@gmail.com', move_in: Date.parse("01.10.2020"), move_out: Date.parse("01.01.2021") },
-  {room: 'D45', name: 'Flora Berei-Nagy', email: 'florab@google.com', move_in: Date.parse("01.10.2020"), move_out: Date.parse("31.05.2021") },
-  {room: 'D46', name: 'Henrike Wörmer', email: 'henrike.woermer@gmail.com', move_in: Date.parse("01.10.2020"), move_out: Date.parse("14.01.2021") },
-  {room: 'D47', name: 'Chloe Bernard', email: 'chloe.bernard8@gmail.com', move_in: Date.parse("06.01.2021"), move_out: Date.parse("14.04.2021") },
-  # {room: 'D48', name: 'Felix Johannes Museller', email: 'johannes.museller@gmail.com', move_in: Date.parse("01.02.2021"), move_out: Date.parse("30.04.2021") },
-  {room: 'D49', name: 'Lance Williams', email: 'lance.kem.williams@gmail.com', move_in: Date.parse("01.02.2021"), move_out: Date.parse("30.04.2021") },
-  {room: 'D52', name: 'Andreas Moll', email: 'andreasmoll@yahoo.com', move_in: Date.parse("15.02.2021"), move_out: Date.parse("30.11.2021") },
-  {room: 'D54', name: 'Franziska Bernerth', email: 'franzi.bernerth@online.de', move_in: Date.parse("01.06.2021"), move_out: Date.parse("31.08.2021") },
-  {room: 'DB01', name: 'Sara Isla Cainzos', email: 'saraislac@gmail.com', move_in: Date.parse("29.02.2020"), move_out: Date.parse("31.01.2021") },
-  {room: 'DB02', name: 'Maria de los Santos Fernandez Romero', email: 'msfdezr@gmail.com', move_in: Date.parse("09.03.2020"), move_out: Date.parse("08.06.2020") },
-  {room: 'DB02', name: 'Joseph Cordonnier', email: 'joseph.cordonnier.mdg@gmail.com', move_in: Date.parse("01.05.2020"), move_out: Date.parse("01.03.2021") },
-  {room: 'DB03', name: 'Philipp Kramberg', email: 'philipp@kramberg.de', move_in: Date.parse("28.08.2020"), move_out: Date.parse("30.08.2021") },
-  {room: 'DB04', name: 'Amelie Hartig', email: 'amelie.hartig@hotmail.de', move_in: Date.parse("29.02.2020"), move_out: Date.parse("30.05.2020") },
-  {room: 'DB04', name: 'Alvaro Sanz García Sintas', email: 'alvarosanz_8@hotmail.com', move_in: Date.parse("23.03.2020"), move_out: Date.parse("31.03.2021") },
-  {room: 'DB05', name: 'Fernando Hoppen', email: 'fehoppen@hotmail.com', move_in: Date.parse("01.08.2020"), move_out: Date.parse("31.07.2021") },
-  {room: 'DB06', name: 'Mehdi Dhifallah', email: 'mehdidhifallah2789@gmail.com', move_in: Date.parse("22.03.2020"), move_out: Date.parse("30.10.2020") },
-  {room: 'DB06', name: 'Chirag Ahuja', email: 'chiragvit@gmail.com', move_in: Date.parse("01.11.2020"), move_out: Date.parse("31.03.2021") },
-  {room: 'DB07', name: 'Rene Navrkal', email: 'renenavrkal@gmail.com', move_in: Date.parse("06.05.2020"), move_out: Date.parse("30.06.2020") },
-  {room: 'DB07', name: "Laura Dell'Antonio", email: 'laura@dellantonio.de', move_in: Date.parse("15.09.2020"), move_out: Date.parse("05.01.2021") },
-  {room: 'DB07', name: 'Tristan Heermann', email: 't.heermann92@gmail.com', move_in: Date.parse("08.01.2021"), move_out: Date.parse("14.04.2021") },
-  {room: 'EW01', name: 'Alexandra Martitz', email: 'alexandra.martitz@online.de', move_in: Date.parse("15.06.2020"), move_out: Date.parse("03.10.2020") },
-  {room: 'EW01', name: 'Kateryna Dib', email: 'kateryna.dib@gmail.com', move_in: Date.parse("04.10.2020"), move_out: Date.parse("28.02.2021") },
-  {room: 'EW02', name: 'Olina Karlsdottir', email: 'olina.ann@hotmail.com', move_in: Date.parse("11.06.2020"), move_out: Date.parse("24.10.2020") },
-  {room: 'EW02', name: 'Nils Erikson', email: 'nils_erikson@hotmail.com', move_in: Date.parse("26.10.2020"), move_out: Date.parse("31.01.2021") },
-  {room: 'EW03', name: 'Corinna Thölke', email: 'corinna.thoelke@gmail.com', move_in: Date.parse("13.06.2020"), move_out: Date.parse("31.10.2020") },
-  {room: 'EW03', name: 'Diego Fernando Gomez', email: 'df.gomezf@gmail.com', move_in: Date.parse("07.12.2020"), move_out: Date.parse("14.03.2021") },
-  {room: 'EW04', name: 'Jan Niclas Lietzow', email: 'niclas.lietzow@outlook.com', move_in: Date.parse("14.06.2020"), move_out: Date.parse("16.09.2020") },
-  {room: 'EW04', name: 'Tom Rose', email: 'tomrose1998@hotmail.co.uk', move_in: Date.parse("17.09.2020"), move_out: Date.parse("28.02.2021") },
-  {room: 'EW05', name: 'Katrin van Asten', email: 'kat.vanasten@gmail.com', move_in: Date.parse("01.07.2020"), move_out: Date.parse("31.03.2021") },
-  {room: 'EW06', name: 'Lara Wellner', email: 'lara.wellner@gmail.com', move_in: Date.parse("11.07.2020"), move_out: Date.parse("11.10.2020") },
-  {room: 'EW06', name: 'Moritz Stephan', email: 'moritz.stephan@outlook.de', move_in: Date.parse("12.10.2020"), move_out: Date.parse("14.01.2021") },
-  {room: 'EW06', name: 'Rica Strotmann', email: 'ricastrotmann@web.de', move_in: Date.parse("15.01.2021"), move_out: Date.parse("31.05.2021") },
-  {room: 'EW06', name: 'Gesa Franke', email: 'gesafranke@googlemail.com', move_in: Date.parse("01.02.2021"), move_out: Date.parse("31.05.2021") },
-  {room: 'EW07', name: 'Anna Loren Stuhr', email: 'annaloren.stuhr@googlemail.com', move_in: Date.parse("07.07.2020"), move_out: Date.parse("15.07.2021") },
-  {room: 'EW08', name: 'Rene Navrkal', email: 'renenavrkal@gmail.com', move_in: Date.parse("01.07.2020"), move_out: Date.parse("31.08.2020") },
-  {room: 'EW08', name: 'Daria Xue', email: 'dariaxue@gmail.com', move_in: Date.parse("01.09.2020"), move_out: Date.parse("14.07.2021") },
-  {room: 'EW09', name: 'Antonia Zeilinger', move_in: Date.parse("01.08.2020"), move_out: Date.parse("31.01.2021") },
-  {room: 'EW10', name: 'Robin Wolter', email: 'robinmwolter@gmail.com', move_in: Date.parse("01.08.2020"), move_out: Date.parse("30.04.2021") },
-  {room: 'EW11', name: 'Leopold Harro Gottfried von Frenckell', email: 'leopoldvf@icloud.com', move_in: Date.parse("01.08.2020"), move_out: Date.parse("14.10.2020") },
-  {room: 'EW11', name: 'Anca Anitoaia', email: 'anca.anitoaia@gmail.com', move_in: Date.parse("15.10.2020"), move_out: Date.parse("28.02.2021") },
-  {room: 'EW12', name: 'Jan Dobinsky', email: 'jan.dobinsky@gmail.com', move_in: Date.parse("01.10.2020"), move_out: Date.parse("14.01.2021") },
-  {room: 'EW12', name: 'Olina Karlsdottir', email: 'olina.ann@hotmail.com', move_in: Date.parse("15.01.2021"), move_out: Date.parse("14.04.2021") },
-  {room: 'EW13', name: 'Nicolas Claudet', email: 'nico.claudet@icloud.com', move_in: Date.parse("01.10.2020"), move_out: Date.parse("14.07.2021") },
-  {room: 'EW14', name: 'Emma Widmer', email: 'emma.widmer@gmx.ch', move_in: Date.parse("01.10.2020"), move_out: Date.parse("28.02.2021") },
-  {room: 'EW15', name: 'Francesca Solagna', email: 'f.solagna@uke.de', move_in: Date.parse("21.09.2020"), move_out: Date.parse("05.01.2021") },
-  {room: 'EW15', name: 'Imad Jawad', email: 'imad.a.jawad@gmail.com', move_in: Date.parse("01.02.2021"), move_out: Date.parse("30.04.2021") },
-  {room: 'EW16', name: 'Wanjiru Chabeda', email: 'wanjiru.chabeda@gmail.com', move_in: Date.parse("15.10.2020"), move_out: Date.parse("19.10.2020") },
-  {room: 'EW16', name: 'Marius Holle', email: 'marius.holle@icloud.com', move_in: Date.parse("21.12.2020"), move_out: Date.parse("31.03.2021") },
-  {room: 'EW17', name: 'Gesa Franke', email: 'gesafranke@googlemail.com', move_in: Date.parse("15.11.2020"), move_out: Date.parse("31.01.2021") },
-  {room: 'EW18', name: 'Nick Finckenstein', email: 'nfinckenstein@gmail.com', move_in: Date.parse("17.11.2020"), move_out: Date.parse("14.02.2021") }
-]
-
-
-
-ALL_RELEVENT_BOOKING_IDS = []
-
-bookings.each do |b|
-  user = User.select{|u| u.full_name == b[:name] || u.email == b[:email]}
-  user = user.count > 1 ? user.select{|u| u.email == b[:email]}.first : user.first
-
-  booking = user.bookings.new(
-              move_in: b[:move_in],
-              move_out: b[:move_out],
-              room_id: Room.find_by(intern_number: b[:room]).id,
-              state: 'booked',
-              booking_process_completed_date: b[:move_in] - 1.week
-            )
-
-  booking.save!(validate: false)
-
-  # booking = user.bookings.order(:created_at).last
-
-  ALL_RELEVENT_BOOKING_IDS << booking.id
-
-  user.role = 'tenant'
-  user.save!(validate: false)
-
-end
-
-users_with_more_than_one_booking = []
-
-ALL_RELEVENT_BOOKING_IDS.each do |id|
-  user = Booking.find(id).user
-  users_with_more_than_one_booking << user if user.bookings.count > 1
-end
-
-
-Booking.where(state: nil).each do |booking|
-  user = booking.user
-  unless user.role == 'admin'
-    user.role = 'applicant'
-    application = Application.new(user_id: user.id)
-    application.move_in = booking.move_in.strftime('%d/%m/%Y') if booking.move_in.present?
-    application.move_out = booking.move_out.strftime('%d/%m/%Y') if booking.move_out.present?
-    application.save!
-
-    welcomeCall = WelcomeCall.find_by(booking_id: booking.id)
-    welcomeCall.destroy if welcomeCall
-
-    contract = Contract.find_by(booking_id: booking.id)
-    contract.destroy if contract
-
-    booking.destroy!
-  end
-end
-
-
-Booking.select{|b| ALL_RELEVENT_BOOKING_IDS.exclude?(b.id)}.each do |booking|
-  user = booking.user
-  user.role = 'applicant' unless user.role == 'admin'
-
-  application = Application.new(user_id: user.id)
-  application.move_in = booking.move_in.strftime('%d/%m/%Y')
-  application.move_out = booking.move_out.strftime('%d/%m/%Y')
-  application.save!
-
-  booking.destroy!
-end
-
-
-# NOT_FOUND_USERS = []
-# NOT_FOUND_ROOMS = []
-# NOT_FOUND_BOOKINGS = []
-
-# Find out which User, which Booking & which Room is missing.
-# bookings.each do |booking|
-# 	user = User.select{|u| u.full_name == booking[:name] || u.email == booking[:email]}
-#   user = user.count > 1 ? user.select{|u| u.email == booking[:email]}.first : user.first
-# 	NOT_FOUND_USERS << {name: booking[:name], email: booking[:email]} unless user
-# 	room = Room.find_by(intern_number: booking[:room])
-# 	NOT_FOUND_ROOMS << {room: booking[:room]} unless room
-# 	if user && user.bookings.length == 0
-# 		NOT_FOUND_BOOKINGS << {name: booking[:name], email: booking[:email]}
-# 	end
-# end
-
-
-
-# puts('not found users')
-# puts(NOT_FOUND_USERS)
-# puts('not found bookings')
-# puts(NOT_FOUND_BOOKINGS)
-# puts('not found rooms')
-# puts(NOT_FOUND_ROOMS)
-
-
-# Not found rooms:
-# {:room=>"D48"}
-
-
-def update_booking(booking_id, move_in = '', move_out = '', room_intern_number = '')
-  booking = Booking.find(booking_id)
-  booking.move_in = Date.parse(move_in) if move_in.present?
-  booking.move_out = Date.parse(move_in) if move_out.present?
-  booking.room_id = Room.find_by(intern_number: room_intern_number).id if room_intern_number.present?
-  booking.save!
-end
-
-def b(id)
-  booking = Booking.find(id)
-  user = booking.user
-  room_intern_number = booking.room.intern_number
-
-  return "user_name: #{user.full_name} email: #{user.email} move_in: #{booking.move_in} move_out: #{booking.move_out} room_intern_number: #{room_intern_number}"
-end
-
-
-
 
 # create Amenities + Photos.
 amenities = {
@@ -1302,4 +1033,215 @@ inner_yard = Amenity.where(title: "inner yard").last
 small_backyard = Amenity.where(title: "small backyard").last
 ping_pong_table = Amenity.where(title: "ping pong table").last
 pool_table = Amenity.where(title: "pool table").last
+
+
+
+
+bookings = [
+  {room: 'D06', name: "Nicolae Puican", email: 'n.a.puican@gmail.com', move_in: Date.parse('01.09.2019'), move_out: Date.parse('30.11.2019')},
+  {room: 'D09', name: "Sheila Grace Tan", email: 'sheilagracetan@gmail.com', move_in: Date.parse('26.07.2019'), move_out: Date.parse('25.12.2019')},
+  {room: 'D20', name: "Matteo Angione", email: 'angionem6@gmail.com', move_in: Date.parse('03.10.2019'), move_out: Date.parse('02.01.2020')},
+  {room: 'D18', name: "Johannes Benthaus", email: 'johannes.benthaus@gmail.com', move_in: Date.parse('04.10.2019'), move_out: Date.parse('03.01.2020')},
+  {room: 'D19', name: "Tobias Lössl", email: 'tobiloessl@hotmail.de', move_in: Date.parse('03.10.2019'), move_out: Date.parse('05.01.2020')},
+  {room: 'D15', name: "Ernesto Ruiz Manzano", email: 'ernesto_900_ruiz@hotmail.com', move_in: Date.parse('07.09.2019'), move_out: Date.parse('06.01.2020')},
+  {room: 'D13', name: "Gauriesh Bindra", email: 'gaurieshbindra@gmail.com', move_in: Date.parse('02.08.2019'), move_out: Date.parse('26.01.2020')},
+  {room: 'D14', name: "Arkaprabha Ray", email: 'arkadeep97@gmail.com', move_in: Date.parse('01.09.2019'), move_out: Date.parse('27.01.2020')},
+  {room: 'D10', name: "Antonia Rudolf", email: 'antoniarudolf@aol.com', move_in: Date.parse('31.08.2019'), move_out: Date.parse('29.02.2020')},
+  {room: 'D03', name: "Clarissa Leu", email: 'clacoleu@aol.com', move_in: Date.parse('05.08.2019'), move_out: Date.parse('05.03.2020')},
+  {room: 'D02', name: "Marvin Wobbe", email: 'marvin.wobbe@gmx.de', move_in: Date.parse('24.08.2019'), move_out: Date.parse('23.03.2020')},
+  {room: 'D22', name: "Nil Biosca Jimenez", email: 'nbiosca2q@gmail.com', move_in: Date.parse('06.11.2019'), move_out: Date.parse('31.03.2020')},
+  {room: 'D01', name: "Anna Weirauch", email: 'team@stacey-living.de', move_in: Date.parse('01.10.2019'), move_out: Date.parse('31.03.2020')},
+  {room: 'D23', name: "Angelo Arceri", email: 'angeloarceri@live.it', move_in: Date.parse('03.10.2019'), move_out: Date.parse('02.04.2020')},
+  {room: 'D17', name: "Andrea Cianfarani", email: 'andrea.cianfarani@hotmail.com', move_in: Date.parse('04.10.2019'), move_out: Date.parse('03.04.2020')},
+  {room: 'DB05', name: "Alvaro Sanz García 'Sintas", move_in: Date.parse('23.03.2020'), move_out: Date.parse('30.04.2020')},
+  {room: 'D14', name: "Anastasia Krieg", email: 'anastasia.krieg@t-online.de', move_in: Date.parse('02.02.2020'), move_out: Date.parse('01.05.2020')},
+  {room: 'D05', name: "Rene Navrkal", email: 'renenavrkal@gmail.com', move_in: Date.parse('31.08.2019'), move_out: Date.parse('05.05.2020')},
+  {room: 'D19', name: "Pierre Guillaume", email: 'pierre.g.27@live.fr', move_in: Date.parse('06.01.2020'), move_out: Date.parse('16.05.2020')},
+  {room: 'DB04', name: "Amelie Hartig", email: 'amelie.hartig@hotmail.de', move_in: Date.parse('29.02.2020'), move_out: Date.parse('30.05.2020')},
+  {room: 'D06', name: "Christian Ritterbach", email: 'ch.ritterbach@t-online.de', move_in: Date.parse('01.12.2019'), move_out: Date.parse('31.05.2020')},
+  {room: 'D16', name: "Kyley Rosser", email: 'kyleyrosser99@gmail.com', move_in: Date.parse('07.10.2019'), move_out: Date.parse('06.06.2020')},
+  {room: 'DB02', name: "Maria de los Santos Fernandez Romero", email: 'msfdezr@gmail.com', move_in: Date.parse('09.03.2020'), move_out: Date.parse('08.06.2020')},
+  {room: 'D21', name: "David Höhl", email: 'david.hoehl@aol.com', move_in: Date.parse('04.11.2019'), move_out: Date.parse('30.06.2020')},
+  {room: 'DB07', name: "Rene Navrkal", email: 'renenavrkal@gmail.com', move_in: Date.parse('06.05.2020'), move_out: Date.parse('30.06.2020')},
+  {room: 'D18', name: "Vanessa Elana Kröger", email: 'miss.kroeger@web.de', move_in: Date.parse('04.01.2020'), move_out: Date.parse('04.07.2020')},
+  {room: 'DB02', name: "Melina Badde", email: 'melina.badde@whu.edu', move_in: Date.parse('10.06.2020'), move_out: Date.parse('05.07.2020')},
+  {room: 'D20', name: "Joachim Bizot", email: 'joachim.bizot@outlook.fr', move_in: Date.parse('07.01.2020'), move_out: Date.parse('06.07.2020')},
+  {room: 'D03', name: "Anatasia Nefed", email: 'anastasianefed@gmail.com', move_in: Date.parse('14.03.2020'), move_out: Date.parse('13.07.2020')},
+  {room: 'D23', name: "Riekje Cordes", email: 'riekje.cordes@gmx.de', move_in: Date.parse('03.04.2020'), move_out: Date.parse('31.07.2020')},
+  {room: 'DB03', name: "Diego Fernando Gomez", email: 'df.gomezf@gmail.com', move_in: Date.parse('01.05.2020'), move_out: Date.parse('31.07.2020')},
+  {room: 'D17', name: "Charles Herbert", email: 'c.herbert04@gmail.com', move_in: Date.parse('03.04.2020'), move_out: Date.parse('21.08.2020')},
+  {room: 'D05', name: "Mark Veldkamp", email: 'mark_veldkamp@hotmail.nl', move_in: Date.parse('15.05.2020'), move_out: Date.parse('23.08.2020')},
+  {room: 'D21', name: "Shubham Sharma", email: 'sharmashubham10@gmail.com', move_in: Date.parse('29.06.2020'), move_out: Date.parse('28.08.2020')},
+  {room: 'D23', name: "Bernardo San Juan", email: 'bsanjuan.consulting@googlemail.com', move_in: Date.parse('01.08.2020'), move_out: Date.parse('31.08.2020')},
+  {room: 'D15', name: "Gino Lodola", email: 'gino.lodola@hotmail.com', move_in: Date.parse('30.12.2019'), move_out: Date.parse('31.08.2020')},
+  {room: 'D05', name: "Francesco Lo Piccolo", email: 'frlpiccolo@gmail.com', move_in: Date.parse('26.08.2020'), move_out: Date.parse('31.08.2020')},
+  {room: 'D08', name: "Julian Müller", email: 'jn.f.mueller@gmail.com', move_in: Date.parse('01.09.2019'), move_out: Date.parse('31.08.2020')},
+  {room: 'EW08', name: "Rene Navrkal", email: 'renenavrkal@gmail.com', move_in: Date.parse('01.07.2020'), move_out: Date.parse('31.08.2020')},
+  {room: 'D01', name: "Carolin Helena Klaus", email: 'carolin_klaus@outlook.de', move_in: Date.parse('31.03.2020'), move_out: Date.parse('01.09.2020')},
+  {room: 'D25', name: "Ferris Dalle-Grave ", email: 'b.dalle-grave@rieckermann.com', move_in: Date.parse('05.06.2020'), move_out: Date.parse('04.09.2020')},
+  # {room: 'D07', name: "Cristian Obersterescu", email: 'cristian.obersterescu@gmail.com', move_in: Date.parse('31.07.2019'), move_out: Date.parse('14.09.2020')},
+  {room: 'EW04', name: "Jan Niclas Lietzow", email: 'niclas.lietzow@outlook.com', move_in: Date.parse('14.06.2020'), move_out: Date.parse('16.09.2020')},
+  {room: 'D11', name: "Dominik Moskalik", email: 'dmoskalik@web.de', move_in: Date.parse('31.08.2019'), move_out: Date.parse('30.09.2020')},
+  {room: 'D05', name: "Amelie Lessmann", email: 'amelielessmann26@gmail.com', move_in: Date.parse('01.09.2020'), move_out: Date.parse('30.09.2020')},
+  {room: 'D09', name: "Candido Castillo", email: 'candidodomingocastillo@gmail.com', move_in: Date.parse('04.10.2019'), move_out: Date.parse('30.09.2020')},
+  {room: 'D18', name: "Melina Badde", email: 'melina.badde@whu.edu', move_in: Date.parse('10.06.2020'), move_out: Date.parse('30.09.2020')},
+  {room: 'D26', name: "Marcel Franke", email: 'marcel.edmund.franke@gmail.com', move_in: Date.parse('01.06.2020'), move_out: Date.parse('30.09.2020')},
+  {room: 'EW01', name: "Alexandra Martitz", email: 'alexandra.martitz@online.de', move_in: Date.parse('15.06.2020'), move_out: Date.parse('03.10.2020')},
+  {room: 'EW06', name: "Lara Wellner", email: 'lara.wellner@gmail.com', move_in: Date.parse('11.07.2020'), move_out: Date.parse('11.10.2020')},
+  {room: 'D23', name: "Francesco Lo Piccolo", email: 'frlpiccolo@gmail.com', move_in: Date.parse('01.09.2020'), move_out: Date.parse('14.10.2020')},
+  {room: 'D14', name: "Sophia Schembecker", email: 'sophiaschembecker@web.de', move_in: Date.parse('01.05.2020'), move_out: Date.parse('14.10.2020')},
+  {room: 'D20', name: "Nikolai Siekmann", email: 'nikolai.siekmann@gmail.com', move_in: Date.parse('01.07.2020'), move_out: Date.parse('14.10.2020')},
+  {room: 'EW11', name: "Leopold Harro Gottfried von Frenckell", email: 'leopoldvf@icloud.com', move_in: Date.parse('01.08.2020'), move_out: Date.parse('14.10.2020')},
+  {room: 'D29', name: "Jan-Rasmus Kässens", email: 'jr.kaessens@gmx.de', move_in: Date.parse('20.07.2020'), move_out: Date.parse('19.10.2020')},
+  {room: 'EW16', name: "Wanjiru Chabeda", email: 'wanjiru.chabeda@gmail.com', move_in: Date.parse('15.10.2020'), move_out: Date.parse('19.10.2020')},
+  {room: 'EW02', name: "Olina Karlsdottir", email: 'olina.ann@hotmail.com', move_in: Date.parse('11.06.2020'), move_out: Date.parse('24.10.2020')},
+  {room: 'D04', name: "Melanie Schaub", email: 'schaub.melanie@gmail.com', move_in: Date.parse('28.07.2019'), move_out: Date.parse('28.10.2020')},
+  {room: 'DB06', name: "Mehdi Dhifallah", email: 'mehdidhifallah2789@gmail.com', move_in: Date.parse('22.03.2020'), move_out: Date.parse('30.10.2020')},
+  {room: 'D14', name: "Deniss Butajevs", email: 'deniss.butajevs@gmail.com', move_in: Date.parse('22.10.2020'), move_out: Date.parse('31.10.2020')},
+  {room: 'D08', name: "Bernardo San Juan", email: 'bsanjuan.consulting@googlemail.com', move_in: Date.parse('01.09.2020'), move_out: Date.parse('31.10.2020')},
+  {room: 'EW03', name: "Corinna Thölke", email: 'corinna.thoelke@gmail.com', move_in: Date.parse('13.06.2020'), move_out: Date.parse('31.10.2020')},
+  {room: 'D22', name: "Sai Jagtap", email: 'mesaee@gmail.com', move_in: Date.parse('18.04.2020'), move_out: Date.parse('14.11.2020')},
+  {room: 'D23', name: "Nick Finckenstein", email: 'nfinckenstein@gmail.com', move_in: Date.parse('15.10.2020'), move_out: Date.parse('16.11.2020')},
+  {room: 'D24', name: "Victoria Areli Bracamontes Vazquez", email: 'vbracamontes.bss@gmail.com', move_in: Date.parse('04.11.2019'), move_out: Date.parse('30.11.2020')},
+  {room: 'D15', name: "Simon Hoese", email: 'simonhoese@gmx.de', move_in: Date.parse('01.09.2020'), move_out: Date.parse('30.11.2020')},
+  {room: 'D17', name: "Philip Pineda", email: 'pipopin@gmail.com', move_in: Date.parse('22.08.2020'), move_out: Date.parse('30.11.2020')},
+  {room: 'D21', name: "Victor Haas", email: 'victor.haas67@gmail.com', move_in: Date.parse('29.08.2020'), move_out: Date.parse('30.11.2020')},
+  {room: 'D27', name: "Pohl Timotheus ", email: 'timotheus.pohlt5@gmail.com', move_in: Date.parse('27.07.2020'), move_out: Date.parse('30.11.2020')},
+  {room: 'D33', name: "Eva-Maria Phieler", email: 'evamariaphieler@gmail.com', move_in: Date.parse('01.08.2020'), move_out: Date.parse('30.11.2020')},
+  {room: 'D31', name: "Cecan Cakar", email: 'cecan1@web.de', move_in: Date.parse('22.08.2020'), move_out: Date.parse('30.11.2020')},
+  {room: 'D36', name: "Daniel Ammann", email: 'daniel.j.ammann@gmail.com', move_in: Date.parse('31.08.2020'), move_out: Date.parse('30.11.2020')},
+  {room: 'EW03', name: "Lawal Bakere", email: 'lawal.bakare@gmail.com', move_in: Date.parse('04.11.2020'), move_out: Date.parse('30.11.2020')},
+  {room: 'D39', name: "Simao Bareto", email: 'simaofbarreto@gmail.com', move_in: Date.parse('15.09.2020'), move_out: Date.parse('14.12.2020')},
+  # {room:", email: 'D50', name: ',"move_in:' Date.parse('15.12.2020'), move_out: Date.parse('14.12.2020')},
+  {room: 'D01', name: "Lina Drozd", email: 'linadrozd5@gmail.com', move_in: Date.parse('02.09.2020'), move_out: Date.parse('14.12.2020')},
+  {room: 'D13', name: "Javier Randez Garbayo", email: 'javier_93_rg@hotmail.com', move_in: Date.parse('27.01.2020'), move_out: Date.parse('31.12.2020')},
+  {room: 'D44', name: "Helena Correia", email: 'helenac.housing1@gmail.com', move_in: Date.parse('01.10.2020'), move_out: Date.parse('01.01.2021')},
+  {room: 'D14', name: "Niklas Tausend", email: 'niklas.tausend1000@gmail.com', move_in: Date.parse('01.11.2020'), move_out: Date.parse('05.01.2021')},
+  {room: 'D42', name: "Chloe Bernard", email: 'chloe.bernard8@gmail.com', move_in: Date.parse('01.10.2020'), move_out: Date.parse('05.01.2021')},
+  {room: 'D35', name: "Charlotte Droste", email: 'charlotte.antonia.droste@gmail.com', move_in: Date.parse('01.09.2020'), move_out: Date.parse('05.01.2021')},
+  {room: 'DB07', name: "Laura Dell'Antonio", email: 'laura@dellantonio.de', move_in: Date.parse('15.09.2020'), move_out: Date.parse('05.01.2021')},
+  {room: 'EW15', name: "Francesca Solagna", email: 'f.solagna@uke.de', move_in: Date.parse('21.09.2020'), move_out: Date.parse('05.01.2021')},
+  {room: 'D38', name: "Theo Pernot", email: 'pernot.theo@outlook.fr', move_in: Date.parse('01.10.2020'), move_out: Date.parse('14.01.2021')},
+  {room: 'D46', name: "Henrike Wörmer", email: 'henrike.woermer@gmail.com', move_in: Date.parse('01.10.2020'), move_out: Date.parse('14.01.2021')},
+  # {room:", email: 'D51', name: ',"move_in:' Date.parse('15.01.2021'), move_out: Date.parse('14.01.2021')},
+  {room: 'EW06', name: "Moritz Stephan", email: 'moritz.stephan@outlook.de', move_in: Date.parse('12.10.2020'), move_out: Date.parse('14.01.2021')},
+  {room: 'EW12', name: "Jan Dobinsky", email: 'jan.dobinsky@gmail.com', move_in: Date.parse('01.10.2020'), move_out: Date.parse('14.01.2021')},
+  {room: 'D37', name: "Emili Läte", email: 'emililte@gmail.com', move_in: Date.parse('01.10.2020'), move_out: Date.parse('31.01.2021')},
+  {room: 'D43', name: "Deniz Aksoy", email: 'd.aksoy@gmx.net', move_in: Date.parse('01.10.2020'), move_out: Date.parse('31.01.2021')},
+  # {room:", email: 'D53', name: ',"move_in:' Date.parse('01.02.2021'), move_out: Date.parse('31.01.2021')},
+  {room: 'D09', name: "Laura Ladefoged", email: 'lauraladefoged01@gmail.com', move_in: Date.parse('01.10.2020'), move_out: Date.parse('31.01.2021')},
+  {room: 'D03', name: "Lance Williams", email: 'lance.kem.williams@gmail.com', move_in: Date.parse('29.07.2020'), move_out: Date.parse('31.01.2021')},
+  {room: 'D19', name: "Ivonne Greulich", email: 'ivonnegreulich@gmail.com', move_in: Date.parse('01.05.2020'), move_out: Date.parse('31.01.2021')},
+  {room: 'D25', name: "Tieme Schardam ", email: 'schardamtieme@gmail.com', move_in: Date.parse('04.09.2020'), move_out: Date.parse('31.01.2021')},
+  {room: 'DB01', name: "Sara Isla Cainzos", email: 'saraislac@gmail.com', move_in: Date.parse('29.02.2020'), move_out: Date.parse('31.01.2021')},
+  {room: 'DB06', name: "Chirag Ahuja", email: 'chiragvit@gmail.com', move_in: Date.parse('01.11.2020'), move_out: Date.parse('31.01.2021')},
+  {room: 'EW02', name: "Nils Erikson", email: 'nils_erikson@hotmail.com', move_in: Date.parse('26.10.2020'), move_out: Date.parse('31.01.2021')},
+  {room: 'EW09', name: "Antonia Zeilinger", email: 'antonia_zeilinger@hotmail.com', move_in: Date.parse('01.08.2020'), move_out: Date.parse('31.01.2021')},
+  {room: 'EW17', name: "Gesa Franke", email: 'gesafranke@googlemail.com', move_in: Date.parse('15.11.2020'), move_out: Date.parse('31.01.2021')},
+  {room: 'D05', name: "Saad El Hajjaji", email: 'saadelha@gmail.com', move_in: Date.parse('14.09.2020'), move_out: Date.parse('03.02.2021')},
+  {room: 'D15', name: "Lawal Bakare", email: 'lawal.bakare@gmail.com', move_in: Date.parse('01.12.2020'), move_out: Date.parse('14.02.2021')},
+  {room: 'EW18', name: "Nick Finckenstein", email: 'nfinckenstein@gmail.com', move_in: Date.parse('17.11.2020'), move_out: Date.parse('14.02.2021')},
+  {room: 'D12', name: "Christoph Häberlin", email: 'christoph.haeberlin@gmail.com', move_in: Date.parse('27.07.2019'), move_out: Date.parse('28.02.2021')},
+  {room: 'D02', name: "Andreas Janz", email: 'andreas.janz@gmail.com', move_in: Date.parse('24.03.2020'), move_out: Date.parse('28.02.2021')},
+  {room: 'D32', name: "Maximilian Busch", email: 'mpbusch01@gmail.com', move_in: Date.parse('01.08.2020'), move_out: Date.parse('28.02.2021')},
+  {room: 'D29', name: "Johanna Launer", email: 'JLauner@web.de', move_in: Date.parse('20.10.2020'), move_out: Date.parse('28.02.2021')},
+  {room: 'EW14', name: "Emma Widmer", email: 'emma.widmer@uzh.ch', move_in: Date.parse('01.10.2020'), move_out: Date.parse('28.02.2021')},
+  {room: 'EW01', name: "Kateryna Dib", email: 'kateryna.dib@gmail.com', move_in: Date.parse('04.10.2020'), move_out: Date.parse('28.02.2021')},
+  {room: 'EW04', name: "Tom Rose", email: 'tomrose1998@hotmail.co.uk', move_in: Date.parse('17.09.2020'), move_out: Date.parse('28.02.2021')},
+  {room: 'EW02', name: "Boyan Tristan Julius Gerretzen", email: 'boyangerretzen@gmail.com', move_in: Date.parse('01.02.2021'), move_out: Date.parse('28.02.2021')},
+  {room: 'EW11', name: "Anca Anitoaia       ", email: 'anca.anitoaia@gmail.com', move_in: Date.parse('15.10.2020'), move_out: Date.parse('28.02.2021')},
+  {room: 'D08', name: "Yael Nakash", email: 'baseggioarts@gmail.com', move_in: Date.parse('06.11.2020'), move_out: Date.parse('14.03.2021')},
+  {room: 'EW03', name: "Diego Fernando Gomez", email: 'df.gomezf@gmail.com', move_in: Date.parse('07.12.2020'), move_out: Date.parse('14.03.2021')},
+  {room: 'D39', name: "Helena Correia", email: 'helenac.housing1@gmail.com', move_in: Date.parse('01.01.2021'), move_out: Date.parse('31.03.2021')},
+  {room: 'D41', name: "Natalia Monroy", email: 'tatala07@hotmail.com', move_in: Date.parse('01.10.2020'), move_out: Date.parse('31.03.2021')},
+  {room: 'D17', name: "Jakob Oskar Daniel Woll", email: 'jakobwoll13@gmail.com', move_in: Date.parse('30.12.2020'), move_out: Date.parse('31.03.2021')},
+  {room: 'D20', name: "Ann-Katrin Vonnahme", email: 'ann-katrin@vonnahme.com', move_in: Date.parse('15.10.2020'), move_out: Date.parse('31.03.2021')},
+  {room: 'D26', name: "Michael Klein", email: 'michael.klein.contact@gmail.com', move_in: Date.parse('01.10.2020'), move_out: Date.parse('31.03.2021')},
+  {room: 'D30', name: "Felix Chemnitzer", email: 'f.chemnitzer@gmail.com', move_in: Date.parse('27.06.2020'), move_out: Date.parse('31.03.2021')},
+  {room: 'D34', name: "Elizabeth Lee", email: 'eliz.y.lee@gmail.com', move_in: Date.parse('22.08.2020'), move_out: Date.parse('31.03.2021')},
+  {room: 'DB04', name: "Alvaro Sanz García Sintas", email: 'alvarosanz_8@hotmail.com', move_in: Date.parse('23.03.2020'), move_out: Date.parse('31.03.2021')},
+  {room: 'EW05', name: "Katrin van Asten", email: 'kat.vanasten@gmail.com', move_in: Date.parse('01.07.2020'), move_out: Date.parse('31.03.2021')},
+  {room: 'EW16', name: "Marius Holle", email: 'marius.holle@icloud.com', move_in: Date.parse('21.12.2020'), move_out: Date.parse('31.03.2021')},
+  {room: 'D13', name: "Niklas Tausend", email: 'niklas.tausend1000@gmail.com', move_in: Date.parse('05.11.2020'), move_out: Date.parse('14.04.2021')},
+  {room: 'D14', name: "Alexandra Gedert", email: 'gedertalex@gmail.com', move_in: Date.parse('06.01.2021'), move_out: Date.parse('14.04.2021')},
+  {room: 'D47', name: "Chloe Bernard", email: 'chloe.bernard8@gmail.com', move_in: Date.parse('06.01.2021'), move_out: Date.parse('14.04.2021')},
+  {room: 'D03', name: "Saad El Hajjaji", email: 'saadelha@gmail.com', move_in: Date.parse('04.02.2021'), move_out: Date.parse('14.04.2021')},
+  {room: 'DB07', name: "Tristan Heermann", email: 't.heermann92@gmail.com', move_in: Date.parse('08.01.2021'), move_out: Date.parse('14.04.2021')},
+  {room: 'EW12', name: "Olina Karlsdottir", email: 'olina.ann@hotmail.com', move_in: Date.parse('15.01.2021'), move_out: Date.parse('14.04.2021')},
+  {room: 'D24', name: "Paul Bruckner", email: 'bruckner.paul@web.de', move_in: Date.parse('30.01.2021'), move_out: Date.parse('30.04.2021')},
+  {room: 'D11', name: "Jonas Simonsen", email: 'simonsenjonas@aol.de', move_in: Date.parse('01.10.2020'), move_out: Date.parse('30.04.2021')},
+  {room: 'D07', name: "Daniel Nicolae Obersterescu", email: 'dani4793@yahoo.com', move_in: Date.parse('15.09.2020'), move_out: Date.parse('30.04.2021')},
+  # {room: 'D49', name:", email: '"lance.kem.williams@gmail.com', move_in: Date.parse('01.02.2021'), move_out: Date.parse('30.04.2021')},
+  {room: 'D48', name: "Lance Williams", email: 'johannes.museller@gmail.com', move_in: Date.parse('01.02.2021'), move_out: Date.parse('30.04.2021')},
+  {room: 'D03', name: "Isabelle Philipowich", email: 'i.philipowich@outlook.de', move_in: Date.parse('15.04.2021'), move_out: Date.parse('30.04.2021')},
+  {room: 'D16', name: "Carolin Stahl", email: 'carolin.stahl@aol.de', move_in: Date.parse('04.06.2020'), move_out: Date.parse('30.04.2021')},
+  {room: 'D28', name: "Malte Schülein ", email: 'mcschuelein@gmail.com', move_in: Date.parse('01.08.2020'), move_out: Date.parse('30.04.2021')},
+  {room: 'DB02', name: "Joseph Cordonnier", email: 'joseph.cordonnier.mdg@gmail.com', move_in: Date.parse('01.05.2020'), move_out: Date.parse('30.04.2021')},
+  {room: 'EW15', name: "Imad Jawad", email: 'imad.a.jawad@gmail.com', move_in: Date.parse('01.02.2021'), move_out: Date.parse('30.04.2021')},
+  {room: 'EW10', name: "Robin Wolter", email: 'robinmwolter@gmail.com', move_in: Date.parse('01.08.2020'), move_out: Date.parse('30.04.2021')},
+  {room: 'EW17', name: "Harry Daniel Gurth Angeles", email: 'dgurth@gmail.com', move_in: Date.parse('23.01.2021'), move_out: Date.parse('30.04.2021')},
+  {room: 'D02', name: "Lam Thi Tran", email: 'icethi@live.de', move_in: Date.parse('01.03.2021'), move_out: Date.parse('30.05.2021')},
+  {room: 'D38', name: "Niraj Saoji", email: 'nirajsaoji@gmail.com', move_in: Date.parse('01.02.2021'), move_out: Date.parse('31.05.2021')},
+  {room: 'D43', name: "Katharina Beck", email: 'katharinabeck@posteo.de', move_in: Date.parse('01.02.2021'), move_out: Date.parse('31.05.2021')},
+  {room: 'D45', name: "Flora Berei-Nagy", email: 'florab@google.com', move_in: Date.parse('01.10.2020'), move_out: Date.parse('31.05.2021')},
+  {room: 'D33', name: "Tobias Heiles", email: 'contact@tobiasheiles.de', move_in: Date.parse('01.12.2020'), move_out: Date.parse('31.05.2021')},
+  {room: 'D32', name: "Khondokar Humayun Kabir", email: 'kabirag09@bau.edu.bd', move_in: Date.parse('01.03.2021'), move_out: Date.parse('31.05.2021')},
+  {room: 'EW06', name: "Gesa Franke", email: 'gesafranke@googlemail.com', move_in: Date.parse('01.02.2021'), move_out: Date.parse('31.05.2021')},
+  {room: 'EW14', name: "Tom Rose", email: 'tomrose1998@hotmail.co.uk', move_in: Date.parse('01.03.2021'), move_out: Date.parse('14.06.2021')},
+  {room: 'D22', name: "Sina Schunk", email: 'Sina.Schunk@jahr-tsv.de', move_in: Date.parse('15.11.2020'), move_out: Date.parse('30.06.2021')},
+  {room: 'D04', name: "Nadine Rinaldi", email: 'nadine.rinaldi@hotmail.ch', move_in: Date.parse('01.11.2020'), move_out: Date.parse('30.06.2021')},
+  {room: 'D46', name: "Lídia Alcolea Vallès", email: 'lidiaav20@gmail.com', move_in: Date.parse('10.02.2021'), move_out: Date.parse('30.06.2021')},
+  {room: 'D31', name: "Victoria Ruth Elisabeth Pap", email: 'victoria.lre.pap@gmail.com', move_in: Date.parse('28.02.2021'), move_out: Date.parse('30.06.2021')},
+  {room: 'DB06', name: "Stephan Hainzl", email: 'st.hainzl@utanet.at', move_in: Date.parse('01.03.2021'), move_out: Date.parse('30.06.2021')},
+  {room: 'EW04', name: "Boyan Tristan Julius Gerretzen", email: 'boyangerretzen@gmail.com', move_in: Date.parse('01.03.2021'), move_out: Date.parse('30.06.2021')},
+  {room: 'EW16', name: "Simao Barreto", email: 'simaofbarreto@gmail.com', move_in: Date.parse('01.04.2021'), move_out: Date.parse('30.06.2021')},
+  {room: 'EW08', name: "Daria Xue", email: 'dariaxue@gmail.com', move_in: Date.parse('01.09.2020'), move_out: Date.parse('14.07.2021')},
+  {room: 'EW13', name: "Nicolas Claudet", email: 'nico.claudet@icloud.com', move_in: Date.parse('01.10.2020'), move_out: Date.parse('14.07.2021')},
+  {room: 'EW17', name: "Isabelle Philipowich", email: 'i.philipowich@outlook.de', move_in: Date.parse('01.05.2021'), move_out: Date.parse('14.07.2021')},
+  {room: 'EW07', name: "Anna Loren Stuhr", email: 'annaloren.stuhr@googlemail.com', move_in: Date.parse('07.07.2020'), move_out: Date.parse('15.07.2021')},
+  {room: 'D29', name: "Vinzenz Ludwig Meineke Wiemann", email: 'vinzenz.wiemann@gmx.de', move_in: Date.parse('01.03.2021'), move_out: Date.parse('31.07.2021')},
+  {room: 'DB05', name: "Fernando Hoppen", email: 'fehoppen@hotmail.com', move_in: Date.parse('01.08.2020'), move_out: Date.parse('31.07.2021')},
+  {room: 'DB03', name: "Philipp Kramberg", email: 'philipp@kramberg.de', move_in: Date.parse('28.08.2020'), move_out: Date.parse('30.08.2021')},
+  {room: 'D54', name: "Franziska Bernerth", email: 'franzi.bernerth@online.de', move_in: Date.parse('01.06.2021'), move_out: Date.parse('31.08.2021')},
+  {room: 'D36', name: "Marvin Beulig", email: 'marvin-beulig@web.de', move_in: Date.parse('01.12.2020'), move_out: Date.parse('31.08.2021')},
+  {room: 'D06', name: "Alyssa Eybächer", email: 'alyssa.eybaecher@gmail.com', move_in: Date.parse('02.07.2020'), move_out: Date.parse('30.09.2021')},
+  {room: 'D18', name: "Anastasia Bain", email: 'afbainey@aol.com', move_in: Date.parse('01.10.2020'), move_out: Date.parse('04.10.2021')},
+  {room: 'D19', name: "Andreas Moll", email: 'andreasmoll@yahoo.com', move_in: Date.parse('15.02.2021'), move_out: Date.parse('30.11.2021')},
+  {room: 'D27', name: "Ervin Demiri ", email: 'ervin0805@gmail.com', move_in: Date.parse('01.12.2020'), move_out: Date.parse('30.11.2021')},
+  {room: 'D10', name: "Francisco Coutinho", email: 'flgpc@hotmail.com', move_in: Date.parse('01.03.2020'), move_out: Date.parse('28.02.2022')},
+  {room: 'D39', name: "Anna-Sophie Körbler", email: 'anna-sophie.koch@kochfamily.at', move_in: Date.parse('01.04.2021'), move_out: Date.parse('31.03.2022')},
+  {room: 'D26', name: "Paul Hase", email: 'hase-paul@t-online.de', move_in: Date.parse('01.04.2021'), move_out: Date.parse('31.03.2022')}
+]
+
+MULTIPLE_BOOKINGS_WITH_SAME_ATTRIBUTES = []
+
+BOOKING_WITH_ERRORS = []
+
+bookings.each do |booking|
+  user = User.select{|u| u.email == booking[:email] || u.full_name == booking[:name]}
+  user = user.count > 1 ? user.select{|u| u.email == booking[:email]}.first : user.first
+  booking[:errors] = []
+  unless user.present?
+    booking[:errors] << 'user not found'
+    BOOKING_WITH_ERRORS << booking
+    next
+  end
+
+  user_bookings = user.bookings.where(state: 'booked')
+  correct_booking = user_bookings.select{|b| b.move_in == booking[:move_in] || b.move_out == booking[:move_out] || b.room.intern_number == booking[:room]}
+  if correct_booking.count > 1
+    MULTIPLE_BOOKINGS_WITH_SAME_ATTRIBUTES << correct_booking
+  else
+    correct_booking = correct_booking.first
+    if correct_booking.present?
+      booking[:errors] << 'move_in different' if correct_booking.move_in != booking[:move_in]
+      booking[:errors] << 'move_out different' if correct_booking.move_out != booking[:move_out]
+      booking[:errors] << 'room different' if correct_booking.room.intern_number != booking[:room]
+    else
+      booking[:errors] << 'not found'
+    end
+  end
+  BOOKING_WITH_ERRORS << booking
+end
+
 
