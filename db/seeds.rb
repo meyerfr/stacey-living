@@ -164,360 +164,360 @@ end
 # end
 
 
-# projects = [
-#   {
-#     name: 'Mühlenkamp',
-#     status: 'active',
-#     descriptions: [
-#       {
-#         field: 'project info index', content: 'A beautiful neighborhood in central Hamburg; everything is here. Find local shops, restaurants and bars nearby. Our community in Mühlenkamp is just as energetic as the neighborhood.'
-#       },
-#       {
-#         field: 'project info show', content: "At STACEY we believe that beautifully designed spaces bring people together. Whether you’re looking to mingle with new people, get creative in the kitchen or open yourself up to new experiences, our Mühlenkamp location can give you all this and more.\nFrom the great living room and the shared kitchen to our beautiful inner yard with a barbecue, your passion points will be catered for. Not to mention the included monthly member events!"
-#       }
-#     ],
-#     address: {
-#       street: 'Dorotheenstraße',
-#       number: '3-5',
-#       city: 'Hamburg',
-#       zip: '22301',
-#       country: 'Germany',
-#       description: {
-#         field: 'address info',
-#         content: 'Hello, we are STACEY and this is our Co-Living Location in Winterhude. Those who are at home in the trendy Winterhude can enjoy the closeness to the city and the Alster at the same time. Hamburgs central lake is less than a minute away and cafes, restaurants & bars can be found in the neighboring street. Our Mühlenkamp location is the perfect mix for meeting new people outside the location and having the comfort of a quieter neighborhood at the same time.'
-#       }
-#     },
-#     community_area: {
-#       name: "common space Mühlenkamp",
-#       size: 180,
-#       description: {
-#         field: 'common space description',
-#         content: "At STACEY we believe in sharing living spaces to achieve a higher member satisfaction. This is why our Mühlenkamp location offers the biggest common area of all STACEY locations. Enjoy a dinner with your friends in our spacious dining areas or cook in one of the multiple community kitchens. Most importantly, in all our common spaces Netflix is pre-installed. Moreover, next to the dining area and lounge area, the Mühlenkamp location delights through a separated Co-Working space and an outdoor gym. Yes, you read it right - an outdoor gym!"
-#       }
-#     },
-#     roomtypes: [
-#       {
-#         name: 'Mighty',
-#         size: 8,
-#         prices: [
-#           {duration: '3-5 Months', amount: 745},
-#           {duration: '6-8 Months', amount: 695},
-#           {duration: '9+ Months', amount: 645}
-#         ],
-#         rooms: [
-#         	{ intern_number: 'D05', house_number: '3b 1st floor right', apartment_number: '02', state: 'bookable' },
-# 					{ intern_number: 'D07', house_number: '3b 2nd floor right', apartment_number: '03', state: 'bookable' },
-# 					{ intern_number: 'D09', house_number: '3b 2nd floor left', apartment_number: '04', state: 'bookable' },
-# 					{ intern_number: 'D10', house_number: '3 ground floor left', apartment_number: '05', state: 'bookable' },
-# 					{ intern_number: 'D11', house_number: '3 ground floor left', apartment_number: '05', state: 'bookable' },
-# 					{ intern_number: 'D13', house_number: '3 ground floor right', apartment_number: '06', state: 'bookable' },
-# 					{ intern_number: 'D14', house_number: '3 ground floor right', apartment_number: '06', state: 'bookable' },
-# 					{ intern_number: 'D16', house_number: '5 1st floor right', apartment_number: '07', state: 'bookable' },
-# 					{ intern_number: 'D19', house_number: '5 2nd floor left', apartment_number: '08', state: 'bookable' },
-# 					{ intern_number: 'D22', house_number: '3 2nd floor left', apartment_number: '09', state: 'bookable' },
-# 					{ intern_number: 'D25', house_number: '5 ground floor left', apartment_number: '10', state: 'bookable' },
-# 					{ intern_number: 'D27', house_number: '5 ground floor left', apartment_number: '10', state: 'bookable' },
-# 					{ intern_number: 'D28', house_number: '5 ground floor left', apartment_number: '10', state: 'bookable' },
-# 					{ intern_number: 'D29', house_number: '5a 2nd floor left', apartment_number: '11', state: 'bookable' },
-# 					{ intern_number: 'D31', house_number: '5a 1st floor right', apartment_number: '12', state: 'bookable' },
-# 					{ intern_number: 'D32', house_number: '5a 1st floor right', apartment_number: '12', state: 'bookable' },
-# 					{ intern_number: 'D34', house_number: '5a 2nd floor right', apartment_number: '13', state: 'bookable' },
-# 					{ intern_number: 'D35', house_number: '5a 2nd floor right', apartment_number: '13', state: 'bookable' },
-# 					{ intern_number: 'D37', house_number: '3a 1st floor left', apartment_number: '14', state: 'bookable' },
-# 					{ intern_number: 'D38', house_number: '3a 1st floor left', apartment_number: '14', state: 'bookable' },
-# 					{ intern_number: 'D41', house_number: '3a ground floor left', apartment_number: '15', state: 'bookable' },
-# 					{ intern_number: 'D44', house_number: '3a 1st floor left', apartment_number: '16', state: 'bookable' },
-# 					{ intern_number: 'D46', house_number: '3c 1st floor left', apartment_number: '17', state: 'bookable' }
-#         ]
-#       },
-#       {
-#         name: 'Premium',
-#         size: 13,
-#         prices: [
-#           {duration: '3-5 Months', amount: 845},
-#           {duration: '6-8 Months', amount: 795},
-#           {duration: '9+ Months', amount: 745}
-#         ],
-#         rooms: [
-#           { intern_number: "D01", house_number: "3d 2nd floor", apartment_number: '01', state: 'bookable' },
-#           { intern_number: "D02", house_number: "3d 2nd floor", apartment_number: '01', state: 'bookable' },
-#           { intern_number: "D03", house_number: "3d 2nd floor", apartment_number: '01', state: 'bookable' },
-#           { intern_number: "D17", house_number: "5 1st floor right", apartment_number: '07', state: 'bookable' },
-#           { intern_number: "D20", house_number: "5 2nd floor left", apartment_number: '08', state: 'bookable' },
-#           { intern_number: "D23", house_number: "3 2nd floor left", apartment_number: '09', state: 'bookable' }
-#         ]
-#       },
-#       {
-#         name: 'Premium+',
-#         size: 15,
-#         prices: [
-#           {duration: '3-5 Months', amount: 895},
-#           {duration: '6-8 Months', amount: 845},
-#           {duration: '9+ Months', amount: 795}
-#         ],
-#         rooms: [
-#           { intern_number: "D12", house_number: "3 ground floor left", apartment_number: '05', state: 'bookable' },
-#           { intern_number: "D15", house_number: "3 ground floor right", apartment_number: '06', state: 'bookable' },
-#           { intern_number: "D18", house_number: "5 1st floor right", apartment_number: '07', state: 'bookable' },
-#           { intern_number: "D21", house_number: "5 2nd floor left", apartment_number: '08', state: 'bookable' },
-#           { intern_number: "D24", house_number: "3 2nd floor left", apartment_number: '09', state: 'bookable' },
-#           { intern_number: "D26", house_number: "5 ground floor left", apartment_number: '10', state: 'bookable' },
-#           { intern_number: "D33", house_number: "5a 1st floor right", apartment_number: '12', state: 'bookable' },
-#           { intern_number: "D36", house_number: "5a 2nd floor right", apartment_number: '13', state: 'bookable' },
-#           { intern_number: "D39", house_number: "3a 1st floor left", apartment_number: '14', state: 'not bookable' },
-#           { intern_number: "D42", house_number: "3a groud floor left", apartment_number: '15', state: 'not bookable' }
-#         ]
-#       },
-#       {
-#         name: 'Jumbo',
-#         size: 25,
-#         amount_of_people: 2,
-#         prices: [
-#           {duration: '3-5 Months', amount: 1045},
-#           {duration: '6-8 Months', amount: 995},
-#           {duration: '9+ Months', amount: 945}
-#         ],
-#         rooms: [
-#           { intern_number: "D04", house_number: "3b 1st floor right", apartment_number: '02', state: 'bookable' },
-#           { intern_number: "D06", house_number: "3b 2nd floor right", apartment_number: '03', state: 'bookable' },
-#           { intern_number: "D08", house_number: "3b 2nd floor left", apartment_number: '04', state: 'bookable' },
-#           { intern_number: "D30", house_number: "5a 2nd floor left", apartment_number: '11', state: 'bookable' },
-#           { intern_number: "D43", house_number: "3a 1st floor right", apartment_number: '16', state: 'not bookable' },
-#           { intern_number: "D45", house_number: "3c 1st floor left", apartment_number: '17', state: 'not bookable' },
-#           { intern_number: "D47", house_number: "3c ground floor left", apartment_number: '18', state: 'not bookable' }
-#         ]
-#       }
-#     ]
-#   },
-#   {
-#     name: 'Eppendorf',
-#     status: 'active',
-#     descriptions: [
-#       {
-#         field: 'project info index',
-#         content: 'A beautiful neighborhood in central Hamburg; everything is here. Find local shops, restaurants and bars nearby. Our community in Eppendorf is just as energetic as the neighborhood.'
-#       },
-#       {
-#         field: 'project info show',
-#         content: "At STACEY we believe that beautifully designed spaces bring people together. Whether you’re looking to mingle with new people, get creative in the kitchen or open yourself up to new experiences, our Eppendorf location can give you all this and more.\nFrom the great living room and the shared kitchen to our beautiful inner yard with a barbecue, your passion points will be catered for. Not to mention the included monthly member events!"
-#       }
-#     ],
-#     address: {
-#       street: 'Eppendorfer Weg',
-#       number: '270',
-#       city: 'Hamburg',
-#       zip: '20251',
-#       country: 'Germany',
-#       description: {
-#         field: 'address info',
-#         content: 'Hello, we are STACEY and this is our Co-Living Location in St. Pauli. Those who are at home in the vibrant St. Pauli will enjoy the heart of Hamburg: An adventurous nightlife, Hamburg´s 2nd best football team and an international living experience. STACEY St. Pauli is located between the city and the Hamburg harbour providing access to the real Hamburg experience. Move-in and experience it for yourself!'
-#       }
-#     },
-#     community_area: {
-#       name: "common space Eppendorf",
-#       size: 120,
-#       description: {
-#         field: 'common space description',
-#         content: "The Eppendorf community spaces is our newest edition to the STACEY network. Experience 100m2 of common space in the heart of Eppendorf. The former, completely renovated restaurant, now provides living space for all STACEY members within the location. Our Eppendorf location is our most private Co-Living experience, as it offers the most m2 per member in terms of common spaces. Take a look at the pictures - They speak for themself!"
-#       }
-#     },
-#     roomtypes: [
-#       {
-#         name: 'Mighty',
-#         size: 10,
-#         prices: [
-#           {duration: '3-5 Months', amount: 795},
-#           {duration: '6-8 Months', amount: 745},
-#           {duration: '9+ Months', amount: 695}
-#         ],
-#         rooms: [
-#           { intern_number: "EW02", house_number: "270a 1st floor", apartment_number: '01', state: 'bookable' },
-#           { intern_number: "EW08", house_number: "270 2nd floor", apartment_number: '02', state: 'bookable' },
-#           { intern_number: "EW09", house_number: "270a 2nd floor", apartment_number: '03', state: 'bookable' },
-#           { intern_number: "EW12", house_number: "270a 3rd floor", apartment_number: '04', state: 'bookable' },
-#           { intern_number: "EW16", house_number: "270a 3rd floor", apartment_number: '05', state: 'bookable' }
-#         ]
-#       },
-#       {
-#         name: 'Mighty+',
-#         size: 10,
-#         prices: [
-#           {duration: '3-5 Months', amount: 895},
-#           {duration: '6-8 Months', amount: 845},
-#           {duration: '9+ Months', amount: 795}
-#         ],
-#         rooms: [
-#           { intern_number: "EW01", house_number: "270", apartment_number: '00', state: 'bookable' }
-#         ]
-#       },
-#       {
-#         name: 'Premium',
-#         size: 12,
-#         prices: [
-#           {duration: '3-5 Months', amount: 895},
-#           {duration: '6-8 Months', amount: 745},
-#           {duration: '9+ Months', amount: 795}
-#         ],
-#         rooms: [
-#           { intern_number: "EW04", house_number: "270a 1st floor", apartment_number: '01', state: 'bookable' },
-#           { intern_number: "EW11", house_number: "270a 2nd floor", apartment_number: '03', state: 'bookable' },
-#           { intern_number: "EW14", house_number: "270 3rd floor", apartment_number: '04', state: 'bookable' },
-#           { intern_number: "EW16", house_number: "270a 3rd floor", apartment_number: '05', state: 'bookable' }
-#         ]
-#       },
-#       {
-#         name: 'Premium (balcony)',
-#         size: 12,
-#         prices: [
-#           {duration: '3-5 Months', amount: 995},
-#           {duration: '6-8 Months', amount: 945},
-#           {duration: '9+ Months', amount: 895}
-#         ],
-#         rooms: [
-#           { intern_number: "EW03", house_number: "270a 1st floor", apartment_number: '01', state: 'bookable' },
-#           { intern_number: "EW10", house_number: "270a 2nd floor", apartment_number: '03', state: 'bookable' },
-#           { intern_number: "EW13", house_number: "270a 3rd floor", apartment_number: '05', state: 'bookable' }
-#         ]
-#       },
-#       {
-#         name: 'Premium+',
-#         size: 14,
-#         prices: [
-#           {duration: '3-5 Months', amount: 995},
-#           {duration: '6-8 Months', amount: 945},
-#           {duration: '9+ Months', amount: 895}
-#         ],
-#         rooms: [
-#           { intern_number: "EW05", house_number: "270 2nd floor", apartment_number: '02', state: 'bookable' },
-#           { intern_number: "EW13", house_number: "270 3rd floor", apartment_number: '04', state: 'bookable' }
-#         ]
-#       },
-#       {
-#         name: 'Premium+ (balcony)',
-#         size: 14,
-#         prices: [
-#           {duration: '3-5 Months', amount: 1_095},
-#           {duration: '6-8 Months', amount: 1_045},
-#           {duration: '9+ Months', amount: 995}
-#         ],
-#         rooms: [
-#           { intern_number: "EW06", house_number: "270 2nd floor", apartment_number: '02', state: 'bookable' }
-#         ]
-#       },
-#       {
-#         name: 'Jumbo',
-#         size: 17,
-#         prices: [
-#           {duration: '3-5 Months', amount: 1_095},
-#           {duration: '6-8 Months', amount: 1_045},
-#           {duration: '9+ Months', amount: 995}
-#         ],
-#         rooms: [
-#           { intern_number: "EW07", house_number: "270 2nd floor", apartment_number: '02', state: 'bookable' }
-#         ]
-#       },
-#       {
-#         name: 'Jumbo (balcony)',
-#         size: 17,
-#         prices: [
-#           {duration: '3-5 Months', amount: 1_095},
-#           {duration: '6-8 Months', amount: 1_045},
-#           {duration: '9+ Months', amount: 995}
-#         ],
-#         rooms: [
-#           { intern_number: "EW15", house_number: "270 3rd floor", apartment_number: '04', state: 'bookable' }
-#         ]
-#       }
-#     ]
-#   },
-#   {
-#     name: 'St. Pauli',
-#     status: 'active',
-#     descriptions: [
-#       {
-#         field: 'project info index',
-#         content: 'A beautiful neighborhood in central Hamburg; everything is here. Find local shops, restaurants and bars nearby. Our community in St. Pauli is just as energetic as the neighborhood.'
-#       },
-#       {
-#         field: 'project info show',
-#         content: "At STACEY we believe that beautifully designed spaces bring people together. Whether you’re looking to mingle with new people, get creative in the kitchen or open yourself up to new experiences, our St. Pauli location can give you all this and more.\nFrom the great living room and the shared kitchen to our beautiful inner yard with a barbecue, your passion points will be catered for. Not to mention the included monthly member events!"
-#       }
-#     ],
-#     address: {
-#       street: 'Detlev-Bremer-Straße',
-#       number: '2',
-#       city: 'Hamburg',
-#       zip: '20359',
-#       country: 'Germany',
-#       description: {
-#         field: 'address info',
-#         content: 'Hello, we are STACEY and this is our Co-Living Location in Eppendorf. Those who are at home in the pretty Eppendorf can count themselves lucky: Lots of water, green, representative architecture and urban quality of life. Chic boutiques, but also small grocery stores supply the residents with luxury goods or everyday needs.'
-#       }
-#     },
-#     community_area: {
-#       name: "common space St. Pauli",
-#       size: 50,
-#       description: {
-#         field: 'common space description',
-#         content: "It might not be the home of the best football team in the world, but it definitely locates an amazing STACEY common area. The St. Pauli common space is  located directly within the apartment, just outside of your own private suite. Besides a fully equipped kitchen, we have a basement to hang out and meet with your cohabitants and friends."
-#       }
-#     },
-#     roomtypes: [
-#       {
-#         name: 'Mighty',
-#         size: 9,
-#         prices: [
-#           {duration: '3-5 Months', amount: 745},
-#           {duration: '6-8 Months', amount: 695},
-#           {duration: '9+ Months', amount: 645}
-#         ],
-#         rooms: [
-#           { intern_number: "DB01", house_number: "2 ground floor", state: 'bookable' },
-#           { intern_number: "DB06", house_number: "2 ground floor", state: 'bookable' }
-#         ]
-#       },
-#       {
-#         name: 'Premium',
-#         size: 12,
-#         prices: [
-#           {duration: '3-5 Months', amount: 895},
-#           {duration: '6-8 Months', amount: 845},
-#           {duration: '9+ Months', amount: 795}
-#         ],
-#         rooms: [
-#           { intern_number: "DB04", house_number: "2 ground floor", state: 'bookable' }
-#         ]
-#       },
-#       {
-#         name: 'Premium+',
-#         size: 14,
-#         prices: [
-#           {duration: '3-5 Months', amount: 995},
-#           {duration: '6-8 Months', amount: 945},
-#           {duration: '9+ Months', amount: 895}
-#         ],
-#         rooms: [
-#           { intern_number: "DB02", house_number: "2 ground floor", state: 'bookable' },
-#           { intern_number: "DB05", house_number: "2 ground floor", state: 'bookable' }
-#         ]
-#       },
-#       {
-#         name: 'Jumbo',
-#         size: 21,
-#         amount_of_people: 2,
-#         prices: [
-#           {duration: '3-5 Months', amount: 1_095},
-#           {duration: '6-8 Months', amount: 1_045},
-#           {duration: '9+ Months', amount: 995}
-#         ],
-#         rooms: [
-#           { intern_number: "DB03", house_number: "2 ground floor", state: 'bookable' },
-#           { intern_number: "DB07", house_number: "2 ground floor", state: 'bookable' }
-#         ]
-#       }
-#     ]
-#   }
-# ]
+projects = [
+  {
+    name: 'Mühlenkamp',
+    status: 'active',
+    descriptions: [
+      {
+        field: 'project info index', content: 'A beautiful neighborhood in central Hamburg; everything is here. Find local shops, restaurants and bars nearby. Our community in Mühlenkamp is just as energetic as the neighborhood.'
+      },
+      {
+        field: 'project info show', content: "At STACEY we believe that beautifully designed spaces bring people together. Whether you’re looking to mingle with new people, get creative in the kitchen or open yourself up to new experiences, our Mühlenkamp location can give you all this and more.\nFrom the great living room and the shared kitchen to our beautiful inner yard with a barbecue, your passion points will be catered for. Not to mention the included monthly member events!"
+      }
+    ],
+    address: {
+      street: 'Dorotheenstraße',
+      number: '3-5',
+      city: 'Hamburg',
+      zip: '22301',
+      country: 'Germany',
+      description: {
+        field: 'address info',
+        content: 'Hello, we are STACEY and this is our Co-Living Location in Winterhude. Those who are at home in the trendy Winterhude can enjoy the closeness to the city and the Alster at the same time. Hamburgs central lake is less than a minute away and cafes, restaurants & bars can be found in the neighboring street. Our Mühlenkamp location is the perfect mix for meeting new people outside the location and having the comfort of a quieter neighborhood at the same time.'
+      }
+    },
+    community_area: {
+      name: "common space Mühlenkamp",
+      size: 180,
+      description: {
+        field: 'common space description',
+        content: "At STACEY we believe in sharing living spaces to achieve a higher member satisfaction. This is why our Mühlenkamp location offers the biggest common area of all STACEY locations. Enjoy a dinner with your friends in our spacious dining areas or cook in one of the multiple community kitchens. Most importantly, in all our common spaces Netflix is pre-installed. Moreover, next to the dining area and lounge area, the Mühlenkamp location delights through a separated Co-Working space and an outdoor gym. Yes, you read it right - an outdoor gym!"
+      }
+    },
+    roomtypes: [
+      {
+        name: 'Mighty',
+        size: 8,
+        prices: [
+          {duration: '3-5 Months', amount: 745},
+          {duration: '6-8 Months', amount: 695},
+          {duration: '9+ Months', amount: 645}
+        ],
+        rooms: [
+        	{ intern_number: 'D05', house_number: '3b 1st floor right', apartment_number: '02', state: 'bookable' },
+					{ intern_number: 'D07', house_number: '3b 2nd floor right', apartment_number: '03', state: 'bookable' },
+					{ intern_number: 'D09', house_number: '3b 2nd floor left', apartment_number: '04', state: 'bookable' },
+					{ intern_number: 'D10', house_number: '3 ground floor left', apartment_number: '05', state: 'bookable' },
+					{ intern_number: 'D11', house_number: '3 ground floor left', apartment_number: '05', state: 'bookable' },
+					{ intern_number: 'D13', house_number: '3 ground floor right', apartment_number: '06', state: 'bookable' },
+					{ intern_number: 'D14', house_number: '3 ground floor right', apartment_number: '06', state: 'bookable' },
+					{ intern_number: 'D16', house_number: '5 1st floor right', apartment_number: '07', state: 'bookable' },
+					{ intern_number: 'D19', house_number: '5 2nd floor left', apartment_number: '08', state: 'bookable' },
+					{ intern_number: 'D22', house_number: '3 2nd floor left', apartment_number: '09', state: 'bookable' },
+					{ intern_number: 'D25', house_number: '5 ground floor left', apartment_number: '10', state: 'bookable' },
+					{ intern_number: 'D27', house_number: '5 ground floor left', apartment_number: '10', state: 'bookable' },
+					{ intern_number: 'D28', house_number: '5 ground floor left', apartment_number: '10', state: 'bookable' },
+					{ intern_number: 'D29', house_number: '5a 2nd floor left', apartment_number: '11', state: 'bookable' },
+					{ intern_number: 'D31', house_number: '5a 1st floor right', apartment_number: '12', state: 'bookable' },
+					{ intern_number: 'D32', house_number: '5a 1st floor right', apartment_number: '12', state: 'bookable' },
+					{ intern_number: 'D34', house_number: '5a 2nd floor right', apartment_number: '13', state: 'bookable' },
+					{ intern_number: 'D35', house_number: '5a 2nd floor right', apartment_number: '13', state: 'bookable' },
+					{ intern_number: 'D37', house_number: '3a 1st floor left', apartment_number: '14', state: 'bookable' },
+					{ intern_number: 'D38', house_number: '3a 1st floor left', apartment_number: '14', state: 'bookable' },
+					{ intern_number: 'D41', house_number: '3a ground floor left', apartment_number: '15', state: 'bookable' },
+					{ intern_number: 'D44', house_number: '3a 1st floor left', apartment_number: '16', state: 'bookable' },
+					{ intern_number: 'D46', house_number: '3c 1st floor left', apartment_number: '17', state: 'bookable' }
+        ]
+      },
+      {
+        name: 'Premium',
+        size: 13,
+        prices: [
+          {duration: '3-5 Months', amount: 845},
+          {duration: '6-8 Months', amount: 795},
+          {duration: '9+ Months', amount: 745}
+        ],
+        rooms: [
+          { intern_number: "D01", house_number: "3d 2nd floor", apartment_number: '01', state: 'bookable' },
+          { intern_number: "D02", house_number: "3d 2nd floor", apartment_number: '01', state: 'bookable' },
+          { intern_number: "D03", house_number: "3d 2nd floor", apartment_number: '01', state: 'bookable' },
+          { intern_number: "D17", house_number: "5 1st floor right", apartment_number: '07', state: 'bookable' },
+          { intern_number: "D20", house_number: "5 2nd floor left", apartment_number: '08', state: 'bookable' },
+          { intern_number: "D23", house_number: "3 2nd floor left", apartment_number: '09', state: 'bookable' }
+        ]
+      },
+      {
+        name: 'Premium+',
+        size: 15,
+        prices: [
+          {duration: '3-5 Months', amount: 895},
+          {duration: '6-8 Months', amount: 845},
+          {duration: '9+ Months', amount: 795}
+        ],
+        rooms: [
+          { intern_number: "D12", house_number: "3 ground floor left", apartment_number: '05', state: 'bookable' },
+          { intern_number: "D15", house_number: "3 ground floor right", apartment_number: '06', state: 'bookable' },
+          { intern_number: "D18", house_number: "5 1st floor right", apartment_number: '07', state: 'bookable' },
+          { intern_number: "D21", house_number: "5 2nd floor left", apartment_number: '08', state: 'bookable' },
+          { intern_number: "D24", house_number: "3 2nd floor left", apartment_number: '09', state: 'bookable' },
+          { intern_number: "D26", house_number: "5 ground floor left", apartment_number: '10', state: 'bookable' },
+          { intern_number: "D33", house_number: "5a 1st floor right", apartment_number: '12', state: 'bookable' },
+          { intern_number: "D36", house_number: "5a 2nd floor right", apartment_number: '13', state: 'bookable' },
+          { intern_number: "D39", house_number: "3a 1st floor left", apartment_number: '14', state: 'not bookable' },
+          { intern_number: "D42", house_number: "3a groud floor left", apartment_number: '15', state: 'not bookable' }
+        ]
+      },
+      {
+        name: 'Jumbo',
+        size: 25,
+        amount_of_people: 2,
+        prices: [
+          {duration: '3-5 Months', amount: 1045},
+          {duration: '6-8 Months', amount: 995},
+          {duration: '9+ Months', amount: 945}
+        ],
+        rooms: [
+          { intern_number: "D04", house_number: "3b 1st floor right", apartment_number: '02', state: 'bookable' },
+          { intern_number: "D06", house_number: "3b 2nd floor right", apartment_number: '03', state: 'bookable' },
+          { intern_number: "D08", house_number: "3b 2nd floor left", apartment_number: '04', state: 'bookable' },
+          { intern_number: "D30", house_number: "5a 2nd floor left", apartment_number: '11', state: 'bookable' },
+          { intern_number: "D43", house_number: "3a 1st floor right", apartment_number: '16', state: 'not bookable' },
+          { intern_number: "D45", house_number: "3c 1st floor left", apartment_number: '17', state: 'not bookable' },
+          { intern_number: "D47", house_number: "3c ground floor left", apartment_number: '18', state: 'not bookable' }
+        ]
+      }
+    ]
+  },
+  {
+    name: 'Eppendorf',
+    status: 'active',
+    descriptions: [
+      {
+        field: 'project info index',
+        content: 'A beautiful neighborhood in central Hamburg; everything is here. Find local shops, restaurants and bars nearby. Our community in Eppendorf is just as energetic as the neighborhood.'
+      },
+      {
+        field: 'project info show',
+        content: "At STACEY we believe that beautifully designed spaces bring people together. Whether you’re looking to mingle with new people, get creative in the kitchen or open yourself up to new experiences, our Eppendorf location can give you all this and more.\nFrom the great living room and the shared kitchen to our beautiful inner yard with a barbecue, your passion points will be catered for. Not to mention the included monthly member events!"
+      }
+    ],
+    address: {
+      street: 'Eppendorfer Weg',
+      number: '270',
+      city: 'Hamburg',
+      zip: '20251',
+      country: 'Germany',
+      description: {
+        field: 'address info',
+        content: 'Hello, we are STACEY and this is our Co-Living Location in St. Pauli. Those who are at home in the vibrant St. Pauli will enjoy the heart of Hamburg: An adventurous nightlife, Hamburg´s 2nd best football team and an international living experience. STACEY St. Pauli is located between the city and the Hamburg harbour providing access to the real Hamburg experience. Move-in and experience it for yourself!'
+      }
+    },
+    community_area: {
+      name: "common space Eppendorf",
+      size: 120,
+      description: {
+        field: 'common space description',
+        content: "The Eppendorf community spaces is our newest edition to the STACEY network. Experience 100m2 of common space in the heart of Eppendorf. The former, completely renovated restaurant, now provides living space for all STACEY members within the location. Our Eppendorf location is our most private Co-Living experience, as it offers the most m2 per member in terms of common spaces. Take a look at the pictures - They speak for themself!"
+      }
+    },
+    roomtypes: [
+      {
+        name: 'Mighty',
+        size: 10,
+        prices: [
+          {duration: '3-5 Months', amount: 795},
+          {duration: '6-8 Months', amount: 745},
+          {duration: '9+ Months', amount: 695}
+        ],
+        rooms: [
+          { intern_number: "EW02", house_number: "270a 1st floor", apartment_number: '01', state: 'bookable' },
+          { intern_number: "EW08", house_number: "270 2nd floor", apartment_number: '02', state: 'bookable' },
+          { intern_number: "EW09", house_number: "270a 2nd floor", apartment_number: '03', state: 'bookable' },
+          { intern_number: "EW12", house_number: "270a 3rd floor", apartment_number: '04', state: 'bookable' },
+          { intern_number: "EW16", house_number: "270a 3rd floor", apartment_number: '05', state: 'bookable' }
+        ]
+      },
+      {
+        name: 'Mighty+',
+        size: 10,
+        prices: [
+          {duration: '3-5 Months', amount: 895},
+          {duration: '6-8 Months', amount: 845},
+          {duration: '9+ Months', amount: 795}
+        ],
+        rooms: [
+          { intern_number: "EW01", house_number: "270", apartment_number: '00', state: 'bookable' }
+        ]
+      },
+      {
+        name: 'Premium',
+        size: 12,
+        prices: [
+          {duration: '3-5 Months', amount: 895},
+          {duration: '6-8 Months', amount: 745},
+          {duration: '9+ Months', amount: 795}
+        ],
+        rooms: [
+          { intern_number: "EW04", house_number: "270a 1st floor", apartment_number: '01', state: 'bookable' },
+          { intern_number: "EW11", house_number: "270a 2nd floor", apartment_number: '03', state: 'bookable' },
+          { intern_number: "EW14", house_number: "270 3rd floor", apartment_number: '04', state: 'bookable' },
+          { intern_number: "EW16", house_number: "270a 3rd floor", apartment_number: '05', state: 'bookable' }
+        ]
+      },
+      {
+        name: 'Premium (balcony)',
+        size: 12,
+        prices: [
+          {duration: '3-5 Months', amount: 995},
+          {duration: '6-8 Months', amount: 945},
+          {duration: '9+ Months', amount: 895}
+        ],
+        rooms: [
+          { intern_number: "EW03", house_number: "270a 1st floor", apartment_number: '01', state: 'bookable' },
+          { intern_number: "EW10", house_number: "270a 2nd floor", apartment_number: '03', state: 'bookable' },
+          { intern_number: "EW13", house_number: "270a 3rd floor", apartment_number: '05', state: 'bookable' }
+        ]
+      },
+      {
+        name: 'Premium+',
+        size: 14,
+        prices: [
+          {duration: '3-5 Months', amount: 995},
+          {duration: '6-8 Months', amount: 945},
+          {duration: '9+ Months', amount: 895}
+        ],
+        rooms: [
+          { intern_number: "EW05", house_number: "270 2nd floor", apartment_number: '02', state: 'bookable' },
+          { intern_number: "EW13", house_number: "270 3rd floor", apartment_number: '04', state: 'bookable' }
+        ]
+      },
+      {
+        name: 'Premium+ (balcony)',
+        size: 14,
+        prices: [
+          {duration: '3-5 Months', amount: 1_095},
+          {duration: '6-8 Months', amount: 1_045},
+          {duration: '9+ Months', amount: 995}
+        ],
+        rooms: [
+          { intern_number: "EW06", house_number: "270 2nd floor", apartment_number: '02', state: 'bookable' }
+        ]
+      },
+      {
+        name: 'Jumbo',
+        size: 17,
+        prices: [
+          {duration: '3-5 Months', amount: 1_095},
+          {duration: '6-8 Months', amount: 1_045},
+          {duration: '9+ Months', amount: 995}
+        ],
+        rooms: [
+          { intern_number: "EW07", house_number: "270 2nd floor", apartment_number: '02', state: 'bookable' }
+        ]
+      },
+      {
+        name: 'Jumbo (balcony)',
+        size: 17,
+        prices: [
+          {duration: '3-5 Months', amount: 1_095},
+          {duration: '6-8 Months', amount: 1_045},
+          {duration: '9+ Months', amount: 995}
+        ],
+        rooms: [
+          { intern_number: "EW15", house_number: "270 3rd floor", apartment_number: '04', state: 'bookable' }
+        ]
+      }
+    ]
+  },
+  {
+    name: 'St. Pauli',
+    status: 'active',
+    descriptions: [
+      {
+        field: 'project info index',
+        content: 'A beautiful neighborhood in central Hamburg; everything is here. Find local shops, restaurants and bars nearby. Our community in St. Pauli is just as energetic as the neighborhood.'
+      },
+      {
+        field: 'project info show',
+        content: "At STACEY we believe that beautifully designed spaces bring people together. Whether you’re looking to mingle with new people, get creative in the kitchen or open yourself up to new experiences, our St. Pauli location can give you all this and more.\nFrom the great living room and the shared kitchen to our beautiful inner yard with a barbecue, your passion points will be catered for. Not to mention the included monthly member events!"
+      }
+    ],
+    address: {
+      street: 'Detlev-Bremer-Straße',
+      number: '2',
+      city: 'Hamburg',
+      zip: '20359',
+      country: 'Germany',
+      description: {
+        field: 'address info',
+        content: 'Hello, we are STACEY and this is our Co-Living Location in Eppendorf. Those who are at home in the pretty Eppendorf can count themselves lucky: Lots of water, green, representative architecture and urban quality of life. Chic boutiques, but also small grocery stores supply the residents with luxury goods or everyday needs.'
+      }
+    },
+    community_area: {
+      name: "common space St. Pauli",
+      size: 50,
+      description: {
+        field: 'common space description',
+        content: "It might not be the home of the best football team in the world, but it definitely locates an amazing STACEY common area. The St. Pauli common space is  located directly within the apartment, just outside of your own private suite. Besides a fully equipped kitchen, we have a basement to hang out and meet with your cohabitants and friends."
+      }
+    },
+    roomtypes: [
+      {
+        name: 'Mighty',
+        size: 9,
+        prices: [
+          {duration: '3-5 Months', amount: 745},
+          {duration: '6-8 Months', amount: 695},
+          {duration: '9+ Months', amount: 645}
+        ],
+        rooms: [
+          { intern_number: "DB01", house_number: "2 ground floor", state: 'bookable' },
+          { intern_number: "DB06", house_number: "2 ground floor", state: 'bookable' }
+        ]
+      },
+      {
+        name: 'Premium',
+        size: 12,
+        prices: [
+          {duration: '3-5 Months', amount: 895},
+          {duration: '6-8 Months', amount: 845},
+          {duration: '9+ Months', amount: 795}
+        ],
+        rooms: [
+          { intern_number: "DB04", house_number: "2 ground floor", state: 'bookable' }
+        ]
+      },
+      {
+        name: 'Premium+',
+        size: 14,
+        prices: [
+          {duration: '3-5 Months', amount: 995},
+          {duration: '6-8 Months', amount: 945},
+          {duration: '9+ Months', amount: 895}
+        ],
+        rooms: [
+          { intern_number: "DB02", house_number: "2 ground floor", state: 'bookable' },
+          { intern_number: "DB05", house_number: "2 ground floor", state: 'bookable' }
+        ]
+      },
+      {
+        name: 'Jumbo',
+        size: 21,
+        amount_of_people: 2,
+        prices: [
+          {duration: '3-5 Months', amount: 1_095},
+          {duration: '6-8 Months', amount: 1_045},
+          {duration: '9+ Months', amount: 995}
+        ],
+        rooms: [
+          { intern_number: "DB03", house_number: "2 ground floor", state: 'bookable' },
+          { intern_number: "DB07", house_number: "2 ground floor", state: 'bookable' }
+        ]
+      }
+    ]
+  }
+]
 
 # puts('create Projects')
 # create_projects_and_attributes(projects)

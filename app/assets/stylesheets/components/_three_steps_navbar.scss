@@ -43,3 +43,71 @@
     }
   }
 }
+
+
+nav.navbar-wrapper{
+  margin: 0 50px;
+  height: 180px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  img{
+    height: 28px;
+  }
+  #progressbar {
+    margin-bottom: 0;
+    overflow: hidden;
+    /*CSS counters to number the steps*/
+    counter-reset: step;
+    display: flex;
+    padding-left: 0;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50%;
+    li {
+      list-style-type: none;
+      color: black;
+      font-size: 12px;
+      position: relative;
+      width: 25%;
+      text-align: center;
+      &:before{
+        content: counter(step);
+        counter-increment: step;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 18px;
+        color: #333;
+        background: white;
+        border-radius: 50%;
+        margin: 0 auto 5px auto;
+        border: 1px solid $stacey-pink;
+      }
+      &:after{
+        content: '';
+        width: 100%;
+        height: 2px;
+        background: black;
+        position: absolute;
+        left: -50%;
+        top: 20px;
+        z-index: -1; /*put it behind the numbers*/
+      }
+      &:first-child:after{
+        /*connector not needed before the first step*/
+        content: none
+      }
+      /*marking active/completed steps green*/
+      /*The number of the step and the connector before it = green*/
+      &.active:before, &.active:after{
+        background: $stacey-pink;
+        color: white;
+        border: none;
+      }
+    }
+  }
+}

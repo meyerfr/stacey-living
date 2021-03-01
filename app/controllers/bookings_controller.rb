@@ -1,8 +1,13 @@
 class BookingsController < ApplicationController
   skip_before_action :authenticate_user!, only: [:new, :create, :success]
-  layout 'overview', only: [ :apply, :index, :success ]
+  layout 'overview', only: [ :show, :apply, :index, :success ]
 
   BOOKINGS_PER_PAGE = 25
+
+  def show
+    # @booking = Booking.find(params[:id])
+    @bookings = Booking.new
+  end
 
   def apply
   end
