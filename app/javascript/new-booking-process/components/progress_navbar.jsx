@@ -6,10 +6,10 @@ const ProgressNavbar = props => {
     <nav className="navbar-wrapper">
       {props.children ? props.children : <br/>}
       <ul id="progressbar">
-        <li className="active">Choose Location</li>
-        <li>Choose Roomtype</li>
-        <li>Sign Contract</li>
-        <li>Payment Info</li>
+        <li className={props.step > 0 ? "active" : ''}>Choose Location</li>
+        <li className={props.step > 1 ? "active" : ''}>Choose Roomtype</li>
+        <li className={props.step > 2 ? "active" : ''}>Sign Contract</li>
+        <li className={props.step > 3 ? "active" : ''}>Payment Info</li>
       </ul>
       <img src={staceyLogoPink} alt="staceyLogoPink" />
     </nav>
