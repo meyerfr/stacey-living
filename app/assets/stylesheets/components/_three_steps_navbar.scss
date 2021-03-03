@@ -47,12 +47,16 @@
 
 nav.navbar-wrapper{
   margin: 0 50px;
-  height: 180px;
+  height: 100px;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
+  position: relative;
   img{
+    position: absolute;
     height: 28px;
+    top: calc(40px - 14px);
+    right: 0;
   }
   #progressbar {
     margin-bottom: 0;
@@ -61,9 +65,6 @@ nav.navbar-wrapper{
     counter-reset: step;
     display: flex;
     padding-left: 0;
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
     width: 50%;
     li {
       list-style-type: none;

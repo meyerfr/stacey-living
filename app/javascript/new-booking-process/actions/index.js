@@ -1,23 +1,25 @@
 const BASE_URL = '/api/v2';
 
-const PROJECT_SELECTED = 'PROJECT_SELECTED'
-const ROOMTYPE_SELECTED = 'ROOMTYPE_SELECTED'
-const FETCH_PROJECTS = 'FETCH_PROJECTS'
-const FETCH_ROOMTYPES = 'FETCH_ROOMTYPES'
-const FETCH_USER = 'FETCH_USER'
-const UPDATE_USER = 'UPDATE_USER'
-const COMPLETE_BOOKING = 'COMPLETE_BOOKING'
+export const PROJECT_SELECTED = 'PROJECT_SELECTED'
+export const ROOMTYPE_SELECTED = 'ROOMTYPE_SELECTED'
+export const FETCH_PROJECTS = 'FETCH_PROJECTS'
+export const FETCH_ROOMTYPES = 'FETCH_ROOMTYPES'
+export const FETCH_USER = 'FETCH_USER'
+export const USER_UPDATED = 'USER_UPDATED'
+export const COMPLETE_BOOKING = 'COMPLETE_BOOKING'
+export const CONTRACT_SIGNED = 'CONTRACT_SIGNED'
+export const ROOM_CHOSEN = 'ROOM_CHOSEN'
 
 
-function selectProject() {
+export function selectProject() {
   // body...
 }
 
-function selectedRoomtype() {
+export function selectRoomtype() {
   // body...
 }
 
-function fetchRoomtypes(project_id) {
+export function fetchRoomtypes(project_id) {
   const url = `${BASE_URL}/projects/${project_id}/roomtypes`;
   const promise = fetch(url)
     .then(r => r.json());
@@ -28,7 +30,7 @@ function fetchRoomtypes(project_id) {
   }
 }
 
-function fetchProjects(argument) {
+export function fetchProjects(argument) {
   const url = `${BASE_URL}/projects/`;
   const promise = fetch(url)
     .then(r => r.json());
@@ -39,14 +41,54 @@ function fetchProjects(argument) {
   }
 }
 
-function fetchUser() {
+export function fetchUser(user_id) {
+  const url = `${BASE_URL}/users/${user_id}${page && '?page=' + page}`;
+  const promise = fetch(url)
+    .then(r => r.json());
+
+  return {
+    type: FETCH_PROJECT,
+    payload: promise
+  }
+}
+
+export function updateUser(user_id, user) {
+  const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+  const url = `${BASE_URL}/users/${user_id}`
+  const promise = fetch(url, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-CSRF-Token': csrfToken
+    },
+    body: JSON.stringify(user)
+  }).then(r => r.json())
+    .then(r => typeof callback === 'function' ? callback() : r);
+
+  return {
+    type: USER_UPDATED,
+    payload: promise
+  }
+}
+
+export function completeBooking(booking_id, booking) {
   // body...
 }
 
-function updateUser(user_id, user) {
-  // body...
+export function signContract(contract) {
+  return {
+    type: CONTRACT_SIGNED,
+    payload: contract
+  }
 }
 
-function completeBooking(booking_id, booking) {
-  // body...
+export function chooseRoom(booking, callback) {
+  if (typeof callback === 'function') {
+    callback()
+  }
+
+  return {
+    type: ROOM_CHOSEN,
+    payload: booking
+  }
 }

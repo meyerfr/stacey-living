@@ -1,11 +1,11 @@
-require "open-uri"
+# require "open-uri"
 
 
-['fritzaef@de.de', 'fritzaef@de.dede', 'fritzaef@deqaddde.de', 'fritzaef@dasfdae.de', 'fritzaefsdfasfda@de.de', 'fasfritzaef@de.de', 'fritzaeasfdf@de.de', 'asdfafritzaef@de.de', 'fritzaeafasfassf@de.de', 'ferfrasfdfritzaef@de.de'].each do |email|
-  u = User.last.dup
-  u.email = email
-  u.save!(validate: false)
-end
+# ['fritzaef@de.de', 'fritzaef@de.dede', 'fritzaef@deqaddde.de', 'fritzaef@dasfdae.de', 'fritzaefsdfasfda@de.de', 'fasfritzaef@de.de', 'fritzaeasfdf@de.de', 'asdfafritzaef@de.de', 'fritzaeafasfassf@de.de', 'ferfrasfdfritzaef@de.de'].each do |email|
+#   u = User.last.dup
+#   u.email = email
+#   u.save!(validate: false)
+# end
 
 # change mühlenlamp mighty price for 9+ Month back to live mode - price_1HaJN3HP1DTF1I43NtoUdBzx
 
@@ -108,12 +108,12 @@ end
 #   end
 # end
 
-# def create_descriptions(description_hash)
-#   description_hash.each do |roomtype_names_array, description_content|
-#     all_roomtypes_with_names_included_in_array = Roomtype.select{|rt| roomtype_names_array.include?(rt.name)}
-#     all_roomtypes_with_names_included_in_array.each{|rt| rt.descriptions.create!(field: "#{rt.name} description", content: description_content)}
-#   end
-# end
+def create_descriptions(description_hash)
+  description_hash.each do |roomtype_names_array, description_content|
+    all_roomtypes_with_names_included_in_array = Roomtype.select{|rt| roomtype_names_array.include?(rt.name)}
+    all_roomtypes_with_names_included_in_array.each{|rt| rt.descriptions.create!(field: "#{rt.name} description", content: description_content)}
+  end
+end
 
 # def create_projects_and_attributes(projects_array)
 #   projects_array.each do |project_hash|
@@ -164,360 +164,360 @@ end
 # end
 
 
-projects = [
-  {
-    name: 'Mühlenkamp',
-    status: 'active',
-    descriptions: [
-      {
-        field: 'project info index', content: 'A beautiful neighborhood in central Hamburg; everything is here. Find local shops, restaurants and bars nearby. Our community in Mühlenkamp is just as energetic as the neighborhood.'
-      },
-      {
-        field: 'project info show', content: "At STACEY we believe that beautifully designed spaces bring people together. Whether you’re looking to mingle with new people, get creative in the kitchen or open yourself up to new experiences, our Mühlenkamp location can give you all this and more.\nFrom the great living room and the shared kitchen to our beautiful inner yard with a barbecue, your passion points will be catered for. Not to mention the included monthly member events!"
-      }
-    ],
-    address: {
-      street: 'Dorotheenstraße',
-      number: '3-5',
-      city: 'Hamburg',
-      zip: '22301',
-      country: 'Germany',
-      description: {
-        field: 'address info',
-        content: 'Hello, we are STACEY and this is our Co-Living Location in Winterhude. Those who are at home in the trendy Winterhude can enjoy the closeness to the city and the Alster at the same time. Hamburgs central lake is less than a minute away and cafes, restaurants & bars can be found in the neighboring street. Our Mühlenkamp location is the perfect mix for meeting new people outside the location and having the comfort of a quieter neighborhood at the same time.'
-      }
-    },
-    community_area: {
-      name: "common space Mühlenkamp",
-      size: 180,
-      description: {
-        field: 'common space description',
-        content: "At STACEY we believe in sharing living spaces to achieve a higher member satisfaction. This is why our Mühlenkamp location offers the biggest common area of all STACEY locations. Enjoy a dinner with your friends in our spacious dining areas or cook in one of the multiple community kitchens. Most importantly, in all our common spaces Netflix is pre-installed. Moreover, next to the dining area and lounge area, the Mühlenkamp location delights through a separated Co-Working space and an outdoor gym. Yes, you read it right - an outdoor gym!"
-      }
-    },
-    roomtypes: [
-      {
-        name: 'Mighty',
-        size: 8,
-        prices: [
-          {duration: '3-5 Months', amount: 745},
-          {duration: '6-8 Months', amount: 695},
-          {duration: '9+ Months', amount: 645}
-        ],
-        rooms: [
-        	{ intern_number: 'D05', house_number: '3b 1st floor right', apartment_number: '02', state: 'bookable' },
-					{ intern_number: 'D07', house_number: '3b 2nd floor right', apartment_number: '03', state: 'bookable' },
-					{ intern_number: 'D09', house_number: '3b 2nd floor left', apartment_number: '04', state: 'bookable' },
-					{ intern_number: 'D10', house_number: '3 ground floor left', apartment_number: '05', state: 'bookable' },
-					{ intern_number: 'D11', house_number: '3 ground floor left', apartment_number: '05', state: 'bookable' },
-					{ intern_number: 'D13', house_number: '3 ground floor right', apartment_number: '06', state: 'bookable' },
-					{ intern_number: 'D14', house_number: '3 ground floor right', apartment_number: '06', state: 'bookable' },
-					{ intern_number: 'D16', house_number: '5 1st floor right', apartment_number: '07', state: 'bookable' },
-					{ intern_number: 'D19', house_number: '5 2nd floor left', apartment_number: '08', state: 'bookable' },
-					{ intern_number: 'D22', house_number: '3 2nd floor left', apartment_number: '09', state: 'bookable' },
-					{ intern_number: 'D25', house_number: '5 ground floor left', apartment_number: '10', state: 'bookable' },
-					{ intern_number: 'D27', house_number: '5 ground floor left', apartment_number: '10', state: 'bookable' },
-					{ intern_number: 'D28', house_number: '5 ground floor left', apartment_number: '10', state: 'bookable' },
-					{ intern_number: 'D29', house_number: '5a 2nd floor left', apartment_number: '11', state: 'bookable' },
-					{ intern_number: 'D31', house_number: '5a 1st floor right', apartment_number: '12', state: 'bookable' },
-					{ intern_number: 'D32', house_number: '5a 1st floor right', apartment_number: '12', state: 'bookable' },
-					{ intern_number: 'D34', house_number: '5a 2nd floor right', apartment_number: '13', state: 'bookable' },
-					{ intern_number: 'D35', house_number: '5a 2nd floor right', apartment_number: '13', state: 'bookable' },
-					{ intern_number: 'D37', house_number: '3a 1st floor left', apartment_number: '14', state: 'bookable' },
-					{ intern_number: 'D38', house_number: '3a 1st floor left', apartment_number: '14', state: 'bookable' },
-					{ intern_number: 'D41', house_number: '3a ground floor left', apartment_number: '15', state: 'bookable' },
-					{ intern_number: 'D44', house_number: '3a 1st floor left', apartment_number: '16', state: 'bookable' },
-					{ intern_number: 'D46', house_number: '3c 1st floor left', apartment_number: '17', state: 'bookable' }
-        ]
-      },
-      {
-        name: 'Premium',
-        size: 13,
-        prices: [
-          {duration: '3-5 Months', amount: 845},
-          {duration: '6-8 Months', amount: 795},
-          {duration: '9+ Months', amount: 745}
-        ],
-        rooms: [
-          { intern_number: "D01", house_number: "3d 2nd floor", apartment_number: '01', state: 'bookable' },
-          { intern_number: "D02", house_number: "3d 2nd floor", apartment_number: '01', state: 'bookable' },
-          { intern_number: "D03", house_number: "3d 2nd floor", apartment_number: '01', state: 'bookable' },
-          { intern_number: "D17", house_number: "5 1st floor right", apartment_number: '07', state: 'bookable' },
-          { intern_number: "D20", house_number: "5 2nd floor left", apartment_number: '08', state: 'bookable' },
-          { intern_number: "D23", house_number: "3 2nd floor left", apartment_number: '09', state: 'bookable' }
-        ]
-      },
-      {
-        name: 'Premium+',
-        size: 15,
-        prices: [
-          {duration: '3-5 Months', amount: 895},
-          {duration: '6-8 Months', amount: 845},
-          {duration: '9+ Months', amount: 795}
-        ],
-        rooms: [
-          { intern_number: "D12", house_number: "3 ground floor left", apartment_number: '05', state: 'bookable' },
-          { intern_number: "D15", house_number: "3 ground floor right", apartment_number: '06', state: 'bookable' },
-          { intern_number: "D18", house_number: "5 1st floor right", apartment_number: '07', state: 'bookable' },
-          { intern_number: "D21", house_number: "5 2nd floor left", apartment_number: '08', state: 'bookable' },
-          { intern_number: "D24", house_number: "3 2nd floor left", apartment_number: '09', state: 'bookable' },
-          { intern_number: "D26", house_number: "5 ground floor left", apartment_number: '10', state: 'bookable' },
-          { intern_number: "D33", house_number: "5a 1st floor right", apartment_number: '12', state: 'bookable' },
-          { intern_number: "D36", house_number: "5a 2nd floor right", apartment_number: '13', state: 'bookable' },
-          { intern_number: "D39", house_number: "3a 1st floor left", apartment_number: '14', state: 'not bookable' },
-          { intern_number: "D42", house_number: "3a groud floor left", apartment_number: '15', state: 'not bookable' }
-        ]
-      },
-      {
-        name: 'Jumbo',
-        size: 25,
-        amount_of_people: 2,
-        prices: [
-          {duration: '3-5 Months', amount: 1045},
-          {duration: '6-8 Months', amount: 995},
-          {duration: '9+ Months', amount: 945}
-        ],
-        rooms: [
-          { intern_number: "D04", house_number: "3b 1st floor right", apartment_number: '02', state: 'bookable' },
-          { intern_number: "D06", house_number: "3b 2nd floor right", apartment_number: '03', state: 'bookable' },
-          { intern_number: "D08", house_number: "3b 2nd floor left", apartment_number: '04', state: 'bookable' },
-          { intern_number: "D30", house_number: "5a 2nd floor left", apartment_number: '11', state: 'bookable' },
-          { intern_number: "D43", house_number: "3a 1st floor right", apartment_number: '16', state: 'not bookable' },
-          { intern_number: "D45", house_number: "3c 1st floor left", apartment_number: '17', state: 'not bookable' },
-          { intern_number: "D47", house_number: "3c ground floor left", apartment_number: '18', state: 'not bookable' }
-        ]
-      }
-    ]
-  },
-  {
-    name: 'Eppendorf',
-    status: 'active',
-    descriptions: [
-      {
-        field: 'project info index',
-        content: 'A beautiful neighborhood in central Hamburg; everything is here. Find local shops, restaurants and bars nearby. Our community in Eppendorf is just as energetic as the neighborhood.'
-      },
-      {
-        field: 'project info show',
-        content: "At STACEY we believe that beautifully designed spaces bring people together. Whether you’re looking to mingle with new people, get creative in the kitchen or open yourself up to new experiences, our Eppendorf location can give you all this and more.\nFrom the great living room and the shared kitchen to our beautiful inner yard with a barbecue, your passion points will be catered for. Not to mention the included monthly member events!"
-      }
-    ],
-    address: {
-      street: 'Eppendorfer Weg',
-      number: '270',
-      city: 'Hamburg',
-      zip: '20251',
-      country: 'Germany',
-      description: {
-        field: 'address info',
-        content: 'Hello, we are STACEY and this is our Co-Living Location in St. Pauli. Those who are at home in the vibrant St. Pauli will enjoy the heart of Hamburg: An adventurous nightlife, Hamburg´s 2nd best football team and an international living experience. STACEY St. Pauli is located between the city and the Hamburg harbour providing access to the real Hamburg experience. Move-in and experience it for yourself!'
-      }
-    },
-    community_area: {
-      name: "common space Eppendorf",
-      size: 120,
-      description: {
-        field: 'common space description',
-        content: "The Eppendorf community spaces is our newest edition to the STACEY network. Experience 100m2 of common space in the heart of Eppendorf. The former, completely renovated restaurant, now provides living space for all STACEY members within the location. Our Eppendorf location is our most private Co-Living experience, as it offers the most m2 per member in terms of common spaces. Take a look at the pictures - They speak for themself!"
-      }
-    },
-    roomtypes: [
-      {
-        name: 'Mighty',
-        size: 10,
-        prices: [
-          {duration: '3-5 Months', amount: 795},
-          {duration: '6-8 Months', amount: 745},
-          {duration: '9+ Months', amount: 695}
-        ],
-        rooms: [
-          { intern_number: "EW02", house_number: "270a 1st floor", apartment_number: '01', state: 'bookable' },
-          { intern_number: "EW08", house_number: "270 2nd floor", apartment_number: '02', state: 'bookable' },
-          { intern_number: "EW09", house_number: "270a 2nd floor", apartment_number: '03', state: 'bookable' },
-          { intern_number: "EW12", house_number: "270a 3rd floor", apartment_number: '04', state: 'bookable' },
-          { intern_number: "EW16", house_number: "270a 3rd floor", apartment_number: '05', state: 'bookable' }
-        ]
-      },
-      {
-        name: 'Mighty+',
-        size: 10,
-        prices: [
-          {duration: '3-5 Months', amount: 895},
-          {duration: '6-8 Months', amount: 845},
-          {duration: '9+ Months', amount: 795}
-        ],
-        rooms: [
-          { intern_number: "EW01", house_number: "270", apartment_number: '00', state: 'bookable' }
-        ]
-      },
-      {
-        name: 'Premium',
-        size: 12,
-        prices: [
-          {duration: '3-5 Months', amount: 895},
-          {duration: '6-8 Months', amount: 745},
-          {duration: '9+ Months', amount: 795}
-        ],
-        rooms: [
-          { intern_number: "EW04", house_number: "270a 1st floor", apartment_number: '01', state: 'bookable' },
-          { intern_number: "EW11", house_number: "270a 2nd floor", apartment_number: '03', state: 'bookable' },
-          { intern_number: "EW14", house_number: "270 3rd floor", apartment_number: '04', state: 'bookable' },
-          { intern_number: "EW16", house_number: "270a 3rd floor", apartment_number: '05', state: 'bookable' }
-        ]
-      },
-      {
-        name: 'Premium (balcony)',
-        size: 12,
-        prices: [
-          {duration: '3-5 Months', amount: 995},
-          {duration: '6-8 Months', amount: 945},
-          {duration: '9+ Months', amount: 895}
-        ],
-        rooms: [
-          { intern_number: "EW03", house_number: "270a 1st floor", apartment_number: '01', state: 'bookable' },
-          { intern_number: "EW10", house_number: "270a 2nd floor", apartment_number: '03', state: 'bookable' },
-          { intern_number: "EW13", house_number: "270a 3rd floor", apartment_number: '05', state: 'bookable' }
-        ]
-      },
-      {
-        name: 'Premium+',
-        size: 14,
-        prices: [
-          {duration: '3-5 Months', amount: 995},
-          {duration: '6-8 Months', amount: 945},
-          {duration: '9+ Months', amount: 895}
-        ],
-        rooms: [
-          { intern_number: "EW05", house_number: "270 2nd floor", apartment_number: '02', state: 'bookable' },
-          { intern_number: "EW13", house_number: "270 3rd floor", apartment_number: '04', state: 'bookable' }
-        ]
-      },
-      {
-        name: 'Premium+ (balcony)',
-        size: 14,
-        prices: [
-          {duration: '3-5 Months', amount: 1_095},
-          {duration: '6-8 Months', amount: 1_045},
-          {duration: '9+ Months', amount: 995}
-        ],
-        rooms: [
-          { intern_number: "EW06", house_number: "270 2nd floor", apartment_number: '02', state: 'bookable' }
-        ]
-      },
-      {
-        name: 'Jumbo',
-        size: 17,
-        prices: [
-          {duration: '3-5 Months', amount: 1_095},
-          {duration: '6-8 Months', amount: 1_045},
-          {duration: '9+ Months', amount: 995}
-        ],
-        rooms: [
-          { intern_number: "EW07", house_number: "270 2nd floor", apartment_number: '02', state: 'bookable' }
-        ]
-      },
-      {
-        name: 'Jumbo (balcony)',
-        size: 17,
-        prices: [
-          {duration: '3-5 Months', amount: 1_095},
-          {duration: '6-8 Months', amount: 1_045},
-          {duration: '9+ Months', amount: 995}
-        ],
-        rooms: [
-          { intern_number: "EW15", house_number: "270 3rd floor", apartment_number: '04', state: 'bookable' }
-        ]
-      }
-    ]
-  },
-  {
-    name: 'St. Pauli',
-    status: 'active',
-    descriptions: [
-      {
-        field: 'project info index',
-        content: 'A beautiful neighborhood in central Hamburg; everything is here. Find local shops, restaurants and bars nearby. Our community in St. Pauli is just as energetic as the neighborhood.'
-      },
-      {
-        field: 'project info show',
-        content: "At STACEY we believe that beautifully designed spaces bring people together. Whether you’re looking to mingle with new people, get creative in the kitchen or open yourself up to new experiences, our St. Pauli location can give you all this and more.\nFrom the great living room and the shared kitchen to our beautiful inner yard with a barbecue, your passion points will be catered for. Not to mention the included monthly member events!"
-      }
-    ],
-    address: {
-      street: 'Detlev-Bremer-Straße',
-      number: '2',
-      city: 'Hamburg',
-      zip: '20359',
-      country: 'Germany',
-      description: {
-        field: 'address info',
-        content: 'Hello, we are STACEY and this is our Co-Living Location in Eppendorf. Those who are at home in the pretty Eppendorf can count themselves lucky: Lots of water, green, representative architecture and urban quality of life. Chic boutiques, but also small grocery stores supply the residents with luxury goods or everyday needs.'
-      }
-    },
-    community_area: {
-      name: "common space St. Pauli",
-      size: 50,
-      description: {
-        field: 'common space description',
-        content: "It might not be the home of the best football team in the world, but it definitely locates an amazing STACEY common area. The St. Pauli common space is  located directly within the apartment, just outside of your own private suite. Besides a fully equipped kitchen, we have a basement to hang out and meet with your cohabitants and friends."
-      }
-    },
-    roomtypes: [
-      {
-        name: 'Mighty',
-        size: 9,
-        prices: [
-          {duration: '3-5 Months', amount: 745},
-          {duration: '6-8 Months', amount: 695},
-          {duration: '9+ Months', amount: 645}
-        ],
-        rooms: [
-          { intern_number: "DB01", house_number: "2 ground floor", state: 'bookable' },
-          { intern_number: "DB06", house_number: "2 ground floor", state: 'bookable' }
-        ]
-      },
-      {
-        name: 'Premium',
-        size: 12,
-        prices: [
-          {duration: '3-5 Months', amount: 895},
-          {duration: '6-8 Months', amount: 845},
-          {duration: '9+ Months', amount: 795}
-        ],
-        rooms: [
-          { intern_number: "DB04", house_number: "2 ground floor", state: 'bookable' }
-        ]
-      },
-      {
-        name: 'Premium+',
-        size: 14,
-        prices: [
-          {duration: '3-5 Months', amount: 995},
-          {duration: '6-8 Months', amount: 945},
-          {duration: '9+ Months', amount: 895}
-        ],
-        rooms: [
-          { intern_number: "DB02", house_number: "2 ground floor", state: 'bookable' },
-          { intern_number: "DB05", house_number: "2 ground floor", state: 'bookable' }
-        ]
-      },
-      {
-        name: 'Jumbo',
-        size: 21,
-        amount_of_people: 2,
-        prices: [
-          {duration: '3-5 Months', amount: 1_095},
-          {duration: '6-8 Months', amount: 1_045},
-          {duration: '9+ Months', amount: 995}
-        ],
-        rooms: [
-          { intern_number: "DB03", house_number: "2 ground floor", state: 'bookable' },
-          { intern_number: "DB07", house_number: "2 ground floor", state: 'bookable' }
-        ]
-      }
-    ]
-  }
-]
+# projects = [
+#   {
+#     name: 'Mühlenkamp',
+#     status: 'active',
+#     descriptions: [
+#       {
+#         field: 'project info index', content: 'A beautiful neighborhood in central Hamburg; everything is here. Find local shops, restaurants and bars nearby. Our community in Mühlenkamp is just as energetic as the neighborhood.'
+#       },
+#       {
+#         field: 'project info show', content: "At STACEY we believe that beautifully designed spaces bring people together. Whether you’re looking to mingle with new people, get creative in the kitchen or open yourself up to new experiences, our Mühlenkamp location can give you all this and more.\nFrom the great living room and the shared kitchen to our beautiful inner yard with a barbecue, your passion points will be catered for. Not to mention the included monthly member events!"
+#       }
+#     ],
+#     address: {
+#       street: 'Dorotheenstraße',
+#       number: '3-5',
+#       city: 'Hamburg',
+#       zip: '22301',
+#       country: 'Germany',
+#       description: {
+#         field: 'address info',
+#         content: 'Hello, we are STACEY and this is our Co-Living Location in Winterhude. Those who are at home in the trendy Winterhude can enjoy the closeness to the city and the Alster at the same time. Hamburgs central lake is less than a minute away and cafes, restaurants & bars can be found in the neighboring street. Our Mühlenkamp location is the perfect mix for meeting new people outside the location and having the comfort of a quieter neighborhood at the same time.'
+#       }
+#     },
+#     community_area: {
+#       name: "common space Mühlenkamp",
+#       size: 180,
+#       description: {
+#         field: 'common space description',
+#         content: "At STACEY we believe in sharing living spaces to achieve a higher member satisfaction. This is why our Mühlenkamp location offers the biggest common area of all STACEY locations. Enjoy a dinner with your friends in our spacious dining areas or cook in one of the multiple community kitchens. Most importantly, in all our common spaces Netflix is pre-installed. Moreover, next to the dining area and lounge area, the Mühlenkamp location delights through a separated Co-Working space and an outdoor gym. Yes, you read it right - an outdoor gym!"
+#       }
+#     },
+#     roomtypes: [
+#       {
+#         name: 'Mighty',
+#         size: 8,
+#         prices: [
+#           {duration: '3-5 Months', amount: 745},
+#           {duration: '6-8 Months', amount: 695},
+#           {duration: '9+ Months', amount: 645}
+#         ],
+#         rooms: [
+#         	{ intern_number: 'D05', house_number: '3b 1st floor right', apartment_number: '02', state: 'bookable' },
+# 					{ intern_number: 'D07', house_number: '3b 2nd floor right', apartment_number: '03', state: 'bookable' },
+# 					{ intern_number: 'D09', house_number: '3b 2nd floor left', apartment_number: '04', state: 'bookable' },
+# 					{ intern_number: 'D10', house_number: '3 ground floor left', apartment_number: '05', state: 'bookable' },
+# 					{ intern_number: 'D11', house_number: '3 ground floor left', apartment_number: '05', state: 'bookable' },
+# 					{ intern_number: 'D13', house_number: '3 ground floor right', apartment_number: '06', state: 'bookable' },
+# 					{ intern_number: 'D14', house_number: '3 ground floor right', apartment_number: '06', state: 'bookable' },
+# 					{ intern_number: 'D16', house_number: '5 1st floor right', apartment_number: '07', state: 'bookable' },
+# 					{ intern_number: 'D19', house_number: '5 2nd floor left', apartment_number: '08', state: 'bookable' },
+# 					{ intern_number: 'D22', house_number: '3 2nd floor left', apartment_number: '09', state: 'bookable' },
+# 					{ intern_number: 'D25', house_number: '5 ground floor left', apartment_number: '10', state: 'bookable' },
+# 					{ intern_number: 'D27', house_number: '5 ground floor left', apartment_number: '10', state: 'bookable' },
+# 					{ intern_number: 'D28', house_number: '5 ground floor left', apartment_number: '10', state: 'bookable' },
+# 					{ intern_number: 'D29', house_number: '5a 2nd floor left', apartment_number: '11', state: 'bookable' },
+# 					{ intern_number: 'D31', house_number: '5a 1st floor right', apartment_number: '12', state: 'bookable' },
+# 					{ intern_number: 'D32', house_number: '5a 1st floor right', apartment_number: '12', state: 'bookable' },
+# 					{ intern_number: 'D34', house_number: '5a 2nd floor right', apartment_number: '13', state: 'bookable' },
+# 					{ intern_number: 'D35', house_number: '5a 2nd floor right', apartment_number: '13', state: 'bookable' },
+# 					{ intern_number: 'D37', house_number: '3a 1st floor left', apartment_number: '14', state: 'bookable' },
+# 					{ intern_number: 'D38', house_number: '3a 1st floor left', apartment_number: '14', state: 'bookable' },
+# 					{ intern_number: 'D41', house_number: '3a ground floor left', apartment_number: '15', state: 'bookable' },
+# 					{ intern_number: 'D44', house_number: '3a 1st floor left', apartment_number: '16', state: 'bookable' },
+# 					{ intern_number: 'D46', house_number: '3c 1st floor left', apartment_number: '17', state: 'bookable' }
+#         ]
+#       },
+#       {
+#         name: 'Premium',
+#         size: 13,
+#         prices: [
+#           {duration: '3-5 Months', amount: 845},
+#           {duration: '6-8 Months', amount: 795},
+#           {duration: '9+ Months', amount: 745}
+#         ],
+#         rooms: [
+#           { intern_number: "D01", house_number: "3d 2nd floor", apartment_number: '01', state: 'bookable' },
+#           { intern_number: "D02", house_number: "3d 2nd floor", apartment_number: '01', state: 'bookable' },
+#           { intern_number: "D03", house_number: "3d 2nd floor", apartment_number: '01', state: 'bookable' },
+#           { intern_number: "D17", house_number: "5 1st floor right", apartment_number: '07', state: 'bookable' },
+#           { intern_number: "D20", house_number: "5 2nd floor left", apartment_number: '08', state: 'bookable' },
+#           { intern_number: "D23", house_number: "3 2nd floor left", apartment_number: '09', state: 'bookable' }
+#         ]
+#       },
+#       {
+#         name: 'Premium+',
+#         size: 15,
+#         prices: [
+#           {duration: '3-5 Months', amount: 895},
+#           {duration: '6-8 Months', amount: 845},
+#           {duration: '9+ Months', amount: 795}
+#         ],
+#         rooms: [
+#           { intern_number: "D12", house_number: "3 ground floor left", apartment_number: '05', state: 'bookable' },
+#           { intern_number: "D15", house_number: "3 ground floor right", apartment_number: '06', state: 'bookable' },
+#           { intern_number: "D18", house_number: "5 1st floor right", apartment_number: '07', state: 'bookable' },
+#           { intern_number: "D21", house_number: "5 2nd floor left", apartment_number: '08', state: 'bookable' },
+#           { intern_number: "D24", house_number: "3 2nd floor left", apartment_number: '09', state: 'bookable' },
+#           { intern_number: "D26", house_number: "5 ground floor left", apartment_number: '10', state: 'bookable' },
+#           { intern_number: "D33", house_number: "5a 1st floor right", apartment_number: '12', state: 'bookable' },
+#           { intern_number: "D36", house_number: "5a 2nd floor right", apartment_number: '13', state: 'bookable' },
+#           { intern_number: "D39", house_number: "3a 1st floor left", apartment_number: '14', state: 'not bookable' },
+#           { intern_number: "D42", house_number: "3a groud floor left", apartment_number: '15', state: 'not bookable' }
+#         ]
+#       },
+#       {
+#         name: 'Jumbo',
+#         size: 25,
+#         amount_of_people: 2,
+#         prices: [
+#           {duration: '3-5 Months', amount: 1045},
+#           {duration: '6-8 Months', amount: 995},
+#           {duration: '9+ Months', amount: 945}
+#         ],
+#         rooms: [
+#           { intern_number: "D04", house_number: "3b 1st floor right", apartment_number: '02', state: 'bookable' },
+#           { intern_number: "D06", house_number: "3b 2nd floor right", apartment_number: '03', state: 'bookable' },
+#           { intern_number: "D08", house_number: "3b 2nd floor left", apartment_number: '04', state: 'bookable' },
+#           { intern_number: "D30", house_number: "5a 2nd floor left", apartment_number: '11', state: 'bookable' },
+#           { intern_number: "D43", house_number: "3a 1st floor right", apartment_number: '16', state: 'not bookable' },
+#           { intern_number: "D45", house_number: "3c 1st floor left", apartment_number: '17', state: 'not bookable' },
+#           { intern_number: "D47", house_number: "3c ground floor left", apartment_number: '18', state: 'not bookable' }
+#         ]
+#       }
+#     ]
+#   },
+#   {
+#     name: 'Eppendorf',
+#     status: 'active',
+#     descriptions: [
+#       {
+#         field: 'project info index',
+#         content: 'A beautiful neighborhood in central Hamburg; everything is here. Find local shops, restaurants and bars nearby. Our community in Eppendorf is just as energetic as the neighborhood.'
+#       },
+#       {
+#         field: 'project info show',
+#         content: "At STACEY we believe that beautifully designed spaces bring people together. Whether you’re looking to mingle with new people, get creative in the kitchen or open yourself up to new experiences, our Eppendorf location can give you all this and more.\nFrom the great living room and the shared kitchen to our beautiful inner yard with a barbecue, your passion points will be catered for. Not to mention the included monthly member events!"
+#       }
+#     ],
+#     address: {
+#       street: 'Eppendorfer Weg',
+#       number: '270',
+#       city: 'Hamburg',
+#       zip: '20251',
+#       country: 'Germany',
+#       description: {
+#         field: 'address info',
+#         content: 'Hello, we are STACEY and this is our Co-Living Location in St. Pauli. Those who are at home in the vibrant St. Pauli will enjoy the heart of Hamburg: An adventurous nightlife, Hamburg´s 2nd best football team and an international living experience. STACEY St. Pauli is located between the city and the Hamburg harbour providing access to the real Hamburg experience. Move-in and experience it for yourself!'
+#       }
+#     },
+#     community_area: {
+#       name: "common space Eppendorf",
+#       size: 120,
+#       description: {
+#         field: 'common space description',
+#         content: "The Eppendorf community spaces is our newest edition to the STACEY network. Experience 100m2 of common space in the heart of Eppendorf. The former, completely renovated restaurant, now provides living space for all STACEY members within the location. Our Eppendorf location is our most private Co-Living experience, as it offers the most m2 per member in terms of common spaces. Take a look at the pictures - They speak for themself!"
+#       }
+#     },
+#     roomtypes: [
+#       {
+#         name: 'Mighty',
+#         size: 10,
+#         prices: [
+#           {duration: '3-5 Months', amount: 795},
+#           {duration: '6-8 Months', amount: 745},
+#           {duration: '9+ Months', amount: 695}
+#         ],
+#         rooms: [
+#           { intern_number: "EW02", house_number: "270a 1st floor", apartment_number: '01', state: 'bookable' },
+#           { intern_number: "EW08", house_number: "270 2nd floor", apartment_number: '02', state: 'bookable' },
+#           { intern_number: "EW09", house_number: "270a 2nd floor", apartment_number: '03', state: 'bookable' },
+#           { intern_number: "EW12", house_number: "270a 3rd floor", apartment_number: '04', state: 'bookable' },
+#           { intern_number: "EW16", house_number: "270a 3rd floor", apartment_number: '05', state: 'bookable' }
+#         ]
+#       },
+#       {
+#         name: 'Mighty+',
+#         size: 10,
+#         prices: [
+#           {duration: '3-5 Months', amount: 895},
+#           {duration: '6-8 Months', amount: 845},
+#           {duration: '9+ Months', amount: 795}
+#         ],
+#         rooms: [
+#           { intern_number: "EW01", house_number: "270", apartment_number: '00', state: 'bookable' }
+#         ]
+#       },
+#       {
+#         name: 'Premium',
+#         size: 12,
+#         prices: [
+#           {duration: '3-5 Months', amount: 895},
+#           {duration: '6-8 Months', amount: 745},
+#           {duration: '9+ Months', amount: 795}
+#         ],
+#         rooms: [
+#           { intern_number: "EW04", house_number: "270a 1st floor", apartment_number: '01', state: 'bookable' },
+#           { intern_number: "EW11", house_number: "270a 2nd floor", apartment_number: '03', state: 'bookable' },
+#           { intern_number: "EW14", house_number: "270 3rd floor", apartment_number: '04', state: 'bookable' },
+#           { intern_number: "EW16", house_number: "270a 3rd floor", apartment_number: '05', state: 'bookable' }
+#         ]
+#       },
+#       {
+#         name: 'Premium (balcony)',
+#         size: 12,
+#         prices: [
+#           {duration: '3-5 Months', amount: 995},
+#           {duration: '6-8 Months', amount: 945},
+#           {duration: '9+ Months', amount: 895}
+#         ],
+#         rooms: [
+#           { intern_number: "EW03", house_number: "270a 1st floor", apartment_number: '01', state: 'bookable' },
+#           { intern_number: "EW10", house_number: "270a 2nd floor", apartment_number: '03', state: 'bookable' },
+#           { intern_number: "EW13", house_number: "270a 3rd floor", apartment_number: '05', state: 'bookable' }
+#         ]
+#       },
+#       {
+#         name: 'Premium+',
+#         size: 14,
+#         prices: [
+#           {duration: '3-5 Months', amount: 995},
+#           {duration: '6-8 Months', amount: 945},
+#           {duration: '9+ Months', amount: 895}
+#         ],
+#         rooms: [
+#           { intern_number: "EW05", house_number: "270 2nd floor", apartment_number: '02', state: 'bookable' },
+#           { intern_number: "EW13", house_number: "270 3rd floor", apartment_number: '04', state: 'bookable' }
+#         ]
+#       },
+#       {
+#         name: 'Premium+ (balcony)',
+#         size: 14,
+#         prices: [
+#           {duration: '3-5 Months', amount: 1_095},
+#           {duration: '6-8 Months', amount: 1_045},
+#           {duration: '9+ Months', amount: 995}
+#         ],
+#         rooms: [
+#           { intern_number: "EW06", house_number: "270 2nd floor", apartment_number: '02', state: 'bookable' }
+#         ]
+#       },
+#       {
+#         name: 'Jumbo',
+#         size: 17,
+#         prices: [
+#           {duration: '3-5 Months', amount: 1_095},
+#           {duration: '6-8 Months', amount: 1_045},
+#           {duration: '9+ Months', amount: 995}
+#         ],
+#         rooms: [
+#           { intern_number: "EW07", house_number: "270 2nd floor", apartment_number: '02', state: 'bookable' }
+#         ]
+#       },
+#       {
+#         name: 'Jumbo (balcony)',
+#         size: 17,
+#         prices: [
+#           {duration: '3-5 Months', amount: 1_095},
+#           {duration: '6-8 Months', amount: 1_045},
+#           {duration: '9+ Months', amount: 995}
+#         ],
+#         rooms: [
+#           { intern_number: "EW15", house_number: "270 3rd floor", apartment_number: '04', state: 'bookable' }
+#         ]
+#       }
+#     ]
+#   },
+#   {
+#     name: 'St. Pauli',
+#     status: 'active',
+#     descriptions: [
+#       {
+#         field: 'project info index',
+#         content: 'A beautiful neighborhood in central Hamburg; everything is here. Find local shops, restaurants and bars nearby. Our community in St. Pauli is just as energetic as the neighborhood.'
+#       },
+#       {
+#         field: 'project info show',
+#         content: "At STACEY we believe that beautifully designed spaces bring people together. Whether you’re looking to mingle with new people, get creative in the kitchen or open yourself up to new experiences, our St. Pauli location can give you all this and more.\nFrom the great living room and the shared kitchen to our beautiful inner yard with a barbecue, your passion points will be catered for. Not to mention the included monthly member events!"
+#       }
+#     ],
+#     address: {
+#       street: 'Detlev-Bremer-Straße',
+#       number: '2',
+#       city: 'Hamburg',
+#       zip: '20359',
+#       country: 'Germany',
+#       description: {
+#         field: 'address info',
+#         content: 'Hello, we are STACEY and this is our Co-Living Location in Eppendorf. Those who are at home in the pretty Eppendorf can count themselves lucky: Lots of water, green, representative architecture and urban quality of life. Chic boutiques, but also small grocery stores supply the residents with luxury goods or everyday needs.'
+#       }
+#     },
+#     community_area: {
+#       name: "common space St. Pauli",
+#       size: 50,
+#       description: {
+#         field: 'common space description',
+#         content: "It might not be the home of the best football team in the world, but it definitely locates an amazing STACEY common area. The St. Pauli common space is  located directly within the apartment, just outside of your own private suite. Besides a fully equipped kitchen, we have a basement to hang out and meet with your cohabitants and friends."
+#       }
+#     },
+#     roomtypes: [
+#       {
+#         name: 'Mighty',
+#         size: 9,
+#         prices: [
+#           {duration: '3-5 Months', amount: 745},
+#           {duration: '6-8 Months', amount: 695},
+#           {duration: '9+ Months', amount: 645}
+#         ],
+#         rooms: [
+#           { intern_number: "DB01", house_number: "2 ground floor", state: 'bookable' },
+#           { intern_number: "DB06", house_number: "2 ground floor", state: 'bookable' }
+#         ]
+#       },
+#       {
+#         name: 'Premium',
+#         size: 12,
+#         prices: [
+#           {duration: '3-5 Months', amount: 895},
+#           {duration: '6-8 Months', amount: 845},
+#           {duration: '9+ Months', amount: 795}
+#         ],
+#         rooms: [
+#           { intern_number: "DB04", house_number: "2 ground floor", state: 'bookable' }
+#         ]
+#       },
+#       {
+#         name: 'Premium+',
+#         size: 14,
+#         prices: [
+#           {duration: '3-5 Months', amount: 995},
+#           {duration: '6-8 Months', amount: 945},
+#           {duration: '9+ Months', amount: 895}
+#         ],
+#         rooms: [
+#           { intern_number: "DB02", house_number: "2 ground floor", state: 'bookable' },
+#           { intern_number: "DB05", house_number: "2 ground floor", state: 'bookable' }
+#         ]
+#       },
+#       {
+#         name: 'Jumbo',
+#         size: 21,
+#         amount_of_people: 2,
+#         prices: [
+#           {duration: '3-5 Months', amount: 1_095},
+#           {duration: '6-8 Months', amount: 1_045},
+#           {duration: '9+ Months', amount: 995}
+#         ],
+#         rooms: [
+#           { intern_number: "DB03", house_number: "2 ground floor", state: 'bookable' },
+#           { intern_number: "DB07", house_number: "2 ground floor", state: 'bookable' }
+#         ]
+#       }
+#     ]
+#   }
+# ]
 
 # puts('create Projects')
 # create_projects_and_attributes(projects)
@@ -702,15 +702,15 @@ projects = [
 # puts('Attach Photos')
 # attach_photos(photos)
 
-# roomtype_descriptions = {
-#   ['Mighty', 'Mighty+'] => "Mighty people need a mighty room with extra space for thoughts, creativity and for the dust to settle… Don't worry, we will take care of the cleaning.",
-#   ['Premium', 'Premium (balcony)'] => "If you love Marie Kondo’s minimalist style and would like to give it a try in a space slightly larger than our Mighty room, then this room is all you need to free yourself from the things that do not spark joy.",
-#   ['Premium+', 'Premium+ (balcony)'] => "Our Premium rooms fit everything you need. However if you do need extra space for your spirit & mind the slightly bigger Premium+ suites will be the best choice!",
-#   ['Jumbo']=> "When has the word “jumbo” ever indicated anything average? Wake up in a world all your own and fill it with all that matters to you. Screw the minimalism and let your maximalist self out of its cage."
-# }
+roomtype_descriptions = {
+  ['Mighty', 'Mighty+'] => "Mighty people need a mighty room with extra space for thoughts, creativity and for the dust to settle… Don't worry, we will take care of the cleaning.",
+  ['Premium', 'Premium (balcony)'] => "If you love Marie Kondo’s minimalist style and would like to give it a try in a space slightly larger than our Mighty room, then this room is all you need to free yourself from the things that do not spark joy.",
+  ['Premium+', 'Premium+ (balcony)'] => "Our Premium rooms fit everything you need. However if you do need extra space for your spirit & mind the slightly bigger Premium+ suites will be the best choice!",
+  ['Jumbo']=> "When has the word “jumbo” ever indicated anything average? Wake up in a world all your own and fill it with all that matters to you. Screw the minimalism and let your maximalist self out of its cage."
+}
 
-# puts('Create descriptions for all roomtypes')
-# create_descriptions(roomtype_descriptions)
+puts('Create descriptions for all roomtypes')
+create_descriptions(roomtype_descriptions)
 
 
 # create Amenities new Photos to do so.
@@ -943,305 +943,305 @@ projects = [
 
 
 # create Amenities + Photos.
-amenities = {
-  "wifi" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591606737/wifi.png'),
-  "smart locks" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591606737/padlock.png'),
-  "coffee flatrate" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591606737/coffee-cup.png'),
-  "fully furnished" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591606737/couch.png'),
-  "work spaces" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591606737/work-space.png'),
-  "table tennis" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591606737/ping-pong.png'),
-  "common space" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591606737/meeting.png'),
-  "weekly cleaning" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591606737/liquid-soap.png'),
-  "fully equipped kitchen" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591606737/chefs-hat.png'),
-  "2x fully equipped kitchens" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591606737/chefs-hat.png'),
-  "lounge space" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591606737/lounge-chair.png'),
-  "inner yard" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591606737/tree.png'),
-  "2 people" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591606736/users.png'),
-  "dining space" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591606736/service.png'),
-  "laundry room" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591606736/washing-machine.png'),
-  "1 person" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591606736/user.png'),
-  "monthly member events" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591608023/calendar.png'),
-  "welcome gift" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591608023/gift.png'),
-  "side table" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591608023/side-table.png'),
-  "wardrobe with hangers and drawers" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591608023/closet.png'),
-  "artwork" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591608023/artist.png'),
-  "armchair" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591608024/armchair.png'),
-  "desk with chair" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591608023/desk.png'),
-  "bedding" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591608023/pillow.png'),
-  "double bed" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591608024/bed.png'),
-  "queensize bed" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591608608/king_size_bed.png'),
-  "shared bathroom" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1594203504/toilet-paper.png')
-}
+# amenities = {
+#   "wifi" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591606737/wifi.png'),
+#   "smart locks" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591606737/padlock.png'),
+#   "coffee flatrate" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591606737/coffee-cup.png'),
+#   "fully furnished" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591606737/couch.png'),
+#   "work spaces" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591606737/work-space.png'),
+#   "table tennis" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591606737/ping-pong.png'),
+#   "common space" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591606737/meeting.png'),
+#   "weekly cleaning" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591606737/liquid-soap.png'),
+#   "fully equipped kitchen" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591606737/chefs-hat.png'),
+#   "2x fully equipped kitchens" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591606737/chefs-hat.png'),
+#   "lounge space" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591606737/lounge-chair.png'),
+#   "inner yard" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591606737/tree.png'),
+#   "2 people" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591606736/users.png'),
+#   "dining space" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591606736/service.png'),
+#   "laundry room" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591606736/washing-machine.png'),
+#   "1 person" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591606736/user.png'),
+#   "monthly member events" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591608023/calendar.png'),
+#   "welcome gift" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591608023/gift.png'),
+#   "side table" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591608023/side-table.png'),
+#   "wardrobe with hangers and drawers" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591608023/closet.png'),
+#   "artwork" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591608023/artist.png'),
+#   "armchair" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591608024/armchair.png'),
+#   "desk with chair" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591608023/desk.png'),
+#   "bedding" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591608023/pillow.png'),
+#   "double bed" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591608024/bed.png'),
+#   "queensize bed" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591608608/king_size_bed.png'),
+#   "shared bathroom" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1594203504/toilet-paper.png')
+# }
 
-amenities = {
-  "common space" => URI.open("https://res.cloudinary.com/dvuqwvjay/image/upload/v1612285441/house-plan-scale.png"),
-  "members" => URI.open("https://res.cloudinary.com/dvuqwvjay/image/upload/v1612285441/group.png"),
-  "apartment" => URI.open("https://res.cloudinary.com/dvuqwvjay/image/upload/v1612285442/rent-board.png"),
-  "fully equipped kitchen" => URI.open("https://res.cloudinary.com/dvuqwvjay/image/upload/v1612285443/kitchen.png"),
-  "2x fully equipped kitchens" => URI.open("https://res.cloudinary.com/dvuqwvjay/image/upload/v1612285443/kitchen.png"),
-  "bathrooms" => URI.open("https://res.cloudinary.com/dvuqwvjay/image/upload/v1612285442/toilet.png"),
-  "pool table" => URI.open("https://res.cloudinary.com/dvuqwvjay/image/upload/v1612285442/pool-table.png"),
-  "ping pong table" => URI.open("https://res.cloudinary.com/dvuqwvjay/image/upload/v1612285443/table-tennis.png"),
-  "small backyard" => URI.open("https://res.cloudinary.com/dvuqwvjay/image/upload/v1612285441/fence-farm.png"),
-  "inner yard" => URI.open("https://res.cloudinary.com/dvuqwvjay/image/upload/v1591606737/tree.png"),
-  "barbecue" => URI.open("https://res.cloudinary.com/dvuqwvjay/image/upload/v1612285441/barbecue.png")
-}
+# amenities = {
+#   "common space" => URI.open("https://res.cloudinary.com/dvuqwvjay/image/upload/v1612285441/house-plan-scale.png"),
+#   "members" => URI.open("https://res.cloudinary.com/dvuqwvjay/image/upload/v1612285441/group.png"),
+#   "apartment" => URI.open("https://res.cloudinary.com/dvuqwvjay/image/upload/v1612285442/rent-board.png"),
+#   "fully equipped kitchen" => URI.open("https://res.cloudinary.com/dvuqwvjay/image/upload/v1612285443/kitchen.png"),
+#   "2x fully equipped kitchens" => URI.open("https://res.cloudinary.com/dvuqwvjay/image/upload/v1612285443/kitchen.png"),
+#   "bathrooms" => URI.open("https://res.cloudinary.com/dvuqwvjay/image/upload/v1612285442/toilet.png"),
+#   "pool table" => URI.open("https://res.cloudinary.com/dvuqwvjay/image/upload/v1612285442/pool-table.png"),
+#   "ping pong table" => URI.open("https://res.cloudinary.com/dvuqwvjay/image/upload/v1612285443/table-tennis.png"),
+#   "small backyard" => URI.open("https://res.cloudinary.com/dvuqwvjay/image/upload/v1612285441/fence-farm.png"),
+#   "inner yard" => URI.open("https://res.cloudinary.com/dvuqwvjay/image/upload/v1591606737/tree.png"),
+#   "barbecue" => URI.open("https://res.cloudinary.com/dvuqwvjay/image/upload/v1612285441/barbecue.png")
+# }
 
-def handle_string_io_as_file(io)
-  return io unless io.class == StringIO
+# def handle_string_io_as_file(io)
+#   return io unless io.class == StringIO
 
-  file = Tempfile.new(["temp",".png"], encoding: 'ascii-8bit')
-  file.binmode
-  file.write io.read
-  file.open
-end
+#   file = Tempfile.new(["temp",".png"], encoding: 'ascii-8bit')
+#   file.binmode
+#   file.write io.read
+#   file.open
+# end
 
-puts('create Amenities')
-amenities.each do |title, file|
-  a = Amenity.new(title: title)
-  a.photo.attach(io: handle_string_io_as_file(file), filename: "#{title.gsub(' ', '_')}.png", content_type: 'image/png')
-  a.save
-end
+# puts('create Amenities')
+# amenities.each do |title, file|
+#   a = Amenity.new(title: title)
+#   a.photo.attach(io: handle_string_io_as_file(file), filename: "#{title.gsub(' ', '_')}.png", content_type: 'image/png')
+#   a.save
+# end
 
-Project.all.each do |project|
-  project.join_amenities.destroy_all
-end
+# Project.all.each do |project|
+#   project.join_amenities.destroy_all
+# end
 
-Project.all.each do |project|
-  Amenity.where("created_at >= ?", Date.yesterday).limit(5).each do |amenity|
-    project.join_amenities.create(name: 'project index', amenity_id: amenity.id)
-  end
-end
+# Project.all.each do |project|
+#   Amenity.where("created_at >= ?", Date.yesterday).limit(5).each do |amenity|
+#     project.join_amenities.create(name: 'project index', amenity_id: amenity.id)
+#   end
+# end
 
 
 
 # mühlenkamp
-project = Project.first
-project.join_amenities.create(name: 'project index', amenity_id: ping_pong_table.id)
+# project = Project.first
+# project.join_amenities.create(name: 'project index', amenity_id: ping_pong_table.id)
 
-# eppendorf
-project = Project.second
-project.join_amenities.create(name: 'project index', amenity_id: pool_table.id)
+# # eppendorf
+# project = Project.second
+# project.join_amenities.create(name: 'project index', amenity_id: pool_table.id)
 
-# st. Pauli
-project = Project.third
-project.join_amenities.create(name: 'project index', amenity_id: small_backyard.id)
-
-
-barbecue = Amenity.where(title: "barbecue").last
-inner_yard = Amenity.where(title: "inner yard").last
-small_backyard = Amenity.where(title: "small backyard").last
-ping_pong_table = Amenity.where(title: "ping pong table").last
-pool_table = Amenity.where(title: "pool table").last
+# # st. Pauli
+# project = Project.third
+# project.join_amenities.create(name: 'project index', amenity_id: small_backyard.id)
 
 
+# barbecue = Amenity.where(title: "barbecue").last
+# inner_yard = Amenity.where(title: "inner yard").last
+# small_backyard = Amenity.where(title: "small backyard").last
+# ping_pong_table = Amenity.where(title: "ping pong table").last
+# pool_table = Amenity.where(title: "pool table").last
 
 
-bookings = [
-  {room: 'D06', name: "Nicolae Puican", email: 'n.a.puican@gmail.com', move_in: Date.parse('01.09.2019'), move_out: Date.parse('30.11.2019')},
-  {room: 'D09', name: "Sheila Grace Tan", email: 'sheilagracetan@gmail.com', move_in: Date.parse('26.07.2019'), move_out: Date.parse('25.12.2019')},
-  {room: 'D20', name: "Matteo Angione", email: 'angionem6@gmail.com', move_in: Date.parse('03.10.2019'), move_out: Date.parse('02.01.2020')},
-  {room: 'D18', name: "Johannes Benthaus", email: 'johannes.benthaus@gmail.com', move_in: Date.parse('04.10.2019'), move_out: Date.parse('03.01.2020')},
-  {room: 'D19', name: "Tobias Lössl", email: 'tobiloessl@hotmail.de', move_in: Date.parse('03.10.2019'), move_out: Date.parse('05.01.2020')},
-  {room: 'D15', name: "Ernesto Ruiz Manzano", email: 'ernesto_900_ruiz@hotmail.com', move_in: Date.parse('07.09.2019'), move_out: Date.parse('06.01.2020')},
-  {room: 'D13', name: "Gauriesh Bindra", email: 'gaurieshbindra@gmail.com', move_in: Date.parse('02.08.2019'), move_out: Date.parse('26.01.2020')},
-  {room: 'D14', name: "Arkaprabha Ray", email: 'arkadeep97@gmail.com', move_in: Date.parse('01.09.2019'), move_out: Date.parse('27.01.2020')},
-  {room: 'D10', name: "Antonia Rudolf", email: 'antoniarudolf@aol.com', move_in: Date.parse('31.08.2019'), move_out: Date.parse('29.02.2020')},
-  {room: 'D03', name: "Clarissa Leu", email: 'clacoleu@aol.com', move_in: Date.parse('05.08.2019'), move_out: Date.parse('05.03.2020')},
-  {room: 'D02', name: "Marvin Wobbe", email: 'marvin.wobbe@gmx.de', move_in: Date.parse('24.08.2019'), move_out: Date.parse('23.03.2020')},
-  {room: 'D22', name: "Nil Biosca Jimenez", email: 'nbiosca2q@gmail.com', move_in: Date.parse('06.11.2019'), move_out: Date.parse('31.03.2020')},
-  {room: 'D01', name: "Anna Weirauch", email: 'team@stacey-living.de', move_in: Date.parse('01.10.2019'), move_out: Date.parse('31.03.2020')},
-  {room: 'D23', name: "Angelo Arceri", email: 'angeloarceri@live.it', move_in: Date.parse('03.10.2019'), move_out: Date.parse('02.04.2020')},
-  {room: 'D17', name: "Andrea Cianfarani", email: 'andrea.cianfarani@hotmail.com', move_in: Date.parse('04.10.2019'), move_out: Date.parse('03.04.2020')},
-  {room: 'DB05', name: "Alvaro Sanz García 'Sintas", move_in: Date.parse('23.03.2020'), move_out: Date.parse('30.04.2020')},
-  {room: 'D14', name: "Anastasia Krieg", email: 'anastasia.krieg@t-online.de', move_in: Date.parse('02.02.2020'), move_out: Date.parse('01.05.2020')},
-  {room: 'D05', name: "Rene Navrkal", email: 'renenavrkal@gmail.com', move_in: Date.parse('31.08.2019'), move_out: Date.parse('05.05.2020')},
-  {room: 'D19', name: "Pierre Guillaume", email: 'pierre.g.27@live.fr', move_in: Date.parse('06.01.2020'), move_out: Date.parse('16.05.2020')},
-  {room: 'DB04', name: "Amelie Hartig", email: 'amelie.hartig@hotmail.de', move_in: Date.parse('29.02.2020'), move_out: Date.parse('30.05.2020')},
-  {room: 'D06', name: "Christian Ritterbach", email: 'ch.ritterbach@t-online.de', move_in: Date.parse('01.12.2019'), move_out: Date.parse('31.05.2020')},
-  {room: 'D16', name: "Kyley Rosser", email: 'kyleyrosser99@gmail.com', move_in: Date.parse('07.10.2019'), move_out: Date.parse('06.06.2020')},
-  {room: 'DB02', name: "Maria de los Santos Fernandez Romero", email: 'msfdezr@gmail.com', move_in: Date.parse('09.03.2020'), move_out: Date.parse('08.06.2020')},
-  {room: 'D21', name: "David Höhl", email: 'david.hoehl@aol.com', move_in: Date.parse('04.11.2019'), move_out: Date.parse('30.06.2020')},
-  {room: 'DB07', name: "Rene Navrkal", email: 'renenavrkal@gmail.com', move_in: Date.parse('06.05.2020'), move_out: Date.parse('30.06.2020')},
-  {room: 'D18', name: "Vanessa Elana Kröger", email: 'miss.kroeger@web.de', move_in: Date.parse('04.01.2020'), move_out: Date.parse('04.07.2020')},
-  {room: 'DB02', name: "Melina Badde", email: 'melina.badde@whu.edu', move_in: Date.parse('10.06.2020'), move_out: Date.parse('05.07.2020')},
-  {room: 'D20', name: "Joachim Bizot", email: 'joachim.bizot@outlook.fr', move_in: Date.parse('07.01.2020'), move_out: Date.parse('06.07.2020')},
-  {room: 'D03', name: "Anatasia Nefed", email: 'anastasianefed@gmail.com', move_in: Date.parse('14.03.2020'), move_out: Date.parse('13.07.2020')},
-  {room: 'D23', name: "Riekje Cordes", email: 'riekje.cordes@gmx.de', move_in: Date.parse('03.04.2020'), move_out: Date.parse('31.07.2020')},
-  {room: 'DB03', name: "Diego Fernando Gomez", email: 'df.gomezf@gmail.com', move_in: Date.parse('01.05.2020'), move_out: Date.parse('31.07.2020')},
-  {room: 'D17', name: "Charles Herbert", email: 'c.herbert04@gmail.com', move_in: Date.parse('03.04.2020'), move_out: Date.parse('21.08.2020')},
-  {room: 'D05', name: "Mark Veldkamp", email: 'mark_veldkamp@hotmail.nl', move_in: Date.parse('15.05.2020'), move_out: Date.parse('23.08.2020')},
-  {room: 'D21', name: "Shubham Sharma", email: 'sharmashubham10@gmail.com', move_in: Date.parse('29.06.2020'), move_out: Date.parse('28.08.2020')},
-  {room: 'D23', name: "Bernardo San Juan", email: 'bsanjuan.consulting@googlemail.com', move_in: Date.parse('01.08.2020'), move_out: Date.parse('31.08.2020')},
-  {room: 'D15', name: "Gino Lodola", email: 'gino.lodola@hotmail.com', move_in: Date.parse('30.12.2019'), move_out: Date.parse('31.08.2020')},
-  {room: 'D05', name: "Francesco Lo Piccolo", email: 'frlpiccolo@gmail.com', move_in: Date.parse('26.08.2020'), move_out: Date.parse('31.08.2020')},
-  {room: 'D08', name: "Julian Müller", email: 'jn.f.mueller@gmail.com', move_in: Date.parse('01.09.2019'), move_out: Date.parse('31.08.2020')},
-  {room: 'EW08', name: "Rene Navrkal", email: 'renenavrkal@gmail.com', move_in: Date.parse('01.07.2020'), move_out: Date.parse('31.08.2020')},
-  {room: 'D01', name: "Carolin Helena Klaus", email: 'carolin_klaus@outlook.de', move_in: Date.parse('31.03.2020'), move_out: Date.parse('01.09.2020')},
-  {room: 'D25', name: "Ferris Dalle-Grave ", email: 'b.dalle-grave@rieckermann.com', move_in: Date.parse('05.06.2020'), move_out: Date.parse('04.09.2020')},
-  # {room: 'D07', name: "Cristian Obersterescu", email: 'cristian.obersterescu@gmail.com', move_in: Date.parse('31.07.2019'), move_out: Date.parse('14.09.2020')},
-  {room: 'EW04', name: "Jan Niclas Lietzow", email: 'niclas.lietzow@outlook.com', move_in: Date.parse('14.06.2020'), move_out: Date.parse('16.09.2020')},
-  {room: 'D11', name: "Dominik Moskalik", email: 'dmoskalik@web.de', move_in: Date.parse('31.08.2019'), move_out: Date.parse('30.09.2020')},
-  {room: 'D05', name: "Amelie Lessmann", email: 'amelielessmann26@gmail.com', move_in: Date.parse('01.09.2020'), move_out: Date.parse('30.09.2020')},
-  {room: 'D09', name: "Candido Castillo", email: 'candidodomingocastillo@gmail.com', move_in: Date.parse('04.10.2019'), move_out: Date.parse('30.09.2020')},
-  {room: 'D18', name: "Melina Badde", email: 'melina.badde@whu.edu', move_in: Date.parse('10.06.2020'), move_out: Date.parse('30.09.2020')},
-  {room: 'D26', name: "Marcel Franke", email: 'marcel.edmund.franke@gmail.com', move_in: Date.parse('01.06.2020'), move_out: Date.parse('30.09.2020')},
-  {room: 'EW01', name: "Alexandra Martitz", email: 'alexandra.martitz@online.de', move_in: Date.parse('15.06.2020'), move_out: Date.parse('03.10.2020')},
-  {room: 'EW06', name: "Lara Wellner", email: 'lara.wellner@gmail.com', move_in: Date.parse('11.07.2020'), move_out: Date.parse('11.10.2020')},
-  {room: 'D23', name: "Francesco Lo Piccolo", email: 'frlpiccolo@gmail.com', move_in: Date.parse('01.09.2020'), move_out: Date.parse('14.10.2020')},
-  {room: 'D14', name: "Sophia Schembecker", email: 'sophiaschembecker@web.de', move_in: Date.parse('01.05.2020'), move_out: Date.parse('14.10.2020')},
-  {room: 'D20', name: "Nikolai Siekmann", email: 'nikolai.siekmann@gmail.com', move_in: Date.parse('01.07.2020'), move_out: Date.parse('14.10.2020')},
-  {room: 'EW11', name: "Leopold Harro Gottfried von Frenckell", email: 'leopoldvf@icloud.com', move_in: Date.parse('01.08.2020'), move_out: Date.parse('14.10.2020')},
-  {room: 'D29', name: "Jan-Rasmus Kässens", email: 'jr.kaessens@gmx.de', move_in: Date.parse('20.07.2020'), move_out: Date.parse('19.10.2020')},
-  {room: 'EW16', name: "Wanjiru Chabeda", email: 'wanjiru.chabeda@gmail.com', move_in: Date.parse('15.10.2020'), move_out: Date.parse('19.10.2020')},
-  {room: 'EW02', name: "Olina Karlsdottir", email: 'olina.ann@hotmail.com', move_in: Date.parse('11.06.2020'), move_out: Date.parse('24.10.2020')},
-  {room: 'D04', name: "Melanie Schaub", email: 'schaub.melanie@gmail.com', move_in: Date.parse('28.07.2019'), move_out: Date.parse('28.10.2020')},
-  {room: 'DB06', name: "Mehdi Dhifallah", email: 'mehdidhifallah2789@gmail.com', move_in: Date.parse('22.03.2020'), move_out: Date.parse('30.10.2020')},
-  {room: 'D14', name: "Deniss Butajevs", email: 'deniss.butajevs@gmail.com', move_in: Date.parse('22.10.2020'), move_out: Date.parse('31.10.2020')},
-  {room: 'D08', name: "Bernardo San Juan", email: 'bsanjuan.consulting@googlemail.com', move_in: Date.parse('01.09.2020'), move_out: Date.parse('31.10.2020')},
-  {room: 'EW03', name: "Corinna Thölke", email: 'corinna.thoelke@gmail.com', move_in: Date.parse('13.06.2020'), move_out: Date.parse('31.10.2020')},
-  {room: 'D22', name: "Sai Jagtap", email: 'mesaee@gmail.com', move_in: Date.parse('18.04.2020'), move_out: Date.parse('14.11.2020')},
-  {room: 'D23', name: "Nick Finckenstein", email: 'nfinckenstein@gmail.com', move_in: Date.parse('15.10.2020'), move_out: Date.parse('16.11.2020')},
-  {room: 'D24', name: "Victoria Areli Bracamontes Vazquez", email: 'vbracamontes.bss@gmail.com', move_in: Date.parse('04.11.2019'), move_out: Date.parse('30.11.2020')},
-  {room: 'D15', name: "Simon Hoese", email: 'simonhoese@gmx.de', move_in: Date.parse('01.09.2020'), move_out: Date.parse('30.11.2020')},
-  {room: 'D17', name: "Philip Pineda", email: 'pipopin@gmail.com', move_in: Date.parse('22.08.2020'), move_out: Date.parse('30.11.2020')},
-  {room: 'D21', name: "Victor Haas", email: 'victor.haas67@gmail.com', move_in: Date.parse('29.08.2020'), move_out: Date.parse('30.11.2020')},
-  {room: 'D27', name: "Pohl Timotheus ", email: 'timotheus.pohlt5@gmail.com', move_in: Date.parse('27.07.2020'), move_out: Date.parse('30.11.2020')},
-  {room: 'D33', name: "Eva-Maria Phieler", email: 'evamariaphieler@gmail.com', move_in: Date.parse('01.08.2020'), move_out: Date.parse('30.11.2020')},
-  {room: 'D31', name: "Cecan Cakar", email: 'cecan1@web.de', move_in: Date.parse('22.08.2020'), move_out: Date.parse('30.11.2020')},
-  {room: 'D36', name: "Daniel Ammann", email: 'daniel.j.ammann@gmail.com', move_in: Date.parse('31.08.2020'), move_out: Date.parse('30.11.2020')},
-  {room: 'EW03', name: "Lawal Bakere", email: 'lawal.bakare@gmail.com', move_in: Date.parse('04.11.2020'), move_out: Date.parse('30.11.2020')},
-  {room: 'D39', name: "Simao Bareto", email: 'simaofbarreto@gmail.com', move_in: Date.parse('15.09.2020'), move_out: Date.parse('14.12.2020')},
-  # {room:", email: 'D50', name: ',"move_in:' Date.parse('15.12.2020'), move_out: Date.parse('14.12.2020')},
-  {room: 'D01', name: "Lina Drozd", email: 'linadrozd5@gmail.com', move_in: Date.parse('02.09.2020'), move_out: Date.parse('14.12.2020')},
-  {room: 'D13', name: "Javier Randez Garbayo", email: 'javier_93_rg@hotmail.com', move_in: Date.parse('27.01.2020'), move_out: Date.parse('31.12.2020')},
-  {room: 'D44', name: "Helena Correia", email: 'helenac.housing1@gmail.com', move_in: Date.parse('01.10.2020'), move_out: Date.parse('01.01.2021')},
-  {room: 'D14', name: "Niklas Tausend", email: 'niklas.tausend1000@gmail.com', move_in: Date.parse('01.11.2020'), move_out: Date.parse('05.01.2021')},
-  {room: 'D42', name: "Chloe Bernard", email: 'chloe.bernard8@gmail.com', move_in: Date.parse('01.10.2020'), move_out: Date.parse('05.01.2021')},
-  {room: 'D35', name: "Charlotte Droste", email: 'charlotte.antonia.droste@gmail.com', move_in: Date.parse('01.09.2020'), move_out: Date.parse('05.01.2021')},
-  {room: 'DB07', name: "Laura Dell'Antonio", email: 'laura@dellantonio.de', move_in: Date.parse('15.09.2020'), move_out: Date.parse('05.01.2021')},
-  {room: 'EW15', name: "Francesca Solagna", email: 'f.solagna@uke.de', move_in: Date.parse('21.09.2020'), move_out: Date.parse('05.01.2021')},
-  {room: 'D38', name: "Theo Pernot", email: 'pernot.theo@outlook.fr', move_in: Date.parse('01.10.2020'), move_out: Date.parse('14.01.2021')},
-  {room: 'D46', name: "Henrike Wörmer", email: 'henrike.woermer@gmail.com', move_in: Date.parse('01.10.2020'), move_out: Date.parse('14.01.2021')},
-  # {room:", email: 'D51', name: ',"move_in:' Date.parse('15.01.2021'), move_out: Date.parse('14.01.2021')},
-  {room: 'EW06', name: "Moritz Stephan", email: 'moritz.stephan@outlook.de', move_in: Date.parse('12.10.2020'), move_out: Date.parse('14.01.2021')},
-  {room: 'EW12', name: "Jan Dobinsky", email: 'jan.dobinsky@gmail.com', move_in: Date.parse('01.10.2020'), move_out: Date.parse('14.01.2021')},
-  {room: 'D37', name: "Emili Läte", email: 'emililte@gmail.com', move_in: Date.parse('01.10.2020'), move_out: Date.parse('31.01.2021')},
-  {room: 'D43', name: "Deniz Aksoy", email: 'd.aksoy@gmx.net', move_in: Date.parse('01.10.2020'), move_out: Date.parse('31.01.2021')},
-  # {room:", email: 'D53', name: ',"move_in:' Date.parse('01.02.2021'), move_out: Date.parse('31.01.2021')},
-  {room: 'D09', name: "Laura Ladefoged", email: 'lauraladefoged01@gmail.com', move_in: Date.parse('01.10.2020'), move_out: Date.parse('31.01.2021')},
-  {room: 'D03', name: "Lance Williams", email: 'lance.kem.williams@gmail.com', move_in: Date.parse('29.07.2020'), move_out: Date.parse('31.01.2021')},
-  {room: 'D19', name: "Ivonne Greulich", email: 'ivonnegreulich@gmail.com', move_in: Date.parse('01.05.2020'), move_out: Date.parse('31.01.2021')},
-  {room: 'D25', name: "Tieme Schardam ", email: 'schardamtieme@gmail.com', move_in: Date.parse('04.09.2020'), move_out: Date.parse('31.01.2021')},
-  {room: 'DB01', name: "Sara Isla Cainzos", email: 'saraislac@gmail.com', move_in: Date.parse('29.02.2020'), move_out: Date.parse('31.01.2021')},
-  {room: 'DB06', name: "Chirag Ahuja", email: 'chiragvit@gmail.com', move_in: Date.parse('01.11.2020'), move_out: Date.parse('31.01.2021')},
-  {room: 'EW02', name: "Nils Erikson", email: 'nils_erikson@hotmail.com', move_in: Date.parse('26.10.2020'), move_out: Date.parse('31.01.2021')},
-  {room: 'EW09', name: "Antonia Zeilinger", email: 'antonia_zeilinger@hotmail.com', move_in: Date.parse('01.08.2020'), move_out: Date.parse('31.01.2021')},
-  {room: 'EW17', name: "Gesa Franke", email: 'gesafranke@googlemail.com', move_in: Date.parse('15.11.2020'), move_out: Date.parse('31.01.2021')},
-  {room: 'D05', name: "Saad El Hajjaji", email: 'saadelha@gmail.com', move_in: Date.parse('14.09.2020'), move_out: Date.parse('03.02.2021')},
-  {room: 'D15', name: "Lawal Bakare", email: 'lawal.bakare@gmail.com', move_in: Date.parse('01.12.2020'), move_out: Date.parse('14.02.2021')},
-  {room: 'EW18', name: "Nick Finckenstein", email: 'nfinckenstein@gmail.com', move_in: Date.parse('17.11.2020'), move_out: Date.parse('14.02.2021')},
-  {room: 'D12', name: "Christoph Häberlin", email: 'christoph.haeberlin@gmail.com', move_in: Date.parse('27.07.2019'), move_out: Date.parse('28.02.2021')},
-  {room: 'D02', name: "Andreas Janz", email: 'andreas.janz@gmail.com', move_in: Date.parse('24.03.2020'), move_out: Date.parse('28.02.2021')},
-  {room: 'D32', name: "Maximilian Busch", email: 'mpbusch01@gmail.com', move_in: Date.parse('01.08.2020'), move_out: Date.parse('28.02.2021')},
-  {room: 'D29', name: "Johanna Launer", email: 'JLauner@web.de', move_in: Date.parse('20.10.2020'), move_out: Date.parse('28.02.2021')},
-  {room: 'EW14', name: "Emma Widmer", email: 'emma.widmer@uzh.ch', move_in: Date.parse('01.10.2020'), move_out: Date.parse('28.02.2021')},
-  {room: 'EW01', name: "Kateryna Dib", email: 'kateryna.dib@gmail.com', move_in: Date.parse('04.10.2020'), move_out: Date.parse('28.02.2021')},
-  {room: 'EW04', name: "Tom Rose", email: 'tomrose1998@hotmail.co.uk', move_in: Date.parse('17.09.2020'), move_out: Date.parse('28.02.2021')},
-  {room: 'EW02', name: "Boyan Tristan Julius Gerretzen", email: 'boyangerretzen@gmail.com', move_in: Date.parse('01.02.2021'), move_out: Date.parse('28.02.2021')},
-  {room: 'EW11', name: "Anca Anitoaia       ", email: 'anca.anitoaia@gmail.com', move_in: Date.parse('15.10.2020'), move_out: Date.parse('28.02.2021')},
-  {room: 'D08', name: "Yael Nakash", email: 'baseggioarts@gmail.com', move_in: Date.parse('06.11.2020'), move_out: Date.parse('14.03.2021')},
-  {room: 'EW03', name: "Diego Fernando Gomez", email: 'df.gomezf@gmail.com', move_in: Date.parse('07.12.2020'), move_out: Date.parse('14.03.2021')},
-  {room: 'D39', name: "Helena Correia", email: 'helenac.housing1@gmail.com', move_in: Date.parse('01.01.2021'), move_out: Date.parse('31.03.2021')},
-  {room: 'D41', name: "Natalia Monroy", email: 'tatala07@hotmail.com', move_in: Date.parse('01.10.2020'), move_out: Date.parse('31.03.2021')},
-  {room: 'D17', name: "Jakob Oskar Daniel Woll", email: 'jakobwoll13@gmail.com', move_in: Date.parse('30.12.2020'), move_out: Date.parse('31.03.2021')},
-  {room: 'D20', name: "Ann-Katrin Vonnahme", email: 'ann-katrin@vonnahme.com', move_in: Date.parse('15.10.2020'), move_out: Date.parse('31.03.2021')},
-  {room: 'D26', name: "Michael Klein", email: 'michael.klein.contact@gmail.com', move_in: Date.parse('01.10.2020'), move_out: Date.parse('31.03.2021')},
-  {room: 'D30', name: "Felix Chemnitzer", email: 'f.chemnitzer@gmail.com', move_in: Date.parse('27.06.2020'), move_out: Date.parse('31.03.2021')},
-  {room: 'D34', name: "Elizabeth Lee", email: 'eliz.y.lee@gmail.com', move_in: Date.parse('22.08.2020'), move_out: Date.parse('31.03.2021')},
-  {room: 'DB04', name: "Alvaro Sanz García Sintas", email: 'alvarosanz_8@hotmail.com', move_in: Date.parse('23.03.2020'), move_out: Date.parse('31.03.2021')},
-  {room: 'EW05', name: "Katrin van Asten", email: 'kat.vanasten@gmail.com', move_in: Date.parse('01.07.2020'), move_out: Date.parse('31.03.2021')},
-  {room: 'EW16', name: "Marius Holle", email: 'marius.holle@icloud.com', move_in: Date.parse('21.12.2020'), move_out: Date.parse('31.03.2021')},
-  {room: 'D13', name: "Niklas Tausend", email: 'niklas.tausend1000@gmail.com', move_in: Date.parse('05.11.2020'), move_out: Date.parse('14.04.2021')},
-  {room: 'D14', name: "Alexandra Gedert", email: 'gedertalex@gmail.com', move_in: Date.parse('06.01.2021'), move_out: Date.parse('14.04.2021')},
-  {room: 'D47', name: "Chloe Bernard", email: 'chloe.bernard8@gmail.com', move_in: Date.parse('06.01.2021'), move_out: Date.parse('14.04.2021')},
-  {room: 'D03', name: "Saad El Hajjaji", email: 'saadelha@gmail.com', move_in: Date.parse('04.02.2021'), move_out: Date.parse('14.04.2021')},
-  {room: 'DB07', name: "Tristan Heermann", email: 't.heermann92@gmail.com', move_in: Date.parse('08.01.2021'), move_out: Date.parse('14.04.2021')},
-  {room: 'EW12', name: "Olina Karlsdottir", email: 'olina.ann@hotmail.com', move_in: Date.parse('15.01.2021'), move_out: Date.parse('14.04.2021')},
-  {room: 'D24', name: "Paul Bruckner", email: 'bruckner.paul@web.de', move_in: Date.parse('30.01.2021'), move_out: Date.parse('30.04.2021')},
-  {room: 'D11', name: "Jonas Simonsen", email: 'simonsenjonas@aol.de', move_in: Date.parse('01.10.2020'), move_out: Date.parse('30.04.2021')},
-  {room: 'D07', name: "Daniel Nicolae Obersterescu", email: 'dani4793@yahoo.com', move_in: Date.parse('15.09.2020'), move_out: Date.parse('30.04.2021')},
-  # {room: 'D49', name:", email: '"lance.kem.williams@gmail.com', move_in: Date.parse('01.02.2021'), move_out: Date.parse('30.04.2021')},
-  {room: 'D48', name: "Lance Williams", email: 'johannes.museller@gmail.com', move_in: Date.parse('01.02.2021'), move_out: Date.parse('30.04.2021')},
-  {room: 'D03', name: "Isabelle Philipowich", email: 'i.philipowich@outlook.de', move_in: Date.parse('15.04.2021'), move_out: Date.parse('30.04.2021')},
-  {room: 'D16', name: "Carolin Stahl", email: 'carolin.stahl@aol.de', move_in: Date.parse('04.06.2020'), move_out: Date.parse('30.04.2021')},
-  {room: 'D28', name: "Malte Schülein ", email: 'mcschuelein@gmail.com', move_in: Date.parse('01.08.2020'), move_out: Date.parse('30.04.2021')},
-  {room: 'DB02', name: "Joseph Cordonnier", email: 'joseph.cordonnier.mdg@gmail.com', move_in: Date.parse('01.05.2020'), move_out: Date.parse('30.04.2021')},
-  {room: 'EW15', name: "Imad Jawad", email: 'imad.a.jawad@gmail.com', move_in: Date.parse('01.02.2021'), move_out: Date.parse('30.04.2021')},
-  {room: 'EW10', name: "Robin Wolter", email: 'robinmwolter@gmail.com', move_in: Date.parse('01.08.2020'), move_out: Date.parse('30.04.2021')},
-  {room: 'EW17', name: "Harry Daniel Gurth Angeles", email: 'dgurth@gmail.com', move_in: Date.parse('23.01.2021'), move_out: Date.parse('30.04.2021')},
-  {room: 'D02', name: "Lam Thi Tran", email: 'icethi@live.de', move_in: Date.parse('01.03.2021'), move_out: Date.parse('30.05.2021')},
-  {room: 'D38', name: "Niraj Saoji", email: 'nirajsaoji@gmail.com', move_in: Date.parse('01.02.2021'), move_out: Date.parse('31.05.2021')},
-  {room: 'D43', name: "Katharina Beck", email: 'katharinabeck@posteo.de', move_in: Date.parse('01.02.2021'), move_out: Date.parse('31.05.2021')},
-  {room: 'D45', name: "Flora Berei-Nagy", email: 'florab@google.com', move_in: Date.parse('01.10.2020'), move_out: Date.parse('31.05.2021')},
-  {room: 'D33', name: "Tobias Heiles", email: 'contact@tobiasheiles.de', move_in: Date.parse('01.12.2020'), move_out: Date.parse('31.05.2021')},
-  {room: 'D32', name: "Khondokar Humayun Kabir", email: 'kabirag09@bau.edu.bd', move_in: Date.parse('01.03.2021'), move_out: Date.parse('31.05.2021')},
-  {room: 'EW06', name: "Gesa Franke", email: 'gesafranke@googlemail.com', move_in: Date.parse('01.02.2021'), move_out: Date.parse('31.05.2021')},
-  {room: 'EW14', name: "Tom Rose", email: 'tomrose1998@hotmail.co.uk', move_in: Date.parse('01.03.2021'), move_out: Date.parse('14.06.2021')},
-  {room: 'D22', name: "Sina Schunk", email: 'Sina.Schunk@jahr-tsv.de', move_in: Date.parse('15.11.2020'), move_out: Date.parse('30.06.2021')},
-  {room: 'D04', name: "Nadine Rinaldi", email: 'nadine.rinaldi@hotmail.ch', move_in: Date.parse('01.11.2020'), move_out: Date.parse('30.06.2021')},
-  {room: 'D46', name: "Lídia Alcolea Vallès", email: 'lidiaav20@gmail.com', move_in: Date.parse('10.02.2021'), move_out: Date.parse('30.06.2021')},
-  {room: 'D31', name: "Victoria Ruth Elisabeth Pap", email: 'victoria.lre.pap@gmail.com', move_in: Date.parse('28.02.2021'), move_out: Date.parse('30.06.2021')},
-  {room: 'DB06', name: "Stephan Hainzl", email: 'st.hainzl@utanet.at', move_in: Date.parse('01.03.2021'), move_out: Date.parse('30.06.2021')},
-  {room: 'EW04', name: "Boyan Tristan Julius Gerretzen", email: 'boyangerretzen@gmail.com', move_in: Date.parse('01.03.2021'), move_out: Date.parse('30.06.2021')},
-  {room: 'EW16', name: "Simao Barreto", email: 'simaofbarreto@gmail.com', move_in: Date.parse('01.04.2021'), move_out: Date.parse('30.06.2021')},
-  {room: 'EW08', name: "Daria Xue", email: 'dariaxue@gmail.com', move_in: Date.parse('01.09.2020'), move_out: Date.parse('14.07.2021')},
-  {room: 'EW13', name: "Nicolas Claudet", email: 'nico.claudet@icloud.com', move_in: Date.parse('01.10.2020'), move_out: Date.parse('14.07.2021')},
-  {room: 'EW17', name: "Isabelle Philipowich", email: 'i.philipowich@outlook.de', move_in: Date.parse('01.05.2021'), move_out: Date.parse('14.07.2021')},
-  {room: 'EW07', name: "Anna Loren Stuhr", email: 'annaloren.stuhr@googlemail.com', move_in: Date.parse('07.07.2020'), move_out: Date.parse('15.07.2021')},
-  {room: 'D29', name: "Vinzenz Ludwig Meineke Wiemann", email: 'vinzenz.wiemann@gmx.de', move_in: Date.parse('01.03.2021'), move_out: Date.parse('31.07.2021')},
-  {room: 'DB05', name: "Fernando Hoppen", email: 'fehoppen@hotmail.com', move_in: Date.parse('01.08.2020'), move_out: Date.parse('31.07.2021')},
-  {room: 'DB03', name: "Philipp Kramberg", email: 'philipp@kramberg.de', move_in: Date.parse('28.08.2020'), move_out: Date.parse('30.08.2021')},
-  {room: 'D54', name: "Franziska Bernerth", email: 'franzi.bernerth@online.de', move_in: Date.parse('01.06.2021'), move_out: Date.parse('31.08.2021')},
-  {room: 'D36', name: "Marvin Beulig", email: 'marvin-beulig@web.de', move_in: Date.parse('01.12.2020'), move_out: Date.parse('31.08.2021')},
-  {room: 'D06', name: "Alyssa Eybächer", email: 'alyssa.eybaecher@gmail.com', move_in: Date.parse('02.07.2020'), move_out: Date.parse('30.09.2021')},
-  {room: 'D18', name: "Anastasia Bain", email: 'afbainey@aol.com', move_in: Date.parse('01.10.2020'), move_out: Date.parse('04.10.2021')},
-  {room: 'D19', name: "Andreas Moll", email: 'andreasmoll@yahoo.com', move_in: Date.parse('15.02.2021'), move_out: Date.parse('30.11.2021')},
-  {room: 'D27', name: "Ervin Demiri ", email: 'ervin0805@gmail.com', move_in: Date.parse('01.12.2020'), move_out: Date.parse('30.11.2021')},
-  {room: 'D10', name: "Francisco Coutinho", email: 'flgpc@hotmail.com', move_in: Date.parse('01.03.2020'), move_out: Date.parse('28.02.2022')},
-  {room: 'D39', name: "Anna-Sophie Körbler", email: 'anna-sophie.koch@kochfamily.at', move_in: Date.parse('01.04.2021'), move_out: Date.parse('31.03.2022')},
-  {room: 'D26', name: "Paul Hase", email: 'hase-paul@t-online.de', move_in: Date.parse('01.04.2021'), move_out: Date.parse('31.03.2022')}
-]
 
-MULTIPLE_BOOKINGS_WITH_SAME_ATTRIBUTES = []
 
-BOOKING_WITH_ERRORS = []
+# bookings = [
+#   {room: 'D06', name: "Nicolae Puican", email: 'n.a.puican@gmail.com', move_in: Date.parse('01.09.2019'), move_out: Date.parse('30.11.2019')},
+#   {room: 'D09', name: "Sheila Grace Tan", email: 'sheilagracetan@gmail.com', move_in: Date.parse('26.07.2019'), move_out: Date.parse('25.12.2019')},
+#   {room: 'D20', name: "Matteo Angione", email: 'angionem6@gmail.com', move_in: Date.parse('03.10.2019'), move_out: Date.parse('02.01.2020')},
+#   {room: 'D18', name: "Johannes Benthaus", email: 'johannes.benthaus@gmail.com', move_in: Date.parse('04.10.2019'), move_out: Date.parse('03.01.2020')},
+#   {room: 'D19', name: "Tobias Lössl", email: 'tobiloessl@hotmail.de', move_in: Date.parse('03.10.2019'), move_out: Date.parse('05.01.2020')},
+#   {room: 'D15', name: "Ernesto Ruiz Manzano", email: 'ernesto_900_ruiz@hotmail.com', move_in: Date.parse('07.09.2019'), move_out: Date.parse('06.01.2020')},
+#   {room: 'D13', name: "Gauriesh Bindra", email: 'gaurieshbindra@gmail.com', move_in: Date.parse('02.08.2019'), move_out: Date.parse('26.01.2020')},
+#   {room: 'D14', name: "Arkaprabha Ray", email: 'arkadeep97@gmail.com', move_in: Date.parse('01.09.2019'), move_out: Date.parse('27.01.2020')},
+#   {room: 'D10', name: "Antonia Rudolf", email: 'antoniarudolf@aol.com', move_in: Date.parse('31.08.2019'), move_out: Date.parse('29.02.2020')},
+#   {room: 'D03', name: "Clarissa Leu", email: 'clacoleu@aol.com', move_in: Date.parse('05.08.2019'), move_out: Date.parse('05.03.2020')},
+#   {room: 'D02', name: "Marvin Wobbe", email: 'marvin.wobbe@gmx.de', move_in: Date.parse('24.08.2019'), move_out: Date.parse('23.03.2020')},
+#   {room: 'D22', name: "Nil Biosca Jimenez", email: 'nbiosca2q@gmail.com', move_in: Date.parse('06.11.2019'), move_out: Date.parse('31.03.2020')},
+#   {room: 'D01', name: "Anna Weirauch", email: 'team@stacey-living.de', move_in: Date.parse('01.10.2019'), move_out: Date.parse('31.03.2020')},
+#   {room: 'D23', name: "Angelo Arceri", email: 'angeloarceri@live.it', move_in: Date.parse('03.10.2019'), move_out: Date.parse('02.04.2020')},
+#   {room: 'D17', name: "Andrea Cianfarani", email: 'andrea.cianfarani@hotmail.com', move_in: Date.parse('04.10.2019'), move_out: Date.parse('03.04.2020')},
+#   {room: 'DB05', name: "Alvaro Sanz García 'Sintas", move_in: Date.parse('23.03.2020'), move_out: Date.parse('30.04.2020')},
+#   {room: 'D14', name: "Anastasia Krieg", email: 'anastasia.krieg@t-online.de', move_in: Date.parse('02.02.2020'), move_out: Date.parse('01.05.2020')},
+#   {room: 'D05', name: "Rene Navrkal", email: 'renenavrkal@gmail.com', move_in: Date.parse('31.08.2019'), move_out: Date.parse('05.05.2020')},
+#   {room: 'D19', name: "Pierre Guillaume", email: 'pierre.g.27@live.fr', move_in: Date.parse('06.01.2020'), move_out: Date.parse('16.05.2020')},
+#   {room: 'DB04', name: "Amelie Hartig", email: 'amelie.hartig@hotmail.de', move_in: Date.parse('29.02.2020'), move_out: Date.parse('30.05.2020')},
+#   {room: 'D06', name: "Christian Ritterbach", email: 'ch.ritterbach@t-online.de', move_in: Date.parse('01.12.2019'), move_out: Date.parse('31.05.2020')},
+#   {room: 'D16', name: "Kyley Rosser", email: 'kyleyrosser99@gmail.com', move_in: Date.parse('07.10.2019'), move_out: Date.parse('06.06.2020')},
+#   {room: 'DB02', name: "Maria de los Santos Fernandez Romero", email: 'msfdezr@gmail.com', move_in: Date.parse('09.03.2020'), move_out: Date.parse('08.06.2020')},
+#   {room: 'D21', name: "David Höhl", email: 'david.hoehl@aol.com', move_in: Date.parse('04.11.2019'), move_out: Date.parse('30.06.2020')},
+#   {room: 'DB07', name: "Rene Navrkal", email: 'renenavrkal@gmail.com', move_in: Date.parse('06.05.2020'), move_out: Date.parse('30.06.2020')},
+#   {room: 'D18', name: "Vanessa Elana Kröger", email: 'miss.kroeger@web.de', move_in: Date.parse('04.01.2020'), move_out: Date.parse('04.07.2020')},
+#   {room: 'DB02', name: "Melina Badde", email: 'melina.badde@whu.edu', move_in: Date.parse('10.06.2020'), move_out: Date.parse('05.07.2020')},
+#   {room: 'D20', name: "Joachim Bizot", email: 'joachim.bizot@outlook.fr', move_in: Date.parse('07.01.2020'), move_out: Date.parse('06.07.2020')},
+#   {room: 'D03', name: "Anatasia Nefed", email: 'anastasianefed@gmail.com', move_in: Date.parse('14.03.2020'), move_out: Date.parse('13.07.2020')},
+#   {room: 'D23', name: "Riekje Cordes", email: 'riekje.cordes@gmx.de', move_in: Date.parse('03.04.2020'), move_out: Date.parse('31.07.2020')},
+#   {room: 'DB03', name: "Diego Fernando Gomez", email: 'df.gomezf@gmail.com', move_in: Date.parse('01.05.2020'), move_out: Date.parse('31.07.2020')},
+#   {room: 'D17', name: "Charles Herbert", email: 'c.herbert04@gmail.com', move_in: Date.parse('03.04.2020'), move_out: Date.parse('21.08.2020')},
+#   {room: 'D05', name: "Mark Veldkamp", email: 'mark_veldkamp@hotmail.nl', move_in: Date.parse('15.05.2020'), move_out: Date.parse('23.08.2020')},
+#   {room: 'D21', name: "Shubham Sharma", email: 'sharmashubham10@gmail.com', move_in: Date.parse('29.06.2020'), move_out: Date.parse('28.08.2020')},
+#   {room: 'D23', name: "Bernardo San Juan", email: 'bsanjuan.consulting@googlemail.com', move_in: Date.parse('01.08.2020'), move_out: Date.parse('31.08.2020')},
+#   {room: 'D15', name: "Gino Lodola", email: 'gino.lodola@hotmail.com', move_in: Date.parse('30.12.2019'), move_out: Date.parse('31.08.2020')},
+#   {room: 'D05', name: "Francesco Lo Piccolo", email: 'frlpiccolo@gmail.com', move_in: Date.parse('26.08.2020'), move_out: Date.parse('31.08.2020')},
+#   {room: 'D08', name: "Julian Müller", email: 'jn.f.mueller@gmail.com', move_in: Date.parse('01.09.2019'), move_out: Date.parse('31.08.2020')},
+#   {room: 'EW08', name: "Rene Navrkal", email: 'renenavrkal@gmail.com', move_in: Date.parse('01.07.2020'), move_out: Date.parse('31.08.2020')},
+#   {room: 'D01', name: "Carolin Helena Klaus", email: 'carolin_klaus@outlook.de', move_in: Date.parse('31.03.2020'), move_out: Date.parse('01.09.2020')},
+#   {room: 'D25', name: "Ferris Dalle-Grave ", email: 'b.dalle-grave@rieckermann.com', move_in: Date.parse('05.06.2020'), move_out: Date.parse('04.09.2020')},
+#   # {room: 'D07', name: "Cristian Obersterescu", email: 'cristian.obersterescu@gmail.com', move_in: Date.parse('31.07.2019'), move_out: Date.parse('14.09.2020')},
+#   {room: 'EW04', name: "Jan Niclas Lietzow", email: 'niclas.lietzow@outlook.com', move_in: Date.parse('14.06.2020'), move_out: Date.parse('16.09.2020')},
+#   {room: 'D11', name: "Dominik Moskalik", email: 'dmoskalik@web.de', move_in: Date.parse('31.08.2019'), move_out: Date.parse('30.09.2020')},
+#   {room: 'D05', name: "Amelie Lessmann", email: 'amelielessmann26@gmail.com', move_in: Date.parse('01.09.2020'), move_out: Date.parse('30.09.2020')},
+#   {room: 'D09', name: "Candido Castillo", email: 'candidodomingocastillo@gmail.com', move_in: Date.parse('04.10.2019'), move_out: Date.parse('30.09.2020')},
+#   {room: 'D18', name: "Melina Badde", email: 'melina.badde@whu.edu', move_in: Date.parse('10.06.2020'), move_out: Date.parse('30.09.2020')},
+#   {room: 'D26', name: "Marcel Franke", email: 'marcel.edmund.franke@gmail.com', move_in: Date.parse('01.06.2020'), move_out: Date.parse('30.09.2020')},
+#   {room: 'EW01', name: "Alexandra Martitz", email: 'alexandra.martitz@online.de', move_in: Date.parse('15.06.2020'), move_out: Date.parse('03.10.2020')},
+#   {room: 'EW06', name: "Lara Wellner", email: 'lara.wellner@gmail.com', move_in: Date.parse('11.07.2020'), move_out: Date.parse('11.10.2020')},
+#   {room: 'D23', name: "Francesco Lo Piccolo", email: 'frlpiccolo@gmail.com', move_in: Date.parse('01.09.2020'), move_out: Date.parse('14.10.2020')},
+#   {room: 'D14', name: "Sophia Schembecker", email: 'sophiaschembecker@web.de', move_in: Date.parse('01.05.2020'), move_out: Date.parse('14.10.2020')},
+#   {room: 'D20', name: "Nikolai Siekmann", email: 'nikolai.siekmann@gmail.com', move_in: Date.parse('01.07.2020'), move_out: Date.parse('14.10.2020')},
+#   {room: 'EW11', name: "Leopold Harro Gottfried von Frenckell", email: 'leopoldvf@icloud.com', move_in: Date.parse('01.08.2020'), move_out: Date.parse('14.10.2020')},
+#   {room: 'D29', name: "Jan-Rasmus Kässens", email: 'jr.kaessens@gmx.de', move_in: Date.parse('20.07.2020'), move_out: Date.parse('19.10.2020')},
+#   {room: 'EW16', name: "Wanjiru Chabeda", email: 'wanjiru.chabeda@gmail.com', move_in: Date.parse('15.10.2020'), move_out: Date.parse('19.10.2020')},
+#   {room: 'EW02', name: "Olina Karlsdottir", email: 'olina.ann@hotmail.com', move_in: Date.parse('11.06.2020'), move_out: Date.parse('24.10.2020')},
+#   {room: 'D04', name: "Melanie Schaub", email: 'schaub.melanie@gmail.com', move_in: Date.parse('28.07.2019'), move_out: Date.parse('28.10.2020')},
+#   {room: 'DB06', name: "Mehdi Dhifallah", email: 'mehdidhifallah2789@gmail.com', move_in: Date.parse('22.03.2020'), move_out: Date.parse('30.10.2020')},
+#   {room: 'D14', name: "Deniss Butajevs", email: 'deniss.butajevs@gmail.com', move_in: Date.parse('22.10.2020'), move_out: Date.parse('31.10.2020')},
+#   {room: 'D08', name: "Bernardo San Juan", email: 'bsanjuan.consulting@googlemail.com', move_in: Date.parse('01.09.2020'), move_out: Date.parse('31.10.2020')},
+#   {room: 'EW03', name: "Corinna Thölke", email: 'corinna.thoelke@gmail.com', move_in: Date.parse('13.06.2020'), move_out: Date.parse('31.10.2020')},
+#   {room: 'D22', name: "Sai Jagtap", email: 'mesaee@gmail.com', move_in: Date.parse('18.04.2020'), move_out: Date.parse('14.11.2020')},
+#   {room: 'D23', name: "Nick Finckenstein", email: 'nfinckenstein@gmail.com', move_in: Date.parse('15.10.2020'), move_out: Date.parse('16.11.2020')},
+#   {room: 'D24', name: "Victoria Areli Bracamontes Vazquez", email: 'vbracamontes.bss@gmail.com', move_in: Date.parse('04.11.2019'), move_out: Date.parse('30.11.2020')},
+#   {room: 'D15', name: "Simon Hoese", email: 'simonhoese@gmx.de', move_in: Date.parse('01.09.2020'), move_out: Date.parse('30.11.2020')},
+#   {room: 'D17', name: "Philip Pineda", email: 'pipopin@gmail.com', move_in: Date.parse('22.08.2020'), move_out: Date.parse('30.11.2020')},
+#   {room: 'D21', name: "Victor Haas", email: 'victor.haas67@gmail.com', move_in: Date.parse('29.08.2020'), move_out: Date.parse('30.11.2020')},
+#   {room: 'D27', name: "Pohl Timotheus ", email: 'timotheus.pohlt5@gmail.com', move_in: Date.parse('27.07.2020'), move_out: Date.parse('30.11.2020')},
+#   {room: 'D33', name: "Eva-Maria Phieler", email: 'evamariaphieler@gmail.com', move_in: Date.parse('01.08.2020'), move_out: Date.parse('30.11.2020')},
+#   {room: 'D31', name: "Cecan Cakar", email: 'cecan1@web.de', move_in: Date.parse('22.08.2020'), move_out: Date.parse('30.11.2020')},
+#   {room: 'D36', name: "Daniel Ammann", email: 'daniel.j.ammann@gmail.com', move_in: Date.parse('31.08.2020'), move_out: Date.parse('30.11.2020')},
+#   {room: 'EW03', name: "Lawal Bakere", email: 'lawal.bakare@gmail.com', move_in: Date.parse('04.11.2020'), move_out: Date.parse('30.11.2020')},
+#   {room: 'D39', name: "Simao Bareto", email: 'simaofbarreto@gmail.com', move_in: Date.parse('15.09.2020'), move_out: Date.parse('14.12.2020')},
+#   # {room:", email: 'D50', name: ',"move_in:' Date.parse('15.12.2020'), move_out: Date.parse('14.12.2020')},
+#   {room: 'D01', name: "Lina Drozd", email: 'linadrozd5@gmail.com', move_in: Date.parse('02.09.2020'), move_out: Date.parse('14.12.2020')},
+#   {room: 'D13', name: "Javier Randez Garbayo", email: 'javier_93_rg@hotmail.com', move_in: Date.parse('27.01.2020'), move_out: Date.parse('31.12.2020')},
+#   {room: 'D44', name: "Helena Correia", email: 'helenac.housing1@gmail.com', move_in: Date.parse('01.10.2020'), move_out: Date.parse('01.01.2021')},
+#   {room: 'D14', name: "Niklas Tausend", email: 'niklas.tausend1000@gmail.com', move_in: Date.parse('01.11.2020'), move_out: Date.parse('05.01.2021')},
+#   {room: 'D42', name: "Chloe Bernard", email: 'chloe.bernard8@gmail.com', move_in: Date.parse('01.10.2020'), move_out: Date.parse('05.01.2021')},
+#   {room: 'D35', name: "Charlotte Droste", email: 'charlotte.antonia.droste@gmail.com', move_in: Date.parse('01.09.2020'), move_out: Date.parse('05.01.2021')},
+#   {room: 'DB07', name: "Laura Dell'Antonio", email: 'laura@dellantonio.de', move_in: Date.parse('15.09.2020'), move_out: Date.parse('05.01.2021')},
+#   {room: 'EW15', name: "Francesca Solagna", email: 'f.solagna@uke.de', move_in: Date.parse('21.09.2020'), move_out: Date.parse('05.01.2021')},
+#   {room: 'D38', name: "Theo Pernot", email: 'pernot.theo@outlook.fr', move_in: Date.parse('01.10.2020'), move_out: Date.parse('14.01.2021')},
+#   {room: 'D46', name: "Henrike Wörmer", email: 'henrike.woermer@gmail.com', move_in: Date.parse('01.10.2020'), move_out: Date.parse('14.01.2021')},
+#   # {room:", email: 'D51', name: ',"move_in:' Date.parse('15.01.2021'), move_out: Date.parse('14.01.2021')},
+#   {room: 'EW06', name: "Moritz Stephan", email: 'moritz.stephan@outlook.de', move_in: Date.parse('12.10.2020'), move_out: Date.parse('14.01.2021')},
+#   {room: 'EW12', name: "Jan Dobinsky", email: 'jan.dobinsky@gmail.com', move_in: Date.parse('01.10.2020'), move_out: Date.parse('14.01.2021')},
+#   {room: 'D37', name: "Emili Läte", email: 'emililte@gmail.com', move_in: Date.parse('01.10.2020'), move_out: Date.parse('31.01.2021')},
+#   {room: 'D43', name: "Deniz Aksoy", email: 'd.aksoy@gmx.net', move_in: Date.parse('01.10.2020'), move_out: Date.parse('31.01.2021')},
+#   # {room:", email: 'D53', name: ',"move_in:' Date.parse('01.02.2021'), move_out: Date.parse('31.01.2021')},
+#   {room: 'D09', name: "Laura Ladefoged", email: 'lauraladefoged01@gmail.com', move_in: Date.parse('01.10.2020'), move_out: Date.parse('31.01.2021')},
+#   {room: 'D03', name: "Lance Williams", email: 'lance.kem.williams@gmail.com', move_in: Date.parse('29.07.2020'), move_out: Date.parse('31.01.2021')},
+#   {room: 'D19', name: "Ivonne Greulich", email: 'ivonnegreulich@gmail.com', move_in: Date.parse('01.05.2020'), move_out: Date.parse('31.01.2021')},
+#   {room: 'D25', name: "Tieme Schardam ", email: 'schardamtieme@gmail.com', move_in: Date.parse('04.09.2020'), move_out: Date.parse('31.01.2021')},
+#   {room: 'DB01', name: "Sara Isla Cainzos", email: 'saraislac@gmail.com', move_in: Date.parse('29.02.2020'), move_out: Date.parse('31.01.2021')},
+#   {room: 'DB06', name: "Chirag Ahuja", email: 'chiragvit@gmail.com', move_in: Date.parse('01.11.2020'), move_out: Date.parse('31.01.2021')},
+#   {room: 'EW02', name: "Nils Erikson", email: 'nils_erikson@hotmail.com', move_in: Date.parse('26.10.2020'), move_out: Date.parse('31.01.2021')},
+#   {room: 'EW09', name: "Antonia Zeilinger", email: 'antonia_zeilinger@hotmail.com', move_in: Date.parse('01.08.2020'), move_out: Date.parse('31.01.2021')},
+#   {room: 'EW17', name: "Gesa Franke", email: 'gesafranke@googlemail.com', move_in: Date.parse('15.11.2020'), move_out: Date.parse('31.01.2021')},
+#   {room: 'D05', name: "Saad El Hajjaji", email: 'saadelha@gmail.com', move_in: Date.parse('14.09.2020'), move_out: Date.parse('03.02.2021')},
+#   {room: 'D15', name: "Lawal Bakare", email: 'lawal.bakare@gmail.com', move_in: Date.parse('01.12.2020'), move_out: Date.parse('14.02.2021')},
+#   {room: 'EW18', name: "Nick Finckenstein", email: 'nfinckenstein@gmail.com', move_in: Date.parse('17.11.2020'), move_out: Date.parse('14.02.2021')},
+#   {room: 'D12', name: "Christoph Häberlin", email: 'christoph.haeberlin@gmail.com', move_in: Date.parse('27.07.2019'), move_out: Date.parse('28.02.2021')},
+#   {room: 'D02', name: "Andreas Janz", email: 'andreas.janz@gmail.com', move_in: Date.parse('24.03.2020'), move_out: Date.parse('28.02.2021')},
+#   {room: 'D32', name: "Maximilian Busch", email: 'mpbusch01@gmail.com', move_in: Date.parse('01.08.2020'), move_out: Date.parse('28.02.2021')},
+#   {room: 'D29', name: "Johanna Launer", email: 'JLauner@web.de', move_in: Date.parse('20.10.2020'), move_out: Date.parse('28.02.2021')},
+#   {room: 'EW14', name: "Emma Widmer", email: 'emma.widmer@uzh.ch', move_in: Date.parse('01.10.2020'), move_out: Date.parse('28.02.2021')},
+#   {room: 'EW01', name: "Kateryna Dib", email: 'kateryna.dib@gmail.com', move_in: Date.parse('04.10.2020'), move_out: Date.parse('28.02.2021')},
+#   {room: 'EW04', name: "Tom Rose", email: 'tomrose1998@hotmail.co.uk', move_in: Date.parse('17.09.2020'), move_out: Date.parse('28.02.2021')},
+#   {room: 'EW02', name: "Boyan Tristan Julius Gerretzen", email: 'boyangerretzen@gmail.com', move_in: Date.parse('01.02.2021'), move_out: Date.parse('28.02.2021')},
+#   {room: 'EW11', name: "Anca Anitoaia       ", email: 'anca.anitoaia@gmail.com', move_in: Date.parse('15.10.2020'), move_out: Date.parse('28.02.2021')},
+#   {room: 'D08', name: "Yael Nakash", email: 'baseggioarts@gmail.com', move_in: Date.parse('06.11.2020'), move_out: Date.parse('14.03.2021')},
+#   {room: 'EW03', name: "Diego Fernando Gomez", email: 'df.gomezf@gmail.com', move_in: Date.parse('07.12.2020'), move_out: Date.parse('14.03.2021')},
+#   {room: 'D39', name: "Helena Correia", email: 'helenac.housing1@gmail.com', move_in: Date.parse('01.01.2021'), move_out: Date.parse('31.03.2021')},
+#   {room: 'D41', name: "Natalia Monroy", email: 'tatala07@hotmail.com', move_in: Date.parse('01.10.2020'), move_out: Date.parse('31.03.2021')},
+#   {room: 'D17', name: "Jakob Oskar Daniel Woll", email: 'jakobwoll13@gmail.com', move_in: Date.parse('30.12.2020'), move_out: Date.parse('31.03.2021')},
+#   {room: 'D20', name: "Ann-Katrin Vonnahme", email: 'ann-katrin@vonnahme.com', move_in: Date.parse('15.10.2020'), move_out: Date.parse('31.03.2021')},
+#   {room: 'D26', name: "Michael Klein", email: 'michael.klein.contact@gmail.com', move_in: Date.parse('01.10.2020'), move_out: Date.parse('31.03.2021')},
+#   {room: 'D30', name: "Felix Chemnitzer", email: 'f.chemnitzer@gmail.com', move_in: Date.parse('27.06.2020'), move_out: Date.parse('31.03.2021')},
+#   {room: 'D34', name: "Elizabeth Lee", email: 'eliz.y.lee@gmail.com', move_in: Date.parse('22.08.2020'), move_out: Date.parse('31.03.2021')},
+#   {room: 'DB04', name: "Alvaro Sanz García Sintas", email: 'alvarosanz_8@hotmail.com', move_in: Date.parse('23.03.2020'), move_out: Date.parse('31.03.2021')},
+#   {room: 'EW05', name: "Katrin van Asten", email: 'kat.vanasten@gmail.com', move_in: Date.parse('01.07.2020'), move_out: Date.parse('31.03.2021')},
+#   {room: 'EW16', name: "Marius Holle", email: 'marius.holle@icloud.com', move_in: Date.parse('21.12.2020'), move_out: Date.parse('31.03.2021')},
+#   {room: 'D13', name: "Niklas Tausend", email: 'niklas.tausend1000@gmail.com', move_in: Date.parse('05.11.2020'), move_out: Date.parse('14.04.2021')},
+#   {room: 'D14', name: "Alexandra Gedert", email: 'gedertalex@gmail.com', move_in: Date.parse('06.01.2021'), move_out: Date.parse('14.04.2021')},
+#   {room: 'D47', name: "Chloe Bernard", email: 'chloe.bernard8@gmail.com', move_in: Date.parse('06.01.2021'), move_out: Date.parse('14.04.2021')},
+#   {room: 'D03', name: "Saad El Hajjaji", email: 'saadelha@gmail.com', move_in: Date.parse('04.02.2021'), move_out: Date.parse('14.04.2021')},
+#   {room: 'DB07', name: "Tristan Heermann", email: 't.heermann92@gmail.com', move_in: Date.parse('08.01.2021'), move_out: Date.parse('14.04.2021')},
+#   {room: 'EW12', name: "Olina Karlsdottir", email: 'olina.ann@hotmail.com', move_in: Date.parse('15.01.2021'), move_out: Date.parse('14.04.2021')},
+#   {room: 'D24', name: "Paul Bruckner", email: 'bruckner.paul@web.de', move_in: Date.parse('30.01.2021'), move_out: Date.parse('30.04.2021')},
+#   {room: 'D11', name: "Jonas Simonsen", email: 'simonsenjonas@aol.de', move_in: Date.parse('01.10.2020'), move_out: Date.parse('30.04.2021')},
+#   {room: 'D07', name: "Daniel Nicolae Obersterescu", email: 'dani4793@yahoo.com', move_in: Date.parse('15.09.2020'), move_out: Date.parse('30.04.2021')},
+#   # {room: 'D49', name:", email: '"lance.kem.williams@gmail.com', move_in: Date.parse('01.02.2021'), move_out: Date.parse('30.04.2021')},
+#   {room: 'D48', name: "Lance Williams", email: 'johannes.museller@gmail.com', move_in: Date.parse('01.02.2021'), move_out: Date.parse('30.04.2021')},
+#   {room: 'D03', name: "Isabelle Philipowich", email: 'i.philipowich@outlook.de', move_in: Date.parse('15.04.2021'), move_out: Date.parse('30.04.2021')},
+#   {room: 'D16', name: "Carolin Stahl", email: 'carolin.stahl@aol.de', move_in: Date.parse('04.06.2020'), move_out: Date.parse('30.04.2021')},
+#   {room: 'D28', name: "Malte Schülein ", email: 'mcschuelein@gmail.com', move_in: Date.parse('01.08.2020'), move_out: Date.parse('30.04.2021')},
+#   {room: 'DB02', name: "Joseph Cordonnier", email: 'joseph.cordonnier.mdg@gmail.com', move_in: Date.parse('01.05.2020'), move_out: Date.parse('30.04.2021')},
+#   {room: 'EW15', name: "Imad Jawad", email: 'imad.a.jawad@gmail.com', move_in: Date.parse('01.02.2021'), move_out: Date.parse('30.04.2021')},
+#   {room: 'EW10', name: "Robin Wolter", email: 'robinmwolter@gmail.com', move_in: Date.parse('01.08.2020'), move_out: Date.parse('30.04.2021')},
+#   {room: 'EW17', name: "Harry Daniel Gurth Angeles", email: 'dgurth@gmail.com', move_in: Date.parse('23.01.2021'), move_out: Date.parse('30.04.2021')},
+#   {room: 'D02', name: "Lam Thi Tran", email: 'icethi@live.de', move_in: Date.parse('01.03.2021'), move_out: Date.parse('30.05.2021')},
+#   {room: 'D38', name: "Niraj Saoji", email: 'nirajsaoji@gmail.com', move_in: Date.parse('01.02.2021'), move_out: Date.parse('31.05.2021')},
+#   {room: 'D43', name: "Katharina Beck", email: 'katharinabeck@posteo.de', move_in: Date.parse('01.02.2021'), move_out: Date.parse('31.05.2021')},
+#   {room: 'D45', name: "Flora Berei-Nagy", email: 'florab@google.com', move_in: Date.parse('01.10.2020'), move_out: Date.parse('31.05.2021')},
+#   {room: 'D33', name: "Tobias Heiles", email: 'contact@tobiasheiles.de', move_in: Date.parse('01.12.2020'), move_out: Date.parse('31.05.2021')},
+#   {room: 'D32', name: "Khondokar Humayun Kabir", email: 'kabirag09@bau.edu.bd', move_in: Date.parse('01.03.2021'), move_out: Date.parse('31.05.2021')},
+#   {room: 'EW06', name: "Gesa Franke", email: 'gesafranke@googlemail.com', move_in: Date.parse('01.02.2021'), move_out: Date.parse('31.05.2021')},
+#   {room: 'EW14', name: "Tom Rose", email: 'tomrose1998@hotmail.co.uk', move_in: Date.parse('01.03.2021'), move_out: Date.parse('14.06.2021')},
+#   {room: 'D22', name: "Sina Schunk", email: 'Sina.Schunk@jahr-tsv.de', move_in: Date.parse('15.11.2020'), move_out: Date.parse('30.06.2021')},
+#   {room: 'D04', name: "Nadine Rinaldi", email: 'nadine.rinaldi@hotmail.ch', move_in: Date.parse('01.11.2020'), move_out: Date.parse('30.06.2021')},
+#   {room: 'D46', name: "Lídia Alcolea Vallès", email: 'lidiaav20@gmail.com', move_in: Date.parse('10.02.2021'), move_out: Date.parse('30.06.2021')},
+#   {room: 'D31', name: "Victoria Ruth Elisabeth Pap", email: 'victoria.lre.pap@gmail.com', move_in: Date.parse('28.02.2021'), move_out: Date.parse('30.06.2021')},
+#   {room: 'DB06', name: "Stephan Hainzl", email: 'st.hainzl@utanet.at', move_in: Date.parse('01.03.2021'), move_out: Date.parse('30.06.2021')},
+#   {room: 'EW04', name: "Boyan Tristan Julius Gerretzen", email: 'boyangerretzen@gmail.com', move_in: Date.parse('01.03.2021'), move_out: Date.parse('30.06.2021')},
+#   {room: 'EW16', name: "Simao Barreto", email: 'simaofbarreto@gmail.com', move_in: Date.parse('01.04.2021'), move_out: Date.parse('30.06.2021')},
+#   {room: 'EW08', name: "Daria Xue", email: 'dariaxue@gmail.com', move_in: Date.parse('01.09.2020'), move_out: Date.parse('14.07.2021')},
+#   {room: 'EW13', name: "Nicolas Claudet", email: 'nico.claudet@icloud.com', move_in: Date.parse('01.10.2020'), move_out: Date.parse('14.07.2021')},
+#   {room: 'EW17', name: "Isabelle Philipowich", email: 'i.philipowich@outlook.de', move_in: Date.parse('01.05.2021'), move_out: Date.parse('14.07.2021')},
+#   {room: 'EW07', name: "Anna Loren Stuhr", email: 'annaloren.stuhr@googlemail.com', move_in: Date.parse('07.07.2020'), move_out: Date.parse('15.07.2021')},
+#   {room: 'D29', name: "Vinzenz Ludwig Meineke Wiemann", email: 'vinzenz.wiemann@gmx.de', move_in: Date.parse('01.03.2021'), move_out: Date.parse('31.07.2021')},
+#   {room: 'DB05', name: "Fernando Hoppen", email: 'fehoppen@hotmail.com', move_in: Date.parse('01.08.2020'), move_out: Date.parse('31.07.2021')},
+#   {room: 'DB03', name: "Philipp Kramberg", email: 'philipp@kramberg.de', move_in: Date.parse('28.08.2020'), move_out: Date.parse('30.08.2021')},
+#   {room: 'D54', name: "Franziska Bernerth", email: 'franzi.bernerth@online.de', move_in: Date.parse('01.06.2021'), move_out: Date.parse('31.08.2021')},
+#   {room: 'D36', name: "Marvin Beulig", email: 'marvin-beulig@web.de', move_in: Date.parse('01.12.2020'), move_out: Date.parse('31.08.2021')},
+#   {room: 'D06', name: "Alyssa Eybächer", email: 'alyssa.eybaecher@gmail.com', move_in: Date.parse('02.07.2020'), move_out: Date.parse('30.09.2021')},
+#   {room: 'D18', name: "Anastasia Bain", email: 'afbainey@aol.com', move_in: Date.parse('01.10.2020'), move_out: Date.parse('04.10.2021')},
+#   {room: 'D19', name: "Andreas Moll", email: 'andreasmoll@yahoo.com', move_in: Date.parse('15.02.2021'), move_out: Date.parse('30.11.2021')},
+#   {room: 'D27', name: "Ervin Demiri ", email: 'ervin0805@gmail.com', move_in: Date.parse('01.12.2020'), move_out: Date.parse('30.11.2021')},
+#   {room: 'D10', name: "Francisco Coutinho", email: 'flgpc@hotmail.com', move_in: Date.parse('01.03.2020'), move_out: Date.parse('28.02.2022')},
+#   {room: 'D39', name: "Anna-Sophie Körbler", email: 'anna-sophie.koch@kochfamily.at', move_in: Date.parse('01.04.2021'), move_out: Date.parse('31.03.2022')},
+#   {room: 'D26', name: "Paul Hase", email: 'hase-paul@t-online.de', move_in: Date.parse('01.04.2021'), move_out: Date.parse('31.03.2022')}
+# ]
 
-bookings.each do |booking|
-  user = User.select{|u| u.email == booking[:email] || u.full_name == booking[:name]}
-  user = user.count > 1 ? user.select{|u| u.email == booking[:email]}.first : user.first
-  booking[:errors] = []
-  unless user.present?
-    booking[:errors] << 'user not found'
-    BOOKING_WITH_ERRORS << booking
-    next
-  end
+# MULTIPLE_BOOKINGS_WITH_SAME_ATTRIBUTES = []
 
-  user_bookings = user.bookings.where(state: 'booked')
-  correct_booking = user_bookings.select{|b| b.move_in == booking[:move_in] || b.move_out == booking[:move_out] || b.room.intern_number == booking[:room]}
-  if correct_booking.count > 1
-    MULTIPLE_BOOKINGS_WITH_SAME_ATTRIBUTES << correct_booking
-  else
-    correct_booking = correct_booking.first
-    if correct_booking.present?
-      booking[:errors] << 'move_in different' if correct_booking.move_in != booking[:move_in]
-      booking[:errors] << 'move_out different' if correct_booking.move_out != booking[:move_out]
-      booking[:errors] << 'room different' if correct_booking.room.intern_number != booking[:room]
-    else
-      booking[:errors] << 'not found'
-    end
-  end
-  BOOKING_WITH_ERRORS << booking
-end
+# BOOKING_WITH_ERRORS = []
+
+# bookings.each do |booking|
+#   user = User.select{|u| u.email == booking[:email] || u.full_name == booking[:name]}
+#   user = user.count > 1 ? user.select{|u| u.email == booking[:email]}.first : user.first
+#   booking[:errors] = []
+#   unless user.present?
+#     booking[:errors] << 'user not found'
+#     BOOKING_WITH_ERRORS << booking
+#     next
+#   end
+
+#   user_bookings = user.bookings.where(state: 'booked')
+#   correct_booking = user_bookings.select{|b| b.move_in == booking[:move_in] || b.move_out == booking[:move_out] || b.room.intern_number == booking[:room]}
+#   if correct_booking.count > 1
+#     MULTIPLE_BOOKINGS_WITH_SAME_ATTRIBUTES << correct_booking
+#   else
+#     correct_booking = correct_booking.first
+#     if correct_booking.present?
+#       booking[:errors] << 'move_in different' if correct_booking.move_in != booking[:move_in]
+#       booking[:errors] << 'move_out different' if correct_booking.move_out != booking[:move_out]
+#       booking[:errors] << 'room different' if correct_booking.room.intern_number != booking[:room]
+#     else
+#       booking[:errors] << 'not found'
+#     end
+#   end
+#   BOOKING_WITH_ERRORS << booking
+# end
 
 

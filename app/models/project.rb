@@ -60,7 +60,7 @@ class Project < ApplicationRecord
   end
 
   def cheapest_price
-    self.prices.order(:amount).first.amount
+    self.prices.order(:amount).first
   end
 
   def all_descriptions

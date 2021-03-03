@@ -11,7 +11,7 @@ class Api::V2::RoomtypesController < ActionController::Base
         # if yes, look for the roomtype without
         balcony_option = true
 
-        this_roomtype_without_balcony = @project.roomtypes.find_by(name: roomtype.name.gsub(' (balcony)', '')})
+        this_roomtype_without_balcony = @project.roomtypes.find_by(name: roomtype.name.gsub(' (balcony)', ''))
       else
         # if no, look for the roomtype with balcony
         this_roomtype_with_balcony = @project.roomtypes.find_by(name: "#{roomtype.name} (balcony)")
@@ -21,27 +21,27 @@ class Api::V2::RoomtypesController < ActionController::Base
       if balcony_option
         # if balcony option true, take all attributes from the roomtype without balcony, except: [:availabilities, :prices]
         # balcony attributes includes the id of the roomtype either with or without balcony
-        roomtype = roomtype.as_json.merge{
+        roomtype = roomtype.as_json.merge({
           photos: this_roomtype_without_balcony.photos.map{ |photo|
                     url_for(photo)
                   },
           amenities: this_roomtype_without_balcony.amenities,
-          descriptions: this_roomtype_without_balcony.descriptions,
+          description: this_roomtype_without_balcony.descriptions.first,
           prices: roomtype.prices,
           availabilities: roomtype.availabilities,
           balcony: roomtype.name.include?('(balcony)') ? this_roomtype_without_balcony.id : this_roomtype_with_balcony.id
-        }
+        })
       else
         # if balcony option false, take all attributes from this roomtype
-        roomtype = roomtype.as_json.merge{
+        roomtype = roomtype.as_json.merge({
           photos: roomtype.photos.map{ |photo|
                     url_for(photo)
                   },
           amenities: roomtype.amenities,
-          descriptions: roomtype.descriptions,
+          description: roomtype.descriptions.first,
           prices: roomtype.prices,
           availabilities: roomtype.availabilities
-        }
+        })
       end
       roomtype
     }

@@ -27,12 +27,16 @@ Rails.application.routes.draw do
   resources :bookings, path: 'bookings/(:booking_auth_token)', only: [] do
     resources :welcome_calls, only: [:new, :edit, :update, :destroy]
     patch 'welcome_calls', to: 'welcome_calls#create', as: 'create_welcome_calls'
+    get 'projects', to: 'bookings#show', as: 'projects'
 
-    resources :projects, only: [ :index ] do #only index, show was just for developing
-      resources :roomtypes, only: [ :show, :index ]
-    end
+    get 'projects/:project_id/roomtypes/:roomtype_id/contract', to: 'bookings#show', as: 'contract'
+    get 'projects/:project_id/roomtypes/:roomtype_id', to: 'bookings#show', as: 'roomtype'
+    get 'projects/:project_id/roomtypes', to: 'bookings#show', as: 'roomtypes'
+    # resources :projects, only: [ :index ] do #only index, show was just for developing
+    #   resources :roomtypes, only: [ :show, :index ]
+    # end
     get 'payment', to: 'payments#new', as: 'new_payment'
-    get 'contract', to: 'contracts#contract', as: 'contract'
+    # get 'contract', to: 'contracts#contract', as: 'contract'
     get 'success', to: 'bookings#success', as: 'success'
 
     # resources :projects, only: [:index] do

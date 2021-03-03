@@ -14,26 +14,29 @@ class Api::V2::ProjectsController < ActionController::Base
 
       community_area = project.community_areas.first
 
-      community_area.as_json.merge({
+      community_area = community_area.as_json.merge({
         photos: community_area.photos.map { |photo| url_for(photo) },
         amenities: community_area.amenities,
         descriptions: community_area.descriptions
       })
 
+      address = project.address.as_json.merge({
+        description: project.address.description
+      })
+
       project.as_json.merge({
         descriptions: project.descriptions,
-        cheapest_price: project.cheapest_price,
+        prices: [project.cheapest_price],
         marker: marker,
         photos: photos,
-        next_available_move_in: project.next_available_move_in,
+        next_available_move_in_date: project.next_available_move_in_date,
         amenities: project.amenities,
-        community_area: project.community_areas.first,
-        address: project.address
+        community_area: community_area,
+        address: address
       })
     }
     # amenities = project.amenities
 
     render json: projects
   end
-
 end

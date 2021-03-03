@@ -5,8 +5,20 @@ class BookingsController < ApplicationController
   BOOKINGS_PER_PAGE = 25
 
   def show
-    # @booking = Booking.find(params[:id])
-    @bookings = Booking.new
+    @booking = Booking.find(params[:booking_id])
+
+    user = @booking.user
+    user = user.attributes.merge({
+      address: user.address
+    })
+
+    @booking = @booking.attributes.merge({
+      user: user,
+      project: @booking.project,
+      roomtype: @booking.roomtype,
+      room: @booking.room,
+      price: @booking.price
+    })
   end
 
   def apply
