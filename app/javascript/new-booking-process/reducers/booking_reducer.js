@@ -1,4 +1,4 @@
-import { ROOM_CHOSEN, USER_UPDATED } from '../actions'
+import { ROOM_CHOSEN, USER_UPDATED, CONTRACT_SIGNED } from '../actions'
 
 export default function bookingReducer(state = null, action) {
   switch (action.type) {
@@ -8,6 +8,11 @@ export default function bookingReducer(state = null, action) {
       return {
         ...state,
         user: action.payload
+      }
+    case CONTRACT_SIGNED:
+      return {
+        ...state,
+        user: action.payload.user
       }
     default:
       return state;

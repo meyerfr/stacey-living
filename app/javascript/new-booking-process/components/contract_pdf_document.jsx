@@ -294,27 +294,33 @@ class ContractPdfDocument extends Component {
   }
 
   render() {
-    const moveIn = this.props.booking?.move_in
-    const moveOut = this.props.booking?.move_out
+    const booking = this.props.booking
+
+    const moveIn = booking?.move_in
+    const moveOut = booking?.move_out
 
     const contract = this.props.contract
-    console.log(contract)
+    // console.log(contract)
 
-    const user = this.props.booking?.user
-    const userAddress = `${user.address?.street}, ${user.address?.city} ${user.address?.zip}, ${user.address?.country}`
+    const user = booking?.user
+    // let userAddress = user?.address
+    const address = user?.address
+    if (user && ![address.street, address.city, address.zip, address.country].some((v) => v == '' || v == null || v == undefined)) {
+      const userAddress = `${user.address?.street}, ${user.address?.city} ${user.address?.zip}, ${user.address?.country}`
+    }
 
     const project = this.props.project
     const projectAddress = `${project.address?.street}, ${project.address?.city} ${project.address?.zip}, ${project.address?.country}`
 
     const roomtype = this.props.roomtype
-    console.log(roomtype)
+    // console.log(roomtype)
     const price = roomtype && this.findPrice(moveIn, moveOut, roomtype.prices)
 
     // const moveIn = this.props.contract && new Date(this.props.contract.move_in)
     // console.log('Move in', this.props.contract.move_in)
     // const earliestMoveOutDate = moveIn && new Date(moveIn.setMonth(moveIn.getMonth()+3)).toISOString().slice(0, 10);
     // let userAddress = user?.address
-
+    console.log(user)
     return(
       <Document style={{width: '100%', height: '100%'}}>
         <Page size="A4" style={styles.body} wrap>
@@ -337,9 +343,12 @@ class ContractPdfDocument extends Component {
               <Text style={styles.bold}>the tenant</Text>
             </View>
             <Text>{`${user?.first_name} ${user?.last_name}`}</Text>
-            <Text>Born {moment(user?.dob).format('Do MMMM YYYY')}</Text>
             {
-              userAddress &&
+              typeof user.dob !== 'undefined' && user.dob !== null &&
+              <Text>Born {moment(user?.dob).format('Do MMMM YYYY')}</Text>
+            }
+            {
+              typeof userAddress !== 'undefined' &&
               <Text>{userAddress}</Text>
             }
           </View>

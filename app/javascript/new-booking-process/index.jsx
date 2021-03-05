@@ -28,7 +28,7 @@ const initialState = {
   roomtypes: [],
   // selectedProject: null,
   // selectedRoomtype: null,
-  contract: { signature: null, signed_date: new Date() },
+  contract: { signature: '', signed_date: new Date() },
   booking: JSON.parse(bookingProcessContainer.dataset.booking)
 };
 

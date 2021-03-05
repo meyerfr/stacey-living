@@ -32,6 +32,7 @@ Rails.application.routes.draw do
     get 'projects/:project_id/roomtypes/:roomtype_id/contract', to: 'bookings#show', as: 'contract'
     get 'projects/:project_id/roomtypes/:roomtype_id', to: 'bookings#show', as: 'roomtype'
     get 'projects/:project_id/roomtypes', to: 'bookings#show', as: 'roomtypes'
+    get 'projects/:project_id/payment', to: 'bookings#show', as: 'payment'
     # resources :projects, only: [ :index ] do #only index, show was just for developing
     #   resources :roomtypes, only: [ :show, :index ]
     # end

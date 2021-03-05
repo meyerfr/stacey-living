@@ -75,10 +75,15 @@ export function completeBooking(booking_id, booking) {
   // body...
 }
 
-export function signContract(contract) {
+export function signContract(contract, user, callback) {
+  // console.log('actions callback', callback)
+  // console.log('user', user)
+  // setTimeout(function() {
+    callback()
+  // }, 10);
   return {
     type: CONTRACT_SIGNED,
-    payload: contract
+    payload: {contract: contract, user: user}
   }
 }
 
