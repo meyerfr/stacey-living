@@ -10,6 +10,7 @@ import { signContract } from '../actions';
 
 import SignContractFields from '../components/contract-steps/sign_contract_fields'
 import UserAddressFields from '../components/contract-steps/user_address_fields'
+import UpdateUserModal from './update_user_modal'
 
 class ContractForm extends Component {
   constructor(props) {
@@ -18,7 +19,21 @@ class ContractForm extends Component {
       step: 1,
       direction: 'next',
       formFilledOut: false,
-      loading: true
+      loading: true,
+      showUserModal: false
+    }
+  }
+
+  componentDidMount() {
+    if (this.props.booking?.user) {
+      this.setState({
+        user: this.props.booking.user,
+        contract: {
+          signature: this.props.contract.signature,
+          signedDate: this.props.contract.signedDate
+        },
+        loading: false
+      })
     }
   }
 
@@ -32,20 +47,6 @@ class ContractForm extends Component {
         })
       }
     )
-  }
-
-  componentDidMount() {
-    console.log('componentDidMount')
-    if (this.props.booking?.user) {
-      this.setState({
-        user: this.props.booking.user,
-        contract: {
-          signature: this.props.contract.signature,
-          signedDate: this.props.contract.signedDate
-        },
-        loading: false
-      })
-    }
   }
 
   checkForm = (step) => {
@@ -89,6 +90,7 @@ class ContractForm extends Component {
     }, this.checkForm(this.state.step - 1))
   }
 
+  // to determine if fade left or right
   addClass = (node) =>{
     if (this.state.direction === 'prev') {
       node.classList.remove('next')
@@ -154,6 +156,12 @@ class ContractForm extends Component {
     this.props.history.push(`/bookings/${this.props.params.booking_auth_token}/${this.props.params.booking_id}/payment/`);
   }
 
+  toggleUserModal = () => {
+    this.setState({
+      showUserModal: !this.state.showUserModal
+    })
+  }
+
   render() {
     const user = this.state.user
     const contract = this.state.contract
@@ -163,8 +171,8 @@ class ContractForm extends Component {
       { number: 3, name: 'Complete', component: <div key={3}><span>Perfect, you're contract is now generated and ready for you to download.</span></div> },
     ]
 
-    return(
-      <div className="form-wrapper">
+    return[
+      <div className="form-wrapper" key="formWrapper">
         <div className="form-info-container">
           {
             this.state.loading == false ?
@@ -180,7 +188,7 @@ class ContractForm extends Component {
                 <span>Loading Contract...</span>
               </div>
           }
-          <button className="stacey-button">Change Personal Data</button>
+          <button className="stacey-button" onClick={this.toggleUserModal}>Change Personal Data</button>
           {
             this.state.step > 1 &&
             <FontAwesomeIcon icon={faArrowLeft} onClick={this.prevStep} />
@@ -216,8 +224,9 @@ class ContractForm extends Component {
               </CSSTransition>
             </SwitchTransition>
         }
-      </div>
-    )
+      </div>,
+      <UpdateUserModal key="UpdateUserModal" show={this.state.showUserModal} closeModal={this.toggleUserModal} />
+    ]
   }
 }
 

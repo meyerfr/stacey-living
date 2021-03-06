@@ -52,7 +52,7 @@ export function fetchUser(user_id) {
   }
 }
 
-export function updateUser(user_id, user) {
+export function updateUser(user_id, user, callback) {
   const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content')
   const url = `${BASE_URL}/users/${user_id}`
   const promise = fetch(url, {
@@ -63,11 +63,13 @@ export function updateUser(user_id, user) {
     },
     body: JSON.stringify(user)
   }).then(r => r.json())
-    .then(r => typeof callback === 'function' ? callback() : r);
+    .then(() => callback());
+
+  debugger
 
   return {
     type: USER_UPDATED,
-    payload: promise
+    payload: user
   }
 }
 

@@ -89,6 +89,7 @@ Rails.application.routes.draw do
       resources :projects, only: [ :index ] do
         resources :roomtypes, only: [ :index ]
       end
+      resources :users, only: [:update]
       post 'complete_booking', to: 'bookings#complete'
     end
   end

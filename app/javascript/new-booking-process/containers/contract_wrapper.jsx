@@ -30,7 +30,6 @@ class ContractWrapper extends Component {
   }
 
   render() {
-    // console.log('state', this.state.loading)
     return[
       <ProgressNavbar step={3} key="ProgressNavbar3" />,
       <div className="contract-wrapper" key="ContractWrapper">

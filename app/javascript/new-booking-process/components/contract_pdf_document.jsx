@@ -295,6 +295,7 @@ class ContractPdfDocument extends Component {
 
   render() {
     const booking = this.props.booking
+    console.log('booking', booking)
 
     const moveIn = booking?.move_in
     const moveOut = booking?.move_out
@@ -305,7 +306,7 @@ class ContractPdfDocument extends Component {
     const user = booking?.user
     // let userAddress = user?.address
     const address = user?.address
-    if (user && ![address.street, address.city, address.zip, address.country].some((v) => v == '' || v == null || v == undefined)) {
+    if (user && ![address?.street, address?.city, address?.zip, address?.country].some((v) => v == '' || v == null || v == undefined)) {
       const userAddress = `${user.address?.street}, ${user.address?.city} ${user.address?.zip}, ${user.address?.country}`
     }
 
@@ -320,7 +321,6 @@ class ContractPdfDocument extends Component {
     // console.log('Move in', this.props.contract.move_in)
     // const earliestMoveOutDate = moveIn && new Date(moveIn.setMonth(moveIn.getMonth()+3)).toISOString().slice(0, 10);
     // let userAddress = user?.address
-    console.log(user)
     return(
       <Document style={{width: '100%', height: '100%'}}>
         <Page size="A4" style={styles.body} wrap>
@@ -344,7 +344,7 @@ class ContractPdfDocument extends Component {
             </View>
             <Text>{`${user?.first_name} ${user?.last_name}`}</Text>
             {
-              typeof user.dob !== 'undefined' && user.dob !== null &&
+              typeof user?.dob !== 'undefined' && user?.dob !== null &&
               <Text>Born {moment(user?.dob).format('Do MMMM YYYY')}</Text>
             }
             {

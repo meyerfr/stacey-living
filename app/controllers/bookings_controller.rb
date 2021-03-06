@@ -9,7 +9,7 @@ class BookingsController < ApplicationController
 
     user = @booking.user
     user = user.attributes.merge({
-      address: user.address ? user.address : user.build_address(street: '', country: '', city: '', zip: '')
+      address: user.address #? user.address : user.build_address(street: '', country: '', city: '', zip: '')
     })
 
     @booking = @booking.attributes.merge({

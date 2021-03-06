@@ -7,6 +7,10 @@ class Api::V2::UsersController < ActionController::Base
   def update
     user = User.find(params[:id])
     user.update!(users_params)
+
+    user = user.attributes.merge({
+      address: user.address #? user.address : user.build_address(street: '', country: '', city: '', zip: '')
+    })
     render json: user
   end
 
