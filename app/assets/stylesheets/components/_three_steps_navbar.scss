@@ -58,6 +58,21 @@ nav.navbar-wrapper{
     top: calc(40px - 14px);
     right: 0;
   }
+  .prev-button{
+    svg{
+      margin-right: 8px;
+    }
+    position: absolute;
+    height: 28px;
+    top: calc(40px - 14px);
+    left: 0;
+    cursor: pointer;
+    color: gray;
+    transition: color .3s;
+    &:hover{
+      color: black;
+    }
+  }
   #progressbar {
     margin-bottom: 0;
     overflow: hidden;
@@ -73,6 +88,9 @@ nav.navbar-wrapper{
       position: relative;
       width: 25%;
       text-align: center;
+      &.active{
+        cursor: pointer;
+      }
       &:before{
         content: counter(step);
         counter-increment: step;

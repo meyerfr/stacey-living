@@ -33,7 +33,6 @@ class RoomtypesIndex extends Component {
     const community_area_amenities = community_area?.amenities
     const community_area_descriptions = community_area?.descriptions
 
-    // console.log('project_description', project_descriptions.find((description) => description.field === 'project info index').content)
     const options = {
       buttons: {
         showDownloadButton: false,
@@ -47,7 +46,7 @@ class RoomtypesIndex extends Component {
     }
 
     return [
-      <ProgressNavbar step={2} key="ProgressNavbar2" />,
+      <ProgressNavbar step={2} history={this.props.history} params={this.props.match.params} key="ProgressNavbar2" />,
       <div className="stacey-card-wrapper" key="ProjectShow">
         <SimpleReactLightbox key="simpleReactLightbox">
           {

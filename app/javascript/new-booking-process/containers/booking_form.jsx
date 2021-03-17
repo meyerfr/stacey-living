@@ -46,9 +46,19 @@ class BookingForm extends Component {
     }
   }
 
+  componentDidUpdate() {
+    if (this.props.roomtype.prices[0] === this.state.price) {
+      return
+    }
+    this.setState({
+      ...this.state,
+      price: this.props.roomtype.prices[0]
+    })
+    console.log('component updates', this.props.roomtype)
+  }
+
   diff(d1, d2) {
     let diff = moment(d2).subtract(1, 'd').diff(moment(d1), 'months')
-    // console.log(diff)
     return diff
   }
 
@@ -116,59 +126,24 @@ class BookingForm extends Component {
     return price;
   }
 
-  setPrice = () => {
-    let prices = this.props.roomtype.prices
-    let date_diff = this.diff(this.state.booking.moveIn, this.state.booking.moveOut)
-    let price = prices[2]
-    switch(true) {
-      case (date_diff < 5):
-        price = prices[0]
-        break;
-      case (date_diff < 8):
-        price = prices[1]
-        break;
-      default:
-        price
-    }
-    this.setState({
-      price: price
-    })
-  }
-
-  // handleSubmit = () => {
-  //   let booking = {
-  //     room_id: this.state.selectedRoom,
-  //     move_in: this.state.selectedMoveInDate,
-  //     move_out: this.state.moveOut
-  //   }
-  //   updateBooking(
-  //     this.props.booking_auth_token,
-  //     this.props.booking_id,
-  //     booking,
-  //     () => {
-  //       this.props.history.push(`/bookings/${this.props.booking_auth_token}/${this.props.booking_id}/contract`);
-  //     }
-  //   )
-  // }
-
   chooseRoom = () => {
     let booking = this.state.booking
     booking = {
       move_in: booking.moveIn,
       move_out: booking.moveOut,
-      room_id: booking.roomId
+      room_id: booking.roomId,
+      price: this.state.price
     }
-    this.props.chooseRoom(booking, () => {
-      this.props.history.push(`/bookings/${this.props.booking_auth_token}/${this.props.booking_id}/projects/${this.props.project_id}/roomtypes/${this.props.roomtype_id}/contract`)
+
+    this.props.chooseRoom(this.props.params.booking_id, booking, () => {
+      this.props.history.push(`/bookings/${this.props.params.booking_auth_token}/${this.props.params.booking_id}/projects/${this.props.params.project_id}/roomtypes/${this.props.params.roomtype_id}/contract`)
     })
   }
 
   render() {
-    console.log('booking', this.state.booking)
-    console.log('price', this.state.price)
+    console.log(this.state.price)
     const roomtype = this.props.roomtype
     const move_out = this.state.booking.moveOut
-    // console.log(this.state)
     return (
       <div className="booking-form">
         <div className="booking-section">

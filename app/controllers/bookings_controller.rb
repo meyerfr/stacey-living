@@ -14,11 +14,13 @@ class BookingsController < ApplicationController
 
     @booking = @booking.attributes.merge({
       user: user,
-      project: @booking.project,
-      roomtype: @booking.roomtype,
+      # project: @booking.project,
+      # roomtype: @booking.roomtype,
       room: @booking.room,
       price: @booking.price
     })
+    # @booking = @booking.to_json
+    # raise
   end
 
   def apply

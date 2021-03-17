@@ -7,9 +7,24 @@ export const FETCH_ROOMTYPES = 'FETCH_ROOMTYPES'
 export const FETCH_USER = 'FETCH_USER'
 export const USER_UPDATED = 'USER_UPDATED'
 export const COMPLETE_BOOKING = 'COMPLETE_BOOKING'
+export const UPDATE_BOOKING = 'UPDATE_BOOKING'
 export const CONTRACT_SIGNED = 'CONTRACT_SIGNED'
+export const USER_ADDRESS_CREATED = 'USER_ADDRESS_CREATED'
 export const ROOM_CHOSEN = 'ROOM_CHOSEN'
+export const PAYMENT_INTENT_CREATED = 'PAYMENT_INTENT_CREATED'
 
+
+export function createPaymentIntent(booking_id, callback) {
+  const url = `${BASE_URL}/bookings/${booking_id}/payments/new`;
+  const promise = fetch(url)
+    .then(r => r.json())
+    .then((r) => typeof callback === 'function' && callback(r));
+
+  return {
+    type: PAYMENT_INTENT_CREATED,
+    payload: promise
+  }
+}
 
 export function selectProject() {
   // body...
@@ -52,9 +67,10 @@ export function fetchUser(user_id) {
   }
 }
 
-export function updateUser(user_id, user, callback) {
+export function updateUser(user, callback) {
   const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-  const url = `${BASE_URL}/users/${user_id}`
+  console.log(user)
+  const url = `${BASE_URL}/users/${user.id}`
   const promise = fetch(url, {
     method: 'PATCH',
     headers: {
@@ -63,9 +79,8 @@ export function updateUser(user_id, user, callback) {
     },
     body: JSON.stringify(user)
   }).then(r => r.json())
-    .then(() => callback());
-
-  debugger
+    .then(() => console.log('Callback function?', typeof callback == 'function'))
+    .then(() => typeof callback === 'function' && callback());
 
   return {
     type: USER_UPDATED,
@@ -73,26 +88,99 @@ export function updateUser(user_id, user, callback) {
   }
 }
 
-export function completeBooking(booking_id, booking) {
-  // body...
+export function completeBooking(booking_id, booking, callback) {
+  const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+  const url = `${BASE_URL}/bookings/${booking_id}`
+
+  const body = {
+    ...booking,
+    state: 'deposit outstanding'
+  }
+
+  const promise = fetch(url, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-CSRF-Token': csrfToken
+    },
+    body: JSON.stringify(body)
+  }).then(r => r.json())
+    .then((r) => typeof callback === 'function' && callback(r));
+
+  return {
+    type: UPDATE_BOOKING,
+    payload: booking
+  }
 }
 
-export function signContract(contract, user, callback) {
-  // console.log('actions callback', callback)
-  // console.log('user', user)
-  // setTimeout(function() {
-    callback()
-  // }, 10);
+export function createUserAddress(user_id, address, callback) {
+  const csrfToken = document.querySelector('meta[name="csrf-token"]').attributes.content.value;
+  const url = `${BASE_URL}/users/${user_id}/addresses`;
+
+  const promise = fetch(url, {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'X-CSRF-Token': csrfToken
+    },
+    body: JSON.stringify(address)
+  }).then(r => r.json())
+    .then(() => typeof callback === 'function' && callback());
+
+    // .then(() => callback());
+
+  return {
+    type: USER_ADDRESS_CREATED,
+    payload: address
+  }
+}
+
+export function createContract(booking_id, contract, callback) {
+  const csrfToken = document.querySelector('meta[name="csrf-token"]').attributes.content.value;
+  const url = `${BASE_URL}/bookings/${booking_id}/contracts`;
+  console.log(contract)
+
+  const promise = fetch(url, {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'X-CSRF-Token': csrfToken
+    },
+    body: JSON.stringify(contract)
+  }).then(r => r.json())
+    .then(() => typeof callback === 'function' && callback());
+
+    // .then(() => callback());
+
   return {
     type: CONTRACT_SIGNED,
-    payload: {contract: contract, user: user}
+    payload: contract
   }
 }
 
-export function chooseRoom(booking, callback) {
-  if (typeof callback === 'function') {
-    callback()
+
+export function chooseRoom(booking_id, booking, callback) {
+  const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+  const url = `${BASE_URL}/bookings/${booking_id}`
+  const price = booking.price
+  let body = booking
+  delete body.price
+  body = {
+    ...body,
+    price_id: price.id
   }
+
+  const promise = fetch(url, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-CSRF-Token': csrfToken
+    },
+    body: JSON.stringify(body)
+  }).then(r => r.json())
+    .then(() => typeof callback === 'function' && callback());
 
   return {
     type: ROOM_CHOSEN,

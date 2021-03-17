@@ -21,7 +21,7 @@ class ContractWrapper extends Component {
     //   user: this.props.booking.user
     // })
     if (this.props.projects.length == 0) {this.props.fetchProjects()}
-    if (this.props.roomtypes.length == 0) {this.props.fetchRoomtypes(this.props.match.params.booking_id)}
+    if (this.props.roomtypes.length == 0) {this.props.fetchRoomtypes(this.props.match.params.project_id)}
     // this.setState({
     //   loading: false
     // })
@@ -31,7 +31,7 @@ class ContractWrapper extends Component {
 
   render() {
     return[
-      <ProgressNavbar step={3} key="ProgressNavbar3" />,
+      <ProgressNavbar step={4} history={this.props.history} params={this.props.match.params} key="ProgressNavbar2" />,
       <div className="contract-wrapper" key="ContractWrapper">
         <ContractForm project_id={this.props.match.params.project_id} roomtype_id={this.props.match.params.roomtype_id} params={this.props.match.params} history={this.props.history} />
         <ContractPdfContainer project_id={this.props.match.params.project_id} roomtype_id={this.props.match.params.roomtype_id} />

@@ -29,14 +29,14 @@ Rails.application.routes.draw do
     patch 'welcome_calls', to: 'welcome_calls#create', as: 'create_welcome_calls'
     get 'projects', to: 'bookings#show', as: 'projects'
 
+    get 'projects/:project_id/roomtypes/:roomtype_id/payment', to: 'bookings#show', as: 'payment'
     get 'projects/:project_id/roomtypes/:roomtype_id/contract', to: 'bookings#show', as: 'contract'
     get 'projects/:project_id/roomtypes/:roomtype_id', to: 'bookings#show', as: 'roomtype'
     get 'projects/:project_id/roomtypes', to: 'bookings#show', as: 'roomtypes'
-    get 'projects/:project_id/payment', to: 'bookings#show', as: 'payment'
     # resources :projects, only: [ :index ] do #only index, show was just for developing
     #   resources :roomtypes, only: [ :show, :index ]
     # end
-    get 'payment', to: 'payments#new', as: 'new_payment'
+    # get 'payment', to: 'payments#new', as: 'new_payment'
     # get 'contract', to: 'contracts#contract', as: 'contract'
     get 'success', to: 'bookings#success', as: 'success'
 
@@ -86,10 +86,17 @@ Rails.application.routes.draw do
     end
 
     namespace :v2 do
+      resources :bookings, only: [ :update ] do
+        resources :contracts, only: [ :create ]
+        resources :payments, only: [ :new ]
+        # get 'secret', to: 'payments#secret'
+      end
       resources :projects, only: [ :index ] do
         resources :roomtypes, only: [ :index ]
       end
-      resources :users, only: [:update]
+      resources :users, only: [:update] do
+        resources :addresses, only: [ :create ]
+      end
       post 'complete_booking', to: 'bookings#complete'
     end
   end

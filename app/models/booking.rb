@@ -13,7 +13,9 @@ class Booking < ApplicationRecord
   belongs_to :price, optional: true
   has_one :roomtype, through: :room, required: false
   has_one :project, through: :room, required: false
-  has_one :contract, required: false
+  has_one :contract, required: false, dependent: :destroy
+
+  accepts_nested_attributes_for :contract, allow_destroy: true
 
   def send_mail_on_state_change
     return unless self.state_changed?
@@ -98,7 +100,7 @@ class Booking < ApplicationRecord
     end
   end
 
-  def price
+  def find_price
     unless self.roomtype && self.roomtype.prices.length > 0
       return
     end

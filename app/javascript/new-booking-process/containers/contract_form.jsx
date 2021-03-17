@@ -6,7 +6,7 @@ import Spinner from 'react-bootstrap/Spinner';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 
-import { signContract } from '../actions';
+import { createContract, createUserAddress } from '../actions';
 
 import SignContractFields from '../components/contract-steps/sign_contract_fields'
 import UserAddressFields from '../components/contract-steps/user_address_fields'
@@ -27,26 +27,35 @@ class ContractForm extends Component {
   componentDidMount() {
     if (this.props.booking?.user) {
       this.setState({
-        user: this.props.booking.user,
+        user: {
+          ...this.props.booking.user,
+          address: this.props.booking.user.address ? this.props.booking.user.address : {street: '', city: '', zip: '', country: ''}
+        },
         contract: {
           signature: this.props.contract.signature,
-          signedDate: this.props.contract.signedDate
+          signedDate: this.props.contract.signed_date,
+          userId: this.props.user_id
         },
         loading: false
       })
     }
+    this.checkForm()
   }
 
   signContract = () => {
-    this.props.signContract(
-      this.state.contract,
-      this.state.user,
-      () => {
-        this.setState({
-          loading: false
-        })
-      }
-    )
+    const contract = {
+      signature: this.state.contract.signature,
+      signed_date: this.state.contract.signedDate,
+      user_id: this.props.user_id
+    }
+
+    this.props.createUserAddress(this.props.booking.user_id, this.state.user.address)
+
+    this.props.createContract(this.props.booking.id, contract, () => {
+      this.setState({
+        loading: false
+      })
+    })
   }
 
   checkForm = (step) => {
@@ -64,7 +73,9 @@ class ContractForm extends Component {
       formFilledOut = address.street.length > 3 && address.city.length > 2 && address.country.length > 3 && address.zip.length > 4
     } else if (step == 2) {
       const contract = this.state.contract
-      formFilledOut = contract.signature.length > 0 ? true : false
+      if (contract) {
+        formFilledOut = contract.signature.length > 0 ? true : false
+      }
     }
     this.setState({
       formFilledOut: formFilledOut
@@ -153,12 +164,14 @@ class ContractForm extends Component {
   }
 
   finishContract = () => {
-    this.props.history.push(`/bookings/${this.props.params.booking_auth_token}/${this.props.params.booking_id}/payment/`);
+    this.props.history.push(`/bookings/${this.props.params.booking_auth_token}/${this.props.params.booking_id}/projects/${this.props.params.project_id}/roomtypes/${this.props.params.roomtype_id}/payment/`);
   }
 
-  toggleUserModal = () => {
+  toggleUserModal = (callback) => {
     this.setState({
       showUserModal: !this.state.showUserModal
+    }, () => {
+      typeof callback === 'function' && callback();
     })
   }
 
@@ -238,7 +251,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ signContract }, dispatch);
+  return bindActionCreators({ createContract, createUserAddress }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ContractForm);

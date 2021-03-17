@@ -1,4 +1,4 @@
-# require "open-uri"
+require "open-uri"
 
 
 # ['fritzaef@de.de', 'fritzaef@de.dede', 'fritzaef@deqaddde.de', 'fritzaef@dasfdae.de', 'fritzaefsdfasfda@de.de', 'fasfritzaef@de.de', 'fritzaeasfdf@de.de', 'asdfafritzaef@de.de', 'fritzaeafasfassf@de.de', 'ferfrasfdfritzaef@de.de'].each do |email|
@@ -90,30 +90,30 @@
 #   file.open
 # end
 
-# def attach_photos(photos_hash)
-#   photos_hash.each do |photos_hash|
-#     project = Project.find_by(name: photos_hash[:name])
-#     community_area = project.community_areas.last
-#     photos_hash[:community_area].each_with_index do |file, idx|
-#       community_area.photos.attach(io: file, filename: "#{community_area.name} #{idx+1}", content_type: 'image/jpg')
-#       community_area.save
-#     end
-#     photos_hash[:rooms].each do |roomphoto_hash|
-#       roomtype = project.roomtypes.find_by(name: roomphoto_hash[:name])
-#       roomphoto_hash[:photos].each_with_index do |file, idx|
-#         roomtype.photos.attach(io: file, filename: "#{roomtype.name} #{idx+1}", content_type: 'image/jpg')
-#         roomtype.save
-#       end
-#     end
-#   end
-# end
-
-def create_descriptions(description_hash)
-  description_hash.each do |roomtype_names_array, description_content|
-    all_roomtypes_with_names_included_in_array = Roomtype.select{|rt| roomtype_names_array.include?(rt.name)}
-    all_roomtypes_with_names_included_in_array.each{|rt| rt.descriptions.create!(field: "#{rt.name} description", content: description_content)}
+def attach_photos(photos_hash)
+  photos_hash.each do |photos_hash|
+    project = Project.find_by(name: photos_hash[:name])
+    community_area = project.community_areas.last
+    photos_hash[:community_area].each_with_index do |file, idx|
+      community_area.photos.attach(io: file, filename: "#{community_area.name} #{idx+1}", content_type: 'image/jpg')
+      community_area.save
+    end
+    photos_hash[:rooms].each do |roomphoto_hash|
+      roomtype = project.roomtypes.find_by(name: roomphoto_hash[:name])
+      roomphoto_hash[:photos].each_with_index do |file, idx|
+        roomtype.photos.attach(io: file, filename: "#{roomtype.name} #{idx+1}", content_type: 'image/jpg')
+        roomtype.save
+      end
+    end
   end
 end
+
+# def create_descriptions(description_hash)
+#   description_hash.each do |roomtype_names_array, description_content|
+#     all_roomtypes_with_names_included_in_array = Roomtype.select{|rt| roomtype_names_array.include?(rt.name)}
+#     all_roomtypes_with_names_included_in_array.each{|rt| rt.descriptions.create!(field: "#{rt.name} description", content: description_content)}
+#   end
+# end
 
 # def create_projects_and_attributes(projects_array)
 #   projects_array.each do |project_hash|
@@ -522,195 +522,195 @@ end
 # puts('create Projects')
 # create_projects_and_attributes(projects)
 
-# photos = [
-#   {
-#     name: 'Mühlenkamp',
-#     community_area: [
-#       URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1607077627/community_area_muehlenkamp.jpg'),
-#       URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305506/Muehlenkamp/Community/JDVGtf5XQKKU04eAbpVGoA_thumb_10e.jpg'),
-#       URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305505/Muehlenkamp/Community/HcSj5Kp6Sdi4XinvCWPd4Q_thumb_dc.jpg'),
-#       URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305502/Muehlenkamp/Community/vFA9JCMcTjWI8OL4SuuIIQ_thumb_a3.jpg'),
-#       URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305498/Muehlenkamp/Community/3NAop8mzQgCjDot3VMQ2Ag_thumb_f4.jpg'),
-#       URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305504/Muehlenkamp/Community/QqTm5JToSZia_LVc7stfGQ_thumb_bf.jpg'),
-#       URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305504/Muehlenkamp/Community/tbEIKPCxTjm3djJAHGx4sg_thumb_bc.jpg'),
-#       URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305502/Muehlenkamp/Community/EIYZB8ivSL_Me7P8eC1JYA_thumb_95.jpg'),
-#       URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305501/Muehlenkamp/Community/b_06CW77RI_4mee8FNt16g_thumb_9b.jpg'),
-#       URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305497/Muehlenkamp/Community/UNADJUSTEDNONRAW_thumb_113.jpg'),
-#       URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305495/Muehlenkamp/Community/UNADJUSTEDNONRAW_thumb_111.jpg'),
-#       URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305494/Muehlenkamp/Community/9DOqWt7fSImACXkALYggQg_thumb_124.jpg'),
-#       URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305495/Muehlenkamp/Community/L_TfMlHdRJCPOtYSZCauTQ_thumb_e8.jpg'),
-#       URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305505/Muehlenkamp/Community/Em_yXaqoSUySsGf6YxR6zA_thumb_e3.jpg')
-#     ],
-#     rooms: [
-#       {
-#         name: 'Mighty',
-#         photos: [
-#           URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1607077617/Mighty_D3-5.jpg'),
-#           URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305544/Muehlenkamp/Mighty/eAX0adO0SQGx35a9vy7APw_thumb_129.jpg'),
-#           URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305544/Muehlenkamp/Mighty/SDzfpI1bSeu2a3P9kuRgRQ_thumb_133.jpg'),
-#           URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305543/Muehlenkamp/Mighty/uvX94s4HQSumDZUCmEvWgA_thumb_12b.jpg')
-#         ]
-#       },
-#       {
-#         name: 'Premium',
-#         photos: [
-#           URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1607077595/Premium_D3-5.jpg'),
-#           URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591776624/Muehlenkamp/Premium/muehlenkamp_premium_2.jpg'),
-#           URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591776586/Muehlenkamp/Premium/muehlenkamp_premium_1.jpg')
-#         ]
-#       },
-#       {
-#         name: 'Premium+',
-#         photos: [
-#           URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1607077603/Premium__D3-5.jpg'),
-#           URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305564/Muehlenkamp/PremiumPlus/EQXzU0UJRcWW7H8T3nrNMQ_thumb_2a4.jpg'),
-#           URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305564/Muehlenkamp/PremiumPlus/U_f4M1tPRg_aIfntPKkoNw_thumb_2a2.jpg'),
-#           URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305564/Muehlenkamp/PremiumPlus/4puZFG9ESPSGy_hIXnIexw_thumb_2a5.jpg')
-#         ]
-#       },
-#       {
-#         name: 'Jumbo',
-#         photos: [
-#           URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1607077618/Jumbo_D3-5.jpg'),
-#           URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305526/Muehlenkamp/Jumbo/xg8xDsPIQA_50qjnQprtEA_thumb_7d.jpg'),
-#           URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305524/Muehlenkamp/Jumbo/7qBWokpDQF_aLyAKMyYcIA_thumb_8c.jpg'),
-#           URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305522/Muehlenkamp/Jumbo/ELYyajx2Rs6jvE3UMI6_5w_thumb_86.jpg'),
-#           URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305522/Muehlenkamp/Jumbo/gidwWRV5QQqtOtKCA4s0LQ_thumb_7e.jpg'),
-#           URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305520/Muehlenkamp/Jumbo/qEm1_rrbTLuSfKCB_K_V_w_thumb_77.jpg'),
-#           URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305518/Muehlenkamp/Jumbo/WuJcgQ0CQyuBrn4Up1CK7A_thumb_6b.jpg'),
-#           URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305518/Muehlenkamp/Jumbo/qDZes3GUQJezro1NM7Tl0w_thumb_64.jpg')
-#         ]
-#       }
-#     ]
-#   },
-#   {
-#     name: 'Eppendorf',
-#     community_area: [
-#       URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1607077625/community_area_eppendorf.jpg'),
-#       URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305084/Eppendorf/Community/lIXRCIrxSzalnuxX7onN1A_thumb_162.jpg'),
-#       URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305095/Eppendorf/Community/L7VC3pucSmGuSldp5ZdqJA_thumb_1aa.jpg'),
-#       URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305091/Eppendorf/Community/UNADJUSTEDNONRAW_thumb_18a.jpg'),
-#       URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305090/Eppendorf/Community/FTIjlYPSQZm0OrV8Rdf4tw_thumb_182.jpg'),
-#       URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305043/Eppendorf/Community/Zyn9S_e3TEWs_wUnIuNT5w_thumb_190.jpg'),
-#       URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305043/Eppendorf/Community/829vH1IFTEWAxXeTrL_cEQ_thumb_18e.jpg'),
-#       URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305043/Eppendorf/Community/GrZ83xNZQICs1Pz_hEhMXg_thumb_17b.jpg'),
-#       URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305040/Eppendorf/Community/UwH7caRSQNS_uxb5TnCU2g_thumb_173.jpg'),
-#       URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305086/Eppendorf/Community/uy8xnX42TVq_A3III_YkRA_thumb_169.jpg'),
-#       URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305040/Eppendorf/Community/F1yPZYuuRKOPjl9LZMJVSg_thumb_15c.jpg'),
-#       URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305085/Eppendorf/Community/tp2OFgvZS6uyBLllP7q_fQ_thumb_15f.jpg'),
-#       URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305046/Eppendorf/Community/JN7MfQjRTAKybAA1aX_kVA_thumb_1c3.jpg'),
-#       URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305096/Eppendorf/Community/D3iLLYUSSCQ3Z4ug_9OhA_thumb_1b6.jpg')
-#     ],
-#     rooms: [
-#       {
-#         name: 'Mighty',
-#         photos: [
-#           URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1607077603/Mighty_EW.jpg'),
-#           URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305150/Eppendorf/Mighty/ZZqSpUpLRzyFoNkRUyI6og_thumb_248.jpg'),
-#           URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305150/Eppendorf/Mighty/vuxOG5GERoSmkdBb2S53oQ_thumb_247.jpg'),
-#           URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305150/Eppendorf/Mighty/4ldkRKe0QrGF5q9O634zPw_thumb_241.jpg')
-#         ]
-#       },
-#       {
-#         name: 'Premium',
-#         photos: [
-#           URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1607077607/Premium_EW.jpg'),
-#           URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305177/Eppendorf/Premium/4GMt5Br5QzOfc9hmldcreA_thumb_226.jpg'),
-#           URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305187/Eppendorf/Premium/LzFIsX6TSru0jnYIht0cMA_thumb_1f3.jpg'),
-#           URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305177/Eppendorf/Premium/Tj8D6dYATLS3hxxspLO_fw_thumb_1db.jpg')
-#         ]
-#       },
-#       {
-#         name: 'Premium+',
-#         photos: [
-#           URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1607077602/Premium__EW.jpg'),
-#           URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305210/Eppendorf/PremiumPlus/xI0FTJCQNeo_2ZyYcTpsw_thumb_25d.jpg'),
-#           URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305210/Eppendorf/PremiumPlus/BJ6QZ4F6QVGFESoF27pSLg_thumb_25f.jpg'),
-#           URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305209/Eppendorf/PremiumPlus/XCdfKPfQQ_27Tl3gGq1JWQ_thumb_261.jpg'),
-#           URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305209/Eppendorf/PremiumPlus/R6U0JvmhQDiXhPUyi9FAEg_thumb_26b.jpg'),
-#           URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305211/Eppendorf/PremiumPlus/0Im4zgRHTBiqAnIewu2Mvg_thumb_267.jpg')
-#         ]
-#       },
-#       {
-#         name: 'Jumbo',
-#         photos: [
-#           URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1607077605/Jumbo_EW.jpg'),
-#           URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305263/Eppendorf/Jumbo/yr7wyFlJQf_KmB9wnplWiA_thumb_274.jpg'),
-#           URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305260/Eppendorf/Jumbo/3OP0NtCCRpSCUA2jf8b9ew_thumb_288.jpg'),
-#           URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305260/Eppendorf/Jumbo/2bKM4_DZQNKYYud8PAcs_A_thumb_27c.jpg'),
-#           URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305260/Eppendorf/Jumbo/YVnUzgDYSdWSd_BQsnqkaA_thumb_28d.jpg'),
-#           URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305260/Eppendorf/Jumbo/mhCiEf1hQjCXcuWE6iQouw_thumb_294.jpg')
-#         ]
-#       }
-#     ]
-#   },
-#   {
-#     name: 'St. Pauli',
-#     community_area: [
-#       URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1607077615/St.Pauli_Premium__1.jpg'),
-#       URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305752/St.%20Pauli/Community/ix5_os61QP2aiwbnmyTPAQ_thumb_2aa.jpg'),
-#       URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305755/St.%20Pauli/Community/5eh7N_I8R2uiqyjqPKnBjQ_thumb_2a6.jpg'),
-#       URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305761/St.%20Pauli/Community/ruAcCY62RmOSgFeuvUcOWQ_thumb_2a7.jpg'),
-#       URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305752/St.%20Pauli/Community/XNRI5JV4Tz2Z27qBN8gzHQ_thumb_2af.jpg'),
-#       URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305751/St.%20Pauli/Community/G2L6UQLlT_m_AsK2hG4BMQ_thumb_2ad.jpg'),
-#       URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305751/St.%20Pauli/Community/hZ1avSXdSXKWl8cHpHQxOQ_thumb_2a8.jpg'),
-#       URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305751/St.%20Pauli/Community/4CwMSQnaS3OG6nh8o2Kefw_thumb_2a9.jpg')
-#     ],
-#     rooms: [
-#       {
-#         name: 'Mighty',
-#         photos: [
-#           URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1607077622/Mighty_DB2.jpg'),
-#           URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305779/St.%20Pauli/Mighty/9sJn0XhXQWSnNlnAY5qiog_thumb_2be.jpg'),
-#           URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305779/St.%20Pauli/Mighty/2JYyffPlSE2PKcvqlIeY9Q_thumb_2bd.jpg')
-#         ]
-#       },
-#       {
-#         name: 'Premium',
-#         photos: [
-#           URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1607077617/Premium_DB2.jpg'),
-#           URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305910/St.%20Pauli/Premium/etyq1jicSISjC2kaGvknKw_thumb_2c3.jpg'),
-#           URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305910/St.%20Pauli/Premium/YhfvXFl3R4KPIlgy36Zvcw_thumb_2bf.jpg'),
-#           URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305910/St.%20Pauli/Premium/7nOOlsH5T2akODDT1PPzBw_thumb_2c2.jpg'),
-#           URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305911/St.%20Pauli/Premium/ruC_Rtm8Sc_hiREJQOo8gA_thumb_2c4.jpg')
-#         ]
-#       },
-#       {
-#         name: 'Premium+',
-#         photos: [
-#           URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1607077613/Premium__DB2.jpg'),
-#           URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305929/St.%20Pauli/PremiumPlus/RFu4xK4rTrmChzc3VoQJlQ_thumb_2c6.jpg'),
-#           URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305929/St.%20Pauli/PremiumPlus/NQQT5lnTS7WCmobDw_R1hA_thumb_2c9.jpg'),
-#           URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305930/St.%20Pauli/PremiumPlus/zfiXMp51Q7eixCq5_P_hKg_thumb_2ca.jpg'),
-#           URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305932/St.%20Pauli/PremiumPlus/LweHuZn8RveZgeF6KBPNlQ_thumb_2cb.jpg')
-#         ]
-#       },
-#       {
-#         name: 'Jumbo',
-#         photos: [
-#           URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1607077610/Jumbo_DB2.jpg'),
-#           URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305810/St.%20Pauli/Jumbo/w5Fw1W_7RdeJX1rbonPM6w_thumb_2d2.jpg'),
-#           URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305810/St.%20Pauli/Jumbo/9gN4eFdcSM2zk1_e5LQTtg_thumb_2d1.jpg'),
-#           URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305810/St.%20Pauli/Jumbo/NAR5Ke_FRFaRLgChuarwfA_thumb_2ce.jpg'),
-#           URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305810/St.%20Pauli/Jumbo/DLqroMiwR8OKHdt8WI9NvQ_thumb_2cd.jpg')
-#         ]
-#       }
-#     ]
-#   }
-# ]
+photos = [
+  {
+    name: 'Mühlenkamp',
+    community_area: [
+      URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1607077627/community_area_muehlenkamp.jpg'),
+      URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305506/Muehlenkamp/Community/JDVGtf5XQKKU04eAbpVGoA_thumb_10e.jpg'),
+      URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305505/Muehlenkamp/Community/HcSj5Kp6Sdi4XinvCWPd4Q_thumb_dc.jpg'),
+      # URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305502/Muehlenkamp/Community/vFA9JCMcTjWI8OL4SuuIIQ_thumb_a3.jpg'),
+      # URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305498/Muehlenkamp/Community/3NAop8mzQgCjDot3VMQ2Ag_thumb_f4.jpg'),
+      # URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305504/Muehlenkamp/Community/QqTm5JToSZia_LVc7stfGQ_thumb_bf.jpg'),
+      # URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305504/Muehlenkamp/Community/tbEIKPCxTjm3djJAHGx4sg_thumb_bc.jpg'),
+      # URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305502/Muehlenkamp/Community/EIYZB8ivSL_Me7P8eC1JYA_thumb_95.jpg'),
+      # URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305501/Muehlenkamp/Community/b_06CW77RI_4mee8FNt16g_thumb_9b.jpg'),
+      # URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305497/Muehlenkamp/Community/UNADJUSTEDNONRAW_thumb_113.jpg'),
+      # URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305495/Muehlenkamp/Community/UNADJUSTEDNONRAW_thumb_111.jpg'),
+      # URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305494/Muehlenkamp/Community/9DOqWt7fSImACXkALYggQg_thumb_124.jpg'),
+      # URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305495/Muehlenkamp/Community/L_TfMlHdRJCPOtYSZCauTQ_thumb_e8.jpg'),
+      # URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305505/Muehlenkamp/Community/Em_yXaqoSUySsGf6YxR6zA_thumb_e3.jpg')
+    ],
+    rooms: [
+      {
+        name: 'Mighty',
+        photos: [
+          URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1607077617/Mighty_D3-5.jpg'),
+          URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305544/Muehlenkamp/Mighty/eAX0adO0SQGx35a9vy7APw_thumb_129.jpg'),
+          # URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305544/Muehlenkamp/Mighty/SDzfpI1bSeu2a3P9kuRgRQ_thumb_133.jpg'),
+          # URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305543/Muehlenkamp/Mighty/uvX94s4HQSumDZUCmEvWgA_thumb_12b.jpg')
+        ]
+      },
+      {
+        name: 'Premium',
+        photos: [
+          URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1607077595/Premium_D3-5.jpg'),
+          URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591776624/Muehlenkamp/Premium/muehlenkamp_premium_2.jpg'),
+          # URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591776586/Muehlenkamp/Premium/muehlenkamp_premium_1.jpg')
+        ]
+      },
+      {
+        name: 'Premium+',
+        photos: [
+          URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1607077603/Premium__D3-5.jpg'),
+          URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305564/Muehlenkamp/PremiumPlus/EQXzU0UJRcWW7H8T3nrNMQ_thumb_2a4.jpg'),
+          # URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305564/Muehlenkamp/PremiumPlus/U_f4M1tPRg_aIfntPKkoNw_thumb_2a2.jpg'),
+          # URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305564/Muehlenkamp/PremiumPlus/4puZFG9ESPSGy_hIXnIexw_thumb_2a5.jpg')
+        ]
+      },
+      {
+        name: 'Jumbo',
+        photos: [
+          URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1607077618/Jumbo_D3-5.jpg'),
+          URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305526/Muehlenkamp/Jumbo/xg8xDsPIQA_50qjnQprtEA_thumb_7d.jpg'),
+          # URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305524/Muehlenkamp/Jumbo/7qBWokpDQF_aLyAKMyYcIA_thumb_8c.jpg'),
+          # URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305522/Muehlenkamp/Jumbo/ELYyajx2Rs6jvE3UMI6_5w_thumb_86.jpg'),
+          # URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305522/Muehlenkamp/Jumbo/gidwWRV5QQqtOtKCA4s0LQ_thumb_7e.jpg'),
+          # URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305520/Muehlenkamp/Jumbo/qEm1_rrbTLuSfKCB_K_V_w_thumb_77.jpg'),
+          # URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305518/Muehlenkamp/Jumbo/WuJcgQ0CQyuBrn4Up1CK7A_thumb_6b.jpg'),
+          # URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305518/Muehlenkamp/Jumbo/qDZes3GUQJezro1NM7Tl0w_thumb_64.jpg')
+        ]
+      }
+    ]
+  },
+  {
+    name: 'Eppendorf',
+    community_area: [
+      URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1607077625/community_area_eppendorf.jpg'),
+      URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305084/Eppendorf/Community/lIXRCIrxSzalnuxX7onN1A_thumb_162.jpg'),
+      # URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305095/Eppendorf/Community/L7VC3pucSmGuSldp5ZdqJA_thumb_1aa.jpg'),
+      # URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305091/Eppendorf/Community/UNADJUSTEDNONRAW_thumb_18a.jpg'),
+      # URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305090/Eppendorf/Community/FTIjlYPSQZm0OrV8Rdf4tw_thumb_182.jpg'),
+      # URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305043/Eppendorf/Community/Zyn9S_e3TEWs_wUnIuNT5w_thumb_190.jpg'),
+      # URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305043/Eppendorf/Community/829vH1IFTEWAxXeTrL_cEQ_thumb_18e.jpg'),
+      # URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305043/Eppendorf/Community/GrZ83xNZQICs1Pz_hEhMXg_thumb_17b.jpg'),
+      # URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305040/Eppendorf/Community/UwH7caRSQNS_uxb5TnCU2g_thumb_173.jpg'),
+      # URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305086/Eppendorf/Community/uy8xnX42TVq_A3III_YkRA_thumb_169.jpg'),
+      # URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305040/Eppendorf/Community/F1yPZYuuRKOPjl9LZMJVSg_thumb_15c.jpg'),
+      # URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305085/Eppendorf/Community/tp2OFgvZS6uyBLllP7q_fQ_thumb_15f.jpg'),
+      # URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305046/Eppendorf/Community/JN7MfQjRTAKybAA1aX_kVA_thumb_1c3.jpg'),
+      # URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305096/Eppendorf/Community/D3iLLYUSSCQ3Z4ug_9OhA_thumb_1b6.jpg')
+    ],
+    rooms: [
+      {
+        name: 'Mighty',
+        photos: [
+          URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1607077603/Mighty_EW.jpg'),
+          URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305150/Eppendorf/Mighty/ZZqSpUpLRzyFoNkRUyI6og_thumb_248.jpg'),
+          # URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305150/Eppendorf/Mighty/vuxOG5GERoSmkdBb2S53oQ_thumb_247.jpg'),
+          # URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305150/Eppendorf/Mighty/4ldkRKe0QrGF5q9O634zPw_thumb_241.jpg')
+        ]
+      },
+      {
+        name: 'Premium',
+        photos: [
+          URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1607077607/Premium_EW.jpg'),
+          URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305177/Eppendorf/Premium/4GMt5Br5QzOfc9hmldcreA_thumb_226.jpg'),
+          # URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305187/Eppendorf/Premium/LzFIsX6TSru0jnYIht0cMA_thumb_1f3.jpg'),
+          # URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305177/Eppendorf/Premium/Tj8D6dYATLS3hxxspLO_fw_thumb_1db.jpg')
+        ]
+      },
+      {
+        name: 'Premium+',
+        photos: [
+          URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1607077602/Premium__EW.jpg'),
+          URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305210/Eppendorf/PremiumPlus/xI0FTJCQNeo_2ZyYcTpsw_thumb_25d.jpg'),
+          # URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305210/Eppendorf/PremiumPlus/BJ6QZ4F6QVGFESoF27pSLg_thumb_25f.jpg'),
+          # URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305209/Eppendorf/PremiumPlus/XCdfKPfQQ_27Tl3gGq1JWQ_thumb_261.jpg'),
+          # URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305209/Eppendorf/PremiumPlus/R6U0JvmhQDiXhPUyi9FAEg_thumb_26b.jpg'),
+          # URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305211/Eppendorf/PremiumPlus/0Im4zgRHTBiqAnIewu2Mvg_thumb_267.jpg')
+        ]
+      },
+      {
+        name: 'Jumbo',
+        photos: [
+          URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1607077605/Jumbo_EW.jpg'),
+          URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305263/Eppendorf/Jumbo/yr7wyFlJQf_KmB9wnplWiA_thumb_274.jpg'),
+          # URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305260/Eppendorf/Jumbo/3OP0NtCCRpSCUA2jf8b9ew_thumb_288.jpg'),
+          # URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305260/Eppendorf/Jumbo/2bKM4_DZQNKYYud8PAcs_A_thumb_27c.jpg'),
+          # URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305260/Eppendorf/Jumbo/YVnUzgDYSdWSd_BQsnqkaA_thumb_28d.jpg'),
+          # URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305260/Eppendorf/Jumbo/mhCiEf1hQjCXcuWE6iQouw_thumb_294.jpg')
+        ]
+      }
+    ]
+  },
+  {
+    name: 'St. Pauli',
+    community_area: [
+      URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1607077615/St.Pauli_Premium__1.jpg'),
+      URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305752/St.%20Pauli/Community/ix5_os61QP2aiwbnmyTPAQ_thumb_2aa.jpg'),
+      # URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305755/St.%20Pauli/Community/5eh7N_I8R2uiqyjqPKnBjQ_thumb_2a6.jpg'),
+      # URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305761/St.%20Pauli/Community/ruAcCY62RmOSgFeuvUcOWQ_thumb_2a7.jpg'),
+      # URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305752/St.%20Pauli/Community/XNRI5JV4Tz2Z27qBN8gzHQ_thumb_2af.jpg'),
+      # URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305751/St.%20Pauli/Community/G2L6UQLlT_m_AsK2hG4BMQ_thumb_2ad.jpg'),
+      # URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305751/St.%20Pauli/Community/hZ1avSXdSXKWl8cHpHQxOQ_thumb_2a8.jpg'),
+      # URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305751/St.%20Pauli/Community/4CwMSQnaS3OG6nh8o2Kefw_thumb_2a9.jpg')
+    ],
+    rooms: [
+      {
+        name: 'Mighty',
+        photos: [
+          URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1607077622/Mighty_DB2.jpg'),
+          URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305779/St.%20Pauli/Mighty/9sJn0XhXQWSnNlnAY5qiog_thumb_2be.jpg'),
+          # URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305779/St.%20Pauli/Mighty/2JYyffPlSE2PKcvqlIeY9Q_thumb_2bd.jpg')
+        ]
+      },
+      {
+        name: 'Premium',
+        photos: [
+          URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1607077617/Premium_DB2.jpg'),
+          URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305910/St.%20Pauli/Premium/etyq1jicSISjC2kaGvknKw_thumb_2c3.jpg'),
+          # URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305910/St.%20Pauli/Premium/YhfvXFl3R4KPIlgy36Zvcw_thumb_2bf.jpg'),
+          # URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305910/St.%20Pauli/Premium/7nOOlsH5T2akODDT1PPzBw_thumb_2c2.jpg'),
+          # URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305911/St.%20Pauli/Premium/ruC_Rtm8Sc_hiREJQOo8gA_thumb_2c4.jpg')
+        ]
+      },
+      {
+        name: 'Premium+',
+        photos: [
+          URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1607077613/Premium__DB2.jpg'),
+          URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305929/St.%20Pauli/PremiumPlus/RFu4xK4rTrmChzc3VoQJlQ_thumb_2c6.jpg'),
+          # URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305929/St.%20Pauli/PremiumPlus/NQQT5lnTS7WCmobDw_R1hA_thumb_2c9.jpg'),
+          # URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305930/St.%20Pauli/PremiumPlus/zfiXMp51Q7eixCq5_P_hKg_thumb_2ca.jpg'),
+          # URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305932/St.%20Pauli/PremiumPlus/LweHuZn8RveZgeF6KBPNlQ_thumb_2cb.jpg')
+        ]
+      },
+      {
+        name: 'Jumbo',
+        photos: [
+          URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1607077610/Jumbo_DB2.jpg'),
+          URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305810/St.%20Pauli/Jumbo/w5Fw1W_7RdeJX1rbonPM6w_thumb_2d2.jpg'),
+          # URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305810/St.%20Pauli/Jumbo/9gN4eFdcSM2zk1_e5LQTtg_thumb_2d1.jpg'),
+          # URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305810/St.%20Pauli/Jumbo/NAR5Ke_FRFaRLgChuarwfA_thumb_2ce.jpg'),
+          # URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305810/St.%20Pauli/Jumbo/DLqroMiwR8OKHdt8WI9NvQ_thumb_2cd.jpg')
+        ]
+      }
+    ]
+  }
+]
 
-# puts('Attach Photos')
-# attach_photos(photos)
+puts('Attach Photos')
+attach_photos(photos)
 
-roomtype_descriptions = {
-  ['Mighty', 'Mighty+'] => "Mighty people need a mighty room with extra space for thoughts, creativity and for the dust to settle… Don't worry, we will take care of the cleaning.",
-  ['Premium', 'Premium (balcony)'] => "If you love Marie Kondo’s minimalist style and would like to give it a try in a space slightly larger than our Mighty room, then this room is all you need to free yourself from the things that do not spark joy.",
-  ['Premium+', 'Premium+ (balcony)'] => "Our Premium rooms fit everything you need. However if you do need extra space for your spirit & mind the slightly bigger Premium+ suites will be the best choice!",
-  ['Jumbo']=> "When has the word “jumbo” ever indicated anything average? Wake up in a world all your own and fill it with all that matters to you. Screw the minimalism and let your maximalist self out of its cage."
-}
+# roomtype_descriptions = {
+#   ['Mighty', 'Mighty+'] => "Mighty people need a mighty room with extra space for thoughts, creativity and for the dust to settle… Don't worry, we will take care of the cleaning.",
+#   ['Premium', 'Premium (balcony)'] => "If you love Marie Kondo’s minimalist style and would like to give it a try in a space slightly larger than our Mighty room, then this room is all you need to free yourself from the things that do not spark joy.",
+#   ['Premium+', 'Premium+ (balcony)'] => "Our Premium rooms fit everything you need. However if you do need extra space for your spirit & mind the slightly bigger Premium+ suites will be the best choice!",
+#   ['Jumbo']=> "When has the word “jumbo” ever indicated anything average? Wake up in a world all your own and fill it with all that matters to you. Screw the minimalism and let your maximalist self out of its cage."
+# }
 
-puts('Create descriptions for all roomtypes')
-create_descriptions(roomtype_descriptions)
+# puts('Create descriptions for all roomtypes')
+# create_descriptions(roomtype_descriptions)
 
 
 # create Amenities new Photos to do so.

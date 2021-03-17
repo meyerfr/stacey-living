@@ -11,9 +11,10 @@ import ProjectsIndex from './containers/projects_index';
 import RoomtypesIndex from './containers/roomtypes_index';
 import RoomtypesShow from './containers/roomtypes_show';
 import ContractWrapper from './containers/contract_wrapper';
-// import Payment from './containers/payment';
+import Payment from './containers/payment';
 // import Success from './containers/success';
 // import '../assets/stylesheets/application.scss';
+import ScrollToTop from './components/scroll_to_top';
 
 import projectsReducer from './reducers/projects_reducer.js';
 import roomtypesReducer from './reducers/roomtypes_reducer.js';
@@ -22,6 +23,8 @@ import bookingReducer from './reducers/booking_reducer.js';
 
 const bookingProcessContainer = document.getElementById('new-booking-process');
 
+const booking = JSON.parse(bookingProcessContainer.dataset.booking)
+
 // State and reducers
 const initialState = {
   projects: [],
@@ -29,7 +32,7 @@ const initialState = {
   // selectedProject: null,
   // selectedRoomtype: null,
   contract: { signature: '', signed_date: new Date() },
-  booking: JSON.parse(bookingProcessContainer.dataset.booking)
+  booking: booking
 };
 
 const reducers = combineReducers({
@@ -47,13 +50,14 @@ const middlewares = (process.env.NODE_ENV !== 'production') ?
 // render an instance of the component in the DOM
 ReactDOM.render(
   <Provider store={createStore(reducers, initialState, middlewares)}>
-    <BrowserRouter history={history}>
+    <BrowserRouter onUpdate={() => window.scrollTo(0, 0)} history={history}>
+      <ScrollToTop />
       <div className="view-container">
         <Switch>
           {
             // <Route path="/bookings/:booking_auth_token?/:booking_id/success" exact component={Success} />
-          // <Route path="/bookings/:booking_auth_token?/:booking_id/payment" exact component={Payment} />
           }
+          <Route path="/bookings/:booking_auth_token?/:booking_id/projects/:project_id/roomtypes/:roomtype_id/payment" exact component={Payment} />
           <Route path="/bookings/:booking_auth_token?/:booking_id/projects/:project_id/roomtypes/:roomtype_id/contract" exact component={ContractWrapper} />
           <Route path="/bookings/:booking_auth_token?/:booking_id/projects/:project_id/roomtypes/:roomtype_id" component={RoomtypesShow} />
           <Route path="/bookings/:booking_auth_token?/:booking_id/projects/:project_id/roomtypes" component={RoomtypesIndex} />

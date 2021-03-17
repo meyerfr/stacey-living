@@ -20,7 +20,7 @@ class ProjectsIndex extends Component {
   render () {
     const projects = this.props.projects
     return [
-      <ProgressNavbar step={1} key="ProgressNavbar1" />,
+      <ProgressNavbar step={1} history={this.props.history} params={this.props.match.params} key="ProgressNavbar1" />,
       <div className="stacey-card-wrapper" key="ProjectIndex">
         <div className="banner">
           Where do you want to live next?
@@ -51,7 +51,6 @@ class ProjectsIndex extends Component {
 };
 
 function mapStateToProps(state) {
-  console.log('booking', state.booking)
   return {
     projects: state.projects
   };

@@ -238,7 +238,6 @@ class ContractPdfDocument extends Component {
           </View>
           <View style={styles.inputField}>
             {
-              // console.log((signature.signature && signature.signed_date) ? true : false)
               contract.signature !== null ?
                 [
                   <Text key="signedDate" style={styles.signatureDate}>
@@ -273,7 +272,6 @@ class ContractPdfDocument extends Component {
 
   diff(d1, d2) {
     let diff = moment(d2).subtract(1, 'd').diff(moment(d1), 'months')
-    // console.log(diff)
     return diff
   }
 
@@ -295,32 +293,23 @@ class ContractPdfDocument extends Component {
 
   render() {
     const booking = this.props.booking
-    console.log('booking', booking)
 
     const moveIn = booking?.move_in
     const moveOut = booking?.move_out
 
     const contract = this.props.contract
-    // console.log(contract)
 
     const user = booking?.user
     // let userAddress = user?.address
     const address = user?.address
-    if (user && ![address?.street, address?.city, address?.zip, address?.country].some((v) => v == '' || v == null || v == undefined)) {
-      const userAddress = `${user.address?.street}, ${user.address?.city} ${user.address?.zip}, ${user.address?.country}`
-    }
+    const userAddress = (user && address) ? `${user.address?.street}, ${user.address?.city} ${user.address?.zip}, ${user.address?.country}` : ''
+
 
     const project = this.props.project
     const projectAddress = `${project.address?.street}, ${project.address?.city} ${project.address?.zip}, ${project.address?.country}`
 
     const roomtype = this.props.roomtype
-    // console.log(roomtype)
     const price = roomtype && this.findPrice(moveIn, moveOut, roomtype.prices)
-
-    // const moveIn = this.props.contract && new Date(this.props.contract.move_in)
-    // console.log('Move in', this.props.contract.move_in)
-    // const earliestMoveOutDate = moveIn && new Date(moveIn.setMonth(moveIn.getMonth()+3)).toISOString().slice(0, 10);
-    // let userAddress = user?.address
     return(
       <Document style={{width: '100%', height: '100%'}}>
         <Page size="A4" style={styles.body} wrap>
@@ -348,13 +337,13 @@ class ContractPdfDocument extends Component {
               <Text>Born {moment(user?.dob).format('Do MMMM YYYY')}</Text>
             }
             {
-              typeof userAddress !== 'undefined' &&
+              userAddress !== '' &&
               <Text>{userAddress}</Text>
             }
           </View>
           <View style={styles.documentDate}>
             <Text>Date:</Text>
-            <Text>{new Date().toISOString().slice(0, 10)}</Text>
+            <Text>{moment(contract.signed_date).format('Do MMMM YYYY')}</Text>
           </View>
           <View style={styles.table}>
             {/* TableHeader */}

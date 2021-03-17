@@ -7,16 +7,24 @@ class Api::V2::RoomtypesController < ActionController::Base
     roomtypes = roomtypes.map { |roomtype|
 
       balcony_option = false
-      if roomtype.name.include?('(balcony)') # does this roomtype has a Balcony?
-        # if yes, look for the roomtype without
-        balcony_option = true
 
+      if roomtype.name.include?('(balcony)') || @project.roomtypes.find_by(name: "#{roomtype.name} (balcony)").present?
+        balcony_option = true
         this_roomtype_without_balcony = @project.roomtypes.find_by(name: roomtype.name.gsub(' (balcony)', ''))
-      else
-        # if no, look for the roomtype with balcony
+
         this_roomtype_with_balcony = @project.roomtypes.find_by(name: "#{roomtype.name} (balcony)")
-        balcony_option = true if this_roomtype_with_balcony.present?
       end
+
+      # if roomtype.name.include?('(balcony)') # does this roomtype has a Balcony?
+      #   # if yes, look for the roomtype without
+      #   this_room_has_balcony = true
+
+      #   this_roomtype_without_balcony = @project.roomtypes.find_by(name: roomtype.name.gsub(' (balcony)', ''))
+      # else
+      #   # if no, look for the roomtype with balcony
+      #   this_roomtype_with_balcony = @project.roomtypes.find_by(name: "#{roomtype.name} (balcony)")
+      #   balcony_option = true if this_roomtype_with_balcony.present?
+      # end
 
       if balcony_option
         # if balcony option true, take all attributes from the roomtype without balcony, except: [:availabilities, :prices]

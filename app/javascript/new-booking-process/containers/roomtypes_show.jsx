@@ -35,6 +35,7 @@ class RoomtypesShow extends Component {
 
   render () {
     const roomtype = this.props.roomtype;
+    console.log('roomtype', roomtype)
     const project = this.props.project;
     const photos = roomtype && roomtype.photos
     const roomtype_amenities = this.state.roomtype_amenities
@@ -49,9 +50,9 @@ class RoomtypesShow extends Component {
         showCaption: false
       }
     }
-    // console.log(this.props.history)
+
     return [
-      <ProgressNavbar step={2} key="ProgressNavbar1" />,
+      <ProgressNavbar step={3} history={this.props.history} params={this.props.match.params} key="ProgressNavbar2" />,
       <div className="stacey-card-wrapper" key="RoomtypesShow">
         <SimpleReactLightbox key="simpleReactLightbox">
           {
@@ -91,15 +92,15 @@ class RoomtypesShow extends Component {
                   <div className="section-header main">
                     <h3>{roomtype.name} Suite</h3>
                     {
-                      roomtype.roomtype_with_balcony_id &&
+                      roomtype.balcony &&
                       // <a href={`/bookings/${this.props.match.params.booking_auth_token}/${this.props.match.params.booking_id}/projects/${this.props.match.params.project_id}/roomtypes/${roomtype.roomtype_with_balcony_id}`}>This room with balcony</a>
-                      <Link to={`/bookings/${this.props.match.params.booking_auth_token}/${this.props.match.params.booking_id}/projects/${roomtype.roomtype_with_balcony_id}/roomtypes/${roomtype.id}`} key={roomtype.id}>This room with balcony</Link>
+                      <Link to={`/bookings/${this.props.match.params.booking_auth_token}/${this.props.match.params.booking_id}/projects/${this.props.match.params.project_id}/roomtypes/${roomtype.balcony}`} key={roomtype.id}>{`This room ${roomtype.name.includes('balcony') ? 'without' : 'with'} balcony`}</Link>
                       // <span onClick={this.switchToBalconyRoomtype}>This Room with Balcony</span>
                     }
                     {
-                      roomtype.roomtype_without_balcony_id &&
+                      // roomtype.balcony &&
                       // <a href={`/bookings/${this.props.match.params.booking_auth_token}/${this.props.match.params.booking_id}/projects/${this.props.match.params.project_id}/roomtypes/${roomtype.roomtype_without_balcony_id}`}>This room without balcony</a>
-                      <Link to={`/bookings/${this.props.match.params.booking_auth_token}/${this.props.match.params.booking_id}/projects/${roomtype.roomtype_with_balcony_id}/roomtypes/${roomtype.id}`} key={roomtype.id}>This room without balcony</Link>
+                      // <Link to={`/bookings/${this.props.match.params.booking_auth_token}/${this.props.match.params.booking_id}/projects/${roomtype.balcony.id}/roomtypes/${roomtype.id}`} key={roomtype.id}>This room without balcony</Link>
                       // <span onClick={this.switchToBalconyRoomtype}>This Room with Balcony</span>
                     }
                   </div>
@@ -155,7 +156,7 @@ class RoomtypesShow extends Component {
                     Everything you need is included in one convenient payment: Rent, furniture, internet, utilities, cleaning, events, Netflix + Spotify in the common spaces and even the GEZ. Do not take our word for granted, move in and experience the STACEY way of living!</span>
                 </div>
               </div>,
-              <BookingForm roomtype={roomtype} booking_id={this.props.match.params.booking_id} booking_auth_token={this.props.match.params.booking_auth_token} key="bookingForm" history={this.props.history} />
+              <BookingForm roomtype={roomtype} params={this.props.match.params} key="bookingForm" history={this.props.history} />
             ]
           }
         </div>
@@ -171,7 +172,7 @@ function mapStateToProps(state, ownProps) {
     projects: state.projects,
     project: state.projects.find((project) => project.id === projectId),
     roomtypes: state.roomtypes,
-    roomtype: state.roomtypes.find((roomtype) => roomtype.id === roomtypeId),
+    roomtype: state.roomtypes?.find((roomtype) => roomtype.id === roomtypeId)
   }
 }
 
