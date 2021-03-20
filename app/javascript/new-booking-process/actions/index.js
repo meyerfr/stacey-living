@@ -79,7 +79,6 @@ export function updateUser(user, callback) {
     },
     body: JSON.stringify(user)
   }).then(r => r.json())
-    .then(() => console.log('Callback function?', typeof callback == 'function'))
     .then(() => typeof callback === 'function' && callback());
 
   return {
@@ -88,12 +87,11 @@ export function updateUser(user, callback) {
   }
 }
 
-export function completeBooking(booking_id, booking, callback) {
+export function completeBooking(booking_id, callback) {
   const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content')
   const url = `${BASE_URL}/bookings/${booking_id}`
 
   const body = {
-    ...booking,
     state: 'deposit outstanding'
   }
 
@@ -105,11 +103,12 @@ export function completeBooking(booking_id, booking, callback) {
     },
     body: JSON.stringify(body)
   }).then(r => r.json())
-    .then((r) => typeof callback === 'function' && callback(r));
+    .then(() => console.log('Callback function?', typeof callback == 'function'))
+    .then((r) => typeof callback == 'function' && callback(r));
 
   return {
     type: UPDATE_BOOKING,
-    payload: booking
+    payload: body
   }
 }
 

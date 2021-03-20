@@ -7,6 +7,8 @@ class Api::V2::PaymentsController < ActionController::Base
 
     customer = create_or_retrieve_stripe_customer(booking.user)
 
+    # payment_method = retrieve_payment_method(customer['id'])
+
     intent = Stripe::PaymentIntent.create({
       amount: 8000,
       currency: 'eur',
@@ -14,6 +16,7 @@ class Api::V2::PaymentsController < ActionController::Base
       setup_future_usage: 'off_session',
       customer: customer['id']
     })
+
     render json: {client_secret: intent.client_secret}
   end
 
@@ -32,4 +35,12 @@ class Api::V2::PaymentsController < ActionController::Base
     end
     return customer
   end
+
+  # def retrieve_payment_method(customer_id)
+  #   payment_methods = Stripe::PaymentMethod.list({
+  #                       customer: customer_id,
+  #                       type: 'card',
+  #                     })
+  #   payment_methods.count > 1 ? payment_methods.first : false
+  # end
 end

@@ -8,20 +8,26 @@ import { loadStripe } from "@stripe/stripe-js";
 import BookingSummary from "../components/payment-components/booking_summary";
 import CheckoutForm from "./checkout_form";
 import UserSummary from "../components/payment-components/user_summary";
+import SuccessModal from "../components/success_modal";
 
 const stripePromise = loadStripe("pk_test_FSjxxtkIfO0UtESzFKdjLarS");
 
 import ProgressNavbar from '../components/progress_navbar'
 
-import { completeBooking, updateUser } from '../actions';
+import { completeBooking, updateUser, fetchProjects } from '../actions';
 
 class Payment extends Component {
   constructor(props) {
     super(props)
-    this.state = {}
+    this.state = {
+      showSuccess: false
+    }
   }
 
   componentDidMount() {
+    if (!this.props.project) {
+      this.props.fetchProjects()
+    }
     this.setState({
       user: this.props.booking.user
     })
@@ -36,9 +42,12 @@ class Payment extends Component {
     })
   }
 
-  completeBooking = () => {
+  completeBooking = (result) => {
+    console.log('completeBooking', result)
     this.props.updateUser(this.state.user, () => {
-      this.props.completeBooking(this.props.booking.id)
+      this.props.completeBooking(this.props.booking.id, () => {
+        this.setState({showSuccess: true})
+      })
     })
   }
 
@@ -57,6 +66,7 @@ class Payment extends Component {
   }
 
   render() {
+    console.log(this.props.booking)
     return[
       <ProgressNavbar step={5} history={this.props.history} params={this.props.match.params} key="ProgressNavbar4" />,
       <div className="payment-wrapper2" key="paymentWrapper2">
@@ -89,19 +99,22 @@ class Payment extends Component {
             </div>
           </div>
         </div>
-      </div>
+      </div>,
+      <SuccessModal show={this.state.showSuccess} project_name={this.props.project?.name} price={this.props.booking.price} key='SuccessModal' />
     ]
   }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps(state, ownProps) {
+  const projectId = parseInt(ownProps.match.params.project_id);
   return {
-    booking: state.booking
+    booking: state.booking,
+    project: state.projects.find((project) => project.id === projectId),
   };
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ completeBooking, updateUser }, dispatch);
+  return bindActionCreators({ completeBooking, updateUser, fetchProjects }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Payment);

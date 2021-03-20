@@ -91,7 +91,7 @@ class RoomtypesIndex extends Component {
               <span className="sr-only">Loading...</span>
             </Spinner>
           :
-            roomtypes.map((roomtype) => {
+            roomtypes.filter(roomtype => !roomtype.name.includes('balcony') && roomtype.name != 'Mighty+').map((roomtype) => {
               return (
                 <Card key={roomtype.id} type='roomtype' input={roomtype}>
                   {/* project.rooms_bookable ? 'Explore' : 'Not available' */}

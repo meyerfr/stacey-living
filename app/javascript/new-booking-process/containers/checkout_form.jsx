@@ -64,8 +64,8 @@ class CheckoutForm extends Component {
       console.log(result.error.message);
     } else {
       if (result.paymentIntent.status === 'succeeded') {
-        console.log('success', result);
-        this.props.completeBooking()
+        // console.log('success', result);
+        this.props.completeBooking(result)
       } else{
         console.log('no success', result);
       }
