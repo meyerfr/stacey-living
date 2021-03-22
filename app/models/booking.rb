@@ -1,5 +1,5 @@
 class Booking < ApplicationRecord
-  after_save :send_mail_on_state_change
+  # after_save :send_mail_on_state_change
 
   cattr_accessor :form_steps do
     %w(apply projects rooms room contract_new contract payment success)

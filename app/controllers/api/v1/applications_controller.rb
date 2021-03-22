@@ -29,7 +29,7 @@ class Api::V1::ApplicationsController < ActionController::Base
         create_pipedrive_deal(user)
       end
 
-      UserMailer.welcome(application.user).deliver_later(wait_until:  2.minutes.from_now)
+      # UserMailer.welcome(application.user).deliver_later(wait_until:  2.minutes.from_now)
       render json: application
       # redirect_to new_booking_welcome_call_path(booking.booking_auth_token, booking)
     else
@@ -95,7 +95,7 @@ class Api::V1::ApplicationsController < ActionController::Base
       move_in = "in #{application.move_in.first(2)} Tagen"
     end
 
-    if ['3-5 Months', '6-8 Months', '9+ Months'].include? application.move_in
+    if ['3-5 Months', '6-8 Months', '9+ Months'].include? application.move_out
       move_out = "ca #{application.move_in.first(3)} Monate"
     end
 

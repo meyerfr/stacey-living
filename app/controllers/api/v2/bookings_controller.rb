@@ -1,6 +1,26 @@
 class Api::V2::BookingsController < Api::V2::WebhooksController
   before_action :set_booking
 
+  def create
+    user = User.find(params[:user_id])
+    application = user.application
+    booking = user.bookings.new(
+      state: 'invite send',
+      booking_auth_token: Devise.friendly_token,
+      booking_auth_token_exp: Date.today+2.weeks,
+      pipedrive_deal_id: application.pipedrive_deal_id
+    )
+    # booking.user.skip_password_validation = true
+    if booking.save!
+      # send invite to Booking Process
+      BookingMailer.invite_for_booking_process(booking).deliver_now
+      render json: booking
+      # redirect_to new_booking_welcome_call_path(booking.booking_auth_token, booking)
+    else
+      render json: booking.errors
+    end
+  end
+
   def update
     @booking.update!(bookings_params)
 
@@ -22,11 +42,20 @@ class Api::V2::BookingsController < Api::V2::WebhooksController
 
   def complete_booking
     if booking.update(bookings_params)
+      RestClient.put(
+        pipedrive_api_url("deals/#{booking.pipedrive_deal_id}"),
+        {
+          "stage_id": 14,
+        }.to_json,
+        {content_type: :json, accept: :json}
+      )
+
       booking = booking.as_json.merge({
         project: booking.project,
         user: booking.user,
         roomtype: booking.roomtype,
-        room: booking.room
+        room: booking.room,
+        price: booking.price
       })
 
       render json: booking
@@ -47,5 +76,9 @@ class Api::V2::BookingsController < Api::V2::WebhooksController
 
   def set_booking
     @booking = Booking.find(params[:id])
+  end
+
+  def pipedrive_api_url(action)
+    "https://api.pipedrive.com/v1/#{action}?api_token=#{ENV['PIPEDRIVE_API_TOKEN']}"
   end
 end

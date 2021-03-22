@@ -23,7 +23,6 @@ class Contact extends Component{
   }
 
   updateApplicant = event => {
-    console.log(event)
     let applicant = this.state.applicant
     if (event && event.target) {
       applicant[event.target.name] = event.target.value
@@ -157,7 +156,6 @@ class Contact extends Component{
     // const {errors, ...applicant} = this.state
     const applicant = this.state.applicant
     const errors = this.state.errors
-    console.log(this.state)
     return (
       <div className="step-container moveIn-options-wrapper">
         <h3 className="underline step-header">Who are you?</h3>

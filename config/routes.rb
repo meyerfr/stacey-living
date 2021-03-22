@@ -95,6 +95,7 @@ Rails.application.routes.draw do
         resources :roomtypes, only: [ :index ]
       end
       resources :users, only: [:update] do
+        resources :bookings, only: [ :create ]
         resources :addresses, only: [ :create ]
       end
       post 'complete_booking', to: 'bookings#complete'

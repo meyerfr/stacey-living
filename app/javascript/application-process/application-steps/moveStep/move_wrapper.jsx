@@ -61,7 +61,6 @@ class MoveWrapper extends Component {
 
   finishAppplication = (applicant) => {
     const application_data = {...{move_in: this.state.move_in, move_out: this.state.move_out}, ...applicant}
-    console.log(application_data)
     this.props.finishAppplication(application_data)
     // this.props.changeMoveData(this.state.move_in, this.state.move_out)
   }
@@ -70,30 +69,49 @@ class MoveWrapper extends Component {
     return Array(end - start + 1).fill().map((_, idx) => start + idx)
   }
 
+  addClass = (node) =>{
+    if (this.state.direction === 'prev') {
+      node.classList.remove('next')
+      node.classList.add('prev')
+    } else{
+      node.classList.add('next')
+      node.classList.remove('prev')
+    }
+  }
+
   render() {
     const step = this.state.step
     const steps = [
-      { number: 1, name: 'MoveIn', component: <MoveIn changeMoveIn={this.changeMoveIn} /> },
-      { number: 2, name: 'MoveOut', component: <MoveOut changeMoveOut={this.changeMoveOut} /> },
-      { number: 3, name: 'Contact', component: <Contact updateApplicant={this.updateApplicant} finishAppplication={this.finishAppplication} loading={this.props.loading} /> },
+      { number: 1, name: 'MoveIn', component: <MoveIn key="1step" changeMoveIn={this.changeMoveIn} /> },
+      { number: 2, name: 'MoveOut', component: <MoveOut key="2step" changeMoveOut={this.changeMoveOut} /> },
+      { number: 3, name: 'Contact', component: <Contact key="3step" updateApplicant={this.updateApplicant} finishAppplication={this.finishAppplication} loading={this.props.loading} /> },
     ]
     return (
       <div className="move-wrapper step-wrapper">
         <div style={{backgroundSize: 'cover', zIndex: "10", backgroundImage: `linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)),  url('${this.props.selectedLocation ? this.props.selectedLocation.imageUrl : "https://res.cloudinary.com/dvuqwvjay/image/upload/v1607077627/community_area_muehlenkamp.jpg"}')` }}></div>
-        {
-          steps.map(({ number, name, component}) => (
-            <CSSTransition
-              unmountOnExit
-              in={this.state.step == number}
-              timeout={{ appear: 1000, enter: 250, exit: 1000 }}
-              classNames='slide'
-              key={number}
-              appear
-            >
-              {component}
-            </CSSTransition>
-          )
-        )}
+        <SwitchTransition>
+          <CSSTransition
+            key={this.state.step}
+            addEndListener={(node, done) => {
+              node.addEventListener("transitionend", done, false);
+            }}
+            onEnter={(node) => this.addClass(node)}
+            onEntering={(node) => this.addClass(node)}
+            onExit={(node) => this.addClass(node)}
+            onExiting={(node) => this.addClass(node)}
+            classNames={`${this.state.direction} fade`}
+          >
+            <div className={`step-container`}>
+              {
+                steps.map(({ number, name, component}) => {
+                  if (this.state.step == number) {
+                    return component
+                  }
+                })
+              }
+            </div>
+          </CSSTransition>
+        </SwitchTransition>
       </div>
     );
   }
