@@ -16,6 +16,7 @@ export const FETCH_ROOM_INFO = 'FETCH_ROOM_INFO'
 export const FETCH_ROOMS = 'FETCH_ROOMS'
 export const SET_SORT_PARAMS = 'SET_SORT_PARAMS'
 export const APPLY_FILTER = 'APPLY_FILTER'
+export const UPDATE_BOOKING = 'UPDATE_BOOKING'
 
 export function fetchRoomInfo(room_id) {
 	const url = `${BASE_URL}/rooms/${room_id}`;
@@ -26,6 +27,27 @@ export function fetchRoomInfo(room_id) {
 		payload: promise
 	}
 }
+
+export function updateBooking(booking_id, booking, callback) {
+  const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+  const url = `${BASE_URL}/bookings/${booking_auth_token}/${booking_id}`
+  const promise = fetch(url, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-CSRF-Token': csrfToken
+    },
+    body: JSON.stringify(booking)
+  }).then(r => r.json())
+    .then(r => typeof callback === 'function' ? callback() : r);
+
+  return {
+    type: UPDATE_BOOKING,
+    payload: promise
+  }
+}
+
+
 
 // export function fetchRooms(params) {
 // 	const param_entries = Object.entries(params)

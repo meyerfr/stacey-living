@@ -1,5 +1,5 @@
 import { FETCH_ROOMS, SET_SORT_PARAMS, APPLY_FILTER } from '../actions';
-import { UPDATE_BOOKING } from '../../booking-process/actions'
+import { UPDATE_BOOKING } from '../actions'
 
 
 export default function bookingsReducer(state = null, action) {

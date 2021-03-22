@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import ListItem from './list_item'
 import { setSortParams, applyFilter } from '../actions';
-import { updateBooking } from '../../booking-process/actions'
+import { updateBooking } from '../actions'
 import Modal from 'react-awesome-modal'
 import moment from 'moment'
 
