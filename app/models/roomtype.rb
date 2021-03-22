@@ -1,6 +1,7 @@
 class Roomtype < ApplicationRecord
   # mount_uploaders :pictures, PictureUploader
   # before_save :create_stripe_product_and_plan
+  include Rails.application.routes.url_helpers
   has_many_attached :photos
   belongs_to :project
 
@@ -111,8 +112,8 @@ class Roomtype < ApplicationRecord
     }
     amenities = amenities.each do |amenity_type, types_amenities|
       types_amenities.map { |amenity|
-          amenity.as_json.merge({ photo: url_for(amenity.photo) })
-        }
+        amenity.as_json.merge({ photo: rails_blob_path(amenity.photo, disposition: "attachment", only_path: true) }) if amenity.photo.attached?
+      }
     end
     return amenities
   end
