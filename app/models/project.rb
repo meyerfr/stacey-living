@@ -1,5 +1,7 @@
 class Project < ApplicationRecord
   # mount_uploaders :pictures, PictureUploader
+  include Rails.application.routes.url_helpers
+
   cattr_accessor :form_steps do
     %w(project_info address rooms)
   end
@@ -108,6 +110,14 @@ class Project < ApplicationRecord
       availabilities += roomtype.availabilities
     end
     return availabilities
+  end
+
+  def all_amenities
+    amenities = self.amenities
+    amenities = amenities.map {|amenity|
+      amenity.as_json.merge({ photo: rails_blob_path(amenity.photo, disposition: "attachment", only_path: true) }) if amenity.photo.attached?
+    }
+    return amenities
   end
 
   # def clean_up_data

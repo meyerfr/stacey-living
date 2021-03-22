@@ -30,7 +30,7 @@ class Api::V2::ProjectsController < ActionController::Base
         marker: marker,
         photos: photos,
         next_available_move_in_date: project.next_available_move_in_date,
-        amenities: project.amenities,
+        amenities: project.all_amenities,
         community_area: community_area,
         address: address
       })
