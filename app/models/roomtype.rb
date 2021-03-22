@@ -102,4 +102,18 @@ class Roomtype < ApplicationRecord
     end
     bookable_rooms
   end
+
+  def amenities
+    amenities = {
+      roomtype_index_inventory_amenities: Amenity.joins(:join_amenities).where(join_amenities: {amenitiable_type: 'Roomtype', amenitiable_id: self.id, name: 'roomtype index inventory'}),
+      roomtype_index_inclusion_amenities: Amenity.joins(:join_amenities).where(join_amenities: {amenitiable_type: 'Roomtype', amenitiable_id: self.id, name: 'roomtype index inclusion'}),
+      roomtype_show_amenities: Amenity.joins(:join_amenities).where(join_amenities: {amenitiable_type: 'Roomtype', amenitiable_id: self.id, name: 'roomtype show'})
+    }
+    amenities = amenities.each do |amenity_type, types_amenities|
+      types_amenities.map { |amenity|
+          amenity.as_json.merge({ photo: url_for(amenity.photo) })
+        }
+    end
+    return amenities
+  end
 end

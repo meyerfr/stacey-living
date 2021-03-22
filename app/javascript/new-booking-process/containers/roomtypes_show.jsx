@@ -12,12 +12,12 @@ import Map from '../components/map';
 import BookingForm from './booking_form';
 
 class RoomtypesShow extends Component {
-  constructor(props){
-    super(props)
-    this.state = {
-      roomtype_amenities: []
-    }
-  }
+  // constructor(props){
+  //   super(props)
+  //   this.state = {
+  //     roomtype_amenities: []
+  //   }
+  // }
   componentDidMount() {
     if (this.props.roomtypes.length === 0) {
       this.props.fetchProjects()
@@ -38,7 +38,7 @@ class RoomtypesShow extends Component {
     console.log('roomtype', roomtype)
     const project = this.props.project;
     const photos = roomtype && roomtype.photos
-    const roomtype_amenities = this.state.roomtype_amenities
+    const roomtype_amenities = roomtype?.amenities.roomtype_show_amenities
     const options = {
       buttons: {
         showDownloadButton: false,

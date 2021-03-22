@@ -33,7 +33,8 @@ class Api::V2::RoomtypesController < ActionController::Base
           photos: this_roomtype_without_balcony.photos.map{ |photo|
                     url_for(photo)
                   },
-          amenities: this_roomtype_without_balcony.amenities,
+          amenities: roomtype.amenities,
+          # amenities: this_roomtype_without_balcony.amenities,
           description: this_roomtype_without_balcony.descriptions.first,
           prices: roomtype.prices,
           availabilities: roomtype.availabilities,
