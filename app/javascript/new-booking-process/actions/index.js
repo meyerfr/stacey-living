@@ -89,7 +89,7 @@ export function updateUser(user, callback) {
 
 export function completeBooking(booking_id, callback) {
   const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-  const url = `${BASE_URL}/bookings/${booking_id}`
+  const url = `${BASE_URL}/bookings/${booking_id}/complete_booking`
 
   const body = {
     state: 'deposit outstanding'

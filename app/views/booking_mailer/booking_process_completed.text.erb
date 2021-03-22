@@ -6,7 +6,7 @@ Tenant Name: <%= @user.full_name %>
 Location: <%= @roomtype.project.name %>
 Suite Category: <%= @roomtype.name %>
 Monthly Rent: <%= @booking.price.amount.to_i %> €
-Duration: <%= (@booking.move_out - @booking.move_in).to_i %>
+Duration: <%= (@booking.move_out - @booking.move_in).to_i %> days
 
 However, to complete the final booking of your suite, you have to transfer the security deposit consisting of 2-monthly rents to the account stated in the rental agreement and mentioned below by reference:
 

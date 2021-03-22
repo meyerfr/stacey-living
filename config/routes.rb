@@ -87,6 +87,7 @@ Rails.application.routes.draw do
 
     namespace :v2 do
       resources :bookings, only: [ :update ] do
+        patch 'complete_booking', to: 'bookings#complete_booking'
         resources :contracts, only: [ :create ]
         resources :payments, only: [ :new ]
         # get 'secret', to: 'payments#secret'
@@ -98,7 +99,6 @@ Rails.application.routes.draw do
         resources :bookings, only: [ :create ]
         resources :addresses, only: [ :create ]
       end
-      post 'complete_booking', to: 'bookings#complete'
     end
   end
 end

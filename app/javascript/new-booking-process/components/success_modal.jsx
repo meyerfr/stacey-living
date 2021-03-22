@@ -28,7 +28,7 @@ const SuccessModal = (props) => {
                 </tr>
                 <tr>
                   <th>Amount</th>
-                  <td>{(props.price.amount * 2).toFixed(0)} €</td>
+                  <td>{(props.price?.amount * 2).toFixed(0)} €</td>
                 </tr>
                 <tr>
                   <th>IBAN</th>

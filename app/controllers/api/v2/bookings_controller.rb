@@ -1,5 +1,5 @@
 class Api::V2::BookingsController < Api::V2::WebhooksController
-  before_action :set_booking
+  before_action :set_booking, except: [ :complete_booking ]
 
   def create
     user = User.find(params[:user_id])
@@ -41,6 +41,8 @@ class Api::V2::BookingsController < Api::V2::WebhooksController
   end
 
   def complete_booking
+    booking = Booking.find(params[:booking_id])
+    booking.booking_process_completed_date = Date.today
     if booking.update(bookings_params)
       RestClient.put(
         pipedrive_api_url("deals/#{booking.pipedrive_deal_id}"),
@@ -49,6 +51,8 @@ class Api::V2::BookingsController < Api::V2::WebhooksController
         }.to_json,
         {content_type: :json, accept: :json}
       )
+
+      BookingMailer.booking_process_completed(booking).deliver_now
 
       booking = booking.as_json.merge({
         project: booking.project,

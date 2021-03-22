@@ -1,6 +1,6 @@
 class BookingsController < ApplicationController
   skip_before_action :authenticate_user!, only: [:new, :create, :success]
-  layout 'overview', only: [ :show, :apply, :index, :success ]
+  layout 'overview', only: [ :index ]
 
   BOOKINGS_PER_PAGE = 25
 
@@ -19,6 +19,8 @@ class BookingsController < ApplicationController
       room: @booking.room,
       price: @booking.price
     })
+
+    render layout: 'bookingprocess'
     # @booking = @booking.to_json
     # raise
   end
