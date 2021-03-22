@@ -1,11 +1,11 @@
 require "open-uri"
 
 
-['fritzaef@de.de', 'fritzaef@de.dede', 'fritzaef@deqaddde.de', 'fritzaef@dasfdae.de', 'fritzaefsdfasfda@de.de', 'fasfritzaef@de.de', 'fritzaeasfdf@de.de', 'asdfafritzaef@de.de', 'fritzaeafasfassf@de.de', 'ferfrasfdfritzaef@de.de'].each do |email|
-  u = User.last.dup
-  u.email = email
-  u.save!(validate: false)
-end
+# ['fritzaef@de.de', 'fritzaef@de.dede', 'fritzaef@deqaddde.de', 'fritzaef@dasfdae.de', 'fritzaefsdfasfda@de.de', 'fasfritzaef@de.de', 'fritzaeasfdf@de.de', 'asdfafritzaef@de.de', 'fritzaeafasfassf@de.de', 'ferfrasfdfritzaef@de.de'].each do |email|
+#   u = User.last.dup
+#   u.email = email
+#   u.save!(validate: false)
+# end
 
 # change mühlenlamp mighty price for 9+ Month back to live mode - price_1HaJN3HP1DTF1I43NtoUdBzx
 
@@ -90,23 +90,23 @@ end
 #   file.open
 # end
 
-# def attach_photos(photos_hash)
-#   photos_hash.each do |photos_hash|
-#     project = Project.find_by(name: photos_hash[:name])
-#     community_area = project.community_areas.last
-#     photos_hash[:community_area].each_with_index do |file, idx|
-#       community_area.photos.attach(io: file, filename: "#{community_area.name} #{idx+1}", content_type: 'image/jpg')
-#       community_area.save
-#     end
-#     photos_hash[:rooms].each do |roomphoto_hash|
-#       roomtype = project.roomtypes.find_by(name: roomphoto_hash[:name])
-#       roomphoto_hash[:photos].each_with_index do |file, idx|
-#         roomtype.photos.attach(io: file, filename: "#{roomtype.name} #{idx+1}", content_type: 'image/jpg')
-#         roomtype.save
-#       end
-#     end
-#   end
-# end
+def attach_photos(photos_hash)
+  photos_hash.each do |photos_hash|
+    project = Project.find_by(name: photos_hash[:name])
+    community_area = project.community_areas.last
+    photos_hash[:community_area].each_with_index do |file, idx|
+      community_area.photos.attach(io: file, filename: "#{community_area.name} #{idx+1}", content_type: 'image/jpg')
+      community_area.save
+    end
+    photos_hash[:rooms].each do |roomphoto_hash|
+      roomtype = project.roomtypes.find_by(name: roomphoto_hash[:name])
+      roomphoto_hash[:photos].each_with_index do |file, idx|
+        roomtype.photos.attach(io: file, filename: "#{roomtype.name} #{idx+1}", content_type: 'image/jpg')
+        roomtype.save
+      end
+    end
+  end
+end
 
 # def create_descriptions(description_hash)
 #   description_hash.each do |roomtype_names_array, description_content|
@@ -522,185 +522,185 @@ end
 # puts('create Projects')
 # create_projects_and_attributes(projects)
 
-# photos = [
-#   {
-#     name: 'Mühlenkamp',
-#     community_area: [
-#       URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1607077627/community_area_muehlenkamp.jpg'),
-#       URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305506/Muehlenkamp/Community/JDVGtf5XQKKU04eAbpVGoA_thumb_10e.jpg'),
-#       URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305505/Muehlenkamp/Community/HcSj5Kp6Sdi4XinvCWPd4Q_thumb_dc.jpg'),
-#       URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305502/Muehlenkamp/Community/vFA9JCMcTjWI8OL4SuuIIQ_thumb_a3.jpg'),
-#       URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305498/Muehlenkamp/Community/3NAop8mzQgCjDot3VMQ2Ag_thumb_f4.jpg'),
-#       URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305504/Muehlenkamp/Community/QqTm5JToSZia_LVc7stfGQ_thumb_bf.jpg'),
-#       URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305504/Muehlenkamp/Community/tbEIKPCxTjm3djJAHGx4sg_thumb_bc.jpg'),
-#       URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305502/Muehlenkamp/Community/EIYZB8ivSL_Me7P8eC1JYA_thumb_95.jpg'),
-#       URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305501/Muehlenkamp/Community/b_06CW77RI_4mee8FNt16g_thumb_9b.jpg'),
-#       URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305497/Muehlenkamp/Community/UNADJUSTEDNONRAW_thumb_113.jpg'),
-#       URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305495/Muehlenkamp/Community/UNADJUSTEDNONRAW_thumb_111.jpg'),
-#       URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305494/Muehlenkamp/Community/9DOqWt7fSImACXkALYggQg_thumb_124.jpg'),
-#       URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305495/Muehlenkamp/Community/L_TfMlHdRJCPOtYSZCauTQ_thumb_e8.jpg'),
-#       URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305505/Muehlenkamp/Community/Em_yXaqoSUySsGf6YxR6zA_thumb_e3.jpg')
-#     ],
-#     rooms: [
-#       {
-#         name: 'Mighty',
-#         photos: [
-#           URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1607077617/Mighty_D3-5.jpg'),
-#           URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305544/Muehlenkamp/Mighty/eAX0adO0SQGx35a9vy7APw_thumb_129.jpg'),
-#           URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305544/Muehlenkamp/Mighty/SDzfpI1bSeu2a3P9kuRgRQ_thumb_133.jpg'),
-#           URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305543/Muehlenkamp/Mighty/uvX94s4HQSumDZUCmEvWgA_thumb_12b.jpg')
-#         ]
-#       },
-#       {
-#         name: 'Premium',
-#         photos: [
-#           URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1607077595/Premium_D3-5.jpg'),
-#           URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591776624/Muehlenkamp/Premium/muehlenkamp_premium_2.jpg'),
-#           URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591776586/Muehlenkamp/Premium/muehlenkamp_premium_1.jpg')
-#         ]
-#       },
-#       {
-#         name: 'Premium+',
-#         photos: [
-#           URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1607077603/Premium__D3-5.jpg'),
-#           URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305564/Muehlenkamp/PremiumPlus/EQXzU0UJRcWW7H8T3nrNMQ_thumb_2a4.jpg'),
-#           URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305564/Muehlenkamp/PremiumPlus/U_f4M1tPRg_aIfntPKkoNw_thumb_2a2.jpg'),
-#           URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305564/Muehlenkamp/PremiumPlus/4puZFG9ESPSGy_hIXnIexw_thumb_2a5.jpg')
-#         ]
-#       },
-#       {
-#         name: 'Jumbo',
-#         photos: [
-#           URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1607077618/Jumbo_D3-5.jpg'),
-#           URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305526/Muehlenkamp/Jumbo/xg8xDsPIQA_50qjnQprtEA_thumb_7d.jpg'),
-#           URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305524/Muehlenkamp/Jumbo/7qBWokpDQF_aLyAKMyYcIA_thumb_8c.jpg'),
-#           URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305522/Muehlenkamp/Jumbo/ELYyajx2Rs6jvE3UMI6_5w_thumb_86.jpg'),
-#           URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305522/Muehlenkamp/Jumbo/gidwWRV5QQqtOtKCA4s0LQ_thumb_7e.jpg'),
-#           URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305520/Muehlenkamp/Jumbo/qEm1_rrbTLuSfKCB_K_V_w_thumb_77.jpg'),
-#           URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305518/Muehlenkamp/Jumbo/WuJcgQ0CQyuBrn4Up1CK7A_thumb_6b.jpg'),
-#           URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305518/Muehlenkamp/Jumbo/qDZes3GUQJezro1NM7Tl0w_thumb_64.jpg')
-#         ]
-#       }
-#     ]
-#   },
-#   {
-#     name: 'Eppendorf',
-#     community_area: [
-#       URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1607077625/community_area_eppendorf.jpg'),
-#       URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305084/Eppendorf/Community/lIXRCIrxSzalnuxX7onN1A_thumb_162.jpg'),
-#       URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305095/Eppendorf/Community/L7VC3pucSmGuSldp5ZdqJA_thumb_1aa.jpg'),
-#       URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305091/Eppendorf/Community/UNADJUSTEDNONRAW_thumb_18a.jpg'),
-#       URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305090/Eppendorf/Community/FTIjlYPSQZm0OrV8Rdf4tw_thumb_182.jpg'),
-#       URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305043/Eppendorf/Community/Zyn9S_e3TEWs_wUnIuNT5w_thumb_190.jpg'),
-#       URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305043/Eppendorf/Community/829vH1IFTEWAxXeTrL_cEQ_thumb_18e.jpg'),
-#       URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305043/Eppendorf/Community/GrZ83xNZQICs1Pz_hEhMXg_thumb_17b.jpg'),
-#       URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305040/Eppendorf/Community/UwH7caRSQNS_uxb5TnCU2g_thumb_173.jpg'),
-#       URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305086/Eppendorf/Community/uy8xnX42TVq_A3III_YkRA_thumb_169.jpg'),
-#       URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305040/Eppendorf/Community/F1yPZYuuRKOPjl9LZMJVSg_thumb_15c.jpg'),
-#       URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305085/Eppendorf/Community/tp2OFgvZS6uyBLllP7q_fQ_thumb_15f.jpg'),
-#       URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305046/Eppendorf/Community/JN7MfQjRTAKybAA1aX_kVA_thumb_1c3.jpg'),
-#       URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305096/Eppendorf/Community/D3iLLYUSSCQ3Z4ug_9OhA_thumb_1b6.jpg')
-#     ],
-#     rooms: [
-#       {
-#         name: 'Mighty',
-#         photos: [
-#           URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1607077603/Mighty_EW.jpg'),
-#           URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305150/Eppendorf/Mighty/ZZqSpUpLRzyFoNkRUyI6og_thumb_248.jpg'),
-#           URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305150/Eppendorf/Mighty/vuxOG5GERoSmkdBb2S53oQ_thumb_247.jpg'),
-#           URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305150/Eppendorf/Mighty/4ldkRKe0QrGF5q9O634zPw_thumb_241.jpg')
-#         ]
-#       },
-#       {
-#         name: 'Premium',
-#         photos: [
-#           URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1607077607/Premium_EW.jpg'),
-#           URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305177/Eppendorf/Premium/4GMt5Br5QzOfc9hmldcreA_thumb_226.jpg'),
-#           URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305187/Eppendorf/Premium/LzFIsX6TSru0jnYIht0cMA_thumb_1f3.jpg'),
-#           URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305177/Eppendorf/Premium/Tj8D6dYATLS3hxxspLO_fw_thumb_1db.jpg')
-#         ]
-#       },
-#       {
-#         name: 'Premium+',
-#         photos: [
-#           URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1607077602/Premium__EW.jpg'),
-#           URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305210/Eppendorf/PremiumPlus/xI0FTJCQNeo_2ZyYcTpsw_thumb_25d.jpg'),
-#           URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305210/Eppendorf/PremiumPlus/BJ6QZ4F6QVGFESoF27pSLg_thumb_25f.jpg'),
-#           URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305209/Eppendorf/PremiumPlus/XCdfKPfQQ_27Tl3gGq1JWQ_thumb_261.jpg'),
-#           URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305209/Eppendorf/PremiumPlus/R6U0JvmhQDiXhPUyi9FAEg_thumb_26b.jpg'),
-#           URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305211/Eppendorf/PremiumPlus/0Im4zgRHTBiqAnIewu2Mvg_thumb_267.jpg')
-#         ]
-#       },
-#       {
-#         name: 'Jumbo',
-#         photos: [
-#           URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1607077605/Jumbo_EW.jpg'),
-#           URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305263/Eppendorf/Jumbo/yr7wyFlJQf_KmB9wnplWiA_thumb_274.jpg'),
-#           URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305260/Eppendorf/Jumbo/3OP0NtCCRpSCUA2jf8b9ew_thumb_288.jpg'),
-#           URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305260/Eppendorf/Jumbo/2bKM4_DZQNKYYud8PAcs_A_thumb_27c.jpg'),
-#           URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305260/Eppendorf/Jumbo/YVnUzgDYSdWSd_BQsnqkaA_thumb_28d.jpg'),
-#           URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305260/Eppendorf/Jumbo/mhCiEf1hQjCXcuWE6iQouw_thumb_294.jpg')
-#         ]
-#       }
-#     ]
-#   },
-#   {
-#     name: 'St. Pauli',
-#     community_area: [
-#       URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1607077615/St.Pauli_Premium__1.jpg'),
-#       URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305752/St.%20Pauli/Community/ix5_os61QP2aiwbnmyTPAQ_thumb_2aa.jpg'),
-#       URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305755/St.%20Pauli/Community/5eh7N_I8R2uiqyjqPKnBjQ_thumb_2a6.jpg'),
-#       URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305761/St.%20Pauli/Community/ruAcCY62RmOSgFeuvUcOWQ_thumb_2a7.jpg'),
-#       URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305752/St.%20Pauli/Community/XNRI5JV4Tz2Z27qBN8gzHQ_thumb_2af.jpg'),
-#       URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305751/St.%20Pauli/Community/G2L6UQLlT_m_AsK2hG4BMQ_thumb_2ad.jpg'),
-#       URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305751/St.%20Pauli/Community/hZ1avSXdSXKWl8cHpHQxOQ_thumb_2a8.jpg'),
-#       URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305751/St.%20Pauli/Community/4CwMSQnaS3OG6nh8o2Kefw_thumb_2a9.jpg')
-#     ],
-#     rooms: [
-#       {
-#         name: 'Mighty',
-#         photos: [
-#           URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1607077622/Mighty_DB2.jpg'),
-#           URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305779/St.%20Pauli/Mighty/9sJn0XhXQWSnNlnAY5qiog_thumb_2be.jpg'),
-#           URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305779/St.%20Pauli/Mighty/2JYyffPlSE2PKcvqlIeY9Q_thumb_2bd.jpg')
-#         ]
-#       },
-#       {
-#         name: 'Premium',
-#         photos: [
-#           URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1607077617/Premium_DB2.jpg'),
-#           URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305910/St.%20Pauli/Premium/etyq1jicSISjC2kaGvknKw_thumb_2c3.jpg'),
-#           URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305910/St.%20Pauli/Premium/YhfvXFl3R4KPIlgy36Zvcw_thumb_2bf.jpg'),
-#           URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305910/St.%20Pauli/Premium/7nOOlsH5T2akODDT1PPzBw_thumb_2c2.jpg'),
-#           URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305911/St.%20Pauli/Premium/ruC_Rtm8Sc_hiREJQOo8gA_thumb_2c4.jpg')
-#         ]
-#       },
-#       {
-#         name: 'Premium+',
-#         photos: [
-#           URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1607077613/Premium__DB2.jpg'),
-#           URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305929/St.%20Pauli/PremiumPlus/RFu4xK4rTrmChzc3VoQJlQ_thumb_2c6.jpg'),
-#           URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305929/St.%20Pauli/PremiumPlus/NQQT5lnTS7WCmobDw_R1hA_thumb_2c9.jpg'),
-#           URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305930/St.%20Pauli/PremiumPlus/zfiXMp51Q7eixCq5_P_hKg_thumb_2ca.jpg'),
-#           URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305932/St.%20Pauli/PremiumPlus/LweHuZn8RveZgeF6KBPNlQ_thumb_2cb.jpg')
-#         ]
-#       },
-#       {
-#         name: 'Jumbo',
-#         photos: [
-#           URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1607077610/Jumbo_DB2.jpg'),
-#           URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305810/St.%20Pauli/Jumbo/w5Fw1W_7RdeJX1rbonPM6w_thumb_2d2.jpg'),
-#           URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305810/St.%20Pauli/Jumbo/9gN4eFdcSM2zk1_e5LQTtg_thumb_2d1.jpg'),
-#           URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305810/St.%20Pauli/Jumbo/NAR5Ke_FRFaRLgChuarwfA_thumb_2ce.jpg'),
-#           URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305810/St.%20Pauli/Jumbo/DLqroMiwR8OKHdt8WI9NvQ_thumb_2cd.jpg')
-#         ]
-#       }
-#     ]
-#   }
-# ]
+photos = [
+  {
+    name: 'Mühlenkamp',
+    community_area: [
+      URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1607077627/community_area_muehlenkamp.jpg'),
+      URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305506/Muehlenkamp/Community/JDVGtf5XQKKU04eAbpVGoA_thumb_10e.jpg'),
+      URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305505/Muehlenkamp/Community/HcSj5Kp6Sdi4XinvCWPd4Q_thumb_dc.jpg'),
+      # URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305502/Muehlenkamp/Community/vFA9JCMcTjWI8OL4SuuIIQ_thumb_a3.jpg'),
+      # URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305498/Muehlenkamp/Community/3NAop8mzQgCjDot3VMQ2Ag_thumb_f4.jpg'),
+      # URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305504/Muehlenkamp/Community/QqTm5JToSZia_LVc7stfGQ_thumb_bf.jpg'),
+      # URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305504/Muehlenkamp/Community/tbEIKPCxTjm3djJAHGx4sg_thumb_bc.jpg'),
+      # URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305502/Muehlenkamp/Community/EIYZB8ivSL_Me7P8eC1JYA_thumb_95.jpg'),
+      # URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305501/Muehlenkamp/Community/b_06CW77RI_4mee8FNt16g_thumb_9b.jpg'),
+      # URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305497/Muehlenkamp/Community/UNADJUSTEDNONRAW_thumb_113.jpg'),
+      # URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305495/Muehlenkamp/Community/UNADJUSTEDNONRAW_thumb_111.jpg'),
+      # URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305494/Muehlenkamp/Community/9DOqWt7fSImACXkALYggQg_thumb_124.jpg'),
+      # URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305495/Muehlenkamp/Community/L_TfMlHdRJCPOtYSZCauTQ_thumb_e8.jpg'),
+      # URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305505/Muehlenkamp/Community/Em_yXaqoSUySsGf6YxR6zA_thumb_e3.jpg')
+    ],
+    rooms: [
+      {
+        name: 'Mighty',
+        photos: [
+          URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1607077617/Mighty_D3-5.jpg'),
+          URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305544/Muehlenkamp/Mighty/eAX0adO0SQGx35a9vy7APw_thumb_129.jpg'),
+          # URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305544/Muehlenkamp/Mighty/SDzfpI1bSeu2a3P9kuRgRQ_thumb_133.jpg'),
+          # URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305543/Muehlenkamp/Mighty/uvX94s4HQSumDZUCmEvWgA_thumb_12b.jpg')
+        ]
+      },
+      {
+        name: 'Premium',
+        photos: [
+          URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1607077595/Premium_D3-5.jpg'),
+          URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591776624/Muehlenkamp/Premium/muehlenkamp_premium_2.jpg'),
+          # URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591776586/Muehlenkamp/Premium/muehlenkamp_premium_1.jpg')
+        ]
+      },
+      {
+        name: 'Premium+',
+        photos: [
+          URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1607077603/Premium__D3-5.jpg'),
+          URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305564/Muehlenkamp/PremiumPlus/EQXzU0UJRcWW7H8T3nrNMQ_thumb_2a4.jpg'),
+          # URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305564/Muehlenkamp/PremiumPlus/U_f4M1tPRg_aIfntPKkoNw_thumb_2a2.jpg'),
+          # URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305564/Muehlenkamp/PremiumPlus/4puZFG9ESPSGy_hIXnIexw_thumb_2a5.jpg')
+        ]
+      },
+      {
+        name: 'Jumbo',
+        photos: [
+          URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1607077618/Jumbo_D3-5.jpg'),
+          URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305526/Muehlenkamp/Jumbo/xg8xDsPIQA_50qjnQprtEA_thumb_7d.jpg'),
+          # URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305524/Muehlenkamp/Jumbo/7qBWokpDQF_aLyAKMyYcIA_thumb_8c.jpg'),
+          # URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305522/Muehlenkamp/Jumbo/ELYyajx2Rs6jvE3UMI6_5w_thumb_86.jpg'),
+          # URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305522/Muehlenkamp/Jumbo/gidwWRV5QQqtOtKCA4s0LQ_thumb_7e.jpg'),
+          # URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305520/Muehlenkamp/Jumbo/qEm1_rrbTLuSfKCB_K_V_w_thumb_77.jpg'),
+          # URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305518/Muehlenkamp/Jumbo/WuJcgQ0CQyuBrn4Up1CK7A_thumb_6b.jpg'),
+          # URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305518/Muehlenkamp/Jumbo/qDZes3GUQJezro1NM7Tl0w_thumb_64.jpg')
+        ]
+      }
+    ]
+  },
+  {
+    name: 'Eppendorf',
+    community_area: [
+      URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1607077625/community_area_eppendorf.jpg'),
+      URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305084/Eppendorf/Community/lIXRCIrxSzalnuxX7onN1A_thumb_162.jpg'),
+      # URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305095/Eppendorf/Community/L7VC3pucSmGuSldp5ZdqJA_thumb_1aa.jpg'),
+      # URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305091/Eppendorf/Community/UNADJUSTEDNONRAW_thumb_18a.jpg'),
+      # URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305090/Eppendorf/Community/FTIjlYPSQZm0OrV8Rdf4tw_thumb_182.jpg'),
+      # URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305043/Eppendorf/Community/Zyn9S_e3TEWs_wUnIuNT5w_thumb_190.jpg'),
+      # URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305043/Eppendorf/Community/829vH1IFTEWAxXeTrL_cEQ_thumb_18e.jpg'),
+      # URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305043/Eppendorf/Community/GrZ83xNZQICs1Pz_hEhMXg_thumb_17b.jpg'),
+      # URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305040/Eppendorf/Community/UwH7caRSQNS_uxb5TnCU2g_thumb_173.jpg'),
+      # URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305086/Eppendorf/Community/uy8xnX42TVq_A3III_YkRA_thumb_169.jpg'),
+      # URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305040/Eppendorf/Community/F1yPZYuuRKOPjl9LZMJVSg_thumb_15c.jpg'),
+      # URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305085/Eppendorf/Community/tp2OFgvZS6uyBLllP7q_fQ_thumb_15f.jpg'),
+      # URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305046/Eppendorf/Community/JN7MfQjRTAKybAA1aX_kVA_thumb_1c3.jpg'),
+      # URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305096/Eppendorf/Community/D3iLLYUSSCQ3Z4ug_9OhA_thumb_1b6.jpg')
+    ],
+    rooms: [
+      {
+        name: 'Mighty',
+        photos: [
+          URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1607077603/Mighty_EW.jpg'),
+          URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305150/Eppendorf/Mighty/ZZqSpUpLRzyFoNkRUyI6og_thumb_248.jpg'),
+          # URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305150/Eppendorf/Mighty/vuxOG5GERoSmkdBb2S53oQ_thumb_247.jpg'),
+          # URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305150/Eppendorf/Mighty/4ldkRKe0QrGF5q9O634zPw_thumb_241.jpg')
+        ]
+      },
+      {
+        name: 'Premium',
+        photos: [
+          URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1607077607/Premium_EW.jpg'),
+          URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305177/Eppendorf/Premium/4GMt5Br5QzOfc9hmldcreA_thumb_226.jpg'),
+          # URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305187/Eppendorf/Premium/LzFIsX6TSru0jnYIht0cMA_thumb_1f3.jpg'),
+          # URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305177/Eppendorf/Premium/Tj8D6dYATLS3hxxspLO_fw_thumb_1db.jpg')
+        ]
+      },
+      {
+        name: 'Premium+',
+        photos: [
+          URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1607077602/Premium__EW.jpg'),
+          URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305210/Eppendorf/PremiumPlus/xI0FTJCQNeo_2ZyYcTpsw_thumb_25d.jpg'),
+          # URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305210/Eppendorf/PremiumPlus/BJ6QZ4F6QVGFESoF27pSLg_thumb_25f.jpg'),
+          # URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305209/Eppendorf/PremiumPlus/XCdfKPfQQ_27Tl3gGq1JWQ_thumb_261.jpg'),
+          # URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305209/Eppendorf/PremiumPlus/R6U0JvmhQDiXhPUyi9FAEg_thumb_26b.jpg'),
+          # URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305211/Eppendorf/PremiumPlus/0Im4zgRHTBiqAnIewu2Mvg_thumb_267.jpg')
+        ]
+      },
+      {
+        name: 'Jumbo',
+        photos: [
+          URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1607077605/Jumbo_EW.jpg'),
+          URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305263/Eppendorf/Jumbo/yr7wyFlJQf_KmB9wnplWiA_thumb_274.jpg'),
+          # URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305260/Eppendorf/Jumbo/3OP0NtCCRpSCUA2jf8b9ew_thumb_288.jpg'),
+          # URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305260/Eppendorf/Jumbo/2bKM4_DZQNKYYud8PAcs_A_thumb_27c.jpg'),
+          # URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305260/Eppendorf/Jumbo/YVnUzgDYSdWSd_BQsnqkaA_thumb_28d.jpg'),
+          # URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305260/Eppendorf/Jumbo/mhCiEf1hQjCXcuWE6iQouw_thumb_294.jpg')
+        ]
+      }
+    ]
+  },
+  {
+    name: 'St. Pauli',
+    community_area: [
+      URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1607077615/St.Pauli_Premium__1.jpg'),
+      URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305752/St.%20Pauli/Community/ix5_os61QP2aiwbnmyTPAQ_thumb_2aa.jpg'),
+      # URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305755/St.%20Pauli/Community/5eh7N_I8R2uiqyjqPKnBjQ_thumb_2a6.jpg'),
+      # URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305761/St.%20Pauli/Community/ruAcCY62RmOSgFeuvUcOWQ_thumb_2a7.jpg'),
+      # URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305752/St.%20Pauli/Community/XNRI5JV4Tz2Z27qBN8gzHQ_thumb_2af.jpg'),
+      # URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305751/St.%20Pauli/Community/G2L6UQLlT_m_AsK2hG4BMQ_thumb_2ad.jpg'),
+      # URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305751/St.%20Pauli/Community/hZ1avSXdSXKWl8cHpHQxOQ_thumb_2a8.jpg'),
+      # URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305751/St.%20Pauli/Community/4CwMSQnaS3OG6nh8o2Kefw_thumb_2a9.jpg')
+    ],
+    rooms: [
+      {
+        name: 'Mighty',
+        photos: [
+          URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1607077622/Mighty_DB2.jpg'),
+          URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305779/St.%20Pauli/Mighty/9sJn0XhXQWSnNlnAY5qiog_thumb_2be.jpg'),
+          # URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305779/St.%20Pauli/Mighty/2JYyffPlSE2PKcvqlIeY9Q_thumb_2bd.jpg')
+        ]
+      },
+      {
+        name: 'Premium',
+        photos: [
+          URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1607077617/Premium_DB2.jpg'),
+          URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305910/St.%20Pauli/Premium/etyq1jicSISjC2kaGvknKw_thumb_2c3.jpg'),
+          # URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305910/St.%20Pauli/Premium/YhfvXFl3R4KPIlgy36Zvcw_thumb_2bf.jpg'),
+          # URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305910/St.%20Pauli/Premium/7nOOlsH5T2akODDT1PPzBw_thumb_2c2.jpg'),
+          # URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305911/St.%20Pauli/Premium/ruC_Rtm8Sc_hiREJQOo8gA_thumb_2c4.jpg')
+        ]
+      },
+      {
+        name: 'Premium+',
+        photos: [
+          URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1607077613/Premium__DB2.jpg'),
+          URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305929/St.%20Pauli/PremiumPlus/RFu4xK4rTrmChzc3VoQJlQ_thumb_2c6.jpg'),
+          # URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305929/St.%20Pauli/PremiumPlus/NQQT5lnTS7WCmobDw_R1hA_thumb_2c9.jpg'),
+          # URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305930/St.%20Pauli/PremiumPlus/zfiXMp51Q7eixCq5_P_hKg_thumb_2ca.jpg'),
+          # URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305932/St.%20Pauli/PremiumPlus/LweHuZn8RveZgeF6KBPNlQ_thumb_2cb.jpg')
+        ]
+      },
+      {
+        name: 'Jumbo',
+        photos: [
+          URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1607077610/Jumbo_DB2.jpg'),
+          URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305810/St.%20Pauli/Jumbo/w5Fw1W_7RdeJX1rbonPM6w_thumb_2d2.jpg'),
+          # URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305810/St.%20Pauli/Jumbo/9gN4eFdcSM2zk1_e5LQTtg_thumb_2d1.jpg'),
+          # URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305810/St.%20Pauli/Jumbo/NAR5Ke_FRFaRLgChuarwfA_thumb_2ce.jpg'),
+          # URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1592305810/St.%20Pauli/Jumbo/DLqroMiwR8OKHdt8WI9NvQ_thumb_2cd.jpg')
+        ]
+      }
+    ]
+  }
+]
 
-# puts('Attach Photos')
-# attach_photos(photos)
+puts('Attach Photos')
+attach_photos(photos)
 
 # roomtype_descriptions = {
 #   ['Mighty', 'Mighty+'] => "Mighty people need a mighty room with extra space for thoughts, creativity and for the dust to settle… Don't worry, we will take care of the cleaning.",
@@ -943,305 +943,305 @@ end
 
 
 # create Amenities + Photos.
-amenities = {
-  "wifi" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591606737/wifi.png'),
-  "smart locks" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591606737/padlock.png'),
-  "coffee flatrate" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591606737/coffee-cup.png'),
-  "fully furnished" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591606737/couch.png'),
-  "work spaces" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591606737/work-space.png'),
-  "table tennis" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591606737/ping-pong.png'),
-  "common space" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591606737/meeting.png'),
-  "weekly cleaning" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591606737/liquid-soap.png'),
-  "fully equipped kitchen" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591606737/chefs-hat.png'),
-  "2x fully equipped kitchens" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591606737/chefs-hat.png'),
-  "lounge space" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591606737/lounge-chair.png'),
-  "inner yard" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591606737/tree.png'),
-  "2 people" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591606736/users.png'),
-  "dining space" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591606736/service.png'),
-  "laundry room" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591606736/washing-machine.png'),
-  "1 person" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591606736/user.png'),
-  "monthly member events" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591608023/calendar.png'),
-  "welcome gift" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591608023/gift.png'),
-  "side table" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591608023/side-table.png'),
-  "wardrobe with hangers and drawers" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591608023/closet.png'),
-  "artwork" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591608023/artist.png'),
-  "armchair" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591608024/armchair.png'),
-  "desk with chair" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591608023/desk.png'),
-  "bedding" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591608023/pillow.png'),
-  "double bed" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591608024/bed.png'),
-  "queensize bed" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591608608/king_size_bed.png'),
-  "shared bathroom" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1594203504/toilet-paper.png')
-}
+# amenities = {
+#   "wifi" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591606737/wifi.png'),
+#   "smart locks" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591606737/padlock.png'),
+#   "coffee flatrate" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591606737/coffee-cup.png'),
+#   "fully furnished" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591606737/couch.png'),
+#   "work spaces" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591606737/work-space.png'),
+#   "table tennis" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591606737/ping-pong.png'),
+#   "common space" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591606737/meeting.png'),
+#   "weekly cleaning" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591606737/liquid-soap.png'),
+#   "fully equipped kitchen" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591606737/chefs-hat.png'),
+#   "2x fully equipped kitchens" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591606737/chefs-hat.png'),
+#   "lounge space" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591606737/lounge-chair.png'),
+#   "inner yard" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591606737/tree.png'),
+#   "2 people" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591606736/users.png'),
+#   "dining space" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591606736/service.png'),
+#   "laundry room" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591606736/washing-machine.png'),
+#   "1 person" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591606736/user.png'),
+#   "monthly member events" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591608023/calendar.png'),
+#   "welcome gift" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591608023/gift.png'),
+#   "side table" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591608023/side-table.png'),
+#   "wardrobe with hangers and drawers" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591608023/closet.png'),
+#   "artwork" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591608023/artist.png'),
+#   "armchair" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591608024/armchair.png'),
+#   "desk with chair" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591608023/desk.png'),
+#   "bedding" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591608023/pillow.png'),
+#   "double bed" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591608024/bed.png'),
+#   "queensize bed" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1591608608/king_size_bed.png'),
+#   "shared bathroom" => URI.open('https://res.cloudinary.com/dvuqwvjay/image/upload/v1594203504/toilet-paper.png')
+# }
 
-amenities = {
-  "common space" => URI.open("https://res.cloudinary.com/dvuqwvjay/image/upload/v1612285441/house-plan-scale.png"),
-  "members" => URI.open("https://res.cloudinary.com/dvuqwvjay/image/upload/v1612285441/group.png"),
-  "apartment" => URI.open("https://res.cloudinary.com/dvuqwvjay/image/upload/v1612285442/rent-board.png"),
-  "fully equipped kitchen" => URI.open("https://res.cloudinary.com/dvuqwvjay/image/upload/v1612285443/kitchen.png"),
-  "2x fully equipped kitchens" => URI.open("https://res.cloudinary.com/dvuqwvjay/image/upload/v1612285443/kitchen.png"),
-  "bathrooms" => URI.open("https://res.cloudinary.com/dvuqwvjay/image/upload/v1612285442/toilet.png"),
-  "pool table" => URI.open("https://res.cloudinary.com/dvuqwvjay/image/upload/v1612285442/pool-table.png"),
-  "ping pong table" => URI.open("https://res.cloudinary.com/dvuqwvjay/image/upload/v1612285443/table-tennis.png"),
-  "small backyard" => URI.open("https://res.cloudinary.com/dvuqwvjay/image/upload/v1612285441/fence-farm.png"),
-  "inner yard" => URI.open("https://res.cloudinary.com/dvuqwvjay/image/upload/v1591606737/tree.png"),
-  "barbecue" => URI.open("https://res.cloudinary.com/dvuqwvjay/image/upload/v1612285441/barbecue.png")
-}
+# amenities = {
+#   "common space" => URI.open("https://res.cloudinary.com/dvuqwvjay/image/upload/v1612285441/house-plan-scale.png"),
+#   "members" => URI.open("https://res.cloudinary.com/dvuqwvjay/image/upload/v1612285441/group.png"),
+#   "apartment" => URI.open("https://res.cloudinary.com/dvuqwvjay/image/upload/v1612285442/rent-board.png"),
+#   "fully equipped kitchen" => URI.open("https://res.cloudinary.com/dvuqwvjay/image/upload/v1612285443/kitchen.png"),
+#   "2x fully equipped kitchens" => URI.open("https://res.cloudinary.com/dvuqwvjay/image/upload/v1612285443/kitchen.png"),
+#   "bathrooms" => URI.open("https://res.cloudinary.com/dvuqwvjay/image/upload/v1612285442/toilet.png"),
+#   "pool table" => URI.open("https://res.cloudinary.com/dvuqwvjay/image/upload/v1612285442/pool-table.png"),
+#   "ping pong table" => URI.open("https://res.cloudinary.com/dvuqwvjay/image/upload/v1612285443/table-tennis.png"),
+#   "small backyard" => URI.open("https://res.cloudinary.com/dvuqwvjay/image/upload/v1612285441/fence-farm.png"),
+#   "inner yard" => URI.open("https://res.cloudinary.com/dvuqwvjay/image/upload/v1591606737/tree.png"),
+#   "barbecue" => URI.open("https://res.cloudinary.com/dvuqwvjay/image/upload/v1612285441/barbecue.png")
+# }
 
-def handle_string_io_as_file(io)
-  return io unless io.class == StringIO
+# def handle_string_io_as_file(io)
+#   return io unless io.class == StringIO
 
-  file = Tempfile.new(["temp",".png"], encoding: 'ascii-8bit')
-  file.binmode
-  file.write io.read
-  file.open
-end
+#   file = Tempfile.new(["temp",".png"], encoding: 'ascii-8bit')
+#   file.binmode
+#   file.write io.read
+#   file.open
+# end
 
-puts('create Amenities')
-amenities.each do |title, file|
-  a = Amenity.new(title: title)
-  a.photo.attach(io: handle_string_io_as_file(file), filename: "#{title.gsub(' ', '_')}.png", content_type: 'image/png')
-  a.save
-end
+# puts('create Amenities')
+# amenities.each do |title, file|
+#   a = Amenity.new(title: title)
+#   a.photo.attach(io: handle_string_io_as_file(file), filename: "#{title.gsub(' ', '_')}.png", content_type: 'image/png')
+#   a.save
+# end
 
-Project.all.each do |project|
-  project.join_amenities.destroy_all
-end
+# Project.all.each do |project|
+#   project.join_amenities.destroy_all
+# end
 
-Project.all.each do |project|
-  Amenity.where("created_at >= ?", Date.yesterday).limit(5).each do |amenity|
-    project.join_amenities.create(name: 'project index', amenity_id: amenity.id)
-  end
-end
+# Project.all.each do |project|
+#   Amenity.where("created_at >= ?", Date.yesterday).limit(5).each do |amenity|
+#     project.join_amenities.create(name: 'project index', amenity_id: amenity.id)
+#   end
+# end
 
 
 
 # mühlenkamp
-project = Project.first
-project.join_amenities.create(name: 'project index', amenity_id: ping_pong_table.id)
+# project = Project.first
+# project.join_amenities.create(name: 'project index', amenity_id: ping_pong_table.id)
 
-# eppendorf
-project = Project.second
-project.join_amenities.create(name: 'project index', amenity_id: pool_table.id)
+# # eppendorf
+# project = Project.second
+# project.join_amenities.create(name: 'project index', amenity_id: pool_table.id)
 
-# st. Pauli
-project = Project.third
-project.join_amenities.create(name: 'project index', amenity_id: small_backyard.id)
-
-
-barbecue = Amenity.where(title: "barbecue").last
-inner_yard = Amenity.where(title: "inner yard").last
-small_backyard = Amenity.where(title: "small backyard").last
-ping_pong_table = Amenity.where(title: "ping pong table").last
-pool_table = Amenity.where(title: "pool table").last
+# # st. Pauli
+# project = Project.third
+# project.join_amenities.create(name: 'project index', amenity_id: small_backyard.id)
 
 
+# barbecue = Amenity.where(title: "barbecue").last
+# inner_yard = Amenity.where(title: "inner yard").last
+# small_backyard = Amenity.where(title: "small backyard").last
+# ping_pong_table = Amenity.where(title: "ping pong table").last
+# pool_table = Amenity.where(title: "pool table").last
 
 
-bookings = [
-  {room: 'D06', name: "Nicolae Puican", email: 'n.a.puican@gmail.com', move_in: Date.parse('01.09.2019'), move_out: Date.parse('30.11.2019')},
-  {room: 'D09', name: "Sheila Grace Tan", email: 'sheilagracetan@gmail.com', move_in: Date.parse('26.07.2019'), move_out: Date.parse('25.12.2019')},
-  {room: 'D20', name: "Matteo Angione", email: 'angionem6@gmail.com', move_in: Date.parse('03.10.2019'), move_out: Date.parse('02.01.2020')},
-  {room: 'D18', name: "Johannes Benthaus", email: 'johannes.benthaus@gmail.com', move_in: Date.parse('04.10.2019'), move_out: Date.parse('03.01.2020')},
-  {room: 'D19', name: "Tobias Lössl", email: 'tobiloessl@hotmail.de', move_in: Date.parse('03.10.2019'), move_out: Date.parse('05.01.2020')},
-  {room: 'D15', name: "Ernesto Ruiz Manzano", email: 'ernesto_900_ruiz@hotmail.com', move_in: Date.parse('07.09.2019'), move_out: Date.parse('06.01.2020')},
-  {room: 'D13', name: "Gauriesh Bindra", email: 'gaurieshbindra@gmail.com', move_in: Date.parse('02.08.2019'), move_out: Date.parse('26.01.2020')},
-  {room: 'D14', name: "Arkaprabha Ray", email: 'arkadeep97@gmail.com', move_in: Date.parse('01.09.2019'), move_out: Date.parse('27.01.2020')},
-  {room: 'D10', name: "Antonia Rudolf", email: 'antoniarudolf@aol.com', move_in: Date.parse('31.08.2019'), move_out: Date.parse('29.02.2020')},
-  {room: 'D03', name: "Clarissa Leu", email: 'clacoleu@aol.com', move_in: Date.parse('05.08.2019'), move_out: Date.parse('05.03.2020')},
-  {room: 'D02', name: "Marvin Wobbe", email: 'marvin.wobbe@gmx.de', move_in: Date.parse('24.08.2019'), move_out: Date.parse('23.03.2020')},
-  {room: 'D22', name: "Nil Biosca Jimenez", email: 'nbiosca2q@gmail.com', move_in: Date.parse('06.11.2019'), move_out: Date.parse('31.03.2020')},
-  {room: 'D01', name: "Anna Weirauch", email: 'team@stacey-living.de', move_in: Date.parse('01.10.2019'), move_out: Date.parse('31.03.2020')},
-  {room: 'D23', name: "Angelo Arceri", email: 'angeloarceri@live.it', move_in: Date.parse('03.10.2019'), move_out: Date.parse('02.04.2020')},
-  {room: 'D17', name: "Andrea Cianfarani", email: 'andrea.cianfarani@hotmail.com', move_in: Date.parse('04.10.2019'), move_out: Date.parse('03.04.2020')},
-  {room: 'DB05', name: "Alvaro Sanz García 'Sintas", move_in: Date.parse('23.03.2020'), move_out: Date.parse('30.04.2020')},
-  {room: 'D14', name: "Anastasia Krieg", email: 'anastasia.krieg@t-online.de', move_in: Date.parse('02.02.2020'), move_out: Date.parse('01.05.2020')},
-  {room: 'D05', name: "Rene Navrkal", email: 'renenavrkal@gmail.com', move_in: Date.parse('31.08.2019'), move_out: Date.parse('05.05.2020')},
-  {room: 'D19', name: "Pierre Guillaume", email: 'pierre.g.27@live.fr', move_in: Date.parse('06.01.2020'), move_out: Date.parse('16.05.2020')},
-  {room: 'DB04', name: "Amelie Hartig", email: 'amelie.hartig@hotmail.de', move_in: Date.parse('29.02.2020'), move_out: Date.parse('30.05.2020')},
-  {room: 'D06', name: "Christian Ritterbach", email: 'ch.ritterbach@t-online.de', move_in: Date.parse('01.12.2019'), move_out: Date.parse('31.05.2020')},
-  {room: 'D16', name: "Kyley Rosser", email: 'kyleyrosser99@gmail.com', move_in: Date.parse('07.10.2019'), move_out: Date.parse('06.06.2020')},
-  {room: 'DB02', name: "Maria de los Santos Fernandez Romero", email: 'msfdezr@gmail.com', move_in: Date.parse('09.03.2020'), move_out: Date.parse('08.06.2020')},
-  {room: 'D21', name: "David Höhl", email: 'david.hoehl@aol.com', move_in: Date.parse('04.11.2019'), move_out: Date.parse('30.06.2020')},
-  {room: 'DB07', name: "Rene Navrkal", email: 'renenavrkal@gmail.com', move_in: Date.parse('06.05.2020'), move_out: Date.parse('30.06.2020')},
-  {room: 'D18', name: "Vanessa Elana Kröger", email: 'miss.kroeger@web.de', move_in: Date.parse('04.01.2020'), move_out: Date.parse('04.07.2020')},
-  {room: 'DB02', name: "Melina Badde", email: 'melina.badde@whu.edu', move_in: Date.parse('10.06.2020'), move_out: Date.parse('05.07.2020')},
-  {room: 'D20', name: "Joachim Bizot", email: 'joachim.bizot@outlook.fr', move_in: Date.parse('07.01.2020'), move_out: Date.parse('06.07.2020')},
-  {room: 'D03', name: "Anatasia Nefed", email: 'anastasianefed@gmail.com', move_in: Date.parse('14.03.2020'), move_out: Date.parse('13.07.2020')},
-  {room: 'D23', name: "Riekje Cordes", email: 'riekje.cordes@gmx.de', move_in: Date.parse('03.04.2020'), move_out: Date.parse('31.07.2020')},
-  {room: 'DB03', name: "Diego Fernando Gomez", email: 'df.gomezf@gmail.com', move_in: Date.parse('01.05.2020'), move_out: Date.parse('31.07.2020')},
-  {room: 'D17', name: "Charles Herbert", email: 'c.herbert04@gmail.com', move_in: Date.parse('03.04.2020'), move_out: Date.parse('21.08.2020')},
-  {room: 'D05', name: "Mark Veldkamp", email: 'mark_veldkamp@hotmail.nl', move_in: Date.parse('15.05.2020'), move_out: Date.parse('23.08.2020')},
-  {room: 'D21', name: "Shubham Sharma", email: 'sharmashubham10@gmail.com', move_in: Date.parse('29.06.2020'), move_out: Date.parse('28.08.2020')},
-  {room: 'D23', name: "Bernardo San Juan", email: 'bsanjuan.consulting@googlemail.com', move_in: Date.parse('01.08.2020'), move_out: Date.parse('31.08.2020')},
-  {room: 'D15', name: "Gino Lodola", email: 'gino.lodola@hotmail.com', move_in: Date.parse('30.12.2019'), move_out: Date.parse('31.08.2020')},
-  {room: 'D05', name: "Francesco Lo Piccolo", email: 'frlpiccolo@gmail.com', move_in: Date.parse('26.08.2020'), move_out: Date.parse('31.08.2020')},
-  {room: 'D08', name: "Julian Müller", email: 'jn.f.mueller@gmail.com', move_in: Date.parse('01.09.2019'), move_out: Date.parse('31.08.2020')},
-  {room: 'EW08', name: "Rene Navrkal", email: 'renenavrkal@gmail.com', move_in: Date.parse('01.07.2020'), move_out: Date.parse('31.08.2020')},
-  {room: 'D01', name: "Carolin Helena Klaus", email: 'carolin_klaus@outlook.de', move_in: Date.parse('31.03.2020'), move_out: Date.parse('01.09.2020')},
-  {room: 'D25', name: "Ferris Dalle-Grave ", email: 'b.dalle-grave@rieckermann.com', move_in: Date.parse('05.06.2020'), move_out: Date.parse('04.09.2020')},
-  # {room: 'D07', name: "Cristian Obersterescu", email: 'cristian.obersterescu@gmail.com', move_in: Date.parse('31.07.2019'), move_out: Date.parse('14.09.2020')},
-  {room: 'EW04', name: "Jan Niclas Lietzow", email: 'niclas.lietzow@outlook.com', move_in: Date.parse('14.06.2020'), move_out: Date.parse('16.09.2020')},
-  {room: 'D11', name: "Dominik Moskalik", email: 'dmoskalik@web.de', move_in: Date.parse('31.08.2019'), move_out: Date.parse('30.09.2020')},
-  {room: 'D05', name: "Amelie Lessmann", email: 'amelielessmann26@gmail.com', move_in: Date.parse('01.09.2020'), move_out: Date.parse('30.09.2020')},
-  {room: 'D09', name: "Candido Castillo", email: 'candidodomingocastillo@gmail.com', move_in: Date.parse('04.10.2019'), move_out: Date.parse('30.09.2020')},
-  {room: 'D18', name: "Melina Badde", email: 'melina.badde@whu.edu', move_in: Date.parse('10.06.2020'), move_out: Date.parse('30.09.2020')},
-  {room: 'D26', name: "Marcel Franke", email: 'marcel.edmund.franke@gmail.com', move_in: Date.parse('01.06.2020'), move_out: Date.parse('30.09.2020')},
-  {room: 'EW01', name: "Alexandra Martitz", email: 'alexandra.martitz@online.de', move_in: Date.parse('15.06.2020'), move_out: Date.parse('03.10.2020')},
-  {room: 'EW06', name: "Lara Wellner", email: 'lara.wellner@gmail.com', move_in: Date.parse('11.07.2020'), move_out: Date.parse('11.10.2020')},
-  {room: 'D23', name: "Francesco Lo Piccolo", email: 'frlpiccolo@gmail.com', move_in: Date.parse('01.09.2020'), move_out: Date.parse('14.10.2020')},
-  {room: 'D14', name: "Sophia Schembecker", email: 'sophiaschembecker@web.de', move_in: Date.parse('01.05.2020'), move_out: Date.parse('14.10.2020')},
-  {room: 'D20', name: "Nikolai Siekmann", email: 'nikolai.siekmann@gmail.com', move_in: Date.parse('01.07.2020'), move_out: Date.parse('14.10.2020')},
-  {room: 'EW11', name: "Leopold Harro Gottfried von Frenckell", email: 'leopoldvf@icloud.com', move_in: Date.parse('01.08.2020'), move_out: Date.parse('14.10.2020')},
-  {room: 'D29', name: "Jan-Rasmus Kässens", email: 'jr.kaessens@gmx.de', move_in: Date.parse('20.07.2020'), move_out: Date.parse('19.10.2020')},
-  {room: 'EW16', name: "Wanjiru Chabeda", email: 'wanjiru.chabeda@gmail.com', move_in: Date.parse('15.10.2020'), move_out: Date.parse('19.10.2020')},
-  {room: 'EW02', name: "Olina Karlsdottir", email: 'olina.ann@hotmail.com', move_in: Date.parse('11.06.2020'), move_out: Date.parse('24.10.2020')},
-  {room: 'D04', name: "Melanie Schaub", email: 'schaub.melanie@gmail.com', move_in: Date.parse('28.07.2019'), move_out: Date.parse('28.10.2020')},
-  {room: 'DB06', name: "Mehdi Dhifallah", email: 'mehdidhifallah2789@gmail.com', move_in: Date.parse('22.03.2020'), move_out: Date.parse('30.10.2020')},
-  {room: 'D14', name: "Deniss Butajevs", email: 'deniss.butajevs@gmail.com', move_in: Date.parse('22.10.2020'), move_out: Date.parse('31.10.2020')},
-  {room: 'D08', name: "Bernardo San Juan", email: 'bsanjuan.consulting@googlemail.com', move_in: Date.parse('01.09.2020'), move_out: Date.parse('31.10.2020')},
-  {room: 'EW03', name: "Corinna Thölke", email: 'corinna.thoelke@gmail.com', move_in: Date.parse('13.06.2020'), move_out: Date.parse('31.10.2020')},
-  {room: 'D22', name: "Sai Jagtap", email: 'mesaee@gmail.com', move_in: Date.parse('18.04.2020'), move_out: Date.parse('14.11.2020')},
-  {room: 'D23', name: "Nick Finckenstein", email: 'nfinckenstein@gmail.com', move_in: Date.parse('15.10.2020'), move_out: Date.parse('16.11.2020')},
-  {room: 'D24', name: "Victoria Areli Bracamontes Vazquez", email: 'vbracamontes.bss@gmail.com', move_in: Date.parse('04.11.2019'), move_out: Date.parse('30.11.2020')},
-  {room: 'D15', name: "Simon Hoese", email: 'simonhoese@gmx.de', move_in: Date.parse('01.09.2020'), move_out: Date.parse('30.11.2020')},
-  {room: 'D17', name: "Philip Pineda", email: 'pipopin@gmail.com', move_in: Date.parse('22.08.2020'), move_out: Date.parse('30.11.2020')},
-  {room: 'D21', name: "Victor Haas", email: 'victor.haas67@gmail.com', move_in: Date.parse('29.08.2020'), move_out: Date.parse('30.11.2020')},
-  {room: 'D27', name: "Pohl Timotheus ", email: 'timotheus.pohlt5@gmail.com', move_in: Date.parse('27.07.2020'), move_out: Date.parse('30.11.2020')},
-  {room: 'D33', name: "Eva-Maria Phieler", email: 'evamariaphieler@gmail.com', move_in: Date.parse('01.08.2020'), move_out: Date.parse('30.11.2020')},
-  {room: 'D31', name: "Cecan Cakar", email: 'cecan1@web.de', move_in: Date.parse('22.08.2020'), move_out: Date.parse('30.11.2020')},
-  {room: 'D36', name: "Daniel Ammann", email: 'daniel.j.ammann@gmail.com', move_in: Date.parse('31.08.2020'), move_out: Date.parse('30.11.2020')},
-  {room: 'EW03', name: "Lawal Bakere", email: 'lawal.bakare@gmail.com', move_in: Date.parse('04.11.2020'), move_out: Date.parse('30.11.2020')},
-  {room: 'D39', name: "Simao Bareto", email: 'simaofbarreto@gmail.com', move_in: Date.parse('15.09.2020'), move_out: Date.parse('14.12.2020')},
-  # {room:", email: 'D50', name: ',"move_in:' Date.parse('15.12.2020'), move_out: Date.parse('14.12.2020')},
-  {room: 'D01', name: "Lina Drozd", email: 'linadrozd5@gmail.com', move_in: Date.parse('02.09.2020'), move_out: Date.parse('14.12.2020')},
-  {room: 'D13', name: "Javier Randez Garbayo", email: 'javier_93_rg@hotmail.com', move_in: Date.parse('27.01.2020'), move_out: Date.parse('31.12.2020')},
-  {room: 'D44', name: "Helena Correia", email: 'helenac.housing1@gmail.com', move_in: Date.parse('01.10.2020'), move_out: Date.parse('01.01.2021')},
-  {room: 'D14', name: "Niklas Tausend", email: 'niklas.tausend1000@gmail.com', move_in: Date.parse('01.11.2020'), move_out: Date.parse('05.01.2021')},
-  {room: 'D42', name: "Chloe Bernard", email: 'chloe.bernard8@gmail.com', move_in: Date.parse('01.10.2020'), move_out: Date.parse('05.01.2021')},
-  {room: 'D35', name: "Charlotte Droste", email: 'charlotte.antonia.droste@gmail.com', move_in: Date.parse('01.09.2020'), move_out: Date.parse('05.01.2021')},
-  {room: 'DB07', name: "Laura Dell'Antonio", email: 'laura@dellantonio.de', move_in: Date.parse('15.09.2020'), move_out: Date.parse('05.01.2021')},
-  {room: 'EW15', name: "Francesca Solagna", email: 'f.solagna@uke.de', move_in: Date.parse('21.09.2020'), move_out: Date.parse('05.01.2021')},
-  {room: 'D38', name: "Theo Pernot", email: 'pernot.theo@outlook.fr', move_in: Date.parse('01.10.2020'), move_out: Date.parse('14.01.2021')},
-  {room: 'D46', name: "Henrike Wörmer", email: 'henrike.woermer@gmail.com', move_in: Date.parse('01.10.2020'), move_out: Date.parse('14.01.2021')},
-  # {room:", email: 'D51', name: ',"move_in:' Date.parse('15.01.2021'), move_out: Date.parse('14.01.2021')},
-  {room: 'EW06', name: "Moritz Stephan", email: 'moritz.stephan@outlook.de', move_in: Date.parse('12.10.2020'), move_out: Date.parse('14.01.2021')},
-  {room: 'EW12', name: "Jan Dobinsky", email: 'jan.dobinsky@gmail.com', move_in: Date.parse('01.10.2020'), move_out: Date.parse('14.01.2021')},
-  {room: 'D37', name: "Emili Läte", email: 'emililte@gmail.com', move_in: Date.parse('01.10.2020'), move_out: Date.parse('31.01.2021')},
-  {room: 'D43', name: "Deniz Aksoy", email: 'd.aksoy@gmx.net', move_in: Date.parse('01.10.2020'), move_out: Date.parse('31.01.2021')},
-  # {room:", email: 'D53', name: ',"move_in:' Date.parse('01.02.2021'), move_out: Date.parse('31.01.2021')},
-  {room: 'D09', name: "Laura Ladefoged", email: 'lauraladefoged01@gmail.com', move_in: Date.parse('01.10.2020'), move_out: Date.parse('31.01.2021')},
-  {room: 'D03', name: "Lance Williams", email: 'lance.kem.williams@gmail.com', move_in: Date.parse('29.07.2020'), move_out: Date.parse('31.01.2021')},
-  {room: 'D19', name: "Ivonne Greulich", email: 'ivonnegreulich@gmail.com', move_in: Date.parse('01.05.2020'), move_out: Date.parse('31.01.2021')},
-  {room: 'D25', name: "Tieme Schardam ", email: 'schardamtieme@gmail.com', move_in: Date.parse('04.09.2020'), move_out: Date.parse('31.01.2021')},
-  {room: 'DB01', name: "Sara Isla Cainzos", email: 'saraislac@gmail.com', move_in: Date.parse('29.02.2020'), move_out: Date.parse('31.01.2021')},
-  {room: 'DB06', name: "Chirag Ahuja", email: 'chiragvit@gmail.com', move_in: Date.parse('01.11.2020'), move_out: Date.parse('31.01.2021')},
-  {room: 'EW02', name: "Nils Erikson", email: 'nils_erikson@hotmail.com', move_in: Date.parse('26.10.2020'), move_out: Date.parse('31.01.2021')},
-  {room: 'EW09', name: "Antonia Zeilinger", email: 'antonia_zeilinger@hotmail.com', move_in: Date.parse('01.08.2020'), move_out: Date.parse('31.01.2021')},
-  {room: 'EW17', name: "Gesa Franke", email: 'gesafranke@googlemail.com', move_in: Date.parse('15.11.2020'), move_out: Date.parse('31.01.2021')},
-  {room: 'D05', name: "Saad El Hajjaji", email: 'saadelha@gmail.com', move_in: Date.parse('14.09.2020'), move_out: Date.parse('03.02.2021')},
-  {room: 'D15', name: "Lawal Bakare", email: 'lawal.bakare@gmail.com', move_in: Date.parse('01.12.2020'), move_out: Date.parse('14.02.2021')},
-  {room: 'EW18', name: "Nick Finckenstein", email: 'nfinckenstein@gmail.com', move_in: Date.parse('17.11.2020'), move_out: Date.parse('14.02.2021')},
-  {room: 'D12', name: "Christoph Häberlin", email: 'christoph.haeberlin@gmail.com', move_in: Date.parse('27.07.2019'), move_out: Date.parse('28.02.2021')},
-  {room: 'D02', name: "Andreas Janz", email: 'andreas.janz@gmail.com', move_in: Date.parse('24.03.2020'), move_out: Date.parse('28.02.2021')},
-  {room: 'D32', name: "Maximilian Busch", email: 'mpbusch01@gmail.com', move_in: Date.parse('01.08.2020'), move_out: Date.parse('28.02.2021')},
-  {room: 'D29', name: "Johanna Launer", email: 'JLauner@web.de', move_in: Date.parse('20.10.2020'), move_out: Date.parse('28.02.2021')},
-  {room: 'EW14', name: "Emma Widmer", email: 'emma.widmer@uzh.ch', move_in: Date.parse('01.10.2020'), move_out: Date.parse('28.02.2021')},
-  {room: 'EW01', name: "Kateryna Dib", email: 'kateryna.dib@gmail.com', move_in: Date.parse('04.10.2020'), move_out: Date.parse('28.02.2021')},
-  {room: 'EW04', name: "Tom Rose", email: 'tomrose1998@hotmail.co.uk', move_in: Date.parse('17.09.2020'), move_out: Date.parse('28.02.2021')},
-  {room: 'EW02', name: "Boyan Tristan Julius Gerretzen", email: 'boyangerretzen@gmail.com', move_in: Date.parse('01.02.2021'), move_out: Date.parse('28.02.2021')},
-  {room: 'EW11', name: "Anca Anitoaia       ", email: 'anca.anitoaia@gmail.com', move_in: Date.parse('15.10.2020'), move_out: Date.parse('28.02.2021')},
-  {room: 'D08', name: "Yael Nakash", email: 'baseggioarts@gmail.com', move_in: Date.parse('06.11.2020'), move_out: Date.parse('14.03.2021')},
-  {room: 'EW03', name: "Diego Fernando Gomez", email: 'df.gomezf@gmail.com', move_in: Date.parse('07.12.2020'), move_out: Date.parse('14.03.2021')},
-  {room: 'D39', name: "Helena Correia", email: 'helenac.housing1@gmail.com', move_in: Date.parse('01.01.2021'), move_out: Date.parse('31.03.2021')},
-  {room: 'D41', name: "Natalia Monroy", email: 'tatala07@hotmail.com', move_in: Date.parse('01.10.2020'), move_out: Date.parse('31.03.2021')},
-  {room: 'D17', name: "Jakob Oskar Daniel Woll", email: 'jakobwoll13@gmail.com', move_in: Date.parse('30.12.2020'), move_out: Date.parse('31.03.2021')},
-  {room: 'D20', name: "Ann-Katrin Vonnahme", email: 'ann-katrin@vonnahme.com', move_in: Date.parse('15.10.2020'), move_out: Date.parse('31.03.2021')},
-  {room: 'D26', name: "Michael Klein", email: 'michael.klein.contact@gmail.com', move_in: Date.parse('01.10.2020'), move_out: Date.parse('31.03.2021')},
-  {room: 'D30', name: "Felix Chemnitzer", email: 'f.chemnitzer@gmail.com', move_in: Date.parse('27.06.2020'), move_out: Date.parse('31.03.2021')},
-  {room: 'D34', name: "Elizabeth Lee", email: 'eliz.y.lee@gmail.com', move_in: Date.parse('22.08.2020'), move_out: Date.parse('31.03.2021')},
-  {room: 'DB04', name: "Alvaro Sanz García Sintas", email: 'alvarosanz_8@hotmail.com', move_in: Date.parse('23.03.2020'), move_out: Date.parse('31.03.2021')},
-  {room: 'EW05', name: "Katrin van Asten", email: 'kat.vanasten@gmail.com', move_in: Date.parse('01.07.2020'), move_out: Date.parse('31.03.2021')},
-  {room: 'EW16', name: "Marius Holle", email: 'marius.holle@icloud.com', move_in: Date.parse('21.12.2020'), move_out: Date.parse('31.03.2021')},
-  {room: 'D13', name: "Niklas Tausend", email: 'niklas.tausend1000@gmail.com', move_in: Date.parse('05.11.2020'), move_out: Date.parse('14.04.2021')},
-  {room: 'D14', name: "Alexandra Gedert", email: 'gedertalex@gmail.com', move_in: Date.parse('06.01.2021'), move_out: Date.parse('14.04.2021')},
-  {room: 'D47', name: "Chloe Bernard", email: 'chloe.bernard8@gmail.com', move_in: Date.parse('06.01.2021'), move_out: Date.parse('14.04.2021')},
-  {room: 'D03', name: "Saad El Hajjaji", email: 'saadelha@gmail.com', move_in: Date.parse('04.02.2021'), move_out: Date.parse('14.04.2021')},
-  {room: 'DB07', name: "Tristan Heermann", email: 't.heermann92@gmail.com', move_in: Date.parse('08.01.2021'), move_out: Date.parse('14.04.2021')},
-  {room: 'EW12', name: "Olina Karlsdottir", email: 'olina.ann@hotmail.com', move_in: Date.parse('15.01.2021'), move_out: Date.parse('14.04.2021')},
-  {room: 'D24', name: "Paul Bruckner", email: 'bruckner.paul@web.de', move_in: Date.parse('30.01.2021'), move_out: Date.parse('30.04.2021')},
-  {room: 'D11', name: "Jonas Simonsen", email: 'simonsenjonas@aol.de', move_in: Date.parse('01.10.2020'), move_out: Date.parse('30.04.2021')},
-  {room: 'D07', name: "Daniel Nicolae Obersterescu", email: 'dani4793@yahoo.com', move_in: Date.parse('15.09.2020'), move_out: Date.parse('30.04.2021')},
-  # {room: 'D49', name:", email: '"lance.kem.williams@gmail.com', move_in: Date.parse('01.02.2021'), move_out: Date.parse('30.04.2021')},
-  {room: 'D48', name: "Lance Williams", email: 'johannes.museller@gmail.com', move_in: Date.parse('01.02.2021'), move_out: Date.parse('30.04.2021')},
-  {room: 'D03', name: "Isabelle Philipowich", email: 'i.philipowich@outlook.de', move_in: Date.parse('15.04.2021'), move_out: Date.parse('30.04.2021')},
-  {room: 'D16', name: "Carolin Stahl", email: 'carolin.stahl@aol.de', move_in: Date.parse('04.06.2020'), move_out: Date.parse('30.04.2021')},
-  {room: 'D28', name: "Malte Schülein ", email: 'mcschuelein@gmail.com', move_in: Date.parse('01.08.2020'), move_out: Date.parse('30.04.2021')},
-  {room: 'DB02', name: "Joseph Cordonnier", email: 'joseph.cordonnier.mdg@gmail.com', move_in: Date.parse('01.05.2020'), move_out: Date.parse('30.04.2021')},
-  {room: 'EW15', name: "Imad Jawad", email: 'imad.a.jawad@gmail.com', move_in: Date.parse('01.02.2021'), move_out: Date.parse('30.04.2021')},
-  {room: 'EW10', name: "Robin Wolter", email: 'robinmwolter@gmail.com', move_in: Date.parse('01.08.2020'), move_out: Date.parse('30.04.2021')},
-  {room: 'EW17', name: "Harry Daniel Gurth Angeles", email: 'dgurth@gmail.com', move_in: Date.parse('23.01.2021'), move_out: Date.parse('30.04.2021')},
-  {room: 'D02', name: "Lam Thi Tran", email: 'icethi@live.de', move_in: Date.parse('01.03.2021'), move_out: Date.parse('30.05.2021')},
-  {room: 'D38', name: "Niraj Saoji", email: 'nirajsaoji@gmail.com', move_in: Date.parse('01.02.2021'), move_out: Date.parse('31.05.2021')},
-  {room: 'D43', name: "Katharina Beck", email: 'katharinabeck@posteo.de', move_in: Date.parse('01.02.2021'), move_out: Date.parse('31.05.2021')},
-  {room: 'D45', name: "Flora Berei-Nagy", email: 'florab@google.com', move_in: Date.parse('01.10.2020'), move_out: Date.parse('31.05.2021')},
-  {room: 'D33', name: "Tobias Heiles", email: 'contact@tobiasheiles.de', move_in: Date.parse('01.12.2020'), move_out: Date.parse('31.05.2021')},
-  {room: 'D32', name: "Khondokar Humayun Kabir", email: 'kabirag09@bau.edu.bd', move_in: Date.parse('01.03.2021'), move_out: Date.parse('31.05.2021')},
-  {room: 'EW06', name: "Gesa Franke", email: 'gesafranke@googlemail.com', move_in: Date.parse('01.02.2021'), move_out: Date.parse('31.05.2021')},
-  {room: 'EW14', name: "Tom Rose", email: 'tomrose1998@hotmail.co.uk', move_in: Date.parse('01.03.2021'), move_out: Date.parse('14.06.2021')},
-  {room: 'D22', name: "Sina Schunk", email: 'Sina.Schunk@jahr-tsv.de', move_in: Date.parse('15.11.2020'), move_out: Date.parse('30.06.2021')},
-  {room: 'D04', name: "Nadine Rinaldi", email: 'nadine.rinaldi@hotmail.ch', move_in: Date.parse('01.11.2020'), move_out: Date.parse('30.06.2021')},
-  {room: 'D46', name: "Lídia Alcolea Vallès", email: 'lidiaav20@gmail.com', move_in: Date.parse('10.02.2021'), move_out: Date.parse('30.06.2021')},
-  {room: 'D31', name: "Victoria Ruth Elisabeth Pap", email: 'victoria.lre.pap@gmail.com', move_in: Date.parse('28.02.2021'), move_out: Date.parse('30.06.2021')},
-  {room: 'DB06', name: "Stephan Hainzl", email: 'st.hainzl@utanet.at', move_in: Date.parse('01.03.2021'), move_out: Date.parse('30.06.2021')},
-  {room: 'EW04', name: "Boyan Tristan Julius Gerretzen", email: 'boyangerretzen@gmail.com', move_in: Date.parse('01.03.2021'), move_out: Date.parse('30.06.2021')},
-  {room: 'EW16', name: "Simao Barreto", email: 'simaofbarreto@gmail.com', move_in: Date.parse('01.04.2021'), move_out: Date.parse('30.06.2021')},
-  {room: 'EW08', name: "Daria Xue", email: 'dariaxue@gmail.com', move_in: Date.parse('01.09.2020'), move_out: Date.parse('14.07.2021')},
-  {room: 'EW13', name: "Nicolas Claudet", email: 'nico.claudet@icloud.com', move_in: Date.parse('01.10.2020'), move_out: Date.parse('14.07.2021')},
-  {room: 'EW17', name: "Isabelle Philipowich", email: 'i.philipowich@outlook.de', move_in: Date.parse('01.05.2021'), move_out: Date.parse('14.07.2021')},
-  {room: 'EW07', name: "Anna Loren Stuhr", email: 'annaloren.stuhr@googlemail.com', move_in: Date.parse('07.07.2020'), move_out: Date.parse('15.07.2021')},
-  {room: 'D29', name: "Vinzenz Ludwig Meineke Wiemann", email: 'vinzenz.wiemann@gmx.de', move_in: Date.parse('01.03.2021'), move_out: Date.parse('31.07.2021')},
-  {room: 'DB05', name: "Fernando Hoppen", email: 'fehoppen@hotmail.com', move_in: Date.parse('01.08.2020'), move_out: Date.parse('31.07.2021')},
-  {room: 'DB03', name: "Philipp Kramberg", email: 'philipp@kramberg.de', move_in: Date.parse('28.08.2020'), move_out: Date.parse('30.08.2021')},
-  {room: 'D54', name: "Franziska Bernerth", email: 'franzi.bernerth@online.de', move_in: Date.parse('01.06.2021'), move_out: Date.parse('31.08.2021')},
-  {room: 'D36', name: "Marvin Beulig", email: 'marvin-beulig@web.de', move_in: Date.parse('01.12.2020'), move_out: Date.parse('31.08.2021')},
-  {room: 'D06', name: "Alyssa Eybächer", email: 'alyssa.eybaecher@gmail.com', move_in: Date.parse('02.07.2020'), move_out: Date.parse('30.09.2021')},
-  {room: 'D18', name: "Anastasia Bain", email: 'afbainey@aol.com', move_in: Date.parse('01.10.2020'), move_out: Date.parse('04.10.2021')},
-  {room: 'D19', name: "Andreas Moll", email: 'andreasmoll@yahoo.com', move_in: Date.parse('15.02.2021'), move_out: Date.parse('30.11.2021')},
-  {room: 'D27', name: "Ervin Demiri ", email: 'ervin0805@gmail.com', move_in: Date.parse('01.12.2020'), move_out: Date.parse('30.11.2021')},
-  {room: 'D10', name: "Francisco Coutinho", email: 'flgpc@hotmail.com', move_in: Date.parse('01.03.2020'), move_out: Date.parse('28.02.2022')},
-  {room: 'D39', name: "Anna-Sophie Körbler", email: 'anna-sophie.koch@kochfamily.at', move_in: Date.parse('01.04.2021'), move_out: Date.parse('31.03.2022')},
-  {room: 'D26', name: "Paul Hase", email: 'hase-paul@t-online.de', move_in: Date.parse('01.04.2021'), move_out: Date.parse('31.03.2022')}
-]
 
-MULTIPLE_BOOKINGS_WITH_SAME_ATTRIBUTES = []
 
-BOOKING_WITH_ERRORS = []
+# bookings = [
+#   {room: 'D06', name: "Nicolae Puican", email: 'n.a.puican@gmail.com', move_in: Date.parse('01.09.2019'), move_out: Date.parse('30.11.2019')},
+#   {room: 'D09', name: "Sheila Grace Tan", email: 'sheilagracetan@gmail.com', move_in: Date.parse('26.07.2019'), move_out: Date.parse('25.12.2019')},
+#   {room: 'D20', name: "Matteo Angione", email: 'angionem6@gmail.com', move_in: Date.parse('03.10.2019'), move_out: Date.parse('02.01.2020')},
+#   {room: 'D18', name: "Johannes Benthaus", email: 'johannes.benthaus@gmail.com', move_in: Date.parse('04.10.2019'), move_out: Date.parse('03.01.2020')},
+#   {room: 'D19', name: "Tobias Lössl", email: 'tobiloessl@hotmail.de', move_in: Date.parse('03.10.2019'), move_out: Date.parse('05.01.2020')},
+#   {room: 'D15', name: "Ernesto Ruiz Manzano", email: 'ernesto_900_ruiz@hotmail.com', move_in: Date.parse('07.09.2019'), move_out: Date.parse('06.01.2020')},
+#   {room: 'D13', name: "Gauriesh Bindra", email: 'gaurieshbindra@gmail.com', move_in: Date.parse('02.08.2019'), move_out: Date.parse('26.01.2020')},
+#   {room: 'D14', name: "Arkaprabha Ray", email: 'arkadeep97@gmail.com', move_in: Date.parse('01.09.2019'), move_out: Date.parse('27.01.2020')},
+#   {room: 'D10', name: "Antonia Rudolf", email: 'antoniarudolf@aol.com', move_in: Date.parse('31.08.2019'), move_out: Date.parse('29.02.2020')},
+#   {room: 'D03', name: "Clarissa Leu", email: 'clacoleu@aol.com', move_in: Date.parse('05.08.2019'), move_out: Date.parse('05.03.2020')},
+#   {room: 'D02', name: "Marvin Wobbe", email: 'marvin.wobbe@gmx.de', move_in: Date.parse('24.08.2019'), move_out: Date.parse('23.03.2020')},
+#   {room: 'D22', name: "Nil Biosca Jimenez", email: 'nbiosca2q@gmail.com', move_in: Date.parse('06.11.2019'), move_out: Date.parse('31.03.2020')},
+#   {room: 'D01', name: "Anna Weirauch", email: 'team@stacey-living.de', move_in: Date.parse('01.10.2019'), move_out: Date.parse('31.03.2020')},
+#   {room: 'D23', name: "Angelo Arceri", email: 'angeloarceri@live.it', move_in: Date.parse('03.10.2019'), move_out: Date.parse('02.04.2020')},
+#   {room: 'D17', name: "Andrea Cianfarani", email: 'andrea.cianfarani@hotmail.com', move_in: Date.parse('04.10.2019'), move_out: Date.parse('03.04.2020')},
+#   {room: 'DB05', name: "Alvaro Sanz García 'Sintas", move_in: Date.parse('23.03.2020'), move_out: Date.parse('30.04.2020')},
+#   {room: 'D14', name: "Anastasia Krieg", email: 'anastasia.krieg@t-online.de', move_in: Date.parse('02.02.2020'), move_out: Date.parse('01.05.2020')},
+#   {room: 'D05', name: "Rene Navrkal", email: 'renenavrkal@gmail.com', move_in: Date.parse('31.08.2019'), move_out: Date.parse('05.05.2020')},
+#   {room: 'D19', name: "Pierre Guillaume", email: 'pierre.g.27@live.fr', move_in: Date.parse('06.01.2020'), move_out: Date.parse('16.05.2020')},
+#   {room: 'DB04', name: "Amelie Hartig", email: 'amelie.hartig@hotmail.de', move_in: Date.parse('29.02.2020'), move_out: Date.parse('30.05.2020')},
+#   {room: 'D06', name: "Christian Ritterbach", email: 'ch.ritterbach@t-online.de', move_in: Date.parse('01.12.2019'), move_out: Date.parse('31.05.2020')},
+#   {room: 'D16', name: "Kyley Rosser", email: 'kyleyrosser99@gmail.com', move_in: Date.parse('07.10.2019'), move_out: Date.parse('06.06.2020')},
+#   {room: 'DB02', name: "Maria de los Santos Fernandez Romero", email: 'msfdezr@gmail.com', move_in: Date.parse('09.03.2020'), move_out: Date.parse('08.06.2020')},
+#   {room: 'D21', name: "David Höhl", email: 'david.hoehl@aol.com', move_in: Date.parse('04.11.2019'), move_out: Date.parse('30.06.2020')},
+#   {room: 'DB07', name: "Rene Navrkal", email: 'renenavrkal@gmail.com', move_in: Date.parse('06.05.2020'), move_out: Date.parse('30.06.2020')},
+#   {room: 'D18', name: "Vanessa Elana Kröger", email: 'miss.kroeger@web.de', move_in: Date.parse('04.01.2020'), move_out: Date.parse('04.07.2020')},
+#   {room: 'DB02', name: "Melina Badde", email: 'melina.badde@whu.edu', move_in: Date.parse('10.06.2020'), move_out: Date.parse('05.07.2020')},
+#   {room: 'D20', name: "Joachim Bizot", email: 'joachim.bizot@outlook.fr', move_in: Date.parse('07.01.2020'), move_out: Date.parse('06.07.2020')},
+#   {room: 'D03', name: "Anatasia Nefed", email: 'anastasianefed@gmail.com', move_in: Date.parse('14.03.2020'), move_out: Date.parse('13.07.2020')},
+#   {room: 'D23', name: "Riekje Cordes", email: 'riekje.cordes@gmx.de', move_in: Date.parse('03.04.2020'), move_out: Date.parse('31.07.2020')},
+#   {room: 'DB03', name: "Diego Fernando Gomez", email: 'df.gomezf@gmail.com', move_in: Date.parse('01.05.2020'), move_out: Date.parse('31.07.2020')},
+#   {room: 'D17', name: "Charles Herbert", email: 'c.herbert04@gmail.com', move_in: Date.parse('03.04.2020'), move_out: Date.parse('21.08.2020')},
+#   {room: 'D05', name: "Mark Veldkamp", email: 'mark_veldkamp@hotmail.nl', move_in: Date.parse('15.05.2020'), move_out: Date.parse('23.08.2020')},
+#   {room: 'D21', name: "Shubham Sharma", email: 'sharmashubham10@gmail.com', move_in: Date.parse('29.06.2020'), move_out: Date.parse('28.08.2020')},
+#   {room: 'D23', name: "Bernardo San Juan", email: 'bsanjuan.consulting@googlemail.com', move_in: Date.parse('01.08.2020'), move_out: Date.parse('31.08.2020')},
+#   {room: 'D15', name: "Gino Lodola", email: 'gino.lodola@hotmail.com', move_in: Date.parse('30.12.2019'), move_out: Date.parse('31.08.2020')},
+#   {room: 'D05', name: "Francesco Lo Piccolo", email: 'frlpiccolo@gmail.com', move_in: Date.parse('26.08.2020'), move_out: Date.parse('31.08.2020')},
+#   {room: 'D08', name: "Julian Müller", email: 'jn.f.mueller@gmail.com', move_in: Date.parse('01.09.2019'), move_out: Date.parse('31.08.2020')},
+#   {room: 'EW08', name: "Rene Navrkal", email: 'renenavrkal@gmail.com', move_in: Date.parse('01.07.2020'), move_out: Date.parse('31.08.2020')},
+#   {room: 'D01', name: "Carolin Helena Klaus", email: 'carolin_klaus@outlook.de', move_in: Date.parse('31.03.2020'), move_out: Date.parse('01.09.2020')},
+#   {room: 'D25', name: "Ferris Dalle-Grave ", email: 'b.dalle-grave@rieckermann.com', move_in: Date.parse('05.06.2020'), move_out: Date.parse('04.09.2020')},
+#   # {room: 'D07', name: "Cristian Obersterescu", email: 'cristian.obersterescu@gmail.com', move_in: Date.parse('31.07.2019'), move_out: Date.parse('14.09.2020')},
+#   {room: 'EW04', name: "Jan Niclas Lietzow", email: 'niclas.lietzow@outlook.com', move_in: Date.parse('14.06.2020'), move_out: Date.parse('16.09.2020')},
+#   {room: 'D11', name: "Dominik Moskalik", email: 'dmoskalik@web.de', move_in: Date.parse('31.08.2019'), move_out: Date.parse('30.09.2020')},
+#   {room: 'D05', name: "Amelie Lessmann", email: 'amelielessmann26@gmail.com', move_in: Date.parse('01.09.2020'), move_out: Date.parse('30.09.2020')},
+#   {room: 'D09', name: "Candido Castillo", email: 'candidodomingocastillo@gmail.com', move_in: Date.parse('04.10.2019'), move_out: Date.parse('30.09.2020')},
+#   {room: 'D18', name: "Melina Badde", email: 'melina.badde@whu.edu', move_in: Date.parse('10.06.2020'), move_out: Date.parse('30.09.2020')},
+#   {room: 'D26', name: "Marcel Franke", email: 'marcel.edmund.franke@gmail.com', move_in: Date.parse('01.06.2020'), move_out: Date.parse('30.09.2020')},
+#   {room: 'EW01', name: "Alexandra Martitz", email: 'alexandra.martitz@online.de', move_in: Date.parse('15.06.2020'), move_out: Date.parse('03.10.2020')},
+#   {room: 'EW06', name: "Lara Wellner", email: 'lara.wellner@gmail.com', move_in: Date.parse('11.07.2020'), move_out: Date.parse('11.10.2020')},
+#   {room: 'D23', name: "Francesco Lo Piccolo", email: 'frlpiccolo@gmail.com', move_in: Date.parse('01.09.2020'), move_out: Date.parse('14.10.2020')},
+#   {room: 'D14', name: "Sophia Schembecker", email: 'sophiaschembecker@web.de', move_in: Date.parse('01.05.2020'), move_out: Date.parse('14.10.2020')},
+#   {room: 'D20', name: "Nikolai Siekmann", email: 'nikolai.siekmann@gmail.com', move_in: Date.parse('01.07.2020'), move_out: Date.parse('14.10.2020')},
+#   {room: 'EW11', name: "Leopold Harro Gottfried von Frenckell", email: 'leopoldvf@icloud.com', move_in: Date.parse('01.08.2020'), move_out: Date.parse('14.10.2020')},
+#   {room: 'D29', name: "Jan-Rasmus Kässens", email: 'jr.kaessens@gmx.de', move_in: Date.parse('20.07.2020'), move_out: Date.parse('19.10.2020')},
+#   {room: 'EW16', name: "Wanjiru Chabeda", email: 'wanjiru.chabeda@gmail.com', move_in: Date.parse('15.10.2020'), move_out: Date.parse('19.10.2020')},
+#   {room: 'EW02', name: "Olina Karlsdottir", email: 'olina.ann@hotmail.com', move_in: Date.parse('11.06.2020'), move_out: Date.parse('24.10.2020')},
+#   {room: 'D04', name: "Melanie Schaub", email: 'schaub.melanie@gmail.com', move_in: Date.parse('28.07.2019'), move_out: Date.parse('28.10.2020')},
+#   {room: 'DB06', name: "Mehdi Dhifallah", email: 'mehdidhifallah2789@gmail.com', move_in: Date.parse('22.03.2020'), move_out: Date.parse('30.10.2020')},
+#   {room: 'D14', name: "Deniss Butajevs", email: 'deniss.butajevs@gmail.com', move_in: Date.parse('22.10.2020'), move_out: Date.parse('31.10.2020')},
+#   {room: 'D08', name: "Bernardo San Juan", email: 'bsanjuan.consulting@googlemail.com', move_in: Date.parse('01.09.2020'), move_out: Date.parse('31.10.2020')},
+#   {room: 'EW03', name: "Corinna Thölke", email: 'corinna.thoelke@gmail.com', move_in: Date.parse('13.06.2020'), move_out: Date.parse('31.10.2020')},
+#   {room: 'D22', name: "Sai Jagtap", email: 'mesaee@gmail.com', move_in: Date.parse('18.04.2020'), move_out: Date.parse('14.11.2020')},
+#   {room: 'D23', name: "Nick Finckenstein", email: 'nfinckenstein@gmail.com', move_in: Date.parse('15.10.2020'), move_out: Date.parse('16.11.2020')},
+#   {room: 'D24', name: "Victoria Areli Bracamontes Vazquez", email: 'vbracamontes.bss@gmail.com', move_in: Date.parse('04.11.2019'), move_out: Date.parse('30.11.2020')},
+#   {room: 'D15', name: "Simon Hoese", email: 'simonhoese@gmx.de', move_in: Date.parse('01.09.2020'), move_out: Date.parse('30.11.2020')},
+#   {room: 'D17', name: "Philip Pineda", email: 'pipopin@gmail.com', move_in: Date.parse('22.08.2020'), move_out: Date.parse('30.11.2020')},
+#   {room: 'D21', name: "Victor Haas", email: 'victor.haas67@gmail.com', move_in: Date.parse('29.08.2020'), move_out: Date.parse('30.11.2020')},
+#   {room: 'D27', name: "Pohl Timotheus ", email: 'timotheus.pohlt5@gmail.com', move_in: Date.parse('27.07.2020'), move_out: Date.parse('30.11.2020')},
+#   {room: 'D33', name: "Eva-Maria Phieler", email: 'evamariaphieler@gmail.com', move_in: Date.parse('01.08.2020'), move_out: Date.parse('30.11.2020')},
+#   {room: 'D31', name: "Cecan Cakar", email: 'cecan1@web.de', move_in: Date.parse('22.08.2020'), move_out: Date.parse('30.11.2020')},
+#   {room: 'D36', name: "Daniel Ammann", email: 'daniel.j.ammann@gmail.com', move_in: Date.parse('31.08.2020'), move_out: Date.parse('30.11.2020')},
+#   {room: 'EW03', name: "Lawal Bakere", email: 'lawal.bakare@gmail.com', move_in: Date.parse('04.11.2020'), move_out: Date.parse('30.11.2020')},
+#   {room: 'D39', name: "Simao Bareto", email: 'simaofbarreto@gmail.com', move_in: Date.parse('15.09.2020'), move_out: Date.parse('14.12.2020')},
+#   # {room:", email: 'D50', name: ',"move_in:' Date.parse('15.12.2020'), move_out: Date.parse('14.12.2020')},
+#   {room: 'D01', name: "Lina Drozd", email: 'linadrozd5@gmail.com', move_in: Date.parse('02.09.2020'), move_out: Date.parse('14.12.2020')},
+#   {room: 'D13', name: "Javier Randez Garbayo", email: 'javier_93_rg@hotmail.com', move_in: Date.parse('27.01.2020'), move_out: Date.parse('31.12.2020')},
+#   {room: 'D44', name: "Helena Correia", email: 'helenac.housing1@gmail.com', move_in: Date.parse('01.10.2020'), move_out: Date.parse('01.01.2021')},
+#   {room: 'D14', name: "Niklas Tausend", email: 'niklas.tausend1000@gmail.com', move_in: Date.parse('01.11.2020'), move_out: Date.parse('05.01.2021')},
+#   {room: 'D42', name: "Chloe Bernard", email: 'chloe.bernard8@gmail.com', move_in: Date.parse('01.10.2020'), move_out: Date.parse('05.01.2021')},
+#   {room: 'D35', name: "Charlotte Droste", email: 'charlotte.antonia.droste@gmail.com', move_in: Date.parse('01.09.2020'), move_out: Date.parse('05.01.2021')},
+#   {room: 'DB07', name: "Laura Dell'Antonio", email: 'laura@dellantonio.de', move_in: Date.parse('15.09.2020'), move_out: Date.parse('05.01.2021')},
+#   {room: 'EW15', name: "Francesca Solagna", email: 'f.solagna@uke.de', move_in: Date.parse('21.09.2020'), move_out: Date.parse('05.01.2021')},
+#   {room: 'D38', name: "Theo Pernot", email: 'pernot.theo@outlook.fr', move_in: Date.parse('01.10.2020'), move_out: Date.parse('14.01.2021')},
+#   {room: 'D46', name: "Henrike Wörmer", email: 'henrike.woermer@gmail.com', move_in: Date.parse('01.10.2020'), move_out: Date.parse('14.01.2021')},
+#   # {room:", email: 'D51', name: ',"move_in:' Date.parse('15.01.2021'), move_out: Date.parse('14.01.2021')},
+#   {room: 'EW06', name: "Moritz Stephan", email: 'moritz.stephan@outlook.de', move_in: Date.parse('12.10.2020'), move_out: Date.parse('14.01.2021')},
+#   {room: 'EW12', name: "Jan Dobinsky", email: 'jan.dobinsky@gmail.com', move_in: Date.parse('01.10.2020'), move_out: Date.parse('14.01.2021')},
+#   {room: 'D37', name: "Emili Läte", email: 'emililte@gmail.com', move_in: Date.parse('01.10.2020'), move_out: Date.parse('31.01.2021')},
+#   {room: 'D43', name: "Deniz Aksoy", email: 'd.aksoy@gmx.net', move_in: Date.parse('01.10.2020'), move_out: Date.parse('31.01.2021')},
+#   # {room:", email: 'D53', name: ',"move_in:' Date.parse('01.02.2021'), move_out: Date.parse('31.01.2021')},
+#   {room: 'D09', name: "Laura Ladefoged", email: 'lauraladefoged01@gmail.com', move_in: Date.parse('01.10.2020'), move_out: Date.parse('31.01.2021')},
+#   {room: 'D03', name: "Lance Williams", email: 'lance.kem.williams@gmail.com', move_in: Date.parse('29.07.2020'), move_out: Date.parse('31.01.2021')},
+#   {room: 'D19', name: "Ivonne Greulich", email: 'ivonnegreulich@gmail.com', move_in: Date.parse('01.05.2020'), move_out: Date.parse('31.01.2021')},
+#   {room: 'D25', name: "Tieme Schardam ", email: 'schardamtieme@gmail.com', move_in: Date.parse('04.09.2020'), move_out: Date.parse('31.01.2021')},
+#   {room: 'DB01', name: "Sara Isla Cainzos", email: 'saraislac@gmail.com', move_in: Date.parse('29.02.2020'), move_out: Date.parse('31.01.2021')},
+#   {room: 'DB06', name: "Chirag Ahuja", email: 'chiragvit@gmail.com', move_in: Date.parse('01.11.2020'), move_out: Date.parse('31.01.2021')},
+#   {room: 'EW02', name: "Nils Erikson", email: 'nils_erikson@hotmail.com', move_in: Date.parse('26.10.2020'), move_out: Date.parse('31.01.2021')},
+#   {room: 'EW09', name: "Antonia Zeilinger", email: 'antonia_zeilinger@hotmail.com', move_in: Date.parse('01.08.2020'), move_out: Date.parse('31.01.2021')},
+#   {room: 'EW17', name: "Gesa Franke", email: 'gesafranke@googlemail.com', move_in: Date.parse('15.11.2020'), move_out: Date.parse('31.01.2021')},
+#   {room: 'D05', name: "Saad El Hajjaji", email: 'saadelha@gmail.com', move_in: Date.parse('14.09.2020'), move_out: Date.parse('03.02.2021')},
+#   {room: 'D15', name: "Lawal Bakare", email: 'lawal.bakare@gmail.com', move_in: Date.parse('01.12.2020'), move_out: Date.parse('14.02.2021')},
+#   {room: 'EW18', name: "Nick Finckenstein", email: 'nfinckenstein@gmail.com', move_in: Date.parse('17.11.2020'), move_out: Date.parse('14.02.2021')},
+#   {room: 'D12', name: "Christoph Häberlin", email: 'christoph.haeberlin@gmail.com', move_in: Date.parse('27.07.2019'), move_out: Date.parse('28.02.2021')},
+#   {room: 'D02', name: "Andreas Janz", email: 'andreas.janz@gmail.com', move_in: Date.parse('24.03.2020'), move_out: Date.parse('28.02.2021')},
+#   {room: 'D32', name: "Maximilian Busch", email: 'mpbusch01@gmail.com', move_in: Date.parse('01.08.2020'), move_out: Date.parse('28.02.2021')},
+#   {room: 'D29', name: "Johanna Launer", email: 'JLauner@web.de', move_in: Date.parse('20.10.2020'), move_out: Date.parse('28.02.2021')},
+#   {room: 'EW14', name: "Emma Widmer", email: 'emma.widmer@uzh.ch', move_in: Date.parse('01.10.2020'), move_out: Date.parse('28.02.2021')},
+#   {room: 'EW01', name: "Kateryna Dib", email: 'kateryna.dib@gmail.com', move_in: Date.parse('04.10.2020'), move_out: Date.parse('28.02.2021')},
+#   {room: 'EW04', name: "Tom Rose", email: 'tomrose1998@hotmail.co.uk', move_in: Date.parse('17.09.2020'), move_out: Date.parse('28.02.2021')},
+#   {room: 'EW02', name: "Boyan Tristan Julius Gerretzen", email: 'boyangerretzen@gmail.com', move_in: Date.parse('01.02.2021'), move_out: Date.parse('28.02.2021')},
+#   {room: 'EW11', name: "Anca Anitoaia       ", email: 'anca.anitoaia@gmail.com', move_in: Date.parse('15.10.2020'), move_out: Date.parse('28.02.2021')},
+#   {room: 'D08', name: "Yael Nakash", email: 'baseggioarts@gmail.com', move_in: Date.parse('06.11.2020'), move_out: Date.parse('14.03.2021')},
+#   {room: 'EW03', name: "Diego Fernando Gomez", email: 'df.gomezf@gmail.com', move_in: Date.parse('07.12.2020'), move_out: Date.parse('14.03.2021')},
+#   {room: 'D39', name: "Helena Correia", email: 'helenac.housing1@gmail.com', move_in: Date.parse('01.01.2021'), move_out: Date.parse('31.03.2021')},
+#   {room: 'D41', name: "Natalia Monroy", email: 'tatala07@hotmail.com', move_in: Date.parse('01.10.2020'), move_out: Date.parse('31.03.2021')},
+#   {room: 'D17', name: "Jakob Oskar Daniel Woll", email: 'jakobwoll13@gmail.com', move_in: Date.parse('30.12.2020'), move_out: Date.parse('31.03.2021')},
+#   {room: 'D20', name: "Ann-Katrin Vonnahme", email: 'ann-katrin@vonnahme.com', move_in: Date.parse('15.10.2020'), move_out: Date.parse('31.03.2021')},
+#   {room: 'D26', name: "Michael Klein", email: 'michael.klein.contact@gmail.com', move_in: Date.parse('01.10.2020'), move_out: Date.parse('31.03.2021')},
+#   {room: 'D30', name: "Felix Chemnitzer", email: 'f.chemnitzer@gmail.com', move_in: Date.parse('27.06.2020'), move_out: Date.parse('31.03.2021')},
+#   {room: 'D34', name: "Elizabeth Lee", email: 'eliz.y.lee@gmail.com', move_in: Date.parse('22.08.2020'), move_out: Date.parse('31.03.2021')},
+#   {room: 'DB04', name: "Alvaro Sanz García Sintas", email: 'alvarosanz_8@hotmail.com', move_in: Date.parse('23.03.2020'), move_out: Date.parse('31.03.2021')},
+#   {room: 'EW05', name: "Katrin van Asten", email: 'kat.vanasten@gmail.com', move_in: Date.parse('01.07.2020'), move_out: Date.parse('31.03.2021')},
+#   {room: 'EW16', name: "Marius Holle", email: 'marius.holle@icloud.com', move_in: Date.parse('21.12.2020'), move_out: Date.parse('31.03.2021')},
+#   {room: 'D13', name: "Niklas Tausend", email: 'niklas.tausend1000@gmail.com', move_in: Date.parse('05.11.2020'), move_out: Date.parse('14.04.2021')},
+#   {room: 'D14', name: "Alexandra Gedert", email: 'gedertalex@gmail.com', move_in: Date.parse('06.01.2021'), move_out: Date.parse('14.04.2021')},
+#   {room: 'D47', name: "Chloe Bernard", email: 'chloe.bernard8@gmail.com', move_in: Date.parse('06.01.2021'), move_out: Date.parse('14.04.2021')},
+#   {room: 'D03', name: "Saad El Hajjaji", email: 'saadelha@gmail.com', move_in: Date.parse('04.02.2021'), move_out: Date.parse('14.04.2021')},
+#   {room: 'DB07', name: "Tristan Heermann", email: 't.heermann92@gmail.com', move_in: Date.parse('08.01.2021'), move_out: Date.parse('14.04.2021')},
+#   {room: 'EW12', name: "Olina Karlsdottir", email: 'olina.ann@hotmail.com', move_in: Date.parse('15.01.2021'), move_out: Date.parse('14.04.2021')},
+#   {room: 'D24', name: "Paul Bruckner", email: 'bruckner.paul@web.de', move_in: Date.parse('30.01.2021'), move_out: Date.parse('30.04.2021')},
+#   {room: 'D11', name: "Jonas Simonsen", email: 'simonsenjonas@aol.de', move_in: Date.parse('01.10.2020'), move_out: Date.parse('30.04.2021')},
+#   {room: 'D07', name: "Daniel Nicolae Obersterescu", email: 'dani4793@yahoo.com', move_in: Date.parse('15.09.2020'), move_out: Date.parse('30.04.2021')},
+#   # {room: 'D49', name:", email: '"lance.kem.williams@gmail.com', move_in: Date.parse('01.02.2021'), move_out: Date.parse('30.04.2021')},
+#   {room: 'D48', name: "Lance Williams", email: 'johannes.museller@gmail.com', move_in: Date.parse('01.02.2021'), move_out: Date.parse('30.04.2021')},
+#   {room: 'D03', name: "Isabelle Philipowich", email: 'i.philipowich@outlook.de', move_in: Date.parse('15.04.2021'), move_out: Date.parse('30.04.2021')},
+#   {room: 'D16', name: "Carolin Stahl", email: 'carolin.stahl@aol.de', move_in: Date.parse('04.06.2020'), move_out: Date.parse('30.04.2021')},
+#   {room: 'D28', name: "Malte Schülein ", email: 'mcschuelein@gmail.com', move_in: Date.parse('01.08.2020'), move_out: Date.parse('30.04.2021')},
+#   {room: 'DB02', name: "Joseph Cordonnier", email: 'joseph.cordonnier.mdg@gmail.com', move_in: Date.parse('01.05.2020'), move_out: Date.parse('30.04.2021')},
+#   {room: 'EW15', name: "Imad Jawad", email: 'imad.a.jawad@gmail.com', move_in: Date.parse('01.02.2021'), move_out: Date.parse('30.04.2021')},
+#   {room: 'EW10', name: "Robin Wolter", email: 'robinmwolter@gmail.com', move_in: Date.parse('01.08.2020'), move_out: Date.parse('30.04.2021')},
+#   {room: 'EW17', name: "Harry Daniel Gurth Angeles", email: 'dgurth@gmail.com', move_in: Date.parse('23.01.2021'), move_out: Date.parse('30.04.2021')},
+#   {room: 'D02', name: "Lam Thi Tran", email: 'icethi@live.de', move_in: Date.parse('01.03.2021'), move_out: Date.parse('30.05.2021')},
+#   {room: 'D38', name: "Niraj Saoji", email: 'nirajsaoji@gmail.com', move_in: Date.parse('01.02.2021'), move_out: Date.parse('31.05.2021')},
+#   {room: 'D43', name: "Katharina Beck", email: 'katharinabeck@posteo.de', move_in: Date.parse('01.02.2021'), move_out: Date.parse('31.05.2021')},
+#   {room: 'D45', name: "Flora Berei-Nagy", email: 'florab@google.com', move_in: Date.parse('01.10.2020'), move_out: Date.parse('31.05.2021')},
+#   {room: 'D33', name: "Tobias Heiles", email: 'contact@tobiasheiles.de', move_in: Date.parse('01.12.2020'), move_out: Date.parse('31.05.2021')},
+#   {room: 'D32', name: "Khondokar Humayun Kabir", email: 'kabirag09@bau.edu.bd', move_in: Date.parse('01.03.2021'), move_out: Date.parse('31.05.2021')},
+#   {room: 'EW06', name: "Gesa Franke", email: 'gesafranke@googlemail.com', move_in: Date.parse('01.02.2021'), move_out: Date.parse('31.05.2021')},
+#   {room: 'EW14', name: "Tom Rose", email: 'tomrose1998@hotmail.co.uk', move_in: Date.parse('01.03.2021'), move_out: Date.parse('14.06.2021')},
+#   {room: 'D22', name: "Sina Schunk", email: 'Sina.Schunk@jahr-tsv.de', move_in: Date.parse('15.11.2020'), move_out: Date.parse('30.06.2021')},
+#   {room: 'D04', name: "Nadine Rinaldi", email: 'nadine.rinaldi@hotmail.ch', move_in: Date.parse('01.11.2020'), move_out: Date.parse('30.06.2021')},
+#   {room: 'D46', name: "Lídia Alcolea Vallès", email: 'lidiaav20@gmail.com', move_in: Date.parse('10.02.2021'), move_out: Date.parse('30.06.2021')},
+#   {room: 'D31', name: "Victoria Ruth Elisabeth Pap", email: 'victoria.lre.pap@gmail.com', move_in: Date.parse('28.02.2021'), move_out: Date.parse('30.06.2021')},
+#   {room: 'DB06', name: "Stephan Hainzl", email: 'st.hainzl@utanet.at', move_in: Date.parse('01.03.2021'), move_out: Date.parse('30.06.2021')},
+#   {room: 'EW04', name: "Boyan Tristan Julius Gerretzen", email: 'boyangerretzen@gmail.com', move_in: Date.parse('01.03.2021'), move_out: Date.parse('30.06.2021')},
+#   {room: 'EW16', name: "Simao Barreto", email: 'simaofbarreto@gmail.com', move_in: Date.parse('01.04.2021'), move_out: Date.parse('30.06.2021')},
+#   {room: 'EW08', name: "Daria Xue", email: 'dariaxue@gmail.com', move_in: Date.parse('01.09.2020'), move_out: Date.parse('14.07.2021')},
+#   {room: 'EW13', name: "Nicolas Claudet", email: 'nico.claudet@icloud.com', move_in: Date.parse('01.10.2020'), move_out: Date.parse('14.07.2021')},
+#   {room: 'EW17', name: "Isabelle Philipowich", email: 'i.philipowich@outlook.de', move_in: Date.parse('01.05.2021'), move_out: Date.parse('14.07.2021')},
+#   {room: 'EW07', name: "Anna Loren Stuhr", email: 'annaloren.stuhr@googlemail.com', move_in: Date.parse('07.07.2020'), move_out: Date.parse('15.07.2021')},
+#   {room: 'D29', name: "Vinzenz Ludwig Meineke Wiemann", email: 'vinzenz.wiemann@gmx.de', move_in: Date.parse('01.03.2021'), move_out: Date.parse('31.07.2021')},
+#   {room: 'DB05', name: "Fernando Hoppen", email: 'fehoppen@hotmail.com', move_in: Date.parse('01.08.2020'), move_out: Date.parse('31.07.2021')},
+#   {room: 'DB03', name: "Philipp Kramberg", email: 'philipp@kramberg.de', move_in: Date.parse('28.08.2020'), move_out: Date.parse('30.08.2021')},
+#   {room: 'D54', name: "Franziska Bernerth", email: 'franzi.bernerth@online.de', move_in: Date.parse('01.06.2021'), move_out: Date.parse('31.08.2021')},
+#   {room: 'D36', name: "Marvin Beulig", email: 'marvin-beulig@web.de', move_in: Date.parse('01.12.2020'), move_out: Date.parse('31.08.2021')},
+#   {room: 'D06', name: "Alyssa Eybächer", email: 'alyssa.eybaecher@gmail.com', move_in: Date.parse('02.07.2020'), move_out: Date.parse('30.09.2021')},
+#   {room: 'D18', name: "Anastasia Bain", email: 'afbainey@aol.com', move_in: Date.parse('01.10.2020'), move_out: Date.parse('04.10.2021')},
+#   {room: 'D19', name: "Andreas Moll", email: 'andreasmoll@yahoo.com', move_in: Date.parse('15.02.2021'), move_out: Date.parse('30.11.2021')},
+#   {room: 'D27', name: "Ervin Demiri ", email: 'ervin0805@gmail.com', move_in: Date.parse('01.12.2020'), move_out: Date.parse('30.11.2021')},
+#   {room: 'D10', name: "Francisco Coutinho", email: 'flgpc@hotmail.com', move_in: Date.parse('01.03.2020'), move_out: Date.parse('28.02.2022')},
+#   {room: 'D39', name: "Anna-Sophie Körbler", email: 'anna-sophie.koch@kochfamily.at', move_in: Date.parse('01.04.2021'), move_out: Date.parse('31.03.2022')},
+#   {room: 'D26', name: "Paul Hase", email: 'hase-paul@t-online.de', move_in: Date.parse('01.04.2021'), move_out: Date.parse('31.03.2022')}
+# ]
 
-bookings.each do |booking|
-  user = User.select{|u| u.email == booking[:email] || u.full_name == booking[:name]}
-  user = user.count > 1 ? user.select{|u| u.email == booking[:email]}.first : user.first
-  booking[:errors] = []
-  unless user.present?
-    booking[:errors] << 'user not found'
-    BOOKING_WITH_ERRORS << booking
-    next
-  end
+# MULTIPLE_BOOKINGS_WITH_SAME_ATTRIBUTES = []
 
-  user_bookings = user.bookings.where(state: 'booked')
-  correct_booking = user_bookings.select{|b| b.move_in == booking[:move_in] || b.move_out == booking[:move_out] || b.room.intern_number == booking[:room]}
-  if correct_booking.count > 1
-    MULTIPLE_BOOKINGS_WITH_SAME_ATTRIBUTES << correct_booking
-  else
-    correct_booking = correct_booking.first
-    if correct_booking.present?
-      booking[:errors] << 'move_in different' if correct_booking.move_in != booking[:move_in]
-      booking[:errors] << 'move_out different' if correct_booking.move_out != booking[:move_out]
-      booking[:errors] << 'room different' if correct_booking.room.intern_number != booking[:room]
-    else
-      booking[:errors] << 'not found'
-    end
-  end
-  BOOKING_WITH_ERRORS << booking
-end
+# BOOKING_WITH_ERRORS = []
+
+# bookings.each do |booking|
+#   user = User.select{|u| u.email == booking[:email] || u.full_name == booking[:name]}
+#   user = user.count > 1 ? user.select{|u| u.email == booking[:email]}.first : user.first
+#   booking[:errors] = []
+#   unless user.present?
+#     booking[:errors] << 'user not found'
+#     BOOKING_WITH_ERRORS << booking
+#     next
+#   end
+
+#   user_bookings = user.bookings.where(state: 'booked')
+#   correct_booking = user_bookings.select{|b| b.move_in == booking[:move_in] || b.move_out == booking[:move_out] || b.room.intern_number == booking[:room]}
+#   if correct_booking.count > 1
+#     MULTIPLE_BOOKINGS_WITH_SAME_ATTRIBUTES << correct_booking
+#   else
+#     correct_booking = correct_booking.first
+#     if correct_booking.present?
+#       booking[:errors] << 'move_in different' if correct_booking.move_in != booking[:move_in]
+#       booking[:errors] << 'move_out different' if correct_booking.move_out != booking[:move_out]
+#       booking[:errors] << 'room different' if correct_booking.room.intern_number != booking[:room]
+#     else
+#       booking[:errors] << 'not found'
+#     end
+#   end
+#   BOOKING_WITH_ERRORS << booking
+# end
 
 

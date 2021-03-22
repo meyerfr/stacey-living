@@ -68,7 +68,6 @@ class App extends Component {
   }
 
   handleResponse = (data) => {
-    console.log(data)
     this.setState({
       // move_in: application_data.move_in,
       // move_out: application_data.move_out,

@@ -1,7 +1,6 @@
 class ApplicationsController < ActionController::Base
-  layout 'overview'
+  layout 'bookingprocess'
 
   def new
-
   end
 end

@@ -178,8 +178,8 @@
       flex-direction: column;
       height: 95%;
       align-self: center;
-      position: absolute;
-      right: 0;
+      // position: absolute;
+      // right: 0;
       width: 45vw;
       grid-template-rows: min-content min-content;
       h3.step-header{
@@ -459,14 +459,105 @@
 }
 
 
-.slide-enter, .slide-appear{
-  opacity:0;
-  transform: translateX(100%);
-  &.left{
-    transform: translateX(-100%)
-  }
+// .next.fade-enter{
+//    opacity: 0;
+//    transform: translateX(100%);
+// }
+// .next.fade-exit{
+//    opacity: 1;
+// }
+// .next.fade-enter-active{
+//   transform: translateX(100%);
+//   opacity: 0;
+//   transition: transform 1000ms, opacity 1000ms;
+// }
+// .next.fade-enter-done{
+//   transform: translateX(0);
+//   opacity: 1;
+//   transition: transform 1000ms, opacity 1000ms;
+// }
+// .next.fade-exit{
+//   transform: translateX(0);
+//   opacity:1;
+// }
+// .next.fade-exit-active{
+//    opacity: 0;
+// }
+// .next.fade-exit-done,
+// .next.fade-exit-active{
+//   transform: translateX(-100%);
+//   opacity: 0;
+//   transition: transform 1000ms, opacity 1000ms;
+// }
+
+
+// .next.fade-enter, .next.fade-appear{
+//   opacity:0;
+//   transform: translateX(100%);
+//   &.left{
+//     transform: translateX(-100%)
+//   }
+// }
+
+.next.fade-enter-active, .next.fade-appear-active{
+  transform: translateX(60%);
+  opacity: 0;
+  transition: height .5s, transform .2s, opacity .5s;
 }
 
+.next.fade-enter-done, .next.fade-appear-done{
+  transform: translateX(0);
+  opacity: 1;
+  transition: height .5s, transform .5s, opacity .5s;
+}
+
+.next.fade-exit{
+  transform: translateX(0);
+  opacity:1;
+}
+
+.next.fade-exit-active{
+  transform: translateX(-100%);
+  opacity: 0;
+  transition: height .5s, transform .5s, opacity .5s;
+}
+
+.next.fade-exit-done{
+  transform: translateX(-100%);
+  opacity: 0;
+  transition: height .5s, transform .5s, opacity .5s;
+}
+//
+
+.prev.fade-enter-active, .prev.fade-appear-active{
+  transform: translateX(-100%);
+  opacity: 0;
+  transition: transform .5s, opacity .5s;
+}
+
+.prev.fade-enter-done, .prev.fade-appear-done{
+  transform: translateX(0);
+  opacity: 1;
+  transition: transform .5s, opacity .5s;
+}
+
+.prev.fade-exit{
+  transform: translateX(0);
+  opacity:1;
+}
+
+.prev.fade-exit-active{
+  transform: translateX(100%);
+  opacity: 0;
+  transition: transform .5s, opacity .5s;
+}
+
+.prev.fade-exit-done{
+  transform: translateX(100%);
+  opacity: 0;
+  transition: transform .5s, opacity .5s;
+}
+//
 
 .slide-enter-active, .slide-appear-active{
   transform: translateX(100%);

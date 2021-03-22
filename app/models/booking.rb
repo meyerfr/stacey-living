@@ -1,4 +1,6 @@
 class Booking < ApplicationRecord
+  # after_save :send_mail_on_state_change
+
   cattr_accessor :form_steps do
     %w(apply projects rooms room contract_new contract payment success)
   end
@@ -11,7 +13,40 @@ class Booking < ApplicationRecord
   belongs_to :price, optional: true
   has_one :roomtype, through: :room, required: false
   has_one :project, through: :room, required: false
-  has_one :contract, required: false
+  has_one :contract, required: false, dependent: :destroy
+
+  accepts_nested_attributes_for :contract, allow_destroy: true
+
+  def send_mail_on_state_change
+    return unless self.state_changed?
+    case(self.state)
+    when 'deposit outstanding'
+      BookingMailer.booking_process_completed(booking)
+      stage_id = 14
+    when 'booked'
+      BookingMailer.deposit_received(booking)
+      booking.user.update(role: 'tenant')
+      stage_id = 15
+    when 'cancel'
+      BookingMailer.deposit_not_received(booking)
+      # stage_id =
+    end
+    self.change_pipedrive_stage(stage_id) if stage_id
+  end
+
+  def change_pipedrive_stage(stage_id)
+    RestClient.put(
+      self.pipedrive_api_url("deals/#{booking.pipedrive_deal_id}"),
+      {
+        "stage_id": stage_id,
+      }.to_json,
+      {content_type: :json, accept: :json}
+    )
+  end
+
+  def pipedrive_api_url(action)
+    "https://api.pipedrive.com/v1/#{action}?api_token=#{ENV['PIPEDRIVE_API_TOKEN']}"
+  end
 
   # validates :move_in, :move_out, presence: true
 
@@ -65,7 +100,7 @@ class Booking < ApplicationRecord
     end
   end
 
-  def price
+  def find_price
     unless self.roomtype && self.roomtype.prices.length > 0
       return
     end

@@ -8,6 +8,7 @@
   <li><%#= booking.move_out + 1.day %> - <%#=  @bookings[index + 1].present? ? @bookings[index + 1].move_in - 1.day : 'open' %></li>
 <%# end %>
  -->
+
 <div id="overview-container" data-bookings="<%= @bookings.to_json %>"></div>
 
 <!-- Exaample for passing dataAttributes -->

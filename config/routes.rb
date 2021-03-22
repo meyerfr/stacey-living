@@ -14,7 +14,7 @@ Rails.application.routes.draw do
     resources :roomtypes, only: [:show, :index, :destroy]
   end
 
-  resources :bookings, only: [ :new, :create, :index ] do
+  resources :bookings, only: [ :new, :show, :create, :index ] do
     # resources :process, path: 'process/(:booking_auth_token)', only: [:show, :update], controller: 'booking/process'
     get 'send_booking_process_invite', to: 'booking/process#send_booking_process_invite', as: 'send_booking_process_invite'
   end
@@ -27,12 +27,17 @@ Rails.application.routes.draw do
   resources :bookings, path: 'bookings/(:booking_auth_token)', only: [] do
     resources :welcome_calls, only: [:new, :edit, :update, :destroy]
     patch 'welcome_calls', to: 'welcome_calls#create', as: 'create_welcome_calls'
+    get 'projects', to: 'bookings#show', as: 'projects'
 
-    resources :projects, only: [ :index ] do #only index, show was just for developing
-      resources :roomtypes, only: [ :show, :index ]
-    end
-    get 'payment', to: 'payments#new', as: 'new_payment'
-    get 'contract', to: 'contracts#contract', as: 'contract'
+    get 'projects/:project_id/roomtypes/:roomtype_id/payment', to: 'bookings#show', as: 'payment'
+    get 'projects/:project_id/roomtypes/:roomtype_id/contract', to: 'bookings#show', as: 'contract'
+    get 'projects/:project_id/roomtypes/:roomtype_id', to: 'bookings#show', as: 'roomtype'
+    get 'projects/:project_id/roomtypes', to: 'bookings#show', as: 'roomtypes'
+    # resources :projects, only: [ :index ] do #only index, show was just for developing
+    #   resources :roomtypes, only: [ :show, :index ]
+    # end
+    # get 'payment', to: 'payments#new', as: 'new_payment'
+    # get 'contract', to: 'contracts#contract', as: 'contract'
     get 'success', to: 'bookings#success', as: 'success'
 
     # resources :projects, only: [:index] do
@@ -78,6 +83,22 @@ Rails.application.routes.draw do
         resources :addresses, only: [ :create ]
       end
       resources :addresses, only: [ :update ]
+    end
+
+    namespace :v2 do
+      resources :bookings, only: [ :update ] do
+        patch 'complete_booking', to: 'bookings#complete_booking'
+        resources :contracts, only: [ :create ]
+        resources :payments, only: [ :new ]
+        # get 'secret', to: 'payments#secret'
+      end
+      resources :projects, only: [ :index ] do
+        resources :roomtypes, only: [ :index ]
+      end
+      resources :users, only: [:update] do
+        resources :bookings, only: [ :create ]
+        resources :addresses, only: [ :create ]
+      end
     end
   end
 end

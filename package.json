@@ -3,6 +3,9 @@
   "private": true,
   "dependencies": {
     "@babel/preset-react": "^7.12.1",
+    "@fortawesome/fontawesome-svg-core": "^1.2.34",
+    "@fortawesome/free-solid-svg-icons": "^5.15.2",
+    "@fortawesome/react-fontawesome": "^0.1.14",
     "@mapbox/mapbox-gl-geocoder": "^4.5.1",
     "@rails/webpacker": "^4.2.0",
     "@react-pdf/renderer": "^1.6.12",

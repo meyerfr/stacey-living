@@ -1,8 +1,29 @@
 class BookingsController < ApplicationController
   skip_before_action :authenticate_user!, only: [:new, :create, :success]
-  layout 'overview', only: [ :apply, :index, :success ]
+  layout 'overview', only: [ :index ]
 
   BOOKINGS_PER_PAGE = 25
+
+  def show
+    @booking = Booking.find(params[:booking_id])
+
+    user = @booking.user
+    user = user.attributes.merge({
+      address: user.address #? user.address : user.build_address(street: '', country: '', city: '', zip: '')
+    })
+
+    @booking = @booking.attributes.merge({
+      user: user,
+      # project: @booking.project,
+      # roomtype: @booking.roomtype,
+      room: @booking.room,
+      price: @booking.price
+    })
+
+    render layout: 'bookingprocess'
+    # @booking = @booking.to_json
+    # raise
+  end
 
   def apply
   end
