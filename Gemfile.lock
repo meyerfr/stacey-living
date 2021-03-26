@@ -236,6 +236,9 @@ GEM
       sidekiq (>= 4.0.0)
     simple_calendar (2.4.1)
       rails (>= 3.0)
+    simple_form (5.0.3)
+      actionpack (>= 5.0)
+      activemodel (>= 5.0)
     slack-ruby-client (0.17.0)
       faraday (>= 1.0)
       faraday_middleware
@@ -312,6 +315,7 @@ DEPENDENCIES
   sidekiq
   sidekiq-failures (~> 1.0)
   simple_calendar (~> 2.0)
+  simple_form
   sinatra!
   slack-ruby-client
   spring

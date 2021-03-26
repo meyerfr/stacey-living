@@ -21,6 +21,8 @@ gem 'geocoder'
 gem 'turbolinks', '~> 5'
 gem 'wicked'
 
+gem 'simple_form'
+
 # gem 'sprockets-rails', '2.3.3', group: :development
 
 gem 'cloudinary', '~> 1.12.0'
