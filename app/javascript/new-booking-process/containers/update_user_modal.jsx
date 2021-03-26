@@ -18,12 +18,15 @@ class UpdateUserModal extends Component {
 
   componentDidMount() {
     let user = this.props.user
+    const totalPhoneNumber = `${user.phone_code}${user.phone_number}`
     if (user) {
       user = {
         ...user,
         'dob_day': user.dob ? moment(user.dob).format('D') : '',
         'dob_month': user.dob ? moment(user.dob).format('MMMM') : '',
-        'dob_year': user.dob ? moment(user.dob).format('Y') : ''
+        'dob_year': user.dob ? moment(user.dob).format('Y') : '',
+        phone_country: user.phone_code ? parsePhoneNumber(totalPhoneNumber).country : 'DE',
+        phone_number: user.phone_code ? `${user.phone_number}` : user.phone_number
       }
       this.setState({
         user: user
@@ -47,7 +50,9 @@ class UpdateUserModal extends Component {
       loading: true
     }, () => {
       let user = this.state.user
-      let phoneNumber = parsePhoneNumber(user.phone_code ? `${user.phone_code}${user.phone_number}` : user.phone_number)
+      console.log(user)
+      // debugger
+      let phoneNumber = parsePhoneNumber(user.phone_number)
       const phoneCode = `+${phoneNumber.countryCallingCode}`
       phoneNumber = phoneNumber.number.slice(phoneCode.length)
       const dob = moment(`${user.dob_day}.${user.dob_month}.${user.dob_year}`).format()
@@ -129,6 +134,7 @@ class UpdateUserModal extends Component {
   render() {
     const user = this.state.user
     const errors = this.state.errors
+    console.log(user)
     return (
       <Modal
         show={this.props.show}
@@ -202,7 +208,7 @@ class UpdateUserModal extends Component {
 
                 <div className="move-placeholder-wrapper phone step-form-item">
                   <PhoneInput
-                    defaultCountry="DE"
+                    defaultCountry={user.phone_country}
                     placeholder=" "
                     className={user.phone_number ? '' : ' placeholder-shown'}
                     value={user.phone_number ? user.phone_number : ''}
