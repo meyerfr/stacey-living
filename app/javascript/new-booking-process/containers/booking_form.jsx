@@ -46,6 +46,20 @@ class BookingForm extends Component {
     }
   }
 
+  componentDidUpdate() {
+    console.log('componentDidUpdate - props', this.props)
+    if (!this.props.roomtype.prices.find((price) => price.id === this.state.price.id)) {
+      this.setState({
+        price: this.findPrice(this.state.booking.moveIn, this.state.booking.moveOut)
+      })
+    }
+  }
+
+  // componentWillReceiveProps(props) {
+  //   console.log('componentDidReceiveProps', props)
+
+  // }
+
   diff(d1, d2) {
     let diff = moment(d2).subtract(1, 'd').diff(moment(d1), 'months')
     return diff
@@ -100,6 +114,8 @@ class BookingForm extends Component {
 
   findPrice = (moveIn, moveOut) => {
     let prices = this.props.roomtype.prices
+    console.log('props', this.props)
+    console.log('prices', prices)
     let date_diff = this.diff(moveIn, moveOut)
     let price = prices[2]
     switch(true) {
@@ -131,6 +147,7 @@ class BookingForm extends Component {
 
   render() {
     console.log('price', this.state.price)
+    console.log('price id', this.state.price.id)
     const roomtype = this.props.roomtype
     const move_out = this.state.booking.moveOut
     return (
