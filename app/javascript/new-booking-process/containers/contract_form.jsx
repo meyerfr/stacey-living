@@ -25,6 +25,7 @@ class ContractForm extends Component {
   }
 
   componentDidMount() {
+    console.log('booking', this.props.booking)
     if (this.props.booking?.user) {
       this.setState({
         user: {
@@ -37,9 +38,8 @@ class ContractForm extends Component {
           userId: this.props.user_id
         },
         loading: false
-      })
+      }, () => this.checkForm(1))
     }
-    this.checkForm()
   }
 
   signContract = () => {
@@ -60,6 +60,7 @@ class ContractForm extends Component {
 
   checkForm = (step) => {
     let formFilledOut = false
+    console.log('checkForm - formFilledOut', formFilledOut)
     if (step == 3) {
       this.setState({
         formFilledOut: true
@@ -71,6 +72,7 @@ class ContractForm extends Component {
       const user = this.state.user
       const address = user.address
       formFilledOut = address.street.length > 3 && address.city.length > 2 && address.country.length > 3 && address.zip.length > 4
+      console.log('formFilledOut', formFilledOut)
     } else if (step == 2) {
       const contract = this.state.contract
       if (contract) {
@@ -88,7 +90,7 @@ class ContractForm extends Component {
       step: next_step,
       direction: 'next',
       loading: true ? next_step == 3 : this.state.loading
-    }, this.checkForm(next_step))
+    }, () => this.checkForm(next_step))
     if (next_step == 3) {
       this.signContract()
     }
@@ -98,7 +100,7 @@ class ContractForm extends Component {
     this.setState({
       step: this.state.step - 1,
       direction: 'prev'
-    }, this.checkForm(this.state.step - 1))
+    }, () => this.checkForm(this.state.step - 1))
   }
 
   // to determine if fade left or right
@@ -133,7 +135,7 @@ class ContractForm extends Component {
           [event.target.name]: event.target.value
         }
       }
-    }, this.checkForm(this.state.step))
+    }, () => this.checkForm(this.state.step))
   }
 
   updateContractField = (event) => {
@@ -142,7 +144,7 @@ class ContractForm extends Component {
         ...this.state.contract,
         [event.target.name]: event.target.value
       }
-    }, this.checkForm(this.state.step))
+    }, () => this.checkForm(this.state.step))
   }
 
   renderFormActions = () => {
@@ -157,7 +159,7 @@ class ContractForm extends Component {
     }
 
     return (
-      <button key="formAction" disabled={!this.state.formFilledOut} onClick={this.state.step < 3 ? this.nextStep : this.finishContract} className="stacey-button reverse-hover">
+      <button key="formAction" disabled={!this.state.formFilledOut} onClick={this.state.step < 3 ? this.nextStep : this.finishContract} className={`stacey-button${this.state.formFilledOut ? " reverse-hover" : ''}`}>
         {text}
       </button>
     )
@@ -176,6 +178,7 @@ class ContractForm extends Component {
   }
 
   render() {
+    console.log(this.state)
     const user = this.state.user
     const contract = this.state.contract
     const steps = [

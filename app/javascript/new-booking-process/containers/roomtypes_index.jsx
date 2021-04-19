@@ -111,6 +111,7 @@ class RoomtypesIndex extends Component {
                 {
                   community_area_amenities.length > 0 &&
                   community_area_amenities.map((amenity) => {
+                    console.log(amenity.photo)
                     return (
                       <div className="amenity" key={amenity.id}>
                         {amenity.photo ? <img src={amenity.photo} alt="photo" className='photo large bordered' /> : <i className="fa fa-user img-prev"></i>}

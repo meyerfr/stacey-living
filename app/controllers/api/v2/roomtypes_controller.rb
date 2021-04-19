@@ -33,7 +33,11 @@ class Api::V2::RoomtypesController < ActionController::Base
           photos: this_roomtype_without_balcony.photos.map{ |photo|
                     url_for(photo)
                   },
-          amenities: roomtype.amenities,
+          amenities: {
+            roomtype_index_inventory_amenities: add_photo_to_amenity(Amenity.joins(:join_amenities).where(join_amenities: {amenitiable_type: 'Roomtype', amenitiable_id: roomtype.id, name: 'roomtype index inventory'})),
+            roomtype_index_inclusion_amenities: add_photo_to_amenity(Amenity.joins(:join_amenities).where(join_amenities: {amenitiable_type: 'Roomtype', amenitiable_id: roomtype.id, name: 'roomtype index inclusion'})),
+            roomtype_show_amenities: add_photo_to_amenity(Amenity.joins(:join_amenities).where(join_amenities: {amenitiable_type: 'Roomtype', amenitiable_id: roomtype.id, name: 'roomtype show'}))
+          },
           # amenities: this_roomtype_without_balcony.amenities,
           description: this_roomtype_without_balcony.descriptions.first,
           prices: roomtype.prices,
@@ -46,7 +50,11 @@ class Api::V2::RoomtypesController < ActionController::Base
           photos: roomtype.photos.map{ |photo|
                     url_for(photo)
                   },
-          amenities: roomtype.amenities,
+          amenities: {
+            roomtype_index_inventory_amenities: add_photo_to_amenity(Amenity.joins(:join_amenities).where(join_amenities: {amenitiable_type: 'Roomtype', amenitiable_id: roomtype.id, name: 'roomtype index inventory'})),
+            roomtype_index_inclusion_amenities: add_photo_to_amenity(Amenity.joins(:join_amenities).where(join_amenities: {amenitiable_type: 'Roomtype', amenitiable_id: roomtype.id, name: 'roomtype index inclusion'})),
+            roomtype_show_amenities: add_photo_to_amenity(Amenity.joins(:join_amenities).where(join_amenities: {amenitiable_type: 'Roomtype', amenitiable_id: roomtype.id, name: 'roomtype show'}))
+          },
           description: roomtype.descriptions.first,
           prices: roomtype.prices,
           availabilities: roomtype.availabilities
@@ -74,5 +82,12 @@ class Api::V2::RoomtypesController < ActionController::Base
     # show_categories = ['Mighty', 'Mighty+', 'Premium', 'Premium+', 'Jumbo']
     # @roomtypes = Roomtype.joins(:project).where(name: show_categories, projects: { id: @project.id })
     @roomtypes = @project.roomtypes
+  end
+
+  def add_photo_to_amenity(amenities)
+    amenities = amenities.map{ |amenity|
+      amenity.photo.attached? && amenity.as_json.merge({ photo: url_for(amenity.photo)} )
+    }
+    return amenities
   end
 end

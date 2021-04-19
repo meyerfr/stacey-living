@@ -16,7 +16,12 @@ class Api::V2::ProjectsController < ActionController::Base
 
       community_area = community_area.as_json.merge({
         photos: community_area.photos.map { |photo| url_for(photo) },
-        amenities: community_area.amenities,
+        amenities: community_area.amenities.map { |amenity|
+          amenity.as_json.merge({
+            photo: url_for(amenity.photo)
+          })
+        },
+        # raise
         descriptions: community_area.descriptions
       })
 

@@ -35,10 +35,10 @@ class RoomtypesShow extends Component {
 
   render () {
     const roomtype = this.props.roomtype;
-    console.log('roomtype', roomtype)
     const project = this.props.project;
     const photos = roomtype && roomtype.photos
     const roomtype_amenities = roomtype?.amenities.roomtype_show_amenities
+    console.log('roomtype_amenities', roomtype_amenities)
     const options = {
       buttons: {
         showDownloadButton: false,

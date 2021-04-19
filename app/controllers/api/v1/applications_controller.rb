@@ -29,7 +29,7 @@ class Api::V1::ApplicationsController < ActionController::Base
         create_pipedrive_deal(user)
       end
 
-      # UserMailer.welcome(application.user).deliver_later(wait_until:  2.minutes.from_now)
+      UserMailer.welcome(application.user).deliver_later(wait_until:  2.minutes.from_now)
       render json: application
       # redirect_to new_booking_welcome_call_path(booking.booking_auth_token, booking)
     else

@@ -1,7 +1,6 @@
 class Roomtype < ApplicationRecord
   # mount_uploaders :pictures, PictureUploader
   # before_save :create_stripe_product_and_plan
-  include Rails.application.routes.url_helpers
   has_many_attached :photos
   belongs_to :project
 
@@ -104,17 +103,20 @@ class Roomtype < ApplicationRecord
     bookable_rooms
   end
 
-  def amenities
-    amenities = {
-      roomtype_index_inventory_amenities: Amenity.joins(:join_amenities).where(join_amenities: {amenitiable_type: 'Roomtype', amenitiable_id: self.id, name: 'roomtype index inventory'}),
-      roomtype_index_inclusion_amenities: Amenity.joins(:join_amenities).where(join_amenities: {amenitiable_type: 'Roomtype', amenitiable_id: self.id, name: 'roomtype index inclusion'}),
-      roomtype_show_amenities: Amenity.joins(:join_amenities).where(join_amenities: {amenitiable_type: 'Roomtype', amenitiable_id: self.id, name: 'roomtype show'})
-    }
-    amenities = amenities.each do |amenity_type, types_amenities|
-      types_amenities.map { |amenity|
-        amenity.as_json.merge({ photo: rails_blob_path(amenity.photo, disposition: "attachment", only_path: true) }) if amenity.photo.attached?
-      }
-    end
-    return amenities
-  end
+  # def amenities
+  #   amenities = {
+  #     roomtype_index_inventory_amenities: Amenity.joins(:join_amenities).where(join_amenities: {amenitiable_type: 'Roomtype', amenitiable_id: self.id, name: 'roomtype index inventory'}),
+  #     roomtype_index_inclusion_amenities: Amenity.joins(:join_amenities).where(join_amenities: {amenitiable_type: 'Roomtype', amenitiable_id: self.id, name: 'roomtype index inclusion'}),
+  #     roomtype_show_amenities: Amenity.joins(:join_amenities).where(join_amenities: {amenitiable_type: 'Roomtype', amenitiable_id: self.id, name: 'roomtype show'})
+  #   }
+  #   amenities = amenities.map { |amenity_type, types_amenities|
+  #     types_amenities.map { |amenity|
+  #       amenity.as_json.merge({
+  #         photo: amenity.photo.attached? ? 'Hello' : url_for(amenity.photo)
+  #       })
+  #     }
+  #   }
+  #   raise
+  #   return amenities
+  # end
 end
