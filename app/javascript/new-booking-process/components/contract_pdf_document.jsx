@@ -387,7 +387,6 @@ class ContractPdfDocument extends Component {
                 <Text style={styles.tableCell}>{moment(moveOut).format('DD/MM/YYYY')}</Text>
               </View>
             </View>
-            <Text style={[styles.borderTop, styles.tableColFullWidth]}>Payment terms: monthly, due 1 day before {moveIn} for the first month, and due the 1st day, at latest by the 3rd business day of each month for the following months. Deposit in form of 2-months rent is due upon signing the agreement.</Text>
           </View>
           <View style={styles.table}>
             <View style={styles.tableRow}>
