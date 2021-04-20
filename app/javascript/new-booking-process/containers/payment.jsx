@@ -75,28 +75,20 @@ class Payment extends Component {
             <h2>Booking Summary</h2>
             {this.renderSecurePayment()}
           </div>
-          <div className="payment-body">
-            <div className="left-szene-container">
-              <UserSummary user={this.state.user ? this.state.user : this.props.booking.user} updateGender={this.updateGender} />
-              <div className="stripe-section">
-                <div className="section-header header-margin">
-                  <h3>Payment Details</h3>
-                  {this.renderSecurePayment()}
-                </div>
-                <Elements stripe={stripePromise} >
-                  <CheckoutForm booking_id={this.props.match.params.booking_id} booking={this.props.booking} completeBooking={this.completeBooking} />
-                </Elements>
-              </div>
-              {
-                // <CheckoutForm booking={this.props.booking} />
-              }
-
-
+          <div className="first-item">
+            <UserSummary user={this.state.user ? this.state.user : this.props.booking.user} updateGender={this.updateGender} />
+          </div>
+          <div className="seocond-item slide-up">
+            <BookingSummary booking={this.props.booking} />
+          </div>
+          <div className="stripe-section item">
+            <div className="section-header header-margin">
+              <h3>Payment Details</h3>
+              {this.renderSecurePayment()}
             </div>
-
-            <div className="right-szene-container">
-              <BookingSummary booking={this.props.booking} />
-            </div>
+            <Elements stripe={stripePromise} >
+              <CheckoutForm booking_id={this.props.match.params.booking_id} booking={this.props.booking} completeBooking={this.completeBooking} />
+            </Elements>
           </div>
         </div>
       </div>,

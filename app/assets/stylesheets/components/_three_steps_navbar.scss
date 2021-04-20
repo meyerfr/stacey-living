@@ -74,6 +74,9 @@ nav.navbar-wrapper{
     }
   }
   #progressbar {
+    @media (max-width: 768px){
+      display: none;
+    }
     margin-bottom: 0;
     overflow: hidden;
     /*CSS counters to number the steps*/
