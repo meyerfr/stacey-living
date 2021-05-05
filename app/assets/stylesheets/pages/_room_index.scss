@@ -95,6 +95,9 @@
   }
   .project-info-container{
     margin: 40px 0 60px;
+    @media (max-width: 767px){
+      margin: 40px 25px 60px;
+    }
     .name{
       display: flex;
       flex-direction: column;
@@ -107,6 +110,11 @@
   }
 }
 
+@media (max-width: 767px){
+  .section{
+    margin: 0 25px;
+  }
+}
 
 h3.section-header{
   margin-bottom: 1rem;

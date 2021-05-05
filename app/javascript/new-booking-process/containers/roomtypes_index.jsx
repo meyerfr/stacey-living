@@ -101,33 +101,37 @@ class RoomtypesIndex extends Component {
             })
           }
         </div>
-        <h3 className="section-header" key="sectionHeaderCommunitySpace">The Community Space</h3>
         {
           project &&
           [
-            <span className="description" key="community_area_description">{community_area_descriptions?.find((description) => description.field === 'common space description')?.content}</span>,
-            <div className="community_area-amenities-wrapper" key="community_area-amenities-wrapper">
-              <div className="community_area-amenities-container">
-                {
-                  community_area_amenities.length > 0 &&
-                  community_area_amenities.map((amenity) => {
-                    console.log(amenity.photo)
-                    return (
-                      <div className="amenity" key={amenity.id}>
-                        {amenity.photo ? <img src={amenity.photo} alt="photo" className='photo large bordered' /> : <i className="fa fa-user img-prev"></i>}
-                        <span>{amenity.title}</span>
-                      </div>
-                    );
-                  })
-                }
+            <div className="section" key="sectionCommunitySpace">
+              <h3 className="section-header">The Community Space</h3>
+              <span className="description">{community_area_descriptions?.find((description) => description.field === 'common space description')?.content}</span>,
+              <div className="community_area-amenities-wrapper">
+                <div className="community_area-amenities-container">
+                  {
+                    community_area_amenities.length > 0 &&
+                    community_area_amenities.map((amenity) => {
+                      console.log(amenity.photo)
+                      return (
+                        <div className="amenity" key={amenity.id}>
+                          {amenity.photo ? <img src={amenity.photo} alt="photo" className='photo large bordered' /> : <i className="fa fa-user img-prev"></i>}
+                          <span>{amenity.title}</span>
+                        </div>
+                      );
+                    })
+                  }
+                </div>
               </div>
             </div>,
             project.name === 'Mühlenkamp' &&
             <div className="matterport-tour" style={{textAlign: 'center', margin: '40px 0'}} key='matterport'>
               <iframe style={{width: '100%', height: '480px', borderRadius: 5}} src='https://my.matterport.com/show/?m=FBXCJk7q5LZ' frameBorder='0' allowFullScreen allow='xr-spatial-tracking'></iframe>
             </div>,
-            <h3 className="section-header" key='sectionHeaderLocation'>The Location</h3>,
-            <span className="description" key={`description${project.id}`}>{project?.address.description.content}</span>,
+            <div className="section" key="sectionLocation">
+              <h3 className="section-header">The Location</h3>
+              <span className="description">{project?.address.description.content}</span>
+            </div>,
             <Map locations={this.props.projects} selectedLocation={this.props.project} key={`map${project.id}`} />
           ]
         }
