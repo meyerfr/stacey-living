@@ -5,7 +5,7 @@ task :send_mails => :environment do
   to_be_reminded_bookings.each do |booking|
     label_id = booking.created_at.to_date == Date.today - 5.days ? 10 : 11
     RestClient.put(
-      'https://api.pipedrive.com/v1/deals/318?api_token=cee8402549e6ca794ac2abff6155645b1c3d7b90',
+      'https://api.pipedrive.com/v1/deals/318?api_token=#{ENV['PIPEDRIVE_API_TOKEN']}',
       {
         "label": label_id,
       }.to_json,
@@ -20,7 +20,7 @@ task :send_mails => :environment do
   not_received_deposit_bookings.each do |booking|
       # "https://api.pipedrive.com/v1/deals/#{booking.pipedrive_deal_id}?api_token=#{ENV['PIPEDRIVE_API_TOKEN']}",
     RestClient.put(
-      'https://api.pipedrive.com/v1/deals/318?api_token=cee8402549e6ca794ac2abff6155645b1c3d7b90',
+      'https://api.pipedrive.com/v1/deals/318?api_token=#{ENV['PIPEDRIVE_API_TOKEN']}',
       {
         "label": 9,
       }.to_json,
